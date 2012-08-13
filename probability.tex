@@ -9,7 +9,7 @@ P(A, B) &=& P(A)P(B|A) \\
 
 The sum rule:
 \begin{eqnarray}
-P(B) &=& P(A)P(B|A) + P(~A)P(B|~A) \\
-&=& P(B)P(A|B)
+P(B) &=& P(A)P(B|A) + P(A\textnormal{ is false})P(B|A\textnormal{ is false}) \\
+&=& \sum_{A \in \{\rm true, false\}} P(A, B)
 \end{eqnarray}
 
