@@ -1,14 +1,8 @@
-FILENAMES = main
-PDFS = $(foreach f, $(FILENAMES), $(f).pdf)
-
-# The default build rule
-%.pdf: %.tex
-	latex $*
-	latex $*
-	latex $*
-	dvipdf $*
-
-default: $(PDFS)
+default:
+	latex main
+	latex main
+	latex main
+	dvipdf main
 
 clean:
 	rm -f *.aux *.log *.dvi *.pdf
