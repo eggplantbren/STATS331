@@ -1,13 +1,37 @@
 \chapter{Probability}
-This course will use probability theory extensively.
+This course will use probability theory extensively. In fact, Bayesian
+Statistics is really just probability theory used for a particular purpose --
+to describe uncertainty.
 
-The product rule:
+The two most important rules of probability are given below.
+
+\section{The Product Rule}
+The first important rule of probability is the
+product rule. This tells us how to calculate the probability that any two
+propositions $A$ and $B$ are {\bf both} true. The probability of $A$ {\bf and}
+$B$ will be denoted $P(A, B)$. This can be calculated by first finding the
+probability that $A$ is true, and then multiply by the probability that $B$ is
+true {\bf given} that $A$ is true.
 \begin{eqnarray}
-P(A, B) &=& P(A)P(B|A) \\
-&=& P(B)P(A|B)
+P(A, B) &=& P(A)P(B|A)
+\end{eqnarray}
+We could also have done this the other way around: first finding the
+probability that $B$ is true and then the probability that $A$ is true given
+that $B$ is true:
+\begin{eqnarray}
+P(A, B) &=& P(A)P(B|A).
 \end{eqnarray}
 
-The sum rule:
+\subsection{Bayes' Rule}
+Looking at Equations~\ref{} and~\ref{}, they are both equations for the same
+thing, $P(A,B)$. Therefore we can equate the right hand sides. Doing this gives
+a result known as Bayes' rule:
+\begin{eqnarray}
+P(A|B) &=& \frac{P(A)P(B|A)}{P(B)}.
+\end{eqnarray}
+
+\section{The Sum Rule}
+The sum rule is the second important rule of probability.
 \begin{eqnarray}
 P(B) &=& P(A)P(B|A) + P(A\textnormal{ is false})P(B|A\textnormal{ is false}) \\
 &=& \sum_{A \in \{\rm true, false\}} P(A, B)

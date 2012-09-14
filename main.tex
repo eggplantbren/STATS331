@@ -1,21 +1,25 @@
 \documentclass[a4paper, 12pt]{book}
 
+\usepackage[left=3cm,top=3cm,right=3cm]{geometry}
+
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\textfraction}{0.1}
+\parindent=0cm
+
+
 \title{STATS331 \\
 \vspace{3cm}
 Introduction to Bayesian Statistics}
 \author{Brendon J. Brewer}
-\date{Draft. August 2012}
+\date{Draft. \today}
 
 \begin{document}
 \maketitle
-\frontmatter
 \tableofcontents
 
 \include{prologue}
 \include{uncertainty}
 \include{first_example}
-
-
 \include{r_background}
 \include{probability}
 \include{rosetta_stone}
