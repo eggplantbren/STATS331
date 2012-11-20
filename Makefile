@@ -1,9 +1,8 @@
 default:
-	latex main
-	latex main
-	latex main
-	dvipdf main
+	pdflatex main
+	pdflatex main
+	pdflatex main
 
 clean:
-	rm -f *.aux *.log *.dvi *.pdf
+	rm -f *.aux *.log *.pdf
 
