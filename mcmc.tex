@@ -1,6 +1,38 @@
 \chapter{Markov Chain Monte Carlo}
 
-\section{Using Random Samples}
+\section{Monte Carlo}
+Monte Carlo is a computational technique for handling probability distributions.
+What we have seen so far is that you can represent a probability distribution
+in a computer by using a vector of possible values and a corresponding
+vector of probabilities:
+\begin{verbatim}
+theta <- seq(0, 1, by=0.1)
+prior <- rep(1, length(theta))/length(theta)
+\end{verbatim}
+Then, if you want to plot the probability distribution you can:
+\begin{verbatim}
+plot(theta, prior, xlab='Theta', ylab='Prior Probability')
+\end{verbatim}
+If you want to get some summaries, say, the prior mean and standard deviation,
+you could also compute those quite easily:
+\begin{verbatim}
+prior_mean <- sum(theta*prior)
+prior_sd <- sqrt(sum(theta**2*prior) - prior_mean**2))
+\end{verbatim}
+However, once life starts to get more complicated, such things will no longer
+be possible. This is especially true when we work with situations where there
+is {\it more than one} unknown parameter. Say we have five unknown parameters
+$\theta_1$, $\theta_2$, $\theta_3$, $\theta_4$ and $\theta_5$. Then one
+possibility for the values of the parameters might be
+$\{\theta_1, \theta_2, \theta_3, \theta_4, \theta_5\} =
+\{0.1, 3.5, 2.3, 0.8, -4.3\}$. Another possibility is
+$\{\theta_1, \theta_2, \theta_3, \theta_4, \theta_5\} =
+\{0.4, 0, -0.3, 10.9, -2.3\}$. Can you see what the problem is here?
+The vector of possible values you would need becomes very large very
+quickly.
+
+
+
 
 \section{The Metropolis Algorithm}
 
