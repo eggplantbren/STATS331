@@ -14,7 +14,7 @@ m = jags.model(file='model.txt', data=data)
 update(m, 10000)
 
 # Do the MCMC for real
-draw = jags.samples(m, 100000, thin=10, variable.names = c('mu', 'sigma'))
+draw = jags.samples(m, 100000, thin=10, variable.names = c('theta'))
 
 # Convert to a list
 results = make_list(draw)
