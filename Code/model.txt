@@ -1,0 +1,13 @@
+model
+{
+	mu ~ dunif(-1000., 1000.)
+	log_sigma ~ dunif(-10., 10.)
+	sigma <- exp(log_sigma)
+
+	for(i in 1:N)
+	{
+		x[i] ~ dnorm(mu, pow(sigma, -2))
+		a[i] ~ dunif(0., 1.)
+	}
+}
+
