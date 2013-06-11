@@ -1,4 +1,9 @@
 \chapter{A First Example}
+We will now look at a simple example that demonstrates all the features of
+Bayesian statistics. The problem is quite simple, but we will be able to see
+how we start with prior probabilities, and how exactly these get updated
+into posterior probabilities after we get more information.
+
 
 Here we will study a simple example to see what is going on with Bayesian
 statistics. Suppose that there are two balls in a bag. We know in advance
@@ -20,12 +25,28 @@ probability distribution.
 
 \begin{table}
 \begin{center}
-\begin{tabular}{cccccc}
- & \vline & {\tt B} & {\tt W} & \vline & \\
+\begin{tabular}{|c|c|c|}
 \hline
-{\tt BB} & \vline & & & \vline & $1/2$\\
-{\tt BW} & \vline & & & \vline & $1/2$\\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
+
+
+The Bayes' Box looks like this:
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{\bf Possible Hypotheses} & {\tt prior} & {\tt likelihood} &
+{\tt prior $\times$ likelihood} & {\tt posterior}\\
+\hline
+{\tt BB} & 0.5 & 1   & 0.5  & 0.667\\
+{\tt BW} & 0.5 & 0.5 & 0.25 & 0.333\\
+\hline
+Totals: & 1 & & 0.75 & 1\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
