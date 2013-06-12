@@ -1,4 +1,5 @@
 \chapter{A First Example}
+
 We will now look at a simple example that demonstrates all the features of
 Bayesian statistics. The problem is quite simple, but we will be able to see
 how we start with prior probabilities, and how exactly these get updated
@@ -12,9 +13,12 @@ black, or whether one is black and one is white.
 
 Consider the two hypotheses:
 
-{\bf BB}: both balls are black\\
-{\bf BW}: one is black and one is white.
+$H_0$: both balls are black\\
+$H_1$: one is black and one is white.
 
+Here we have called the two hypotheses $H_0$ and $H_1$. But we could have
+called them $A$ and $B$, or $U$ and $W$, or {\tt Alice} and {\tt Bob}, or
+whatever.
 
 
 Show JOINT view
@@ -31,6 +35,13 @@ probability distribution.
 \end{tabular}
 \end{center}
 \end{table}
+
+What does Bayes' rule tell us?
+\begin{eqnarray}
+\pr(H_0 | D) = \frac{\pr(H_0)\pr(D|H_0)}{\pr(D)}
+\end{eqnarray}
+
+
 
 
 The Bayes' Box looks like this:
