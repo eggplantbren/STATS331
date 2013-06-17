@@ -16,9 +16,34 @@ we could use some other letter or symbol if we liked.
 The key is to realise that we can use the Bayes Box like in previous chapters,
 but now, our list of possible hypotheses is a list of possible values for
 the unknown parameter. For example, a Bayes Box for the precise number of
-people in New Zealand might look like this:
-
-
+people in New Zealand might look something like this:
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{\bf Possible Hypotheses} & {\tt prior} & {\tt likelihood} &
+{\tt prior $\times$ likelihood} & {\tt posterior}\\
+\hline
+\ldots & \ldots & \ldots & \ldots & \ldots\\
+$\theta = 4404999$ & 0.000001 & \ldots   & \ldots  & \ldots\\
+$\theta = 4405000$ & 0.000001 & \ldots   & \ldots  & \ldots\\
+$\theta = 4405001$ & 0.000001 & \ldots   & \ldots  & \ldots\\
+$\theta = 4405002$ & 0.000001 & \ldots   & \ldots  & \ldots\\
+$\theta = 4405003$ & 0.000001 & \ldots   & \ldots  & \ldots\\
+$\theta = 4405004$ & 0.000001 & \ldots   & \ldots  & \ldots\\
+$\theta = 4405005$ & 0.000001 & \ldots   & \ldots  & \ldots\\
+$\theta = 4405006$ & 0.000001 & \ldots   & \ldots  & \ldots\\
+\ldots & \ldots & \ldots & \ldots & \ldots\\
+\hline
+Totals: & 1 & & \ldots & 1\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+There are a few things to note about this Bayes' box. Firstly, that it is big.
+There are lots of possible hypotheses, corresponding to possible values for
+$\theta$. The prior probabilities I have put in the 2nd column were for
+illustration purposes. 
 
 \section{Parameter Estimation: Bus Example}
 This is a beginning example of parameter estimation from a Bayesian point of
