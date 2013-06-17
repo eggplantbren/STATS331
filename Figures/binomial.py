@@ -22,7 +22,7 @@ for th in theta:
 plt.xlabel('Possible Data $x$')
 plt.ylabel('Probability')
 plt.ylim([-0.1, 1.])
-#plt.xlim([-0.5, 5.5])
+plt.xlim([-0.5, 5.5])
 plt.legend(numpoints=1, loc='upper center')
 plt.savefig('binomial.pdf', bbox_inches='tight')
 plt.show()
