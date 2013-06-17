@@ -8,3 +8,22 @@ This chapter describes the R programming techniques that we will need.
 
 \section{For Loops}
 
+
+\section{Useful Probability Distributions}
+Since R is a statistics program, it knows about a lot of probability
+distributions already. So, if I wanted to use the probability density function
+of a normal distribution, instead of having to code something like this:
+\begin{verbatim}
+f = exp(-0.5*((x - mu)/sigma)**2)/(sigma*sqrt(2*pi))
+\end{verbatim}
+I can just use the built-in function {\tt dnorm}.
+\begin{verbatim}
+f = dnorm(x, mean=mu, sd=sigma)
+\end{verbatim}
+Much easier! If, instead of wanting to evaluate the PDF, I wanted to generate
+random samples from a normal distribution, I could use {\tt rnorm}.
+\begin{verbatim}
+# Generate 1000 samples
+samples = rnorm(1000, mean=50., sd=10.)
+\end{verbatim}
+
