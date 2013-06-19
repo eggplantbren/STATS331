@@ -2,22 +2,51 @@
 
 Linear regression is a very important topic in statistics. It is also a nice
 example to demonstrate how Bayesian statistics works and how it is different
-from classical or frequentist statistics.
+from classical or frequentist statistics. Here is an example of simple linear
+regression:
+
+
 
 The assumption is that the data are a list of measurements:
 \begin{eqnarray}
 D = \{y_1, y_2, ..., y_N\}.
 \end{eqnarray}
-The unknown parameters are:
+Since we are talking about linear regression, we are going to assume that the
+relationship between the $x$ and the $y$ variables is described by some
+straight line, but there is noise around the straight line:
+The linear regression model says:
+\begin{eqnarray}
+y_i &=& \beta_0 + \beta_1 x_i + \epsilon_i
+\end{eqnarray}
+If the $\epsilon_i$ values were all zero, then the points would all lie on
+a perfectly straight line.
+
+This gives us the likelihood.
+
+The unknown parameters are the intercept of the straight line, the gradient of
+the straight line, and the standard deviation of the noise.
 \begin{eqnarray}
 \boldsymbol{\theta} = \{\beta_0, \beta_1, \sigma\}.
 \end{eqnarray}
 
-The linear regression model says:
-\begin{eqnarray}
-y_i \sim \mathcal{N}\left(\beta_0 + \beta_1 x_i, \sigma^2\right).
-\end{eqnarray}
-This gives us the likelihood.
+In JAGS, the model looks like this:
+\begin{verbatim}
+model
+{
+    # Prior for all the parameters
+    beta0 ~ dnorm(0., pow(1E3, -2))
+    beta1 ~ dnorm(0., pow(1E3, -2))
+    log_sigma ~ dunif(-10., 10.)
+    sigma <- exp(log_sigma)
+
+    # Likelihood
+    for(i in 1:N)
+    {
+        y[i] ~ dnorm(beta0 + beta1*x[i], pow(sigma, -2))
+    }
+
+}
+\end{verbatim}
 
 
 
