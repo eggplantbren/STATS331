@@ -1,0 +1,26 @@
+# Actually allow mu1=mu2
+model
+{
+	# Log-uniform prior for the s.d.
+	log_sigma ~ dunif(-5., 5.)
+	sigma <- exp(log_sigma)
+
+	# First mean
+	mu1 ~ dunif(0., 100.)
+
+	# Second mean, IF IT'S NOT EQUAL TO mu1
+	extra ~ dunif(0., 100.)
+	flag ~ dunif(0., 1.)
+	mu2 <- mu1 + step(flag - 0.5)*(extra - mu1)
+
+	# Sampling distribution/likelihood
+	for(i in 1:N1)
+	{
+		y1[i] ~ dnorm(mu1, pow(sigma, -2))
+	}
+	for(i in 1:N2)
+	{
+		y2[i] ~ dnorm(mu2, pow(sigma, -2))
+	}
+}
+
