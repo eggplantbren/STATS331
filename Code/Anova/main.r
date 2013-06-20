@@ -2,7 +2,7 @@
 library('rjags')
 
 # Load my make_list function
-source('make_list.r')
+source('../make_list.r')
 
 # Load fake data from file
 data = source('data.txt')$value
