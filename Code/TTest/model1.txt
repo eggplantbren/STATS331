@@ -8,10 +8,10 @@ model
 	# First mean
 	mu1 ~ dunif(0., 100.)
 
-	# Second mean, IF IT'S NOT EQUAL TO mu1
-	extra ~ dunif(0., 100.)
+	# Prior on second mean
+	difference ~ dt(0., pow(5., -2), 1.)T(-50., 50.)
 	flag ~ dunif(0., 1.)
-	mu2 <- mu1 + step(flag - 0.5)*(extra - mu1)
+	mu2 <- mu1 + step(flag - 0.5)*difference
 
 	# Sampling distribution/likelihood
 	for(i in 1:N1)
@@ -22,5 +22,6 @@ model
 	{
 		y2[i] ~ dnorm(mu2, pow(sigma, -2))
 	}
+
 }
 
