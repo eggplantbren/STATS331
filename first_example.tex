@@ -1,44 +1,49 @@
 \chapter{A First Example}
 We will now look at a simple example that demonstrates all the features of
 Bayesian statistics. The problem is quite simple, but we will be able to see
-how we start with prior probabilities, and how exactly these get updated
-into posterior probabilities after we get more information.
-
+how we start with some probabilities at the beginning of the problem (these are
+called {\it prior probabilities}), and how exactly these get updated
+into after we get more information (these updated probabilities are called
+{\it posterior probabilities}).
 
 Here we will study a simple example to see what is going on with Bayesian
 statistics. Suppose that there are two balls in a bag. We know in advance
 that at least one of them is black. But we're not sure whether they're both
-black, or whether one is black and one is white.
+black, or whether one is black and one is white. To keep things concise, we
+should label our two competing hypotheses. We could call them whatever we want,
+but I will call them \bw~and \bb. So, at the beginning of the problem, we know
+that one and only one of the following statements/hypothesis is true:\\
 
-Consider the two hypotheses:
-
-$H_0$: both balls are black\\
-$H_1$: one is black and one is white.
-
-Here we have called the two hypotheses $H_0$ and $H_1$. But we could have
-called them $A$ and $B$, or $U$ and $W$, or {\tt Alice} and {\tt Bob}, or
-whatever.
-
-
-Show JOINT view
-
-Before we obtain the data, our uncertainties about which hypothesis is true,
-and about which data we will observe, can be represented by a {\it joint}
-probability distribution.
-
-\begin{table}
 \begin{center}
-\begin{tabular}{|c|c|c|}
+\begin{tabular}{|l|}
 \hline
+\bb: Both balls are black\\
+\bw: One ball is black and the other is white.\\
 \hline
 \end{tabular}
 \end{center}
-\end{table}
 
-What does Bayes' rule tell us?
+We will do an experiment to help us determine which of these two hypotheses is
+true. The experiment is to reach into the bag, pull out one of the balls, and
+observe its colour. The result of this experiment is that the observed ball was
+black.
+
+\subsection{Prior Probabilities}
+A Bayesian analysis starts by choosing some values for the prior probabilities.
+We have our two competing hypotheses \bw~and \bb, and we need to choose some
+probability values to describe how sure we are that each of these is true.
+For simplicity, we will assume that we don't have much of an idea which is true,
+and so we will use the following prior probabilities.
 \begin{eqnarray}
-\pr(H_0 | D) = \frac{\pr(H_0)\pr(D|H_0)}{\pr(D)}
+\pr(\bb) &=& 0.5\\
+\pr(\bw) &=& 0.5.
 \end{eqnarray}
+This describes the fact that before we did the experiment, we were very
+uncertain about which hypothesis was true. Note that \bw~and \bb~are
+{\it mutually exclusive}. That means that only one of
+them can be true, they can't both be true (that would be contradictory). We will
+often use mutually exclusive hypotheses in this course. They are also
+{\it exhaustive}
 
 
 
