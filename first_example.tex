@@ -30,7 +30,7 @@ observe its colour. {\it The result of this experiment is that the observed
 ball was black}. We will now do a Bayesian analysis of this result, to see how
 it works.
 
-\section{Bayes' Box}
+\section{The Bayes' Box}
 A Bayesian analysis starts by choosing some values for the prior probabilities.
 We have our two competing hypotheses \bw~and \bb, and we need to choose some
 probability values to describe how sure we are that each of these is true.
@@ -48,7 +48,8 @@ usually use mutually exclusive hypotheses in this course. They are also
 {\it exhaustive}, which means that we assume the true solution is contained
 in the set of hypothesis that we consider. We will also assume this every time.
 
-I will now present a Bayes' box, which lists all the hypotheses (in this case
+I will now present a {\it Bayes' Box}, which lists all the hypotheses (in this
+case
 two) that might be true, and the prior probabilities. There are some extra
 columns which we haven't discussed yet, which will be needed in order to
 figure out the posterior probabilities in the final column.
@@ -68,7 +69,7 @@ Totals: & 1 & & & \\
 \end{center}
 \end{table}
 The first column of a Bayes' Box is just the list of hypotheses we are
-considering. If you are to construct a Bayes' box for a new problem, just think
+considering. If you need to construct a Bayes' box for a new problem, just think
 about what the possible answers to the problem are, and list them in the first
 column. The second column lists the prior probabilities for each of the
 hypotheses.
@@ -85,16 +86,60 @@ something else!
 The third column is called {\it likelihood}, and this is a really important
 column. It is a quantity that will be used for calculating the posterior
 probabilities. In colloquial language, likelihood is synonymous with
-probability; it means the same thing. In statistics, likelihood is a very
-specific kind of probability. If you consider each of the 
+probability; it means the same thing. However, in statistics, likelihood is a
+very
+specific kind of probability. To fill in the third column of the Bayes' Box,
+we need to calculate two likelihoods, so you can tell from this that the
+likelihood is something that is different for each hypothesis. But what is it
+exactly? Here is the answer:
+\begin{framed}
+{\bf The likelihood column entries are found by imagining each hypothesis
+is true, and working out the probability
+that you would have observed the data that you did, in fact, observe.}
+\end{framed}
 
-
+Here is the Bayes' Box with the likelihood column filled in. I will explain
+how these numbers were calculated in more detail in the next subsection.
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{\bf Hypotheses} & {\tt prior} & {\tt likelihood} &
+{\tt prior $\times$ likelihood} & {\tt posterior}\\
+\hline
+{\tt BB} & 0.5 & 1 &  & \\
+{\tt BW} & 0.5 & 0.5 &  & \\
+\hline
+Totals: & 1 & & & \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 If you have taken STATS 210 and used the maximum likelihood method, where you
 find the value of a parameter that maximises the likelihood function, that is
 the same as the likelihood we use in this course! So you have a head start
 in understanding this concept.
 
 \subsection{Finding the Likelihood Values}
+Let us first calculate the value of the likelihood for the \bb~hypothesis.
+Remember, the data we are analysing here is that we chose one of the balls in
+the bag at random, and it was black. The likelihood for the \bb~hypothesis is
+therefore the probability that we would get a black ball if \bb~is true.
+
+Imagine that \bb~is true, so both balls are black. What is the probability that
+the experiment would result in a black ball? That's easy -- it's 100\%! So we
+put the number 1 in the Bayes Box as the likelihood for the \bb~hypothesis.
+
+Now imagine instead that \bw~is true. That would mean one ball is black and the
+other is white. If this were the case and we did the experiment, what would be
+the probability of getting the black ball in the experiment? Since one of the
+two balls is black, the chance of choosing this one is 50\%. Therefore the
+likelihood for the \bw~hypothesis is 0.5, so that's why I put 0.5 in the Bayes'
+Box.
+
+
+
+
 
 \section{Bayes' Rule}
 Bayes' rule is an equation from probability theory, shown in
@@ -105,7 +150,7 @@ the probability of $A$ {\bf given} $B$; that is, it's the probability of $A$
 after taking into account the information $B$. In other words,
 $P(A|B)$ is a posterior probability, and Bayes' rule tells us how to calculate
 it from other probabilities.
-\begin{figure}
+\begin{figure}[h]
 \begin{center}
 \includegraphics[scale=0.4]{bayes_neon.jpg}
 \caption{A blue neon sign displaying Bayes' rule.
@@ -150,7 +195,6 @@ this is the probability that you would have observed data $D$.
 \item $P(D)$ is the {\bf marginal likelihood}. This is the probability that you
 would have observed data $D$, {\it whether $H$ is true or not}.
 \end{itemize}
-
 
 In the above section, we did some calculations to work out the numbers in the
 Bayes' Box, particularly the posterior probabilities, which are the ultimate
