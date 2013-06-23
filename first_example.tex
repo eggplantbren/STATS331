@@ -1,4 +1,4 @@
-\chapter{A First Example}
+\chapter{First Examples}
 We will now look at a simple example that demonstrates all the features of
 Bayesian statistics. The problem is quite simple, but we will be able to see
 how we start with some probabilities at the beginning of the problem (these are
@@ -98,8 +98,13 @@ in understanding this concept.
 
 \section{Bayes' Rule}
 Bayes' rule is an equation from probability theory, shown in
-Figure~\ref{fig:bayes_neon}.
-
+Figure~\ref{fig:bayes_neon}. The various terms in Bayes' rule are all
+probabilities, but notice that there are conditional probabilities in there.
+For example, the left hand side of the equation is $P(A|B)$ and that means
+the probability of $A$ {\bf given} $B$; that is, it's the probability of $A$
+after taking into account the information $B$. In other words,
+$P(A|B)$ is a posterior probability, and Bayes' rule tells us how to calculate
+it from other probabilities.
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.4]{bayes_neon.jpg}
@@ -110,8 +115,42 @@ Image credit: Matt Buck. Obtained from Wikimedia Commons.
 \label{fig:bayes_neon}}
 \end{center}
 \end{figure}
+Bayes' rule is true for {\it any} statements $A$ and $B$. If you took the
+equation in Figure~\ref{fig:bayes_neon} and replaced $A$ with
+``K\={a}k\={a}p\={o} will survive beyond 2050'' and $B$ with
+``I had coffee this morning'', the
+resulting equation would still be true\footnote{Albeit not very interesting,
+because
+whether or not I had coffee doesn't tell you much about the survival prospects
+of endangered New Zealand parrots.}.
 
-The 
+It is helpful to relabel $A$ and $B$ in Bayes' rule to give a more clear
+interpretation of how the equation is to be used. In this version of Bayes'
+rule (which is one you should commit to memory), $A$ has been replaced by $H$,
+and $B$ has been replaced by $D$. The reason for this is that you should
+interpret $H$ as {\it hypothesis} and $D$ as {\it data}. Then you can interpret
+Bayes' rule as telling you the probability of a hypothesis given some data --
+that is, a posterior probability.
+\begin{eqnarray}
+P(H|D) = \frac{P(H)P(D|H)}{P(D)}
+\end{eqnarray}
+In Bayesian statistics, most of the terms in Bayes' rule have special names.
+Some of them even have more than one name, with different scientific
+communities preferring different terminology. Here is a list of the
+various terms and the names we will use for them:
+\begin{itemize}
+\item $P(H|D)$ is the {\bf posterior probability}. It describes how certain
+or confident we are that
+hypothesis $H$ is true, given that we have observed data $D$. Calculating
+posterior probabilities is the main goal of Bayesian statistics!
+\item $P(H)$ is the {\bf prior probability}, which describes how sure we were
+that $H$ was true, before we observed the data $D$.
+\item $P(D|H)$ is the {\bf likelihood}. If you were to assume that $H$ is true,
+this is the probability that you would have observed data $D$.
+\item $P(D)$ is the {\bf marginal likelihood}. This is the probability that you
+would have observed data $D$, {\it whether $H$ is true or not}.
+\end{itemize}
+
 
 In the above section, we did some calculations to work out the numbers in the
 Bayes' Box, particularly the posterior probabilities, which are the ultimate
@@ -129,28 +168,6 @@ compute $P(\bb | D)$ and once to calculate $P(\bw | D)$.
 \hline
 \end{tabular}
 \end{center}
-
-
-
-
-
-In general, Bayes' rule looks like this:
-\begin{eqnarray}
-P(H|D) = \frac{P(H)P(D|H)}{P(D)}
-\end{eqnarray}
-Here's what all the terms mean:
-\begin{itemize}
-\item $P(H|D)$ is the {\bf posterior probability}. It describes how sure we are that
-hypothesis $H$ is true, given that we have observed data $D$. Calculating
-posterior probabilities is the main goal of Bayesian statistics!
-\item $P(H)$ is the {\bf prior probability}, which describes how sure we were that
-$H$ was true, before we observed the data $D$.
-\item $P(D|H)$ is the {\bf likelihood}. If you were to assume that $H$ is true,
-this is the probability that you would have observed data $D$.
-\item $P(D)$ is the {\bf marginal likelihood}. This is the probability that you
-would have observed data $D$, {\it whether $H$ is true or not}.
-\end{itemize}
-
 
 
 
