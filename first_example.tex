@@ -26,8 +26,9 @@ that one and only one of the following statements/hypothesis is true:\\
 \end{center}
 We will do an experiment to help us determine which of these two hypotheses is
 true. The experiment is to reach into the bag, pull out one of the balls, and
-observe its colour. The result of this experiment is that the observed ball was
-black.
+observe its colour. {\it The result of this experiment is that the observed
+ball was black}. We will now do a Bayesian analysis of this result, to see how
+it works.
 
 \section{Bayes' Box}
 A Bayesian analysis starts by choosing some values for the prior probabilities.
@@ -43,9 +44,9 @@ This describes the fact that before we did the experiment, we were very
 uncertain about which of the two hypotheses was true. Note that \bw~and \bb~are
 {\it mutually exclusive}. That means that only one of
 them can be true, they can't both be true (that would be contradictory). We will
-often use mutually exclusive hypotheses in this course. They are also
+usually use mutually exclusive hypotheses in this course. They are also
 {\it exhaustive}, which means that we assume the true solution is contained
-in the set of hypothesis that we consider.
+in the set of hypothesis that we consider. We will also assume this every time.
 
 I will now present a Bayes' box, which lists all the hypotheses (in this case
 two) that might be true, and the prior probabilities. There are some extra
@@ -66,11 +67,71 @@ Totals: & 1 & & & \\
 \end{tabular}
 \end{center}
 \end{table}
+The first column of a Bayes' Box is just the list of hypotheses we are
+considering. If you are to construct a Bayes' box for a new problem, just think
+about what the possible answers to the problem are, and list them in the first
+column. The second column lists the prior probabilities for each of the
+hypotheses.
+Since we know one and only
+one of the two hypotheses is true, and we want our prior probabilities to
+describe a large amount of uncertainty, we shall say that there is a 50\%
+probability that \bb~is true and a 50\% probability that \bw~is true.
+The prior column should always sum to 1. Remember, the prior probabilities
+only describe our initial uncertainty, before taking into account the
+data. Hopefully the data will help by changing these probabilities to
+something else!
+
+\subsection{Likelihood}
+The third column is called {\it likelihood}, and this is a really important
+column. It is a quantity that will be used for calculating the posterior
+probabilities. In colloquial language, likelihood is synonymous with
+probability; it means the same thing. In statistics, likelihood is a very
+specific kind of probability.
 
 
-The data that we have seen is 
+
+
+
+\subsection{Finding the Likelihood Values}
+
+
+If you have taken STATS 210 and used the maximum likelihood method, where you
+find the value of a parameter that maximises the likelihood function, that is
+the same as the likelihood we use in this course! So you have a head start.
+
 
 \section{Bayes' Rule}
+Bayes' rule is an equation from probability theory. It looks like this:
+
+\begin{figure}
+\begin{center}
+
+\end{center}
+\end{figure}
+
+The 
+
+In the above section, we did some calculations to work out the numbers in the
+Bayes' Box, particularly the posterior probabilities, which are the ultimate
+goal of the calculation. {\it What we were actually doing in these calculations
+was applying Bayes' rule}. We actually applied Bayes' rule twice, once to
+compute $P(\bb | D)$ and once to calculate $P(\bw | D)$.
+
+
+\begin{center}
+\begin{tabular}{|c|}
+\hline
+{\bf When you use a Bayes' Box to calculate posterior probabilities,}\\
+{\bf you are really just applying Bayes' rule a lot of times:}\\
+{\bf once for each row of the Bayes' Box.}\\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+
+
 In general, Bayes' rule looks like this:
 \begin{eqnarray}
 P(H|D) = \frac{P(H)P(D|H)}{P(D)}
