@@ -43,17 +43,31 @@ choose a point estimate using the posterior distribution: the posterior mean
 in half), and the posterior mode (the value where the posterior PDF has its
 peak). This gives the following three possible estimates:
 \begin{eqnarray}
-\hat{\theta} &=& 4.988 \textnormal{(the posterior mean)}\\
-\hat{\theta} &=& 4.924 \textnormal{(the posterior median)}\\
-\hat{\theta} &=& 4.996 \textnormal{(the posterior mode)}
+\hat{\theta} &=& 4.988 \textnormal{ (the posterior mean)}\\
+\hat{\theta} &=& 4.924 \textnormal{ (the posterior median)}\\
+\hat{\theta} &=& 4.996 \textnormal{ (the posterior mode)}
 \end{eqnarray}
 In this example, there's not much of a difference between these three methods.
 But in other situations, they can be quite different (this usually happens if
 the posterior distribution is skewed, or has multiple modes: you may notice a
 strong analogy between this topic and descriptive statistics). Is there a way
-to say which one is the {\it best}?
+to say which one is the {\it best}? It turns out that there is, but that
+depends on what you mean by ``best''.
 
 \subsection{A Very Brief Introduction to Decision Theory}
+Decision theory is a very important topic. In this course we will use a
+{\it tiny} amount of it. Just enough to solve the problem of ``which point
+estimate is best?''. If you think about it, this is a bit of a weird question.
+{\it The best point estimate is the true value}. Of course it is, how could it
+be otherwise? Our problem is that we can't actually implement this suggestion.
+We don't know the true value, we only have the posterior distribution
+(which is based on all the evidence we have), so we have to do 
+the best we can with that.
+
+To think about which decision is the best, the first thing we should do is think
+about what decisions are {\it possible}. For estimating a single parameter, any
+real number is a possible guess.
+
 
 
 
