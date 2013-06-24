@@ -18,4 +18,21 @@ plt.ylabel('Posterior Probability Density')
 plt.savefig('complicated_posterior.pdf', bbox_inches='tight')
 plt.show()
 
+estimate1 = np.trapz(x*y, x=x)
+F = np.cumsum(y)
+F /= F[-1]
+distance = np.abs(F - 0.5)
+estimate2 = x[distance == np.min(distance)]
+estimate3 = x[y == np.max(y)]
+plt.plot(x, y, 'k', linewidth=2)
+plt.axvline(estimate1, linewidth=2, color='b', label='Posterior Mean')
+plt.axvline(estimate2, linewidth=2, color='r', label='Posterior Median')
+plt.axvline(estimate3, linewidth=2, color='g', label='Posterior Mode')
+plt.xlabel('Distance to a Strange Astronomical Object')
+plt.ylabel('Posterior Probability Density')
+plt.legend()
+plt.savefig('estimates.pdf', bbox_inches='tight')
+plt.show()
+
+print((estimate1, estimate2, estimate3))
 
