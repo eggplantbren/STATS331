@@ -160,9 +160,19 @@ time when working things out analytically. Notice that the ``parameter estimatio
 form of Bayes' rule has a proportional sign in it, not an equals sign. That's
 because the prior times the likelihood can't actually be the posterior
 distribution because it may not be normalised -- the sum or integral is not 1.
-However, the 
-
-
+However, the equation still gives the correct shape of the probability density
+function: the way it depends on $\theta$. The reason this is helpful is that
+you can save ink: if there are some factors out the front of your expression
+that don't involve the parameter (in this case, $\theta$), you can ignore them!
+The proportional sign will take care of them. In this case, it means we can
+forget about the pesky ``$N$ choose $x$'' term, and just write:
+\begin{eqnarray}
+p(\theta|x) &\propto& \theta^x\left(1-\theta\right)^{N - x}\\
+&\propto& \theta^2\left(1-\theta\right)^3.
+\end{eqnarray}
+The final step was to substitute in the actual values of $N$ and $x$ instead of
+leaving the symbols there. That's it! We have the correct shape of the
+posterior distribution.
 
 \section{Statistician's Notation}
 While it is very helpful to know the full equations for different kinds of
