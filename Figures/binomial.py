@@ -27,4 +27,15 @@ plt.legend(numpoints=1, loc='upper center')
 plt.savefig('binomial.pdf', bbox_inches='tight')
 plt.show()
 
+x = 2
+theta = np.linspace(0., 1., 101)
+p = theta**x*(1. - theta)**(N - x)
+p /= np.trapz(p, x=theta)
+plt.plot(theta, np.ones(p.shape), 'g--', linewidth=2, label='Prior $p(\\theta)$')
+plt.plot(theta, p, 'b', linewidth=2, label='Posterior $p(\\theta|x)$')
+plt.xlabel('Possible Values $\\theta$')
+plt.ylabel('Probability Density')
+plt.legend()
+plt.savefig('bus_inference.pdf', bbox_inches='tight')
+plt.show()
 
