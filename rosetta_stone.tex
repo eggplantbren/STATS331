@@ -1,13 +1,26 @@
 \chapter{Rosetta Stone}
+Bayesian statistics has a lot of terminology floating around, and sometimes
+different communities use different terms for the same concept. This appendix
+lists various terms that are are basically synonymous (they mean the same thing).
 
-\begin{table}
-\begin{center}
-\begin{tabular}{cc}
-Event & Hypothesis, Proposition \\
-Sampling Distribution & Probability Model for the Data, Likelihood Function \\
-Bayes Factor & Likelihood Ratio, Evidence Ratio \\
-Evidence & Marginal Likelihood, Prior Predictive Probability, Normalising
-Constant
-\end{tabular}
-\end{center}
-\end{table}
+{\bf Event, Hypothesis, Proposition, Statement}: These are all the same thing.
+A statment that can be true or false. These are the things that go in our
+probability statements: If we write $P(A|B)$, $A$ and $B$ are both propositions.
+
+{\bf Sampling Distribution, Probability Model for the Data, 
+Generative Model, Likelihood Function, Likelihood}: This is the thing that we
+write as $p(D|\theta)$. Sometimes it is called the sampling distribution or
+a generative model because
+you can sometimes think of the data as having been ``sampled from''
+$p(D|\theta)$ but using the true value of $\theta$, which you don't actually
+know. There is a subtlety here, and that is that the word likelihood can be
+used to mean either $p(D|\theta)$ before $D$ is known (in which case it is the
+thing you could use to predict possible data) or after $D$ is known (in which
+case it gives you the thing you should use to calculate the posterior
+probabilities).
+
+{\bf Marginal Likelihood, Evidence, Prior Predictive Probability, Normalising
+Constant}: This is the $p(D)$ or $P(D)$ term in the denominator of Bayes' rule,
+and it is also the total of the {\tt prior} $\times$ {\tt likelihood} column
+of a Bayes' Box.
+
