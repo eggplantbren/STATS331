@@ -306,9 +306,85 @@ Totals: & 1 & & & \\
 \end{table}
 The next thing we need are the likelihoods. The data was that we got the busy
 signal, so we need to work out $P(\textnormal{busy signal} | H)$ for each $H$
-in the problem (there are four of them).
+in the problem (there are four of them). Let's start (naturally!) with $H_1$.
 
+If we assume $H_1$ is true, then the phone is working and {\tt 555-3226} is the
+correct phone number. In that case, we would definitely get a busy signal. So
+$P(\textnormal{busy signal} | H_1) = 1$ is our first likelihood value.
+Next, let's imagine that $H_2$ is true, so the phone is working, but
+{\tt 555-3226} is not the right phone number. In this case, it is given in the
+question that the probability of getting a busy signal is $1/100$ or 0.01.
+Therefore $P(\textnormal{busy signal} | H_2) = 0.01$, and that's our second
+likelihood. The likelihoods for $H_3$ and $H_4$ are quite straightforward
+because they both imply the phone is broken, and that a busy signal is certain.
+Therefore $P(\textnormal{busy signal} | H_3) = P(\textnormal{busy signal} | H_4) = 1$.
+We have our four likelihoods, and can proceed to work out everything in the
+Bayes' Box, including the main goal -- the posterior probabilities! Here it is:
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{\bf Hypotheses} & {\tt prior} & {\tt likelihood} &
+{\tt prior $\times$ likelihood} & {\tt posterior}\\
+\hline
+$H_1$ & 0.4 & 1 &  0.4 & 0.662\\
+$H_2$ & 0.4 & 0.01 & 0.004 & 0.00662\\
+$H_3$ & 0.1 & 1 & 0.1 & 0.166\\
+$H_4$ & 0.1 & 1 & 0.1 & 0.166\\
+\hline
+Totals: & 1 & & 0.604 & 1\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
+To conclude this phone problem, I should admit that
+I actually calculated the numbers in the Bayes' Box using R. My code is shown
+below. Obviously in the
+2012 exam the students had to use their calculators.
+\begin{framed}
+\begin{verbatim}
+> prior = c(0.4, 0.4, 0.1, 0.1) # Vector of prior probs
+> lik = c(1, 0.01, 1, 1)        # Vector of likelihoods
+> h = prior*lik
+> Z = sum(h)                    # Sum of prior times likelihood
+> post = prior*lik/Z            # Normalise to get posterior
+> # Look at all the results
+> print(prior)
+[1] 0.4 0.4 0.1 0.1
+> print(lik)
+[1] 1.00 0.01 1.00 1.00
+> print(h)
+[1] 0.400 0.004 0.100 0.100
+> print(Z)
+[1] 0.604
+> print(post)
+[1] 0.662251656 0.006622517 0.165562914 0.165562914
+\end{verbatim}
+\end{framed}
+Now let's try to see if this makes sense. There are many things we could think
+about, but let's just consider the question of whether
+the phone is working or not. The first two hypotheses correspond to the phone
+being in a working state. The prior probability that the phone is working is
+therefore:
+\begin{eqnarray}
+P(\textnormal{phone working}) &=& P(H_1 \textbf{ or } H_2)\\
+&=& P(H_1) + P(H_2)\\
+&=& 0.4 + 0.4\\
+&=& 0.8.
+\end{eqnarray}
+The posterior probability is worked out in a similar way, but using the posterior
+probabilities instead of the prior ones:
+\begin{eqnarray}
+P(\textnormal{phone working}|\textnormal{busy signal}) &=& P(H_1 \textbf{ or } H_2 | \textnormal{busy signal})\\
+&=& P(H_1|\textnormal{busy signal}) + P(H_2|\textnormal{busy signal})\\
+&=& 0.662 + 0.00662\\
+&=& 0.6689.
+\end{eqnarray}
+Our probability that the phone is working has gone down a little bit as a result of this
+evidence! That makes sense to me -- a busy signal is what you would expect to
+happen if the phone was broken. This data doesn't {\it prove} the phone is
+broken, but it does point in that direction a little bit.
 
 \section{Important Equations to Remember}
 Bayes' rule for a single hypothesis $H$ given data $D$:
