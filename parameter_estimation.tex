@@ -132,4 +132,68 @@ values of the parameter $\theta$.
 \end{center}
 \end{figure}
 
+Let's use a uniform prior for $\theta$.
+The equation for a uniform probability density is:
+\begin{eqnarray}
+p(\theta) &=& \left\{
+\begin{array}{lr}
+1, & 0 \leq \theta \leq 1\\
+0, & \textnormal{otherwise}
+\end{array}
+\right.\label{eq:uniform}
+\end{eqnarray}
+To find the posterior probability density for $\theta$, we use the ``parameter
+estimation'' form of Bayes' rule:
+\begin{eqnarray}
+\textnormal{posterior} \propto \textnormal{prior} \times \textnormal{likelihood}\\
+p(\theta|x) \propto p(\theta)p(x|\theta).
+\end{eqnarray}
+We already wrote down the equations for the prior and the likelihood, so we
+just need to multiply them together.
+\begin{eqnarray}
+p(\theta|x) &\propto& p(\theta)p(x|\theta)\\
+&\propto& 1 \times \left(\begin{array}{c}N \\ x\end{array}\right)
+\theta^x\left(1-\theta\right)^{N - x}
+\end{eqnarray}
+as long as $\theta \in [0, 1]$. There is a handy tip you can use a lot of the
+time when working things out analytically. Notice that the ``parameter estimation''
+form of Bayes' rule has a proportional sign in it, not an equals sign. That's
+because the prior times the likelihood can't actually be the posterior
+distribution because it may not be normalised -- the sum or integral is not 1.
+However, the 
+
+
+
+\section{Statistician's Notation}
+While it is very helpful to know the full equations for different kinds of
+probability distributions (both discrete ones and continuous ones), if you only
+want to say what a distribution is. Instead of saying ``the prior for $\theta$
+is uniform between 0 and 1'', or giving the formula for the prior distribution
+(Equation~\ref{eq:uniform}), you can write:
+\begin{eqnarray}
+\theta \sim \textnormal{Uniform}(0, 1)
+\end{eqnarray}
+or, even more concisely:
+\begin{eqnarray}
+\theta \sim U(0, 1).
+\end{eqnarray}
+This notation conserves ink, and is good for quick communication. It is also
+very helpful because when we come to use JAGS in later chapters, it likes
+things to be written this way.
+
+We can also write the binomial likelihood in this way, instead of writing out
+the full equation. We can write:
+\begin{eqnarray}
+x | \theta \sim \textnormal{Binomial}(N, \theta)
+\end{eqnarray}
+This says that, if we knew the value of $\theta$, $x$ would have a binomial
+distribution with $N$ trials and success probability $\theta$. We can also
+make this more concise:
+\begin{eqnarray}
+x \sim \textnormal{Bin}(N, \theta)
+\end{eqnarray}
+The differences here are that ``Binomial'' has been shortened to ``Bin'' and
+the ``given $\theta$'' part has been left out. However, we see that there is
+a $\theta$ is present on the right hand side, so the ``given $\theta$'' must
+be understood implicitly.
 
