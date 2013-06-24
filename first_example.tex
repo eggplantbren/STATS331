@@ -242,18 +242,13 @@ compute $P(\bb | D)$ and once to calculate $P(\bw | D)$.
 \end{tabular}
 \end{center}
 
-
-
-
-
-
-
-
-
 \section{Phone Example}
+\subsection{The Question}
 This example is based on Question 1 from the 2012 final exam of STATS 331. The
-idea for this question was based on an example in David MacKay's book
-``Information Theory, Inference and Learning Algorithms''.
+idea for this question was based on an example in David MacKay's wonderful book
+``Information Theory, Inference and Learning Algorithms''
+(available online as a free PDF download -- you're welcome to check it out, but
+it is a large book and only about 20\% of it is related to this course!).
 
 You move into a new house which has a phone
 installed. You can't remember the phone number, but you suspect it
@@ -263,15 +258,14 @@ To test this hypothesis, you carry out an experiment
 by picking up the phone and dialing {\tt 555-3226}.
 
 If you are correct about
-the phone number, you will definitely hear a busy signal because you are calling yourself.
+the phone number, you will definitely hear a busy signal because you are calling
+yourself.
 If you are incorrect, the probability of hearing a busy signal is $1/100$.
-When you do the experiment, you do in fact hear a busy signal. Let $C$ be the
-hypothesis that {\tt 555-3226} is the correct phone number,
-and let $B$ be the event of hearing a busy signal.
+However, all of that is only true if you assume the phone is working -- and it
+might be broken! If the phone is broken, it will always give a busy signal.
 
-It then occurs to you that there is another explanation for the busy signal.
-The phone might just be broken, in which case it will always give a busy signal.
-Find the probability the following four hypotheses:
+When you do the experiment, you do actually get the busy signal.
+Find the posterior probability the following four hypotheses:
 \begin{table}[h!]
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
@@ -284,6 +278,52 @@ $H_3$ & Phone is broken and {\tt 555-3226} is correct & 0.1\\
 $H_4$ & Phone is broken and {\tt 555-3226} is incorrect & 0.1\\
 \hline
 \end{tabular}
+\caption{The four hypotheses about the state of the phone and the phone
+number. The prior probabilities are also given.\label{tab:phone}}
 \end{center}
 \end{table}
+
+\subsection{Solution}
+We will go through the solution using a Bayes' Box. The four hypotheses listed
+in Table~\ref{tab:phone} are mutually exclusive and exhaustive, so we can fill
+out the first two columns of a Bayes' Box right away:
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{\bf Hypotheses} & {\tt prior} & {\tt likelihood} &
+{\tt prior $\times$ likelihood} & {\tt posterior}\\
+\hline
+$H_1$ & 0.4 &  &  & \\
+$H_2$ & 0.4 &  &  & \\
+$H_3$ & 0.1 &  &  & \\
+$H_4$ & 0.1 &  &  & \\
+\hline
+Totals: & 1 & & & \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+The next thing we need are the likelihoods. The data was that we got the busy
+signal, so we need to work out $P(\textnormal{busy signal} | H)$ for each $H$
+in the problem (there are four of them).
+
+
+
+\section{Important Equations to Remember}
+Bayes' rule for a single hypothesis $H$ given data $D$:
+\begin{eqnarray}
+P(H|D) = \frac{P(H)P(D|H)}{P(D)}
+\end{eqnarray}
+
+Bayes' rule for a set of hypotheses (mutually exclusive, exhaustive)
+$H_1, H_2, ..., H_N$, given data $D$:
+\begin{eqnarray}
+P(H_i|D) &=& \frac{P(H_i)P(D|H_i)}{P(D)} \\
+&=& \frac{P(H_i)P(D|H_i)}{\sum_{j=1}^N P(H_j)P(D|H_j)}
+\end{eqnarray}
+Following the steps for making a Bayes' Box is equivalent to using this form
+of Bayes' rule. The $P(H_i)$ values are the prior probability column, the
+$P(D|H_i)$ values are the likelihood column, and the denominator is the
+sum of the prior times likelihood column.
 
