@@ -96,3 +96,40 @@ Totals & 1 & & & 1\\
 Continuous?
 
 
+\chapter{Parameter Estimation: Analytical Methods}
+Analytical methods are those that can be carried out with a pen and paper,
+the ``old school'' way before we all started using computers. There are some
+problems in Bayesian statistics that can be solved in this way, and we will
+see one or two of them in this course.
+
+Let's look at the {\it binomial likelihood} problem again, with the familiar
+bus example. Out of $N=5$ attempts at a ``repeatable'' experiment, there were
+$x=2$ successes. From this, we want to infer the value of $\theta$, the
+success probability that applied on each trial. Because of its meaning, we know
+with 100\% certainty that $\theta$ must be between 0 and 1 (inclusive).
+
+Recall that, if we knew the
+value of $\theta$ and wanted to predict the data $x$ (regarding $N$ as being
+known in advance), then we would use the binomial distribution:
+\begin{eqnarray}
+p(x|\theta) &=& \left(\begin{array}{c}N \\ x\end{array}\right)
+\theta^x\left(1-\theta\right)^{N - x}.\label{eq:binomial_likelihood}
+\end{eqnarray}
+This is the probability mass function for $x$. Since there are five trials
+($N=5$), the number of successes $x$ must be one of 0, 1, 2, 3, 4, or 5.
+If $\theta$ is a high number close to one, then we would expect the resulting
+value of the data $x$ to be something high like 4 or 5. Low values for $x$ would
+still be possible but they would have a small probability. If $\theta$ is a
+small number, we would expect the data to be 0, 1, or 2, with less probability
+for more successes than that. This is just saying in words what is written
+precisely in Equation~\ref{eq:binomial_likelihood}. The probability distribution
+for the data $x$ is plotted in Figure~\ref{fig:binomial} for three illustrative
+values of the parameter $\theta$.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.6]{Figures/binomial.pdf}
+\caption{\label{fig:binomial}}
+\end{center}
+\end{figure}
+
+
