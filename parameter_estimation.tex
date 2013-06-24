@@ -40,10 +40,34 @@ Totals: & 1 & & \ldots & 1\\
 \end{tabular}
 \end{center}
 \end{table}
-There are a few things to note about this Bayes' box. Firstly, that it is big.
-There are lots of possible hypotheses, corresponding to possible values for
+
+There are a few things to note about this Bayes' box. Firstly, it is big, which
+is why I just put a bunch of ``\ldots''s in there instead of making up numbers.
+There are lots of possible hypotheses, each one corresponding to a possible value
+for
 $\theta$. The prior probabilities I have put in the 2nd column were for
-illustration purposes. 
+illustration purposes, they needn't necessarily all be the same. But all the
+stuff we've seen in smaller examples still applies here. The likelihoods will
+still be calculated by seeing how the probability of the data depends on the
+value of the unknown parameter. You still go through all the same steps,
+
+\begin{framed}
+{\bf
+From a Bayesian point of view, parameter estimation means starting with a prior
+distribution for the unknown parameter, and using some data to update the prior
+distribution to the posterior distribution.
+}
+\end{framed}
+
+\begin{framed}
+{\bf
+A quantity which has a probability associated with each possible value is
+traditionally called a ``random variable''. Random variables have probability
+distributions associated with them. In Bayesian stats, an unknown
+parameter looks mathematically like a ``random variable'', but nothing is
+varying or fluctuating. We put a probability distribution there to describe our
+uncertainty about what the true value is.}
+\end{framed} 
 
 \section{Parameter Estimation: Bus Example}
 This is a beginning example of parameter estimation from a Bayesian point of
@@ -72,8 +96,8 @@ Bus example
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\tt{Possible Values} & \tt{Prior} & \tt{Likelihood} & \tt{h} & \tt{Posterior}\\
-$\theta$ & $P(\theta)$ & $P(x|\theta)$ & $P(\theta)P(x|\theta)$ & $P(\theta|x)$\\
+\tt{possible Values} & \tt{prior} & \tt{pikelihood} & \tt{prior} $\times$ \tt{likelihood} & \tt{posterior}\\
+$\theta$ & $p(\theta)$ & $p(x|\theta)$ & $p(\theta)p(x|\theta)$ & $p(\theta|x)$\\
 \hline
 0 & 0.0909 & & &\\
 0.1 & 0.0909 & & &\\
