@@ -135,11 +135,40 @@ other is white. If this were the case and we did the experiment, what would be
 the probability of getting the black ball in the experiment? Since one of the
 two balls is black, the chance of choosing this one is 50\%. Therefore the
 likelihood for the \bw~hypothesis is 0.5, so that's why I put 0.5 in the Bayes'
-Box.
+Box for the likelihood for \bw.
 
+In general, the likelihood is the {\it probability of the data that you actually
+got, assuming that a particular hypothesis is true}. In this example it was
+fairly easy to get the likelihoods directly by asking ``if this hypothesis
+were true, what would be the probability of the experiment outcome being the
+black ball?''. Sometimes it's not so easy, and it can be helpful to think about
+ALL possible experimental outcomes/data you might have seen -- even though
+ultimately, you need to select the one that actually occurred.
+Table~\ref{tab:all_data} shows an example of this process.
 
-
-
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+{\bf Hypotheses} & {\bf Possible Data} & {\bf Probability} \\
+\hline
+{\tt BB} & {\color{blue} Black Ball} & {\color{blue} 1}\\
+         & White Ball & 0 \\
+\hline
+{\tt BW} & {\color{blue} Black Ball} & {\color{blue} 0.5} \\
+         & White Ball & 0.5 \\
+\hline
+\end{tabular}
+\caption{This table demonstrates a method for calculating the likelihood
+values, by considering not just the data that actually occurred, but all
+data that might have occurred. Ultimately, it is only the probability of the
+data that actually occurred that matters, so this is highlighted in blue.
+\label{tab:all_data}}
+\end{center}
+\end{table}
+The fact that only the blue probabilities in Table~\ref{tab:all_data} enter the
+Bayes' Box calculation is related to the {\it likelihood principle} which is
+discussed in lectures.
 
 \section{Bayes' Rule}
 Bayes' rule is an equation from probability theory, shown in
@@ -222,6 +251,39 @@ compute $P(\bb | D)$ and once to calculate $P(\bw | D)$.
 
 
 \section{Phone Example}
-This example appeared in the 2012 final exam.
+This example is based on Question 1 from the 2012 final exam of STATS 331. The
+idea for this question was based on an example in David MacKay's book
+``Information Theory, Inference and Learning Algorithms''.
 
+You move into a new house which has a phone
+installed. You can't remember the phone number, but you suspect it
+might be {\tt 555-3226} (some of you may recognise
+this as being the phone number for Homer Simpson's ``Mr Plow'' business).
+To test this hypothesis, you carry out an experiment
+by picking up the phone and dialing {\tt 555-3226}.
+
+If you are correct about
+the phone number, you will definitely hear a busy signal because you are calling yourself.
+If you are incorrect, the probability of hearing a busy signal is $1/100$.
+When you do the experiment, you do in fact hear a busy signal. Let $C$ be the
+hypothesis that {\tt 555-3226} is the correct phone number,
+and let $B$ be the event of hearing a busy signal.
+
+It then occurs to you that there is another explanation for the busy signal.
+The phone might just be broken, in which case it will always give a busy signal.
+Find the probability the following four hypotheses:
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Hypothesis & Description & Prior Probability\\
+\hline
+$H_1$ & Phone is working and {\tt 555-3226} is correct & 0.4\\
+$H_2$ & Phone is working and {\tt 555-3226} is incorrect & 0.4\\
+$H_3$ & Phone is broken and {\tt 555-3226} is correct & 0.1\\
+$H_4$ & Phone is broken and {\tt 555-3226} is incorrect & 0.1\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
 
