@@ -12,12 +12,38 @@ posterior distribution:
 p(\theta|D) \propto p(\theta)p(D|\theta)
 \end{eqnarray}
 
-
-Let's assume a uniform prior.
+Let's assume a uniform prior:
 \begin{eqnarray}
 p(\beta_0, \beta_1) \propto 1.
 \end{eqnarray}
-Now, on to the 
+Now, on to the likelihood. There are $N$ data points and so there are $N$
+$y$-values in the dataset. We can call those $\{y_1, y_2, ..., y_N\}$. If we
+knew the true values of $\beta_0$ and $\beta_1$, then we would predict the
+$y$-values to be scattered around the straight line, with the probability
+distribution for the amount of scatter given by a normal distribution with
+standard deviation $\sigma$, and the amount of scatter is independent for
+each data point. In statisticians' notation, this can be written as:
+\begin{eqnarray}
+y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i, \sigma^2).
+\end{eqnarray}
+The full equation for the likelihood is:
+\begin{eqnarray}
+p(y_i|\beta_0, \beta_1) &=& \prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
+\exp\left[-\frac{1}{2\sigma^2}\left(y_i - (\beta_0 + \beta_1 x_i)\right)^2\right].
+\end{eqnarray}
+Remember that when we combine the likelihood with the prior using Bayes' rule,
+we can usually ignore any constant factors out the front that do not depend on
+the parameters. This allows us to ignore the first part of the product, outside
+the exponential.
+\begin{eqnarray}
+p(\beta_0, \beta_1 | y_1, y_2, ..., y_N) &\propto& p(\beta_0, \beta_1)
+p(y_1, y_2, ..., y_N|\beta_0, \beta_1)\\
+&\propto& \prod_{i=1}^N \exp\left[-\frac{1}{2\sigma^2}\left(y_i - (\beta_0 + \beta_1 x_i)\right)^2\right]\\
+&\propto& \exp\left[-\frac{1}{2\sigma^2}\sum_{i=1}^N\left(y_i - (\beta_0 + \beta_1 x_i)\right)^2\right].
+\end{eqnarray}
+
+
+
 
 
 
