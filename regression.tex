@@ -1,9 +1,11 @@
 \chapter{Regression}
-
 Linear regression is a very important topic in statistics. It is also a nice
 example to demonstrate how Bayesian statistics works and how it is different
-from classical or frequentist statistics. Here is an example of simple linear
-regression:
+from classical or frequentist statistics. Here is an example of a simple linear
+regression problem:
+
+
+
 
 
 
@@ -44,10 +46,21 @@ model
     {
         y[i] ~ dnorm(beta0 + beta1*x[i], pow(sigma, -2))
     }
-
 }
 \end{verbatim}
+The first part defines the priors for the parameters. For $\beta_0$ and $\beta_1$,
+we have just chosen very broad priors that describe vague prior knowledge. Note
+that the standard deviations of the priors are 1000, so we should be careful
+to only apply this code to situtations where we don't expect the intercept or
+slope to take on an extreme value.
 
+For the standard deviation parameter $\sigma$ which describes how much we
+expect the data points to be scattered around the straight line, we have assigned
+a log-uniform prior. The limits of $-10$ and $10$ for {\tt log\_sigma} imply
+limits of $4.5 \times 10^{-5}$ to 22,000 for {\tt sigma}, a generous range.
+Again, if we thought the scatter
+was going to be outside this range, we should change the prior to something
+else.
 
 
 
