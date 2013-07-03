@@ -1,4 +1,4 @@
-\section{Summarising the Posterior Distribution}
+\chapter{Summarising the Posterior Distribution}
 The posterior is too much information. We need to summarise it. This is mostly
 because, as mere mortals, we might want to communicate our results as a short,
 easily remembered ``sound-bite''. For example, say you were trying to estimate
@@ -24,12 +24,60 @@ thing, but instead of giving a concise description of the data, you give a
 concise description of the posterior distribution.}
 \end{framed}
 
+\section{Point Estimates}
+Point estimates are guesses for the value of the parameter. If you look at the
+posterior distribution plotted in Figure~\ref{fig:complicated_posterior}, you
+can see that the true value of the parameter is probably somewhere around 5,
+but with some uncertainty. If you were to provide a single number as a guess of
+the parameter, you would probably say something close to 5. In statistics, a
+single number guess is called an ``estimate'', and is written by putting a
+little hat over the name of the parameter. So, by looking at the plot of the
+posterior, you could give an estimate like this:
+\begin{eqnarray}
+\hat{\theta} = 5.
+\end{eqnarray}
+But there are better things you could do, and I'd bet you know some of them
+from previous statistics courses. Here are three methods you could use to
+choose a point estimate using the posterior distribution: the posterior mean
+(expectation value), the posterior median (the value that divides the probability
+in half), and the posterior mode (the value where the posterior PDF has its
+peak). This gives the following three possible estimates:
+\begin{eqnarray}
+\hat{\theta} &=& 4.988 \textnormal{ (the posterior mean)}\\
+\hat{\theta} &=& 4.924 \textnormal{ (the posterior median)}\\
+\hat{\theta} &=& 4.996 \textnormal{ (the posterior mode)}
+\end{eqnarray}
+In this example, there's not much of a difference between these three methods.
+But in other situations, they can be quite different (this usually happens if
+the posterior distribution is skewed, or has multiple modes: you may notice a
+strong analogy between this topic and descriptive statistics). Is there a way
+to say which one is the {\it best}? It turns out that there is, but that
+depends on what you mean by ``best''.
+
+\subsection{A Very Brief Introduction to Decision Theory}
+Decision theory is a very important topic. In this course we will use a
+{\it tiny} amount of it. Just enough to solve the problem of ``which point
+estimate is best?''. If you think about it, this is a bit of a weird question.
+{\it The best point estimate is the true value}. Of course it is, how could it
+be otherwise? Our problem is that we can't actually implement this suggestion.
+We don't know the true value, we only have the posterior distribution
+(which is based on all the evidence we have), so we have to do 
+the best we can with that.
+
+To think about which decision is the best, the first thing we should do is think
+about what decisions are {\it possible}. For estimating a single parameter, any
+real number is a possible guess.
 
 
-\subsection{Point Estimates}
 
 
-\subsection{Credible Intervals}
+
+
+
+
+
+
+\section{Credible Intervals}
 
 
 
