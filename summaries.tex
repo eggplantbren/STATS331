@@ -1,7 +1,20 @@
 \chapter{Summarising the Posterior Distribution}
-The posterior is too much information. We need to summarise it. This is mostly
-because, as mere mortals, we might want to communicate our results as a short,
-easily remembered ``sound-bite''. For example, say you were trying to estimate
+The posterior distribution is the full answer to any Bayesian problem. It gives
+a complete description of our state of uncertainty about the value(s) of unknown
+parameters. From the posterior distribution, we can calculate any probability
+we want. For example, if we had a posterior distribution $p(\theta|x)$ and we
+wanted to know the probability that $\theta$ is greater than 100, we could do:
+\begin{eqnarray}
+P(\theta > 100 | x) &=& \int_100^\infty p(\theta | x) \, dx.
+\end{eqnarray}
+We could also do a lot of other things.
+However, the posterior distribution is sometimes too much
+information for us to think about easily. We need to summarise it to help
+communicating our results with others. A giant Bayes' Box, or a million MCMC
+samples of the parameter, might technically
+contain everything we want, but it's not easy to talk about.
+
+For example, say you were trying to estimate
 a parameter, and a colleague asked you to state your uncertainty about the
 parameter. Well, your posterior distribution might be complicated, it might
 have bumps and wiggles in it, or some other kind of structure.
@@ -25,7 +38,10 @@ concise description of the posterior distribution.}
 \end{framed}
 
 \section{Point Estimates}
-Point estimates are guesses for the value of the parameter. If you look at the
+A ``point estimate'' refers to a single number guess for the value of the parameter.
+If you have several parameters, a point estimate would be a single guess for the
+value of each parameter (like a single point in a multidimensional space).
+If you look at the
 posterior distribution plotted in Figure~\ref{fig:complicated_posterior}, you
 can see that the true value of the parameter is probably somewhere around 5,
 but with some uncertainty. If you were to provide a single number as a guess of
@@ -73,11 +89,23 @@ real number is a possible guess.
 
 
 
+\subsection{Computing Point Estimates from a Bayes' Box}
+
+
+\subsection{Computing Point Estimates from Samples}
+
 
 
 
 
 \section{Credible Intervals}
 
+\subsection{Computing Credible Intervals from a Bayes' Box}
 
 
+\subsection{Computing Credible Intervals from Samples}
+
+
+\section{Confidence Intervals}
+In previous stats courses you have probably come across the concept of a
+{\it confidence interval}.
