@@ -4,11 +4,24 @@ example to demonstrate how Bayesian statistics works and how it is different
 from classical or frequentist statistics. Here is an example of a simple linear
 regression problem:
 
+\section{Analytical Solution With Known Variance}
+The unknown parameters are $\beta_0$ and $\beta_1$, and the data are the
+$y$ values. Bayes' rule (parameter estimation version) will give us the
+posterior distribution:
+\begin{eqnarray}
+p(\theta|D) \propto p(\theta)p(D|\theta)
+\end{eqnarray}
+
+
+Let's assume a uniform prior.
+\begin{eqnarray}
+p(\beta_0, \beta_1) \propto 1.
+\end{eqnarray}
+Now, on to the 
 
 
 
-
-
+\section{Solution With JAGS}
 The assumption is that the data are a list of measurements:
 \begin{eqnarray}
 D = \{y_1, y_2, ..., y_N\}.
