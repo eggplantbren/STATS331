@@ -1,8 +1,25 @@
 \chapter{Regression}
 Linear regression is a very important topic in statistics. It is also a nice
 example to demonstrate how Bayesian statistics works and how it is different
-from classical or frequentist statistics. Here is an example of a simple linear
-regression problem:
+from classical or frequentist statistics. Here we will study an example of a simple linear
+regression problem, taken from STATS 201.
+
+Data were collected from random sample of 30 drivers. The age of the driver and the 
+maximum distance at which they could read a newly designed road sign were 
+recorded. It is of interest to build a simple model that can be used to predict the 
+maximum distance at which the sign is legible, using the age of the driver. The file 
+{\tt road.txt} contains the data. Figure~\ref{fig:road} is a plot of the data:
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{Figures/road.pdf}
+\caption{The distance at which a person can read a road sign, vs. the age of
+the person. There are $N=30$ data points. You can clearly see that older people
+have, on average, worse eyesight. But let's do a Bayesian analysis!\label{fig:ref}}
+\end{center}
+\end{figure}
+
+\section{Simple Linear Regression}
+
 
 \section{Analytical Solution With Known Variance}
 The unknown parameters are $\beta_0$ and $\beta_1$, and the data are the
