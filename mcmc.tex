@@ -20,7 +20,8 @@ This would make a plot something like the following:
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/normal.pdf}
-\caption{\label{fig:normal}}
+\caption{A posterior distribution can be represented in a computer by a discrete
+set of possible parameter values, and the corresponding probabilities.\label{fig:normal}}
 \end{center}
 \end{figure}
 If we wanted to obtain some summaries, we could do it like so:
@@ -47,16 +48,30 @@ by plotting a histogram of samples:
 \begin{verbatim}
 hist(theta2, breaks=100)
 \end{verbatim}
-We could also get our summaries, but the code looks different (easier!):
+The histogram would look something like this:
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.5]{Figures/normal2.pdf}
+\caption{The posterior distribution for a parameter $\theta$ can also be
+represented by a {\it random sample} of values drawn from the posterior
+distribution. The fact that some $\theta$ values are more probable than others
+is encoded by the fact that certain values appear more frequently in the sample.
+\label{fig:normal2}}
+\end{center}
+\end{figure}
+We could also get our summaries, but the code looks different (It's easier!):
 \begin{verbatim}
 post_mean = mean(theta2)
 post_sd = sd(theta2)
 \end{verbatim}
-
-
-
-
-
+Now, because of the randomness involved in generating the {\tt theta2} samples,
+the summaries aren't exact. For example, I know that the actual posterior mean
+and standard deviation in this example were both 1, but the values obtained
+from the Monte Carlo samples were 0.9604 and 1.0008 respectively. This doesn't
+matter much though, because the conclusions about $\theta$ are that it is probably
+somewhere around 1 with an uncertainty of about 1, and the error introduced by
+using random samples are much smaller than the amount of uncertainty inherent
+in the posterior distribution itself.
 
 \begin{framed}
 {\bf
