@@ -1,37 +1,69 @@
 \chapter{Markov Chain Monte Carlo}
-
 \section{Monte Carlo}
-Monte Carlo is a computational technique for handling probability distributions.
+Monte Carlo is a general term for computational techniques that use random
+numbers.
+Monte Carlo can be used in classical and Bayesian statistics, and a special kind
+called Markov Chain Monte Carlo (MCMC) was partially responsible for the revival
+of Bayesian statistics in the second half of the 20th century.
+
 What we have seen so far is that you can represent a probability distribution
 in a computer by using a vector of possible values and a corresponding
-vector of probabilities:
+vector of probabilities. For example, suppose we had a single parameter $\theta$
+and we had worked out the posterior distribution by using a Bayes' Box. This
+will have given us a vector {\tt theta} of possible $\theta$ values and a corresponding
+vector {\tt post} containing the posterior probabilities. Well, one thing we could
+do is plot the posterior distribution:
 \begin{verbatim}
-theta <- seq(0, 1, by=0.1)
-prior <- rep(1, length(theta))/length(theta)
+plot(theta, post, xlab="Theta", ylab="Posterior Probability")
 \end{verbatim}
-Then, if you want to plot the probability distribution you can:
+This would make a plot something like the following:
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.5]{Figures/normal.pdf}
+\caption{\label{fig:normal}}
+\end{center}
+\end{figure}
+If we wanted to obtain some summaries, we could do it like so:
 \begin{verbatim}
-plot(theta, prior, xlab='Theta', ylab='Prior Probability')
+post_mean = sum(theta*post)
+post_sd = sqrt(sum(theta^2*post) - post_mean^2)
 \end{verbatim}
-If you want to get some summaries, say, the prior mean and standard deviation,
-you could also compute those quite easily:
+
+However,
+there is an alternative way of representing this posterior distribution in a
+computer. It may seem a bit silly at first, because there is nothing wrong with
+the above method. But this second method has the advantage that it continues to
+work well on much bigger problems, such as when we have more than one parameter.
+Instead of having a two vectors: one of $\theta$ values and one of the
+corresponding probabilities,
+imagine we had some method to compute a random sample of $\theta$ values, drawn
+from the posterior distribution. There would only be one vector. So how would we
+know that there is greater probability around $\theta=1$? Well, {\it more elements
+of the vector would be near 1}. Instead of carrying around a second vector of
+probabilities, we simply let the fact that there are lots of points in certain
+regions tell us that those regions are more probable! Say our vector of random
+samples was called {\tt theta2}. Then we could look at the posterior distribution
+by plotting a histogram of samples:
 \begin{verbatim}
-prior_mean <- sum(theta*prior)
-prior_sd <- sqrt(sum(theta**2*prior) - prior_mean**2))
+hist(theta2, breaks=100)
 \end{verbatim}
-However, once life starts to get more complicated, such things will no longer
-be possible. This is especially true when we work with situations where there
-is {\it more than one} unknown parameter. Say we have five unknown parameters
-$\theta_1$, $\theta_2$, $\theta_3$, $\theta_4$ and $\theta_5$. Then one
-possibility for the values of the parameters might be
-$\{\theta_1, \theta_2, \theta_3, \theta_4, \theta_5\} =
-\{0.1, 3.5, 2.3, 0.8, -4.3\}$. Another possibility is
-$\{\theta_1, \theta_2, \theta_3, \theta_4, \theta_5\} =
-\{0.4, 0, -0.3, 10.9, -2.3\}$. Can you see what the problem is here?
-The vector of possible values you would need becomes very large very
-quickly.
+We could also get our summaries, but the code looks different (easier!):
+\begin{verbatim}
+post_mean = mean(theta2)
+post_sd = sd(theta2)
+\end{verbatim}
 
 
+
+
+
+
+\begin{framed}
+{\bf
+The purpose of Markov Chain Monte Carlo is to generate random samples of
+parameter values drawn from the posterior distribution. This makes it very easy
+to compute summaries even if you have more than one unknown parameter.}
+\end{framed}
 
 
 \section{The Metropolis Algorithm}
