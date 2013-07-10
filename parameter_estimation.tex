@@ -109,15 +109,15 @@ For the likelihood, we need to think about what the
 $\theta$ & $p(\theta)$ & $p(x|\theta)$ & $p(\theta)p(x|\theta)$ & $p(\theta|x)$\\
 \hline
 0 & 0.0909 & 0 & 0 & 0\\
-0.1 & 0.0909 & 0.0729 & 0.0073 & 0.0102\\
-0.2 & 0.0909 & 0.2048 & 0.0410 & 0.0573\\
-0.3 & 0.0909 & 0.3087 & 0.0926 & 0.1296\\
-0.4 & 0.0909 & 0.3456 & 0.1382 & 0.1935\\
-0.5 & 0.0909 & 0.3125 & 0.1563 & 0.2187\\
-0.6 & 0.0909 & 0.2304 & 0.1382 & 0.1935\\
-0.7 & 0.0909 & 0.1323 & 0.0926 & 0.1296\\
-0.8 & 0.0909 & 0.0512 & 0.0410 & 0.0573\\
-0.9 & 0.0909 & 0.0081 & 0.0073 & 0.0102\\
+0.1 & 0.0909 & 0.0729 & 0.0066 & 0.0437\\
+0.2 & 0.0909 & 0.2048 & 0.0186 & 0.1229\\
+0.3 & 0.0909 & 0.3087 & 0.0281 & 0.1852\\
+0.4 & 0.0909 & 0.3456 & 0.0314 & 0.2074\\
+0.5 & 0.0909 & 0.3125 & 0.0284 & 0.1875\\
+0.6 & 0.0909 & 0.2304 & 0.0209 & 0.1383\\
+0.7 & 0.0909 & 0.1323 & 0.0120 & 0.0794\\
+0.8 & 0.0909 & 0.0512 & 0.0047 & 0.0307\\
+0.9 & 0.0909 & 0.0081 & 0.0007 & 0.0049\\
 1 & 0.0909 & 0 & 0 & 0\\
 \hline
 Totals & 1 & & 0.7145 & 1\\
@@ -191,9 +191,58 @@ posterior distribution is the complete answer to the problem: it tells us exactl
 how strongly we should believe in the various possible solutions. However, there
 are other things we might want to do with this information. Predicting the future
 is one! It's fun, but risky. Here we will look at how it is done using the Bayesian
-framework, continuing with the bus example.
+framework, continuing with the bus example. To be concrete, we are interested
+in the following question: {\it what is the probability that I will catch the
+right bus tomorrow?}. This is like asking a question about what the future data
+will be.
 
-Suppose we knew that the true value of $\theta$ 
+Suppose we knew that the true value of $\theta$ was 0.3. Then, we would know that
+the probability of catching the right bus tomorrow is 0.3. If we knew that the
+true value of $\theta$ was 0.4, we would say that the probability of catching
+the right bus tomorrow is 0.4. The problem is, we don't know what the true value
+is. We only have the posterior distribution. Luckily, the sum rule of
+probability can help us out. We are interested in whether I will get the good
+bus tomorrow. There are 11 different ways that can happen: either $\theta=0$ and
+I get the good bus, or $\theta=0.1$ and I get the good bus, or $\theta=0.2$ and
+I get the good bus, and so on. These 11 ways are all mutually exclusive, that is,
+only one of them can be true (since $\theta$ is actually just a single number).
+Mathematically, this can be written using the sum rule:
+\begin{eqnarray}
+P(\textnormal{good bus tomorrow} | x) &=& \sum_{\theta}
+p(\theta | x)P(\textnormal{good bus tomorrow} | \theta, x)\\
+&=& \sum_{\theta}
+p(\theta | x)\theta
+\end{eqnarray}
+This says that the total probability for a good bus tomorrow (given the data)
+is given by going through each possible $\theta$ value, working out the probability
+{\it assuming that $\theta$ value is true}, multiplying that by the probability
+(given the data) that that $\theta$ value is actually true, and summing. In this
+problem, because $P(\textnormal{good bus tomorrow} | \theta, x) = \theta$, it
+just so happens that the probability for tomorrow is the expectation value of
+$\theta$ using the posterior distribution.
+
+The R code for computing the Bayes' Box in this problem is given below. This is
+very much like a lot of the problems we will work on in labs.
+
+\begin{framed}
+\begin{verbatim}
+# Make a vector of possibilities
+theta = seq(0, 1, by=0.1)
+
+# Corresponding vector of prior probabilities
+prior = rep(1/11,11)
+
+# Likelihood. Notice use of dbinom() rather than formula
+lik = dbinom(2,5,theta)
+
+# Prior times likelihood, then normalise to get posterior
+h = prior*lik
+post = h/sum(h)
+
+# Probability for good bus tomorrow (prediction!)
+prob_tomorrow = sum(theta*post)
+\end{verbatim}
+\end{framed}
 
 
 \chapter{Parameter Estimation: Analytical Methods}
