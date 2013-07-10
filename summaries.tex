@@ -90,6 +90,28 @@ real number is a possible guess.
 
 
 \subsection{Computing Point Estimates from a Bayes' Box}
+The posterior mean is straightforward. It's the expectation value of the parameter
+using the posterior distribution. In R, the code is:
+\begin{framed}
+\begin{verbatim}
+post_mean = sum(theta*post)
+\end{verbatim}
+\end{framed}
+You should also know how to compute this manually from a Bayes' Box, using a
+calculator.
+
+The posterior mode is also fairly straightforward. First, we can find the
+highest probability in the Bayes' Box. Then we find the values of the parameter
+that correspond to this probability.
+\begin{framed}
+\begin{verbatim}
+max_post = max(post)
+post_mode = theta[post == max_post]
+\end{verbatim}
+\end{framed}
+Note that, in the case of a tie, {\tt post\_mode} might be a vector, indicating
+that there isn't a single mode.
+
 
 
 \subsection{Computing Point Estimates from Samples}
