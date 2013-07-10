@@ -33,21 +33,61 @@ From what you now know about Bayesian statistics, you might be able to come up
 with some thoughts for what is unsatisfactory about the standard least squares
 solution to linear regression. One glaring issue is that the data are {\it never
 good enough} to tell us with certainty that a particular slope and intercept
-are correct. In principle, we will always have uncertainty about the 
+are correct. In principle, we will always have uncertainty about the slope and
+the intercept. From a Bayesian perspective, instead of trying to find a single
+guess for the value of the slope and intercept, we should calculate the
+{\it posterior distribution for the slope and the intercept, given the data}.
+The posterior distribution will tell us exactly how much uncertainty we have,
+and we will be able to make summaries such as point estimates and credible
+intervals from that.
 
+The equation for a straight line is usually written as $y = mx + b$ where $m$
+is the gradient/slope and $b$ is the intercept.. However,
+for consistency with later, more complex regression models, we will write the
+equation as:
+\begin{eqnarray}
+y = \beta_0 + \beta_1 x.
+\end{eqnarray}
+Here, $\beta_0$ is the $y$-intercept and $\beta_1$ is the slope. Our goal is
+to calculate the posterior distribution for $\beta_0$ and $\beta_1$ given the
+data.
 
 \section{Analytical Solution With Known Variance}
-The unknown parameters are $\beta_0$ and $\beta_1$, and the data are the
-$y$ values. Bayes' rule (parameter estimation version) will give us the
+Bayes' rule (parameter estimation version) tells us how to calculate the
 posterior distribution:
 \begin{eqnarray}
-p(\theta|D) \propto p(\theta)p(D|\theta)
+p(\boldsymbol{\theta}|\boldsymbol{D}) \propto p(\boldsymbol{\theta})p(\boldsymbol{D}|\boldsymbol{\theta})
+\end{eqnarray}
+This is the general form for parameters $\boldsymbol{\theta}$ and data
+$\boldsymbol{D}$. In our particular case, the
+The unknown parameters are $\beta_0$ and $\beta_1$, and the data are the
+$y$ values. The data also consist of a number $N$ of points, and the $x$-values,
+but we shall assume that these on their own provide no information about the
+slope and intercept (it would be a bit strange if they did). So the $x$-values
+and the number of points $N$ act like prior information that lurks ``in the
+background'' of this entire analysis.
+
+Therefore, Bayes' rule {\it for this problem} (i.e. with the actual names
+of our parameters and data, rather than generic names) reads:
+\begin{eqnarray}
+p(\beta_0, \beta_1 | y_1, y_2, ..., y_N) \propto
+p(\beta_0, \beta_1)p(y_1, y_2, ..., y_N | \beta_0, \beta_1)
 \end{eqnarray}
 
-Let's assume a uniform prior:
+Let's assume uniform priors for both $\beta_0$ and $\beta_1$, and that the
+prior for these two parameters are independent. The probability density for
+a uniform prior distribution can be written simply as:
 \begin{eqnarray}
 p(\beta_0, \beta_1) \propto 1.
 \end{eqnarray}
+Note that we have written proportional instead of equals. If we decided to
+place the limits at -1000 and 1000 (say) then the actual value of the density
+would be $10^{-6}$. But this is just a number and in the end, when we normalise
+the posterior distribution it won't matter. So we can just act as though the
+density is proportional to 1: that is, it is a constant density, the density
+is the same no matter where you go in the set of possible $\beta_0$ and $\beta_1$
+values.
+
 Now, on to the likelihood. There are $N$ data points and so there are $N$
 $y$-values in the dataset. We can call those $\{y_1, y_2, ..., y_N\}$. If we
 knew the true values of $\beta_0$ and $\beta_1$, then we would predict the
@@ -73,8 +113,9 @@ p(y_1, y_2, ..., y_N|\beta_0, \beta_1)\\
 &\propto& \prod_{i=1}^N \exp\left[-\frac{1}{2\sigma^2}\left(y_i - (\beta_0 + \beta_1 x_i)\right)^2\right]\\
 &\propto& \exp\left[-\frac{1}{2\sigma^2}\sum_{i=1}^N\left(y_i - (\beta_0 + \beta_1 x_i)\right)^2\right].
 \end{eqnarray}
-
-
+This is the posterior distribution! Note that it is hard to interpret, but it
+is in fact what we need, because for any possible values of $\beta_0$ and $\beta_1$
+we could evaluate this equation and work out the posterior probability density.
 
 
 
