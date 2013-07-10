@@ -1,4 +1,58 @@
 \chapter{JAGS}
-JAGS stands for Just Another Gibbs Sampler.
+JAGS stands for ``Just Another Gibbs Sampler''. It is a program that allows the user
+to implement Markov Chain Monte Carlo (MCMC) on fairly complicated problems
+very quickly. Gibbs Sampling is a particular MCMC technique that is beyond the
+scope of this course: however, it is not that different from the Metropolis-Hastings
+method that we do study in this course. If you are faced with a statistics
+problem that you would like to solve in a Bayesian way, JAGS makes it very
+straightforward to implement a Bayesian model. Essentially, we just need to tell
+JAGS the following things:
+\begin{itemize}
+\item The names of our parameters and the prior distributions
+\item The likelihood
+\end{itemize}
+Then we simply load in the data and let it go!
+
+In the early 1990s, WinBUGS was developed. Up until 2012, WinBUGS was the
+program of choice for STATS 331. However, there are a number of disadvantages to
+WinBUGS, so I decided to switch over to JAGS in 2013. The main advantages of
+JAGS over WinBUGS are: i) it is open source software and works on all
+operating systems, ii) it allows a more concise version of notation that can
+save a lot of space and increase the readability of the code, and iii) it can
+be called from R more easily than WinBUGS in my opinion. In addition to the
+final point, a lot of time in previous iterations of 331 was spent teaching
+different ways of using WinBUGS. In JAGS we only need to learn one way of using
+it, which frees up time for us to concentrate on the stats!
+
+\section{Basic JAGS Example}
+It is instructive to go back to our very first parameter estimation problem:
+the binomial likelihood with a uniform prior, our bus example. There we had a
+single unknown parameter $\theta$, with a uniform prior between 0 and 1. To make
+it even simpler, let's ignore the data, so that the posterior is just the prior!
+To implement a uniform prior in JAGS, the code looks like this:
+\begin{framed}
+\begin{verbatim}
+model
+{
+    # Uniform prior for theta between 0 and 1
+    theta ~ dunif(0, 1)
+}
+\end{verbatim}
+\end{framed}
+That's it! Note that comments can be written with a \# symbol, just like in R.
+This should be saved in a text file somewhere on your computer, preferably in
+the same directory as the R code that will actually launch JAGS. Note that
+the whole specification of the problem we are solving must be wrapped inside
+a {\tt model {   }} block. Eventually, the likelihood will go in there as well.
+
+Let's deconstruct our single line of JAGS code, {\tt theta \~{ } dunif(0, 1)}. The
+first thing is simply the name of our parameter. We are free to name it as we
+wish. The tilde sign implies statistician's notation is being used: we are
+about to specify a probability distribution that applies to {\tt theta}. Finally,
+the actual distribution is given: a uniform distribution between 0 and 1. Note
+that the uniform distribution is {\tt dunif} and not {\tt uniform}, like how
+there is a {\tt dunif} function in R. Therefore, all our line does is tell JAGS
+that there is a variable called {\tt theta} and it has a uniform prior.
+
 
 
