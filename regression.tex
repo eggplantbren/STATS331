@@ -88,6 +88,7 @@ the straight line, and the standard deviation of the noise.
 \end{eqnarray}
 
 In JAGS, the model looks like this:
+\begin{framed}
 \begin{verbatim}
 model
 {
@@ -104,6 +105,7 @@ model
     }
 }
 \end{verbatim}
+\end{framed}
 The first part defines the priors for the parameters. For $\beta_0$ and $\beta_1$,
 we have just chosen very broad priors that describe vague prior knowledge. Note
 that the standard deviations of the priors are 1000, so we should be careful
