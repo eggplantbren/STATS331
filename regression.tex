@@ -149,9 +149,20 @@ uniform prior and a normal likelihood, and finding the posterior mode.}
 \end{center}
 \end{framed}
 
-
 \section{Solution With JAGS}
-The assumption is that the data are a list of measurements:
+The above results made one major unrealistic assumption: that the standard
+deviation $\sigma$, or scatter, was known. In practice, it usually needs to be
+estimated from the data as well. Therefore, in the Bayesian framework, we should
+have it be an unknown parameter. Now we have three unknown parameters instead
+of two: these are the intercept of the straight line, the gradient of
+the straight line, and the standard deviation of the noise or scatter.
+\begin{eqnarray}
+\boldsymbol{\theta} = \{\beta_0, \beta_1, \sigma\}.
+\end{eqnarray}
+
+Once 
+
+The assumption is the same as before:
 \begin{eqnarray}
 D = \{y_1, y_2, ..., y_N\}.
 \end{eqnarray}
@@ -167,11 +178,7 @@ a perfectly straight line.
 
 This gives us the likelihood.
 
-The unknown parameters are the intercept of the straight line, the gradient of
-the straight line, and the standard deviation of the noise.
-\begin{eqnarray}
-\boldsymbol{\theta} = \{\beta_0, \beta_1, \sigma\}.
-\end{eqnarray}
+
 
 In JAGS, the model looks like this:
 \begin{framed}
