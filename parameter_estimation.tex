@@ -348,3 +348,66 @@ the ``given $\theta$'' part has been left out. However, we see that there is
 a $\theta$ is present on the right hand side, so the ``given $\theta$'' must
 be understood implicitly.
 
+\section{The Effect of Different Priors}
+We decided to do this problem with a uniform prior, because it is the obvious
+first choice to describe ``prior ignorance''. However, in principle, the prior
+could be different, and this will change the posterior distribution, and hence
+the conclusions. In this section we will look at the effect of different priors
+on the results.
+
+\subsection{Emphasising the Extremes}
+One possible criticism of the uniform prior is that there is not much probability
+given to extreme solutions. For example, the prior probability that $\theta$ is
+between 0 and 0.001 is only 0.001. But, depending on the situation, we might think
+that such extremely small values should be more plausible than that. One prior
+that emphasises the extreme values is:
+
+\begin{eqnarray}
+p(\theta) \propto \theta^{\frac{1}{2}}(1 - \theta)^{\frac{1}{2}}.
+\end{eqnarray}
+
+\subsection{Already Being Well Informed}
+Suppose that, before getting this data, you weren't ignorant at all, but already
+had a lot of information. Say that we already had a lot of information that
+suggested the value of $\theta$ was probably close to 0.5. This could be modelled
+by the following choice:
+
+\begin{eqnarray}
+p(\theta) \propto \theta^{100}(1 - \theta)^{100}.
+\end{eqnarray}
+
+\subsection{The Beta Distribution}
+The two priors given above are both examples of {\it beta} distributions. A beta
+distribution is a family of probability distributions (like the normal, Poisson,
+binomial, and so on) that applies to continuous random variables that are known
+to be between 0 and 1. The general form of a beta distribution is:
+\begin{eqnarray}
+p(x|\alpha, \beta) \propto x^{\alpha - 1}(1 - x)^{\beta - 1}. 
+\end{eqnarray}
+The quantities $\alpha$ and $\beta$ are two parameters that control the shape
+of the beta distribution. Since we know that the variable $x$ is between 0 and 1 with probability 1, the
+normalisation constant could be found by doing an integral. Then you could write
+the probability distribution with an equals sign instead of a proportional sign:
+\begin{eqnarray}
+p(x|\alpha, \beta) &=& \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}
+{\int_0^1 x^{\alpha - 1}(1 - x)^{\beta - 1} \, dx}\\
+&=& \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}
+{B(a, b)}.
+\end{eqnarray}
+where $B(a, b)$ (called the ``beta function'') is defined (usefully\ldots) as the
+result of doing that very integral (it can be related to factorials too, if you're interested).
+Thankfully, we can get away with the ``proportional'' version most of the time.
+
+In statisticians notation the beta distribution is written as:
+\begin{eqnarray}
+x|\alpha, \beta &\sim& \textnormal{Beta}(\alpha, \beta).
+\end{eqnarray}
+Again, the ``given $\alpha$ and $\beta$'' can be dropped: it is implicit because
+they appear on the right hand side.
+
+
+
+\subsection{A Lot of Data}
+
+
+
