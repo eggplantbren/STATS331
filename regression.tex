@@ -1,9 +1,12 @@
 \chapter{Regression}
-Linear regression is a very important topic in statistics. It is also a nice
+Regression is a very important topic in statistics that is applied extremely
+frequently. There are many different kinds of regression, but in 331 we will
+mostly focus on linear regression. This gives us a nice familiar example
 example to demonstrate how Bayesian statistics works and how it is different
-from classical or frequentist statistics. Here we will study an example of a simple linear
-regression problem, taken from STATS 201.
+from classical or frequentist statistics. Here we will study an example of a
+simple linear regression problem taken from STATS 201.
 
+\section{A Simple Linear Regression Problem}
 Data were collected from random sample of 30 drivers. The age of the driver and the 
 maximum distance at which they could read a newly designed road sign were 
 recorded. It is of interest to build a simple model that can be used to predict the 
@@ -17,8 +20,20 @@ the person. There are $N=30$ data points. You can clearly see that older people
 have, on average, worse eyesight. But let's do a Bayesian analysis!\label{fig:road}}
 \end{center}
 \end{figure}
+The purpose of simple linear regression is to find a straight line that goes
+throught the data points. The slope and intercept of the straight line are then
+helpful for understanding what is going on. Also, the straight line can be used
+to predict future data, such as the maximum distance for reading the sign for a
+person who is 100 years old. The most common method for obtaining the straight
+line is to find the line (i.e. the slope and intercept values) that fits best
+by the criterion of ``least squares''.
 
-\section{Simple Linear Regression}
+\section{Interpretation as a Bayesian Question}
+From what you now know about Bayesian statistics, you might be able to come up
+with some thoughts for what is unsatisfactory about the standard least squares
+solution to linear regression. One glaring issue is that the data are {\it never
+good enough} to tell us with certainty that a particular slope and intercept
+are correct. In principle, we will always have uncertainty about the 
 
 
 \section{Analytical Solution With Known Variance}
@@ -93,9 +108,9 @@ In JAGS, the model looks like this:
 model
 {
     # Prior for all the parameters
-    beta0 ~ dnorm(0., pow(1E3, -2))
-    beta1 ~ dnorm(0., pow(1E3, -2))
-    log_sigma ~ dunif(-10., 10.)
+    beta0 ~ dnorm(0, pow(1E3, -2))
+    beta1 ~ dnorm(0, pow(1E3, -2))
+    log_sigma ~ dunif(-10, 10)
     sigma <- exp(log_sigma)
 
     # Likelihood
@@ -118,9 +133,20 @@ a log-uniform prior. The limits of $-10$ and $10$ for {\tt log\_sigma} imply
 limits of $4.5 \times 10^{-5}$ to 22,000 for {\tt sigma}, a generous range.
 Again, if we thought the scatter
 was going to be outside this range, we should change the prior to something
-else.
+else or risk getting strange answers.
 
 
 
 \chapter{Simple Linear Regression With Outliers}
+One complication that is common in linear regression (or other model-fitting)
+problems is the existence of outliers. These are points that do not fit in with
+the general trend. If these are left in the analysis, the results can easily
+be incorrect. Many methods exist for deciding how to ``detect'' and ``remove''
+outliers. In lectures and labs we will study and extension to the simple linear
+regression model that allows for outliers. Rather than simply ``rejecting'' some
+points as outliers, we can leave them in, but there will be a posterior probability
+that each point is an outlier! That way, all points can contribute to the results.
+Information is not wasted.
+
+
 
