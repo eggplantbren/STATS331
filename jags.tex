@@ -54,5 +54,38 @@ that the uniform distribution is {\tt dunif} and not {\tt uniform}, like how
 there is a {\tt dunif} function in R. Therefore, all our line does is tell JAGS
 that there is a variable called {\tt theta} and it has a uniform prior.
 
+R code for running the MCMC is given below. Note that the {\tt make\_list()}
+function is written by me and provided on Cecil.
 
+\begin{framed}
+\begin{verbatim}
+# Load the rjags library
+library('rjags')
+
+# Load my make_list function
+source('make_list.r')
+
+# Create a JAGS model object
+m = jags.model(file='model.txt', data=data)
+
+# Do 10,000 steps for burn-in
+update(m, 10000)
+
+# Do 100,000 MCMC steps and save every 10th theta value
+draw = jags.samples(m, 100000, thin=10, variable.names = c('theta'))
+
+# Convert to a list
+results = make_list(draw)
+\end{verbatim}
+\end{framed}
+
+When this code is executed, the object {\tt results} is a list containing a
+vector for each variable that was ``monitored'' by listing its name in
+{\tt variable.names}. To plot a trace plot of the MCMC run, we can simply do
+the following:
+\begin{framed}
+\begin{verbatim}
+plot(results$theta, type='l')
+\end{verbatim}
+\end{framed}
 
