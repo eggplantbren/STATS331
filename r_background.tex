@@ -1,10 +1,60 @@
 \chapter{R Background}
+This chapter describes the R programming techniques that we will need in order
+to do Bayesian statistics both within R and also by using JAGS.
 
-This chapter describes the R programming techniques that we will need.
-
-\section{Functions}
+\section{Vectors}
+We will use vectors frequently throughout the course. A vector can be thought
+of as a list of numbers. In R, you can create a vector using the function
+{\tt c}, which stands for ``concatenate''.
+\begin{verbatim}
+my_vector = c(12.4, -6.2, 4.04)
+\end{verbatim}
+You can then examine the contents of the vector by typing its name.
+\begin{verbatim}
+> my_vector
+[1] 12.40 -6.20  4.04
+\end{verbatim}
+There are various helpful things you can do with vectors. You can get the length
+of a vector (the number of elements in it) like so:
+\begin{verbatim}
+> length(my_vector)
+[1] 3
+\end{verbatim}
+You can do arithmetic
+with vectors too, if they're the same length. For example:
+\begin{verbatim}
+> c(1,2,3)*c(2,5,3)
+[1]  2 10
+\end{verbatim}
+If you wanted, you could assign the output to a new variable.
 
 \section{Lists}
+Lists are a bit like vectors, in that they can contain a lot of information in
+a single variable. But instead of just being numbers, lists can contain all
+sorts of things. For example, suppose I want a variable/object in an R program
+to represent a person. A person can have a name and an age. Here is how to make
+a list:
+\begin{verbatim}
+a_person = list(name="Nicole", age=21)
+\end{verbatim}
+If you needed to extract certain elements from a list, you can do it using the
+\$ operator in R. For example suppose I wanted to extract the {\tt name} variable
+from within {\tt a\_person}. I could do this:
+\begin{verbatim}
+> a_person$name
+[1] "Nicole"
+\end{verbatim}
+and voila. When we use JAGS, a data set will be represented using a list.
+So will our JAGS output.
+
+If you have ever learned C, C++, or Matlab, a list in R is basically the same thing as
+a ``struct'' in C/C++. If you have learned C++, Java, or Python, a list is
+like a ``class'' but with just variables and no functions. In Python ``dictionaries''
+are also a similar concept.
+
+\section{Functions}
+Functions
+
 
 \section{For Loops}
 
