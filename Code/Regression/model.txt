@@ -1,0 +1,15 @@
+model
+{
+    # Prior for all the parameters
+    beta0 ~ dnorm(0, pow(1E3, -2))
+    beta1 ~ dnorm(0, pow(1E3, -2))
+    log_sigma ~ dunif(-10, 10)
+    sigma <- exp(log_sigma)
+
+    # Likelihood
+    for(i in 1:N)
+    {
+        y[i] ~ dnorm(beta0 + beta1*x[i], pow(sigma, -2))
+    }
+}
+

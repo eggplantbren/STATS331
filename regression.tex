@@ -159,27 +159,28 @@ the straight line, and the standard deviation of the noise or scatter.
 \begin{eqnarray}
 \boldsymbol{\theta} = \{\beta_0, \beta_1, \sigma\}.
 \end{eqnarray}
+One major advantage of MCMC is that we can increase the number of unknown parameters
+without having to worry about the fact that the posterior distribution might
+be hard to interpret or plot.
 
-Once 
-
-The assumption is the same as before:
+The data is the same as before:
 \begin{eqnarray}
-D = \{y_1, y_2, ..., y_N\}.
+\boldsymbol{D} = \{y_1, y_2, ..., y_N\}
 \end{eqnarray}
-Since we are talking about linear regression, we are going to assume that the
-relationship between the $x$ and the $y$ variables is described by some
-straight line, but there is noise around the straight line:
-The linear regression model says:
+and so is the likelihood:
 \begin{eqnarray}
-y_i &=& \beta_0 + \beta_1 x_i + \epsilon_i
+y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i, \sigma^2).
 \end{eqnarray}
-If the $\epsilon_i$ values were all zero, then the points would all lie on
-a perfectly straight line.
 
-This gives us the likelihood.
+Our three parameters will need priors. JAGS requires proper priors (i.e. we
+can't have a uniform prior over an infinite range), so we will have to be a
+little careful about that. Instead of using uniform distributions this time,
+we will use normal distributions with a mean of 0 and a large standard deviation
+of 1000.
 
-
-
+For the standard deviation parameter $\sigma$, we know firstly that this cannot
+be negative. Let's use a log-uniform prior with generous lower and upper limits,
+so we express uncertainty about the order of magnitude of $\sigma$.
 In JAGS, the model looks like this:
 \begin{framed}
 \begin{verbatim}
@@ -212,8 +213,6 @@ limits of $4.5 \times 10^{-5}$ to 22,000 for {\tt sigma}, a generous range.
 Again, if we thought the scatter
 was going to be outside this range, we should change the prior to something
 else or risk getting strange answers.
-
-
 
 \chapter{Simple Linear Regression With Outliers}
 One complication that is common in linear regression (or other model-fitting)
