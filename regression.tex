@@ -214,7 +214,27 @@ Again, if we thought the scatter
 was going to be outside this range, we should change the prior to something
 else or risk getting strange answers.
 
-\chapter{Simple Linear Regression With Outliers}
+So we have the code - now all we have to do is run it!
+
+\section{Results for ``Road'' Data}
+Our JAGS output will contain samples from the posterior distribution for
+$\beta_0$, $\beta_1$ and $\sigma$. The first thing we should to is make
+trace plots and check that everything converged properly:
+\begin{framed}
+\begin{verbatim}
+plot(results$beta0, type='l', xlab='Iteration', ylab='beta0')
+plot(results$beta1, type='l', xlab='Iteration', ylab='beta1')
+plot(results$sigma, type='l', xlab='Iteration', ylab='sigma')
+\end{verbatim}
+\end{framed}
+Everything checks out (it's quite rare to see such perfect trace plots!), so
+we can use the samples to make any posterior summaries we might want.
+
+\section{Predicting New Data}
+
+
+
+\section{Simple Linear Regression With Outliers}
 One complication that is common in linear regression (or other model-fitting)
 problems is the existence of outliers. These are points that do not fit in with
 the general trend. If these are left in the analysis, the results can easily
@@ -225,5 +245,5 @@ points as outliers, we can leave them in, but there will be a posterior probabil
 that each point is an outlier! That way, all points can contribute to the results.
 Information is not wasted.
 
-
+\section{Logistic Regression}
 
