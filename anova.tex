@@ -24,11 +24,26 @@ y_A = \{ \}
 Classically, this could be solved by using a $t$-test.
 
 The underlying assumption of a $t$-test is that the data are normally
-distributed around the mean values for each group.
+distributed around the mean values for each group. If we call the group 1
+data points $\{y^1_1, y^1_2, ..., y^1_{N_1}\}$ and the group 2 data points
+$\{y^2_1, y^2_2, ..., y^2_{N_1}\}$, then the likelihood is:
+\begin{eqnarray}
+y^1_i &\sim& \mathcal{N}\left(\mu_1, \sigma^2\right)\\
+y^2_i &\sim& \mathcal{N}\left(\mu_2, \sigma^2\right)\\
+\end{eqnarray}
+Where all the data points are independent given the parameters. Note the assumption that
+the two groups have the same standard deviation $\sigma$. This is a popular
+assumption in this kind of analysis but it is not necessarily well justified!
+We will build our Bayesian models using this assumption, but it is not that
+difficult to relax it if you want to (just include multiple $\sigma$ parameters
+in similar ways to how we will include the multiple $\mu$ parameters).
 
-We will study three variations on the t-test. They all have the same likelihood,
-but different priors. We will be able to see that the choice of prior does
-influence the results (as it should), but in ways that make sense. Which of these
+We will study three variations on the t-test. They all have the same likelihood
+as given above,
+but will different priors for the unknown parameters $\mu_1$, $\mu_2$, and
+$\sigma$.
+We will be able to see that the choice of prior does
+influence the results (of course), but in ways that make sense. Which of these
 models is more appropriate in a practical situation would depend on the exact
 situation: there is no ``one size fits all'' model.
 
