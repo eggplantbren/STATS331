@@ -9,7 +9,9 @@ model
 	mu1 ~ dunif(-1000, 1000)
 
 	# Prior on second mean
-	mu2 ~ dunif(-1000, 1000)
+	difference ~ dt(0., pow(5., -2), 1.)
+	flag ~ dunif(0., 1.)
+	mu2 <- mu1 + step(flag - 0.5)*difference
 
 	# Sampling distribution/likelihood
 	for(i in 1:N1)

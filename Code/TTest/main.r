@@ -24,6 +24,5 @@ results = make_list(draw)
 hist(results$sigma, breaks=100, xlab='Sigma', ylab='Number')
 
 # Probability of H0
-print(mean(abs(results$mu1 - results$mu2) < 1E-6))
 plot(results$mu1, results$mu2, cex=0.1)
 
