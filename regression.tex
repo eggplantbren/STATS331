@@ -219,14 +219,30 @@ So we have the code - now all we have to do is run it!
 \section{Results for ``Road'' Data}
 Our JAGS output will contain samples from the posterior distribution for
 $\beta_0$, $\beta_1$ and $\sigma$. The first thing we should to is make
-trace plots and check that everything converged properly:
+trace plots and check that everything converged properly. Then we can make
+histograms of each parameter to visually inspect the (marginal) posterior
+distribution for each parameter.
 \begin{framed}
 \begin{verbatim}
+# Plot trace plots
 plot(results$beta0, type='l', xlab='Iteration', ylab='beta0')
 plot(results$beta1, type='l', xlab='Iteration', ylab='beta1')
 plot(results$sigma, type='l', xlab='Iteration', ylab='sigma')
+
+# Plot histograms
+hist(results$beta0, breaks=20, xlab='beta0')
+hist(results$beta1, breaks=20, xlab='beta1')
+hist(results$sigma, breaks=20, xlab='sigma')
 \end{verbatim}
 \end{framed}
+All of the plots for the road data are shown below, in Figure~\ref{fig:road_results}.
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.5]{Figures/road_trace.pdf}
+\includegraphics[scale=0.5]{Figures/road_hist.pdf}
+\end{center}
+\end{figure}
+
 Everything checks out (it's quite rare to see such perfect trace plots!), so
 we can use the samples to make any posterior summaries we might want.
 
