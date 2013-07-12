@@ -4,10 +4,12 @@ simpler idea of a t-test. In this chapter we will look at the same questions
 but will answer them using a Bayesian model instead of a classical statistical
 test.
 
+\section{A T-Test}
 We will look at a simple example first, and then a more complex one.
 The first example is based on one given in a 1976 article by physicist E. T. Jaynes,
-called ``Confidence Intervals vs. Bayesian Intervals''. This is a fun read for
-those who are interested in the battle between classical and Bayesian statistics
+called ``Confidence Intervals vs. Bayesian Intervals''. This is a very strongly
+worded paper and might be an interesting read for
+those who are interested in the battle between frequentist and Bayesian statistics
 when the latter was making its comeback in the second half of the 20th century.
 It's also where I got the crazy confidence interval example from.
 
@@ -19,8 +21,35 @@ lifetimes are given below:
 \begin{eqnarray}
 y_A = \{ \}
 \end{eqnarray}
-
 Classically, this could be solved by using a $t$-test.
 
 The underlying assumption of a $t$-test is that the data are normally
 distributed around the mean values for each group.
+
+We will study three variations on the t-test. They all have the same likelihood,
+but different priors. We will be able to see that the choice of prior does
+influence the results (as it should), but in ways that make sense. Which of these
+models is more appropriate in a practical situation would depend on the exact
+situation: there is no ``one size fits all'' model.
+
+\subsection{Naive Model}
+
+\subsection{Model that allows exact equality}
+
+\subsection{Hierarchical Model}
+
+
+\section{One Way Anova}
+One-way ANOVA can be considered as a generalisation of a t-test to more than
+two groups. The question is usually phrased as a test of the hypothesis that
+the group means are the same, versus the alternative that there is some difference.
+As we saw in the Bayesian ``t-test'', it is possible (using clever tricks) to
+make a model that has some prior probability that the group means are equal.
+However, this gets more tricky with multiple groups. Therefore we will build our
+one-way ANOVA model in a similar way to the ``hierarchical model'' version of the
+t-test model.
+
+*real example*
+
+
+
