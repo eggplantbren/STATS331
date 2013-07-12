@@ -45,3 +45,22 @@ plt.hist(chains[:,2], 20, alpha=0.5)
 plt.xlabel('sigma')
 plt.savefig('road_hist.pdf', bbox_inches='tight')
 plt.show()
+
+plt.plot(chains[:,0], chains[:,1], 'b.', markersize=3)
+plt.xlabel('beta0')
+plt.ylabel('beta1')
+plt.title('Joint Posterior')
+plt.savefig('road_joint.pdf')
+plt.show()
+
+plt.plot(data[:,0], data[:,1], 'bo', markersize=5)
+plt.xlabel('Age (years)')
+plt.ylabel('Distance (metres)')
+xx = np.linspace(0., 100., 2)
+for i in xrange(0, 100):
+	plt.plot(xx, chains[i, 0] + chains[i, 1]*xx, 'r', alpha=0.2)
+plt.title('100 Posterior Samples')
+plt.axis([0., 100., 0., 800.])
+plt.savefig('road_lines.pdf', bbox_inches='tight')
+plt.show()
+

@@ -233,15 +233,38 @@ plot(results$sigma, type='l', xlab='Iteration', ylab='sigma')
 hist(results$beta0, breaks=20, xlab='beta0')
 hist(results$beta1, breaks=20, xlab='beta1')
 hist(results$sigma, breaks=20, xlab='sigma')
+
+# Plot joint posterior distribution of beta0 and beta1
+plot(results$beta0, results$beta1, cex=0.1, xlab='beta0', ylab='beta1')
 \end{verbatim}
 \end{framed}
 All of the plots for the road data are shown below, in Figure~\ref{fig:road_results}.
-\begin{figure}
+\begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/road_trace.pdf}
+\end{center}
+\end{figure}
+
+\begin{figure}[ht!]
+\begin{center}
 \includegraphics[scale=0.5]{Figures/road_hist.pdf}
 \end{center}
 \end{figure}
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.5]{Figures/road_joint.pdf}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.5]{Figures/road_lines.pdf}
+\end{center}
+\end{figure}
+
+
 
 Everything checks out (it's quite rare to see such perfect trace plots!), so
 we can use the samples to make any posterior summaries we might want.
