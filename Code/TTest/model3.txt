@@ -1,0 +1,27 @@
+model
+{
+	# Log-uniform prior for the s.d.
+	log_sigma ~ dunif(-5, 5)
+	sigma <- exp(log_sigma)
+
+	# Hierarchical prior for the means
+	# Hyperparameters
+	grand_mean ~ dunif(-1000, 1000)
+	log_diversity ~ dunif(-5., 5.)
+	diversity <- exp(log_diversity)
+
+	# Parameters
+	mu1 ~ dnorm(grand_mean, pow(diversity, -2))
+	mu2 ~ dnorm(grand_mean, pow(diversity, -2))
+
+	# Sampling distribution/likelihood
+	for(i in 1:N1)
+	{
+		y1[i] ~ dnorm(mu1, pow(sigma, -2))
+	}
+	for(i in 1:N2)
+	{
+		y2[i] ~ dnorm(mu2, pow(sigma, -2))
+	}
+}
+
