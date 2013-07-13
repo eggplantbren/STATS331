@@ -82,6 +82,27 @@ to compute summaries even if you have more than one unknown parameter.}
 
 
 \section{The Metropolis Algorithm}
+The Metropolis algorithm is a fairly simple idea and is the basis of a large
+number of MCMC methods. In STATS 331 we will study the basic ideas of what
+makes the Metropolis algorithm work. We will look at a small amount of R code
+that implements the Metropolis algorithm, but for solving practical problems
+it is more convenient to use the JAGS program.
+
+The Metropolis algorithm was invented in the 1940s by physicists. It took
+many decades before people started to realise that it was useful in Bayesian
+statistics as well.
+
+\begin{framed}
+\begin{center}
+{\bf
+The basic idea of MCMC is that we want a method that will travel between
+different possible states (such as the possible hypotheses/parameter values in
+a Bayesian analysis), and has the property that the amount of time spent in
+any particular state is proportional to the posterior probability of that state.}
+\end{center}
+\end{framed}
+
+
 
 \section{Tactile MCMC}
 
