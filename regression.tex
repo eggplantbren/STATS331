@@ -270,6 +270,19 @@ Everything checks out (it's quite rare to see such perfect trace plots!), so
 we can use the samples to make any posterior summaries we might want.
 
 \section{Predicting New Data}
+One of the most important uses of regression models is for prediction.
+
+We can do the prediction in R by taking the posterior samples for the parameters,
+computing the prediction based on each posterior sample, and then combining
+the results from each sample. Alternatively, an extra line can be added to the
+JAGS model. Since this extra variable is not observed (it's not data: we didn't
+give it a fixed value) it will just get sampled from its distribution as the
+MCMC goes along. These two approaches will give equivalent results. Which one
+is more convenient depends mostly on how long the MCMC takes. If it takes a long
+time, you may not want to run it again, in which case basing the prediction on
+existing samples is probably the best idea. If it's no problem to re-run the
+MCMC, it is less programming work to add the extra variable in JAGS (don't forget
+to monitor it!).
 
 
 
@@ -285,4 +298,7 @@ that each point is an outlier! That way, all points can contribute to the result
 Information is not wasted.
 
 \section{Logistic Regression}
-
+We will not study a classic example of logistic regression, but the special
+lecture on predicting sports matches will be very closely related to logistic
+regression! The main difference here is that the output variables are binary
+(zeroes and ones) instead of continuous.
