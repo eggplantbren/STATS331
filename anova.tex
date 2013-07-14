@@ -121,7 +121,9 @@ The results of the three different models are shown below:
 
 \subsection{Hierarchical Model}
 The main advantage of this model is that it generalises to more than two groups
-in a very straightforward way.
+in a very straightforward way. The difference is the prior. Whereas the first
+model had independent priors for the means of the groups, this version is our
+first example of a {\it hierarchical model}.
 \begin{framed}
 \begin{verbatim}
 model
@@ -164,7 +166,9 @@ As we saw in the Bayesian ``t-test'', it is possible (using clever tricks) to
 make a model that has some prior probability that the group means are equal.
 However, this gets more tricky with multiple groups. Therefore we will build our
 one-way ANOVA model in a similar way to the ``hierarchical model'' version of the
-t-test model.
+t-test model. There will be one other major difference, but it is a difference
+in the way the model is coded, not a conceptual difference. In the t-test
+section we used different 
 
 The masses of starlings were measured at four locations.
 
