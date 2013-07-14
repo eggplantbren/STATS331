@@ -1,6 +1,8 @@
 # Load the rjags library
 library('rjags')
 
+set.seed(1234)
+
 # Load my make_list function
 source('../make_list.r')
 
