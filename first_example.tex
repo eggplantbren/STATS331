@@ -391,15 +391,62 @@ Bayes' rule for a single hypothesis $H$ given data $D$:
 \begin{eqnarray}
 P(H|D) = \frac{P(H)P(D|H)}{P(D)}
 \end{eqnarray}
+This gives the posterior probability $P(H|D)$ in terms of the prior probability
+$P(H)$, the likelihood $P(D|H)$ and the ``marginal likelihood'' $P(D)$ in the
+denominator. To obtain $P(H)$, think about your prior beliefs (which may
+indicate a large amount of uncertainty, or may be already well informed based
+on previous data sets). To obtain $P(D|H)$, think about what the experiment is
+doing: If $H$ is true, what data would you expect to see and with what
+probabilities?
 
-Bayes' rule for a set of hypotheses (mutually exclusive, exhaustive)
-$H_1, H_2, ..., H_N$, given data $D$:
+The denominator is the probability of obtaining the data $D$ but without
+assuming that $H$ is either true or false. This is obtained using the sum rule.
+There are two ways that the data $D$ could occur: either via the route of $H$
+being true (this has probability $P(H)P(D|H)$) or via the route of $H$ being
+false (this has probability $P(\bar{H})P(D|\bar{H})$). These two ways are
+mutually exclusive, so we can add their probabilities:
 \begin{eqnarray}
-P(H_i|D) &=& \frac{P(H_i)P(D|H_i)}{P(D)} \\
-&=& \frac{P(H_i)P(D|H_i)}{\sum_{j=1}^N P(H_j)P(D|H_j)}
+P(D) = P(H)P(D|H) + P(\bar{H})P(D|\bar{H}).
 \end{eqnarray}
-Following the steps for making a Bayes' Box is equivalent to using this form
-of Bayes' rule. The $P(H_i)$ values are the prior probability column, the
+
+The Bayes' rule from above can be applied to a whole set
+of hypotheses (that are mutually exclusive and exhaustive). If we applied the
+above equation to $N$ hypotheses
+$H_1, H_2, ..., H_N$, given data $D$, we would get the following for the posterior
+probability of each hypothesis $H_i$ (for $i=1, 2, ..., N$):
+\begin{eqnarray}
+P(H_i|D) &=& \frac{P(H_i)P(D|H_i)}{P(D)}
+\end{eqnarray}
+The denominator $P(D)$ can again be obtained using the sum rule. There are $N$
+mutually exclusive ways that the data $D$ could have occurred: via $H_1$ being
+true, or via $H_2$ being true, etc. Adding the probabilities of these gives:
+\begin{eqnarray}
+P(D) &=& \sum_{i=1}^N P(H_i)P(D|H_i).
+\end{eqnarray}
+If you find all the mathematics a bit much right now, just remember that
+Following the steps for making a Bayes' Box is equivalent to applying
+Bayes' rule in this form!. The $P(H_i)$ values are the prior probability column, the
 $P(D|H_i)$ values are the likelihood column, and the denominator is the
-sum of the prior times likelihood column.
+sum of the prior times likelihood column. The probabilities that go in a Bayes'
+Box (in general) are given in Table~\ref{tab:general_bayes_box}.
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+{\bf Hypotheses} & {\tt prior} & {\tt likelihood} &
+{\tt prior $\times$ likelihood} & {\tt posterior}\\
+\hline
+$H_1$ & $P(H_1)$ & $P(D|H_1)$ & $P(H_1)\times P(D|H_1)$ & $P(H_1|D)$\\
+$H_2$ & $P(H_2)$ & $P(D|H_2)$ & $P(H_2)\times P(D|H_2)$ & $P(H_2|D)$\\
+\ldots & \ldots & \ldots & \ldots & \ldots\\
+\hline
+Totals: & 1 & & $P(D)$ & 1\\
+\hline
+\end{tabular}
+\caption{A general Bayes' Box. Using Bayes' rule or making a Bayes' Box are
+actually the same thing, and this table can be used to identify the
+terms.\label{tab:general_bayes_box}}
+\end{center}
+\end{table}
 
