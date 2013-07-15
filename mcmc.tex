@@ -88,8 +88,16 @@ makes the Metropolis algorithm work. We will look at a small amount of R code
 that implements the Metropolis algorithm, but for solving practical problems
 it is more convenient to use the JAGS program.
 
-The Metropolis algorithm was invented in the 1940s by physicists. It took
-many decades before people started to realise that it was useful in Bayesian
+The Metropolis algorithm was invented in the 1940s by physicists, who used it
+to do calculations in the field of statistical mechanics. This intriguing field
+focuses on calculating the macroscopic (large scale) properties of matter from
+knowledge of the small-scale properties: for example, knowing that water is
+H$_2$O, you could use statistical mechanics to figure out that if you have a lot
+of water molecules, it will freeze at 0 degrees Celsius and boil at 100 degrees
+Celsius.
+
+It took
+many decades before people started to realise that the Metropolis algorithm was useful in Bayesian
 statistics as well. Even though the Bayesian approached seemed very elegant and
 useful to many people, it could always be criticised on the basis that, in order
 to implement it on practical problems, you usually had to do difficult or
