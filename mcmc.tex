@@ -90,16 +90,18 @@ it is more convenient to use the JAGS program.
 
 The Metropolis algorithm was invented in the 1940s by physicists. It took
 many decades before people started to realise that it was useful in Bayesian
-statistics as well.
+statistics as well. Even though the Bayesian approached seemed very elegant and
+useful to many people, it could always be criticised on the basis that, in order
+to implement it on practical problems, you usually had to do difficult or
+impossible integrals. MCMC changed all that, and is one of the reasons for the
+explosion in the popularity of Bayesian statistics beginning in the 1990s.
 
 \begin{framed}
-\begin{center}
 {\bf
 The basic idea of MCMC is that we want a method that will travel between
 different possible states (such as the possible hypotheses/parameter values in
 a Bayesian analysis), and has the property that the amount of time spent in
 any particular state is proportional to the posterior probability of that state.}
-\end{center}
 \end{framed}
 
 
