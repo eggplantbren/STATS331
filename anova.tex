@@ -13,33 +13,40 @@ those who are interested in the battle between frequentist and Bayesian statisti
 when the latter was making its comeback in the second half of the 20th century.
 It's also where I got the crazy confidence interval example from.
 
-Two manufacturers, $A$ and $B$, both make ``widgets'', and we are interested
+Two manufacturers, $1$ and $2$, both make ``widgets'', and we are interested
 in figuring out which manufacturer makes the best widgets (on average), as
 measured by their lifetime. To determine this, we obtain 9 widgets from
-manufacturer $A$ and 4 widgets from manufacturer $B$. The results for the
+manufacturer $1$ and 4 widgets from manufacturer $2$. The results for the
 lifetimes are given below:
 \begin{eqnarray}
-y_A = \{ \}
+y^1 &=& \{41.26, 35.81, 36.01, 43.59, 37.50, 52.70, 42.43, 32.52, 56.20\}\\
+y^2 &=& \{54.97, 47.07, 57.12, 40.84\}
 \end{eqnarray}
-Classically, this could be solved by using a $t$-test.
+These measurements can be summarised by the means and standard deviations, these
+are $42 \pm 7.48$ for group $1$ and $50 \pm 6.48$ for group $2$.
+The question is: given this data, is there evidence that one of the manufacturers
+is better, and if so, by how much? Classically, this could be solved by using a
+$t$-test, but before we do anything I'd like you to consider the numbers and
+use your intuition: what do {\it you} think about what the evidence says?
 
-The underlying assumption of a $t$-test is that the data are normally
-distributed around the mean values for each group. If we call the group 1
+The underlying assumption of a classical $t$-test is that the data are normally
+distributed around the mean values for each group. We may as well adopt this
+assumption for our Bayesian model. If we call the group 1
 data points $\{y^1_1, y^1_2, ..., y^1_{N_1}\}$ and the group 2 data points
 $\{y^2_1, y^2_2, ..., y^2_{N_1}\}$, then the likelihood is:
 \begin{eqnarray}
-y^1_i &\sim& \mathcal{N}\left(\mu_1, \sigma^2\right)\\
-y^2_i &\sim& \mathcal{N}\left(\mu_2, \sigma^2\right)\\
+y^1_i &\sim& \mathcal{N}\left(\mu_1, \sigma^2\right)\nonumber\\
+y^2_i &\sim& \mathcal{N}\left(\mu_2, \sigma^2\right)\label{eq:ttest_likelihood}
 \end{eqnarray}
 Where all the data points are independent given the parameters. Note the assumption that
-the two groups have the same standard deviation $\sigma$. This is a popular
+the two groups have the same underlying (``population'') standard deviation $\sigma$. This is a popular
 assumption in this kind of analysis but it is not necessarily well justified!
 We will build our Bayesian models using this assumption, but it is not that
 difficult to relax it if you want to (just include multiple $\sigma$ parameters
 in similar ways to how we will include the multiple $\mu$ parameters).
 
 We will study three variations on the t-test. They all have the same likelihood
-as given above,
+as given above in Equation~\ref{eq:ttest_likelihood},
 but will different priors for the unknown parameters $\mu_1$, $\mu_2$, and
 $\sigma$.
 We will be able to see that the choice of prior does
