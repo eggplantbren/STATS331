@@ -363,7 +363,7 @@ that such extremely small values should be more plausible than that. One prior
 that emphasises the extreme values is:
 
 \begin{eqnarray}
-p(\theta) \propto \theta^{\frac{1}{2}}(1 - \theta)^{\frac{1}{2}}.
+p(\theta) \propto \theta^{-\frac{1}{2}}(1 - \theta)^{-\frac{1}{2}}.
 \end{eqnarray}
 
 \subsection{Already Being Well Informed}
@@ -375,6 +375,13 @@ by the following choice:
 \begin{eqnarray}
 p(\theta) \propto \theta^{100}(1 - \theta)^{100}.
 \end{eqnarray}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.6]{Figures/three_priors.pdf}
+\caption{\label{fig:three_priors}}
+\end{center}
+\end{figure}
 
 \subsection{The Beta Distribution}
 The two priors given above are both examples of {\it beta} distributions. A beta
@@ -409,6 +416,15 @@ they appear on the right hand side.
 
 \subsection{A Lot of Data}
 
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.6]{Figures/lots_of_data.pdf}
+\caption{\label{fig:lots_of_data}}
+\end{center}
+\end{figure}
+
+Note that this occurs because the three people agree about the likelihood.
 
 \section{Bigger Data Sets}
 
