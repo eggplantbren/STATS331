@@ -16,7 +16,7 @@ m = jags.model(file='model.txt', data=data)
 update(m, 10000)
 
 # Do the MCMC for real
-draw = jags.samples(m, 5000, thin=10, variable.names = c('beta0', 'beta1', 'sigma'))
+draw = jags.samples(m, 5000, thin=10, variable.names = c('beta0', 'beta1', 'sigma', 'y_new'))
 
 # Convert to a list
 results = make_list(draw)
@@ -27,4 +27,4 @@ chains[,1] = draw$beta0
 chains[,2] = draw$beta1
 chains[,3] = draw$sigma
 write.table(chains, 'chains.txt', row.names=FALSE, col.names=FALSE)
-
+write.table(results$y_new, 'prediction.txt', row.names=FALSE, col.names=FALSE)

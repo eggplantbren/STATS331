@@ -11,5 +11,7 @@ model
     {
         y[i] ~ dnorm(beta0 + beta1*x[i], pow(sigma, -2))
     }
+
+	y_new ~ dnorm(beta0 + beta1*90, pow(sigma, -2))
 }
 

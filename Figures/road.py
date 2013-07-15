@@ -64,3 +64,11 @@ plt.axis([0., 100., 0., 800.])
 plt.savefig('road_lines.pdf', bbox_inches='tight')
 plt.show()
 
+prediction = np.loadtxt('../Code/Regression/prediction.txt')
+plt.hist(prediction, 20, alpha=0.5)
+plt.xlabel('y\\_new')
+plt.ylabel('Number')
+plt.title('Mean = {mean:.2f}, SD = {sd:.2f}'.format(mean=prediction.mean(), sd=prediction.std()))
+plt.savefig('road_prediction.pdf', bbox_inches='tight')
+plt.show()
+

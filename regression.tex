@@ -264,8 +264,6 @@ All of the plots for the road data are shown below, in Figure~\ref{fig:road_resu
 \end{center}
 \end{figure}
 
-
-
 Everything checks out (it's quite rare to see such perfect trace plots!), so
 we can use the samples to make any posterior summaries we might want.
 
@@ -284,7 +282,43 @@ existing samples is probably the best idea. If it's no problem to re-run the
 MCMC, it is less programming work to add the extra variable in JAGS (don't forget
 to monitor it!).
 
+Let's predict the maximum sign-reading distance for a 90-year old. Classically,
+you could take the best-fit line and extrapolate it to $x=90$ to obtain an
+estimate. That works here too, but we need to consider some changes to this
+procedure. Firstly, note that the estimate based on simply extrapolating a
+single line is just a number. We are being Bayesian, so we do not want a single
+number ``guess'' as our answer: we want a probability distribution! Notice that
+{\it if} we knew the true values of the parameters, we could simply put a normal
+distribution around what the true straight line predicts at $x=90$. But we
+{\it don't know} the true values, we only have the posterior distribution. What
+probability theory tells us to do is to in this situation is to make a {\it
+mixture}: that is, take the normal distribution you'd get for each possible
+value of the parameters, and add them all up, weighted by their posterior
+probability. This gives a distribution that is wider than what you'd get by
+using a single guess for the parameters. While the distribution is wider, it
+is more honest, because it takes into account all the relevant uncertainty.
 
+In JAGS, the prediction can be implemented by adding this single extra line:
+\begin{framed}
+\begin{verbatim}
+y_new ~ dnorm(beta0 + beta1*90, pow(sigma, -2))
+\end{verbatim}
+\end{framed}
+and then monitoring {\tt y\_new} during the run. The samples of {\tt y\_new}
+will be drawn from the posterior predictive distribution for the new data.
+Note that when predicting new data, the extra line(s) you'll add to the JAGS
+model usually resemble the likelihood. The predictive distribution is shown in
+Figure~\ref{fig:road_prediction}.
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.5]{Figures/road_prediction.pdf}
+\caption{Samples from the posterior predictive distribution, answering the
+question ``what do we know about $y$ at $x=80$?''. Summaries are shown in
+the title. If we simply assumed the best fit line was true and applied a
+point estimate of $\sigma$ to get our uncertainty, we would have obtained a
+prediction of $306.07 \pm 49.76$.}
+\end{center}
+\end{figure}
 
 \section{Simple Linear Regression With Outliers}
 One complication that is common in linear regression (or other model-fitting)
