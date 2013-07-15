@@ -353,15 +353,16 @@ We decided to do this problem with a uniform prior, because it is the obvious
 first choice to describe ``prior ignorance''. However, in principle, the prior
 could be different, and this will change the posterior distribution, and hence
 the conclusions. In this section we will look at the effect of different priors
-on the results.
+on the results. Specifically, we will look at three different priors: the
+uniform one that we already used, and two other priors discussed below.
 
 \subsection{Emphasising the Extremes}
 One possible criticism of the uniform prior is that there is not much probability
 given to extreme solutions. For example, the prior probability that $\theta$ is
 between 0 and 0.001 is only 0.001. But, depending on the situation, we might think
-that such extremely small values should be more plausible than that. One prior
-that emphasises the extreme values is:
-
+that such extremely small values should be more plausible than that. One
+possible choice of prior distribution
+that puts a bit more probability on the extreme values is:
 \begin{eqnarray}
 p(\theta) \propto \theta^{-\frac{1}{2}}(1 - \theta)^{-\frac{1}{2}}.
 \end{eqnarray}
@@ -370,11 +371,16 @@ p(\theta) \propto \theta^{-\frac{1}{2}}(1 - \theta)^{-\frac{1}{2}}.
 Suppose that, before getting this data, you weren't ignorant at all, but already
 had a lot of information. Say that we already had a lot of information that
 suggested the value of $\theta$ was probably close to 0.5. This could be modelled
-by the following choice:
-
+by the following choice of prior:
 \begin{eqnarray}
 p(\theta) \propto \theta^{100}(1 - \theta)^{100}.
 \end{eqnarray}
+
+The three priors are plotted in Figure~\ref{fig:three_priors}, as dotted lines.
+The three corresponding posterior distributions are plotted as solid lines.
+The blue curves correspond to the uniform prior that we used before, the red
+curves use the ``emphasising the extremes'' prior, and the green curves use the
+``informative'' prior that assumes that $\theta$ is known to be close to 0.5.
 
 \begin{figure}[h!]
 \begin{center}
@@ -382,6 +388,22 @@ p(\theta) \propto \theta^{100}(1 - \theta)^{100}.
 \caption{\label{fig:three_priors}}
 \end{center}
 \end{figure}
+
+There are a few interesting things to notice about this plot. Firstly, the
+posterior distributions are basically the same for the red and blue priors (the
+uniform and the one that emphasises the extremes). The main difference in the
+posterior is, as you would expect, that the extremes are emphasised a little
+more: if something is more plausible before you get the data, it's more
+plausible afterwards as well.
+
+The big difference is with the informative prior. Here, we were already pretty
+confident that $\theta$ was close to 0.5, and the data (since it's not very
+much data) hasn't given us any reason to doubt that, so we still think $\theta$
+is close to 0.5. Since we already knew that $\theta$ was close to 0.5, the data
+are acting only to increase the precision of our estimate (i.e. make the
+posterior distribution narrower). But since we had so much prior information,
+the data aren't providing much ``extra'' information, and the posterior looks
+basically the same as the prior.
 
 \subsection{The Beta Distribution}
 The two priors given above are both examples of {\it beta} distributions. A beta
