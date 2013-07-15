@@ -13,7 +13,16 @@ JAGS the following things:
 \end{itemize}
 Then we simply load in the data and let it go!
 
-In the early 1990s, WinBUGS was developed. Up until 2012, WinBUGS was the
+Starting in the late 1980s, a program called BUGS (Bayesian inference Using
+Gibbs Sampling) was developed, and this evolved into the program WinBUGS. These
+programs had a huge effect on the uptake of Bayesian statistics, by dramatically
+reducing the amount of work it takes to get an MCMC simulation to run. Instead
+of having to code up your own implementation of the Metropolis algorithm or
+an alternative MCMC method, all you had to do was tell WinBUGS what your prior
+and likelihood were, and it would automatically use appropriate and sophisticated
+MCMC methods.
+
+Up until 2012, WinBUGS was the
 program of choice for STATS 331. However, there are a number of disadvantages to
 WinBUGS, so I decided to switch over to JAGS in 2013. The main advantages of
 JAGS over WinBUGS are: i) it is open source software and works on all
@@ -21,21 +30,26 @@ operating systems, ii) it allows a more concise version of notation that can
 save a lot of space and increase the readability of the code, and iii) it can
 be called from R more easily than WinBUGS in my opinion. In addition to the
 final point, a lot of time in previous iterations of 331 was spent teaching
-different ways of using WinBUGS. In JAGS we only need to learn one way of using
+different ways of using WinBUGS (i.e. calling from R, vs. using the graphical
+interface). In JAGS we only need to learn one way of using
 it, which frees up time for us to concentrate on the stats!
 
 \section{Basic JAGS Example}
 It is instructive to go back to our very first parameter estimation problem:
 the binomial likelihood with a uniform prior, our bus example. There we had a
-single unknown parameter $\theta$, with a uniform prior between 0 and 1. To make
-it even simpler, let's ignore the data, so that the posterior is just the prior!
-To implement a uniform prior in JAGS, the code looks like this:
+single unknown parameter $\theta$, with a uniform prior between 0 and 1.
+Recall that we also had a binomial likelihood, which we could write as
+$x \sim \textnormal{Binomial}(N, \theta)$.
+To implement this model in JAGS, the code looks like this:
 \begin{framed}
 \begin{verbatim}
 model
 {
-    # Uniform prior for theta between 0 and 1
+    # Parameters and the priors
     theta ~ dunif(0, 1)
+
+    # Likelihood
+    x ~ dbin(theta, N)
 }
 \end{verbatim}
 \end{framed}
@@ -45,7 +59,7 @@ the same directory as the R code that will actually launch JAGS. Note that
 the whole specification of the problem we are solving must be wrapped inside
 a {\tt model {   }} block. Eventually, the likelihood will go in there as well.
 
-Let's deconstruct our single line of JAGS code, {\tt theta \~{ } dunif(0, 1)}. The
+Let's deconstruct our first line of JAGS code, {\tt theta \~{ } dunif(0, 1)}. The
 first thing is simply the name of our parameter. We are free to name it as we
 wish. The tilde sign implies statistician's notation is being used: we are
 about to specify a probability distribution that applies to {\tt theta}. Finally,
@@ -54,8 +68,20 @@ that the uniform distribution is {\tt dunif} and not {\tt uniform}, like how
 there is a {\tt dunif} function in R. Therefore, all our line does is tell JAGS
 that there is a variable called {\tt theta} and it has a uniform prior.
 
+The notation for the likelihood is very similar. We write the name of the data
+followed by the distribution, in something that looks very much like the
+statisticians' notation. Note the annoying fact that JAGS likes the success
+probability first and the number of trials second in the binomial distribution.
+Interestingly, the likelihood part of the code looks very much like the
+prior part. So how does JAGS know that {\tt x} is data and not just another
+parameter? Well, when we call JAGS, we can pass to it a list of data. Since we
+will provide a value for {\tt x} in this list, it knows it is data.
+
 R code for running the MCMC is given below. Note that the {\tt make\_list()}
-function is written by me and provided on Cecil.
+function is written by me and is provided in a file called {\tt make\_list.r}
+on Cecil. It just takes the output as produced by JAGS and formats it
+conveniently into an R list, which is a bit easier to work with than the raw
+JAGS output.
 
 \begin{framed}
 \begin{verbatim}
@@ -78,10 +104,14 @@ draw = jags.samples(m, 100000, thin=10, variable.names = c('theta'))
 results = make_list(draw)
 \end{verbatim}
 \end{framed}
-
 When this code is executed, the object {\tt results} is a list containing a
 vector for each variable that was ``monitored'' by listing its name in
-{\tt variable.names}. To plot a trace plot of the MCMC run, we can simply do
+the {\tt variable.names} array when we called the {\tt jags.samples} function.
+Notice also the various options such as the number of steps, and the {\tt thin}
+option. Try playing around with these on your own and making sure you understand
+what they do!
+
+To plot a trace plot of the MCMC run, we can simply do
 the following:
 \begin{framed}
 \begin{verbatim}
