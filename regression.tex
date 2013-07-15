@@ -326,7 +326,11 @@ problems is the existence of outliers. These are points that do not fit in with
 the general trend. If these are left in the analysis, the results can easily
 be incorrect. Many methods exist for deciding how to ``detect'' and ``remove''
 outliers. In lectures and labs we will study and extension to the simple linear
-regression model that allows for outliers. Rather than simply ``rejecting'' some
+regression model that allows for outliers. Bayesian statistics is capable of
+handling outliers well, as long as we build our model in such a way that it says
+outliers are possible: i.e. we reject the simple normal distribution likelihood
+because it doesn't have heavy enough tails.
+Rather than simply ``rejecting'' some
 points as outliers, we can leave them in, but there will be a posterior probability
 that each point is an outlier! That way, all points can contribute to the results.
 Information is not wasted.
