@@ -113,6 +113,19 @@ a Bayesian analysis), and has the property that the amount of time spent in
 any particular state is proportional to the posterior probability of that state.}
 \end{framed}
 
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.65]{Figures/mcmc.pdf}
+\caption{An illustration of the basic idea behind MCMC. Imagine we had a
+Bayes' Box with two possible states, and we knew the
+{\tt prior $\times$ likelihood} values. The amount of time the MCMC program will
+spend in each state is proportional to the posterior probability of the state.
+In this example, the MCMC algorithm was in State 1 three times and in State 2
+seven times. Using this, we could estimate the posterior probability of State 2
+as being 0.7. This estimate would become more accurate if we ran the MCMC for
+more iterations.\label{fig:mcmc}}
+\end{center}
+\end{figure}
 
 
 \section{Tactile MCMC}
