@@ -438,7 +438,9 @@ below. A lot of the code we write in labs will look like this. Obviously in the
 Now let's try to see if this makes sense. There are many things we could think
 about, but let's just consider the question of whether
 the phone is working or not. The first two hypotheses correspond to the phone
-being in a working state. The prior probability that the phone is working is
+being in a working state. If you want to calculate the probability of $A$
+{\bf or} $B$, then you can just add the probabilities if they are mutually
+exclusive. The prior probability that the phone is working is
 therefore:
 \begin{eqnarray}
 P(\textnormal{phone working}) &=& P(H_1 \textbf{ or } H_2)\\
@@ -457,15 +459,17 @@ P(\textnormal{phone working}|\textnormal{busy signal}) &=& P(H_1 \textbf{ or } H
 Our probability that the phone is working has gone down a little bit as a result of this
 evidence! That makes sense to me -- a busy signal is what you would expect to
 happen if the phone was broken. This data doesn't {\it prove} the phone is
-broken, but it does point in that direction a little bit.
+broken, but it does point in that direction a little bit, and hence the
+probability that the phone is working has been reduced from 0.8 to 0.6689.
 
-\section{Important Equations to Remember}
-Bayes' rule for a single hypothesis $H$ given data $D$:
+\section{Important Equations}
+Posterior probabilities are calculated using Bayes' rule. For a single
+hypothesis $H$ given data $D$, Bayes' rule is:
 \begin{eqnarray}
-P(H|D) = \frac{P(H)P(D|H)}{P(D)}
+P(H|D) = \frac{P(H)P(D|H)}{P(D)}\label{eq:bayes1}
 \end{eqnarray}
 This gives the posterior probability $P(H|D)$ in terms of the prior probability
-$P(H)$, the likelihood $P(D|H)$ and the ``marginal likelihood'' $P(D)$ in the
+$P(H)$, the likelihood $P(D|H)$ and the marginal likelihood $P(D)$ in the
 denominator. To obtain $P(H)$, think about your prior beliefs (which may
 indicate a large amount of uncertainty, or may be already well informed based
 on previous data sets). To obtain $P(D|H)$, think about what the experiment is
@@ -482,26 +486,33 @@ mutually exclusive, so we can add their probabilities:
 P(D) = P(H)P(D|H) + P(\bar{H})P(D|\bar{H}).
 \end{eqnarray}
 
-The Bayes' rule from above can be applied to a whole set
-of hypotheses (that are mutually exclusive and exhaustive). If we applied the
-above equation to $N$ hypotheses
+Bayes' rule can be applied to a whole set
+of hypotheses (that are mutually exclusive and exhaustive) simultaneously.
+This is a more common way of using it, and it is the way we use it when we use
+a Bayes' Box. If we applied Equation~\ref{eq:bayes1} to $N$ hypotheses
 $H_1, H_2, ..., H_N$, given data $D$, we would get the following for the posterior
 probability of each hypothesis $H_i$ (for $i=1, 2, ..., N$):
 \begin{eqnarray}
 P(H_i|D) &=& \frac{P(H_i)P(D|H_i)}{P(D)}
 \end{eqnarray}
-The denominator $P(D)$ can again be obtained using the sum rule. There are $N$
+The denominator $P(D)$ is a single number, it does not depend on the index $i$.
+It can again be obtained using the sum rule. There are $N$
 mutually exclusive ways that the data $D$ could have occurred: via $H_1$ being
 true, or via $H_2$ being true, etc. Adding the probabilities of these gives:
 \begin{eqnarray}
 P(D) &=& \sum_{i=1}^N P(H_i)P(D|H_i).
 \end{eqnarray}
-If you find all the mathematics a bit much right now, just remember that
-Following the steps for making a Bayes' Box is equivalent to applying
-Bayes' rule in this form!. The $P(H_i)$ values are the prior probability column, the
+If you don't find equations particularly easy to read, just remember that
+following the steps for making a Bayes' Box is equivalent to applying
+Bayes' rule in this form! The $P(H_i)$ values are the prior probability column, the
 $P(D|H_i)$ values are the likelihood column, and the denominator is the
-sum of the prior times likelihood column. The probabilities that go in a Bayes'
-Box (in general) are given in Table~\ref{tab:general_bayes_box}.
+sum of the prior times likelihood column. For example, the posterior probability
+for $H_1$ (the top right entry in a Bayes' Box) is given by the prior probability
+for $H_1$ times the likelihood for $H_1$, divided by the sum of prior times
+likelihood values: that is, $P(H_1|D) = P(H_1)P(D|H_1)/P(D)$.
+The correspondence between the probabilities that go in a Bayes'
+Box (in general) and the terms in the Equations are given in
+Table~\ref{tab:general_bayes_box}.
 
 \begin{table}[ht!]
 \begin{center}
