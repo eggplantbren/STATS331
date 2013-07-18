@@ -210,6 +210,10 @@ Totals: & 1 & & 0.75 & 1\\
 \end{tabular}
 \end{center}
 \end{table}
+We can see that the posterior probabilities are not the same as the prior
+probabilities, because we have more information now! The experimental result
+made \bb~a little bit more plausible than it was before: its probability has
+increased from 1/2 to 2/3.
 
 \subsection{Interpretation}
 The posterior probabilities of the hypotheses are proportional to the prior probabilies
@@ -222,9 +226,14 @@ contribute to a hypothesis being plausible:
 \item If the prior probability is high, that is, the hypotheses was {\it already}
 plausible, before we got the data.
 \item If the hypotheses {\it predicted the data} well. That is, the data that
-occurs was what we would have expected to observe if the hypothesis is true.
+occurred was what we would have expected to occur if the hypothesis is true.
 \end{itemize}
 I hope you agree that this is all very sensible.
+
+In class we will also study
+variations on this problem, considering different assumptions about the prior
+probabilities and how they affect the results, and also considering what happens
+when we get more and/or different data.
 
 \section{Bayes' Rule}
 Bayes' rule is an equation from probability theory, shown in
@@ -297,12 +306,11 @@ once for each hypothesis listed in the first column.}
 \end{framed}
 
 \section{Phone Example}
-\subsection{The Question}
-This example is based on Question 1 from the 2012 final exam of STATS 331. The
-idea for this question was based on an example in David MacKay's wonderful book
+This example is based on Question 1 from the 2012 final exam. I got the
+idea for this question from an example in David MacKay's wonderful book
 ``Information Theory, Inference and Learning Algorithms''
 (available online as a free PDF download -- you're welcome to check it out, but
-it is a large book and only about 20\% of it is related to this course!).
+it is a large book and only about 20\% of the content is relevant to this course!).
 
 You move into a new house which has a phone
 installed. You can't remember the phone number, but you suspect it
@@ -318,8 +326,9 @@ If you are incorrect, the probability of hearing a busy signal is $1/100$.
 However, all of that is only true if you assume the phone is working -- and it
 might be broken! If the phone is broken, it will always give a busy signal.
 
-When you do the experiment, you do actually get the busy signal.
-Find the posterior probability the following four hypotheses:
+When you do the experiment, the outcome (the data) is that you do actually get the busy signal.
+The question asked us to consider the following four hypotheses, and to calculate
+their posterior probabilities:
 \begin{table}[h!]
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
@@ -333,13 +342,19 @@ $H_4$ & Phone is broken and {\tt 555-3226} is incorrect & 0.1\\
 \hline
 \end{tabular}
 \caption{The four hypotheses about the state of the phone and the phone
-number. The prior probabilities are also given.\label{tab:phone}}
+number. The prior probabilities are also given.
+\label{tab:phone}}
 \end{center}
 \end{table}
+Note that the four hypotheses are mutually exclusive and exhaustive. If you were
+to come up with hypotheses yourself, ``phone is working'' and ``{\tt 555-3226} is correct''
+might spring to mind. They wouldn't be mutually exclusive so you couldn't do a
+Bayes' Box with just those two, but it is possible to put these together (using
+``{\bf and}'') to make the four mutually exclusive options in the table.
 
 \subsection{Solution}
 We will go through the solution using a Bayes' Box. The four hypotheses listed
-in Table~\ref{tab:phone} are mutually exclusive and exhaustive, so we can fill
+in Table~\ref{tab:phone} and their prior probabilities are given, so we can fill
 out the first two columns of a Bayes' Box right away:
 \begin{table}[h!]
 \begin{center}
@@ -363,14 +378,18 @@ signal, so we need to work out $P(\textnormal{busy signal} | H)$ for each $H$
 in the problem (there are four of them). Let's start (naturally!) with $H_1$.
 
 If we assume $H_1$ is true, then the phone is working and {\tt 555-3226} is the
-correct phone number. In that case, we would definitely get a busy signal. So
+correct phone number. In that case, we would definitely get a busy signal
+because we are calling ourselves. Therefore
 $P(\textnormal{busy signal} | H_1) = 1$ is our first likelihood value.
+
 Next, let's imagine that $H_2$ is true, so the phone is working, but
 {\tt 555-3226} is not the right phone number. In this case, it is given in the
 question that the probability of getting a busy signal is $1/100$ or 0.01.
 Therefore $P(\textnormal{busy signal} | H_2) = 0.01$, and that's our second
-likelihood. The likelihoods for $H_3$ and $H_4$ are quite straightforward
-because they both imply the phone is broken, and that a busy signal is certain.
+likelihood value.
+
+The likelihoods for $H_3$ and $H_4$ are quite straightforward
+because they both imply the phone is broken, and that means a busy signal is certain.
 Therefore $P(\textnormal{busy signal} | H_3) = P(\textnormal{busy signal} | H_4) = 1$.
 We have our four likelihoods, and can proceed to work out everything in the
 Bayes' Box, including the main goal -- the posterior probabilities! Here it is:
@@ -394,8 +413,8 @@ Totals: & 1 & & 0.604 & 1\\
 
 To conclude this phone problem, I should admit that
 I actually calculated the numbers in the Bayes' Box using R. My code is shown
-below. Obviously in the
-2012 exam the students had to use their calculators.
+below. A lot of the code we write in labs will look like this. Obviously in the
+2012 exam the students had to use their calculators instead.
 \begin{framed}
 \begin{verbatim}
 > prior = c(0.4, 0.4, 0.1, 0.1) # Vector of prior probs
