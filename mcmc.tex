@@ -128,6 +128,19 @@ more iterations.\label{fig:mcmc}}
 \end{figure}
 
 
+\subsection{Metropolis, Stated}
+\begin{framed}
+\begin{itemize}
+\item Start in some state $\theta$
+\item Generate a ``proposal'' state $\theta'$ from a {\it proposal distribution}
+\item With probability $\alpha = \textnormal{min}(1, h'/h)$, replace the current
+state with the proposed state
+\item Repeat
+\end{itemize}
+\end{framed}
+
+
+
 \section{Tactile MCMC}
 
 Tactile MCMC is an idea due to Wayne Stewart.
