@@ -1,4 +1,4 @@
-\chapter{Parameter Estimation: Bayes' Box}
+\chapter{Parameter Estimation I: Bayes' Box}
 One of the most important ways of using Bayes' rule is in the topic
 called {\it parameter estimation}. Parameter estimation is a fairly common
 situation in statistics. In fact, it is possible to interpret almost any
@@ -11,7 +11,10 @@ Zealand? Well, a Google search suggests 4.405 million. But that does not mean
 there are {\bf exactly} 4,405,000 people. It could be a bit more or a bit
 less. Maybe it is 4,405,323, or maybe it is 4,403,886. We don't really know.
 We could call the true number of people in New Zealand right now $\theta$, or
-we could use some other letter or symbol if we liked.
+we could use some other letter or symbol if we liked. When talking about
+parameter estimation in general we will often call the unknown parameter(s)
+$\theta$, but in specific applications we will call the parameter(s) something
+else more appropriate for that application.
 
 The key is to realise that we can use the Bayes Box like in previous chapters,
 but now, our list of possible hypotheses is a list of possible values for
@@ -46,7 +49,7 @@ is why I just put a bunch of ``\ldots''s in there instead of making up numbers.
 There are lots of possible hypotheses, each one corresponding to a possible value
 for
 $\theta$. The prior probabilities I have put in the 2nd column were for
-illustration purposes, they needn't necessarily all be the same. But all the
+illustrative purposes, they needn't necessarily all be the same. All the
 stuff we've seen in smaller examples still applies here. The likelihoods will
 still be calculated by seeing how the probability of the data depends on the
 value of the unknown parameter. You still go through all the same steps,
@@ -57,7 +60,7 @@ a {\it probability distribution}. In basic Bayesian problems, like in the
 introductory chapters, we start with some prior probabilities and update them
 to get posterior probabilities. In parameter estimation, we start with a prior
 {\it distribution} for the unknown parameter(s) and update that to get a
-posterior distribution for the unknown parameter(s).
+posterior {\it distribution} for the unknown parameter(s).
 
 \begin{framed}
 {\bf
@@ -65,7 +68,7 @@ A quantity which has a probability associated with each possible value is
 traditionally called a ``random variable''. Random variables have probability
 distributions associated with them. In Bayesian stats, an unknown
 parameter looks mathematically like a ``random variable'', but nothing is
-varying or fluctuating. We put a probability distribution there to describe our
+varying or fluctuating. We put a probability distribution there only to describe our
 uncertainty about what the true value is.}
 \end{framed} 
 
