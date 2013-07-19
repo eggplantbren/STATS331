@@ -109,7 +109,7 @@ going through each hypothesis in turn, imagining it is true, and asking
 
 Here is the Bayes' Box with the likelihood column filled in. I will explain
 how these numbers were calculated in a bit more detail in the next subsection.
-\begin{table}[h!]
+\begin{table}[ht!]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -155,7 +155,7 @@ ALL possible experimental outcomes/data you might have seen -- even though
 ultimately, you just need to select the one that actually occurred.
 Table~\ref{tab:all_data} shows an example of this process.
 
-\begin{table}[h!]
+\begin{table}[ht!]
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
@@ -168,7 +168,7 @@ Table~\ref{tab:all_data} shows an example of this process.
          & White Ball & 0.5 \\
 \hline
 \end{tabular}
-\caption{This table demonstrates a method for calculating the likelihood
+\caption{\it This table demonstrates a method for calculating the likelihood
 values, by considering not just the data that actually occurred, but all
 data that might have occurred. Ultimately, it is only the probability of the
 data that actually occurred that matters, so this is highlighted in blue.
@@ -244,10 +244,10 @@ the probability of $A$ {\bf given} $B$; that is, it's the probability of $A$
 after taking into account the information $B$. In other words,
 $P(A|B)$ is a posterior probability, and Bayes' rule tells us how to calculate
 it from other probabilities.
-\begin{figure}[h]
+\begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.4]{Figures/bayes_neon.jpg}
-\caption{A blue neon sign displaying Bayes' rule.
+\caption{\it A blue neon sign displaying Bayes' rule.
 You can use it to calculate the probability of $A$ {\it given} $B$,
 if you know the values of some other probabilities on the right hand side.
 Image credit: Matt Buck. Obtained from Wikimedia Commons.
@@ -341,7 +341,7 @@ $H_3$ & Phone is broken and {\tt 555-3226} is correct & 0.1\\
 $H_4$ & Phone is broken and {\tt 555-3226} is incorrect & 0.1\\
 \hline
 \end{tabular}
-\caption{The four hypotheses about the state of the phone and the phone
+\caption{\it The four hypotheses about the state of the phone and the phone
 number. The prior probabilities are also given.
 \label{tab:phone}}
 \end{center}
@@ -393,7 +393,7 @@ because they both imply the phone is broken, and that means a busy signal is cer
 Therefore $P(\textnormal{busy signal} | H_3) = P(\textnormal{busy signal} | H_4) = 1$.
 We have our four likelihoods, and can proceed to work out everything in the
 Bayes' Box, including the main goal -- the posterior probabilities! Here it is:
-\begin{table}[h!]
+\begin{table}[ht!]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -502,6 +502,7 @@ true, or via $H_2$ being true, etc. Adding the probabilities of these gives:
 \begin{eqnarray}
 P(D) &=& \sum_{i=1}^N P(H_i)P(D|H_i).
 \end{eqnarray}
+which just happens to be the sum of the prior times likelihood values.
 If you don't find equations particularly easy to read, just remember that
 following the steps for making a Bayes' Box is equivalent to applying
 Bayes' rule in this form! The $P(H_i)$ values are the prior probability column, the
@@ -528,7 +529,7 @@ $H_2$ & $P(H_2)$ & $P(D|H_2)$ & $P(H_2)\times P(D|H_2)$ & $P(H_2|D)$\\
 Totals: & 1 & & $P(D)$ & 1\\
 \hline
 \end{tabular}
-\caption{A general Bayes' Box. Using Bayes' rule or making a Bayes' Box are
+\caption{\it A general Bayes' Box. Using Bayes' rule or making a Bayes' Box are
 actually the same thing, and this table can be used to identify the
 terms.\label{tab:general_bayes_box}}
 \end{center}
