@@ -65,18 +65,18 @@ use a common shorthand notation.
 
 \subsection{Discrete Random Variables}
 We will also see quite a lot of random variables in this course (although
-without using that terminology very much). A discrete
+without using that terminology very much as I consider the word ``random'' to be
+worse than useless). A discrete
 random variable is just a quantity $X$ that has a countable number of possible
 values. A discrete random variable has a {\it probability mass function}
-that tells you, as a function of the {\it possible} values $x$
-
+that tells you, as a function of the {\it possible} values $x$.
 For example, the equation for the Poisson distribution (a useful discrete
 distribution) is:
 \begin{eqnarray}
 P(X=x) &=& \frac{\lambda^x e^{-\lambda}}{x!}
 \end{eqnarray}
 for $x \in \{0, 1, 2, 3, ...\}$. The actual random variable is named $X$, and
-$x$ is just used so we can write the probabilities $P(X=0), P(X=1), ...)$ as
+$x$ is just used so we can write the probabilities ($P(X=0), P(X=1), ...)$ as
 a formula.
 
 \subsection{Continuous Random Variables}
@@ -120,11 +120,12 @@ $P$ for the former and lower-case $p$ for the latter.
 \section{Useful Probability Distributions}
 In the course we will study Bayesian models which involve the following
 discrete probability distributions: general (all probabilities given explicitly,
-such as in a Bayes' Box), binomial, Poisson, discrete uniform, negative binomial.
+such as in a Bayes' Box), binomial, Poisson, discrete uniform,
+negative binomial, multinomial.
 We may also use the following continuous distributions: uniform, normal,
-Cauchy, student-$t$, beta, log-uniform, gamma.
+Cauchy, student-$t$, beta, log-uniform, exponential, gamma, Dirichlet.
 
 Wikipedia is an excellent resource for looking up all the properties of these
 distributions, but I will also give various properties (e.g. the mean of a beta
-distribution) when we need them.
+distribution) and describe the distributions when we need them.
 
