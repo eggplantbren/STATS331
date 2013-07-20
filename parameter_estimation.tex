@@ -611,32 +611,61 @@ Prior 3: & $\theta \sim \textnormal{Beta}(101, 101)$\\
 
 When you work out the posterior distributions analytically and then compare them
 to the formula for the beta distribution, you can see that the three posteriors
-are:
+are also beta distributions! Specifically, you get:
 \begin{table}[ht!]\begin{center}
 \begin{tabular}{ll}
 Posterior 1: & $\theta \sim \textnormal{Beta}(3, 4)$\\
-Posterior 2: & $\theta \sim \textnormal{Beta}\left(2.5, 3.5)$\\
-Posterior 3: & $\theta \sim \textnormal{Beta}(103, 104)$\\
+Posterior 2: & $\theta \sim \textnormal{Beta}(2.5, 3.5)$\\
+Posterior 3: & $\theta \sim \textnormal{Beta}(103, 104)$
 \end{tabular}\end{center}
 \end{table}
 This is ``magic'' that is made possible by the mathematical form of the beta
-prior and the binomial likelihood, it is not always possible to do this!
+prior and the binomial likelihood\footnote{The technical term for this magic is ``conjugate priors''.}.
+It is not always possible to do this!
+
+Remember that in this particular problem, the probability of a success tomorrow
+is simply the expectation value (mean) of the posterior distribution for $\theta$.
+We can look up (or derive) the formula for the mean of a beta distribution, and find that
+if $x \sim \textnormal{Beta}(a, b)$ then $\mathds{E}(x) = \alpha/(\alpha + \beta)$.
+Applying this to the three posterior distributions gives:
+
+\begin{table}[ht!]\begin{center}
+\begin{tabular}{lll}
+$P(\textnormal{good bus tomorrow}|x) = 3/7 $    & $\approx 0.429$ & (using prior 1)\\
+$P(\textnormal{good bus tomorrow}|x) = 2.5/6$   & $\approx 0.417$ & (using prior 2)\\
+$P(\textnormal{good bus tomorrow}|x) = 103/207$ & $\approx 0.498$ & (using prior 3)
+\end{tabular}\end{center}
+\end{table}
+The result for Prior 1 is Laplace's infamous ``rule of succession'' which I will
+discuss a little bit in lectures.
 
 \subsection{A Lot of Data}
+As shown above, the choice of prior distribution has an impact on the conclusions. Sometimes
+it has a big impact (the results using prior 3 were pretty different to the results
+from priors 1 and 2), and sometimes not much impact (e.g. the results from
+priors 1 and 2 were pretty similar). There is a common phenomenon that happens
+when there is a lot of data: the prior tends not to matter so much. Imagine
+we did a much bigger version of the bus experiment with $N=1000$ trials, which
+resulted in $x=500$ successes. Then the posterior distributions corresponding
+to the three different priors are all very similar (Figure~\ref{fig:lots_of_data}).
 
-
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/lots_of_data.pdf}
-\caption{\label{fig:lots_of_data}}
+\caption{\it When you have a lot of data, the results are less sensitive
+to the choice of prior distribution.\label{fig:lots_of_data}}
 \end{center}
 \end{figure}
 
-Note that this occurs because the three people agree about the likelihood.
+This is reassuring. Note, however, that this only occurs because the three
+analyses used the same likelihood. If three people have different prior
+distributions for something {\it and} they can't agree on what the experiment
+even means, there is no guarantee they will end up agreeing!
 
-\section{Bigger Data Sets}
+Remember though, that when the results {\it are} sensitive
+to the choice of prior, that is not a problem with the Bayesian approach, but
+rather an important warning message: the data aren't very
+informative! Then, the options are: i) think really hard about your prior
+distribution and be careful when deciding what it should be; and ii) get more or
+better data!
 
-
-\section{More Than One Parameter}
-It is possible to use the Bayesian framework to infer the value of {\it more than
-one} parameter 
