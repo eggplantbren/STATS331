@@ -524,7 +524,7 @@ One
 possible choice of prior distribution
 that puts a bit more probability on the extreme values (close to 0 or 1) is:
 \begin{eqnarray}
-p(\theta) \propto \theta^{-\frac{1}{2}}(1 - \theta)^{-\frac{1}{2}}.
+p(\theta) \propto \theta^{-\frac{1}{2}}(1 - \theta)^{-\frac{1}{2}}.\label{eq:prior2}
 \end{eqnarray}
 
 \subsection{Already Being Well Informed}
@@ -534,11 +534,13 @@ had a lot of information about the value of the parameter. Say that we already h
 suggested the value of $\theta$ was probably close to 0.5. This could be modelled
 by the following choice of prior:
 \begin{eqnarray}
-p(\theta) \propto \theta^{100}(1 - \theta)^{100}.
+p(\theta) \propto \theta^{100}(1 - \theta)^{100}.\label{eq:prior3}
 \end{eqnarray}
 
 The three priors are plotted in Figure~\ref{fig:three_priors}, as dotted lines.
 The three corresponding posterior distributions are plotted as solid lines.
+The posteriors were computed just by multiplying the three priors by the likelihood
+and normalising.
 The blue curves correspond to the uniform prior that we used before, the red
 curves use the ``emphasising the extremes'' prior, and the green curves use the
 ``informative'' prior that assumes that $\theta$ is known to be close to 0.5.
@@ -569,13 +571,13 @@ the data aren't providing much ``extra'' information, and the posterior looks
 basically the same as the prior.
 
 \subsection{The Beta Distribution}
-The two priors given above are both examples of {\it beta} distributions. A beta
+The three priors we have used are all examples of {\it beta} distributions. A beta
 distribution is a family of probability distributions (like the normal, Poisson,
 binomial, and so on) that applies to continuous random variables that are known
 to be between 0 and 1. The general form of a beta distribution (here written
 for a variable $x$ is:
 \begin{eqnarray}
-p(x|\alpha, \beta) \propto x^{\alpha - 1}(1 - x)^{\beta - 1}. 
+p(x|\alpha, \beta) \propto x^{\alpha - 1}(1 - x)^{\beta - 1}\label{eq:beta}.
 \end{eqnarray}
 The quantities $\alpha$ and $\beta$ are two parameters that control the shape
 of the beta distribution. Since we know that the variable $x$ is between 0 and 1 with probability 1, the
@@ -590,15 +592,35 @@ p(x|\alpha, \beta) &=& \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}
 where $B(a, b)$ (called the ``beta function'') is defined (usefully\ldots) as the
 result of doing that very integral (it can be related to factorials too, if you're interested).
 Thankfully, we can get away with the ``proportional'' version most of the time.
-
 In ``$\sim$'' notation the beta distribution is written as:
 \begin{eqnarray}
 x|\alpha, \beta &\sim& \textnormal{Beta}(\alpha, \beta).
 \end{eqnarray}
 Again, the ``given $\alpha$ and $\beta$'' can be dropped: it is implicit because
-they appear on the right hand side.
+they appear on the right hand side. By identifying the terms of
+Equation~\ref{eq:beta} with the form of our three priors (Equations~\ref{eq:uniform},~\ref{eq:prior2} and~\ref{eq:prior3})),
+we see that our three priors can be written in ``$\sim$'' notation like this:
 
+\begin{table}[ht!]\begin{center}
+\begin{tabular}{ll}
+Prior 1: & $\theta \sim \textnormal{Beta}(1, 1)$\\
+Prior 2: & $\theta \sim \textnormal{Beta}\left(\frac{1}{2}, \frac{1}{2}\right)$\\
+Prior 3: & $\theta \sim \textnormal{Beta}(101, 101)$\\
+\end{tabular}\end{center}
+\end{table}
 
+When you work out the posterior distributions analytically and then compare them
+to the formula for the beta distribution, you can see that the three posteriors
+are:
+\begin{table}[ht!]\begin{center}
+\begin{tabular}{ll}
+Posterior 1: & $\theta \sim \textnormal{Beta}(3, 4)$\\
+Posterior 2: & $\theta \sim \textnormal{Beta}\left(2.5, 3.5)$\\
+Posterior 3: & $\theta \sim \textnormal{Beta}(103, 104)$\\
+\end{tabular}\end{center}
+\end{table}
+This is ``magic'' that is made possible by the mathematical form of the beta
+prior and the binomial likelihood, it is not always possible to do this!
 
 \subsection{A Lot of Data}
 
