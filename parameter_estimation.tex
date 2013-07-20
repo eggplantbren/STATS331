@@ -508,7 +508,7 @@ on the results, again focusing on the bus problem for continuity.
 Specifically, we will look at three different priors: the
 uniform one that we already used, and two other priors discussed below.
 
-\subsection{Emphasising the Extremes}
+\subsection{Prior 2: Emphasising the Extremes}
 One possible criticism of the uniform prior is that there is not much probability
 given to extreme solutions. For example, according to the Uniform(0, 1) prior,
 the prior probability that $\theta$ is
@@ -528,7 +528,7 @@ that puts a bit more probability on the extreme values (close to 0 or 1) is:
 p(\theta) \propto \theta^{-\frac{1}{2}}(1 - \theta)^{-\frac{1}{2}}.\label{eq:prior2}
 \end{eqnarray}
 
-\subsection{Already Being Well Informed}
+\subsection{Prior 3: Already Being Well Informed}
 Here's another scenario that we might want to describe in our prior.
 Suppose that, before getting this data, you weren't ignorant at all, but already
 had a lot of information about the value of the parameter. Say that we already had a lot of information that
@@ -572,11 +572,11 @@ the data aren't providing much ``extra'' information, and the posterior looks
 basically the same as the prior.
 
 \subsection{The Beta Distribution}
-The three priors we have used are all examples of {\it beta} distributions. A beta
-distribution is a family of probability distributions (like the normal, Poisson,
-binomial, and so on) that applies to continuous random variables that are known
+The three priors we have used are all examples of {\it beta} distributions. The beta
+distributions are a family of probability distributions (like the normal, Poisson,
+binomial, and so on) that can be applied to continuous random variables that are known
 to be between 0 and 1. The general form of a beta distribution (here written
-for a variable $x$ is:
+for a variable $x$) is:
 \begin{eqnarray}
 p(x|\alpha, \beta) \propto x^{\alpha - 1}(1 - x)^{\beta - 1}\label{eq:beta}.
 \end{eqnarray}
@@ -613,6 +613,7 @@ Prior 3: & $\theta \sim \textnormal{Beta}(101, 101)$\\
 When you work out the posterior distributions analytically and then compare them
 to the formula for the beta distribution, you can see that the three posteriors
 are also beta distributions! Specifically, you get:
+
 \begin{table}[ht!]\begin{center}
 \begin{tabular}{ll}
 Posterior 1: & $\theta \sim \textnormal{Beta}(3, 4)$\\
