@@ -5,8 +5,10 @@ situation in statistics. In fact, it is possible to interpret almost any
 problem in statistics as a parameter estimation problem and approach it
 in this way!
 
-Firstly, what is a parameter? Well, it is just a fancy term for a quantity or
-a number that is unknown. For example, how many people are currently in New
+Firstly, what is a parameter? One way to think of a parameter is that
+it is just a fancy term for a quantity or a number that is
+unknown.
+For example, how many people are currently in New
 Zealand? Well, a Google search suggests 4.405 million. But that does not mean
 there are {\bf exactly} 4,405,000 people. It could be a bit more or a bit
 less. Maybe it is 4,405,323, or maybe it is 4,403,886. We don't really know.
@@ -16,9 +18,9 @@ parameter estimation in general we will often call the unknown parameter(s)
 $\theta$, but in specific applications we will call the parameter(s) something
 else more appropriate for that application.
 
-The key is to realise that we can use the Bayes Box like in previous chapters,
+The key is to realise that we can use the Bayes' Box like in previous chapters,
 but now, our list of possible hypotheses is a list of possible values for
-the unknown parameter. For example, a Bayes Box for the precise number of
+the unknown parameter. For example, a Bayes' Box for the precise number of
 people in New Zealand might look something like this:
 \begin{table}[h!]
 \begin{center}
@@ -48,9 +50,11 @@ There are a few things to note about this Bayes' box. Firstly, it is big, which
 is why I just put a bunch of ``\ldots''s in there instead of making up numbers.
 There are lots of possible hypotheses, each one corresponding to a possible value
 for
-$\theta$. The prior probabilities I have put in the 2nd column were for
-illustrative purposes, they needn't necessarily all be the same. All the
-stuff we've seen in smaller examples still applies here. The likelihoods will
+$\theta$. The prior probabilities I have put in the second column were for
+illustrative purposes, they needn't necessarily all be equal (although that is
+often a convenient assumption). All the
+stuff we've seen in smaller examples of Bayes' rule and/or use of a Bayes' Box
+still applies here. The likelihoods will
 still be calculated by seeing how the probability of the data depends on the
 value of the unknown parameter. You still go through all the same steps,
 multiplying prior times likelihood and then normalising that to get the
@@ -67,29 +71,43 @@ posterior {\it distribution} for the unknown parameter(s).
 A quantity which has a probability associated with each possible value is
 traditionally called a ``random variable''. Random variables have probability
 distributions associated with them. In Bayesian stats, an unknown
-parameter looks mathematically like a ``random variable'', but nothing is
-varying or fluctuating. We put a probability distribution there only to describe our
-uncertainty about what the true value is.}
+parameter looks mathematically like a ``random variable'', but I try to avoid
+the word random itself because it usually has connotations about something that
+fluctuates or varies. In Bayesian statistics, the prior distribution and
+posterior distribution only describe our uncertainty, the actual parameter is
+a single fixed number.}
 \end{framed} 
 
 \section{Parameter Estimation: Bus Example}
 This is a beginning example of parameter estimation from a Bayesian point of
 view. It shows the various features that are always present in a Bayesian
 parameter estimation problem: there will be a prior distribution, the likelihood,
-and the posterior distribution.
+and the posterior distribution. We will spend a lot of time on this problem but
+keep in mind that this is just a single example, and certain things about this
+example (such as the choice of the prior and the likelihood) are specific to
+this example only, while other things about it are very general and will apply
+in all parameter estimation problems.
 
 After moving to Auckland, I decided that I would take the bus to work
-each day. However, I wasn't very confident with the bus system, so for the first
+each day. However, I wasn't very confident with the bus system in my new city,
+so for the first
 week I just took the first bus that came along and was heading in the right
-direction (towards the city). In the first week, I caught 5 morning buses.
+direction, towards the city. In the first week, I caught 5 morning buses.
 Of these 5 buses, two of them took me to the right place, while three of them
 took me far from work, leaving me with an extra 20 minute walk. Given this
-information, what can we say about the value of $\theta$, the proportion of the
-buses that are actually the correct bus?
+information, I would like to try to infer the proportion
+of the buses that are ``good'', that would take me right to campus. Let us call
+this fraction $\theta$ and we will infer $\theta$ using the Bayesian framework.
+We will start with a prior distribution that describes initial uncertainty about
+$\theta$ and update this to get the posterior distribution, using the data that
+2/5 buses I took were ``good''.
 
-In principle, $\theta$ could take any real value between 0 and 1.
-To begin, we shall make an approximation and assume that the possible values
-for $\theta$ can only be one of the following numbers:
+First we must think about the meaning of the parameter $\theta$ in our particular
+problem so we can choose a sensible prior distribution. Since $\theta$ is, in
+this example, a proportion, we know it cannot be less than 0 or greater than 1.
+In principle, $\theta$ could be any real value between 0 and 1. To keep things
+simple {\it to begin with}, we shall make an approximation and assume that the
+set of possible values for $\theta$ is:
 \begin{center}
 $\{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1\}$.
 \end{center}
@@ -99,16 +117,99 @@ in the Bayes' Box are the possible values and the prior probabilities (the prior
 distribution). For starters, let us assume that before we got the data (two
 successes out of 5 trials), we were very uncertain about the value of $\theta$,
 and this can be modelled by using a uniform prior distribution. There are 11
-possible values for $\theta$ that are being considered, so the probability of
-each is $1/11 = 0.0909$.
-
-For the likelihood, we need to think about what the 
+possible values for $\theta$ that are being considered with our discrete
+approximation, so the probability of each is $1/11 = 0.0909$. The partially
+complete Bayes' Box is given in Table~\ref{tab:bus_bayes_box1}. Note the
+new notation that I have put in the column titles. We will use this notation
+in all of our parameter estimation examples (although the parameter(s) and data
+may have different symbols when $\theta$ and $x$ respectively are not
+appropriate).
 
 \begin{table}[ht!]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\tt{possible Values} & \tt{prior} & \tt{likelihood} & \tt{prior} $\times$ \tt{likelihood} & \tt{posterior}\\
+\tt{possible values} & \tt{prior} & \tt{likelihood} & \tt{prior} $\times$ \tt{likelihood} & \tt{posterior}\\
+$\theta$ & $p(\theta)$ & $p(x|\theta)$ & $p(\theta)p(x|\theta)$ & $p(\theta|x)$\\
+\hline
+0 & 0.0909 &  &  & \\
+0.1 & 0.0909 &  &  & \\
+0.2 & 0.0909 &  &  & \\
+0.3 & 0.0909 &  &  & \\
+0.4 & 0.0909 &  &  & \\
+0.5 & 0.0909 &  &  & \\
+0.6 & 0.0909 &  &  & \\
+0.7 & 0.0909 &  &  & \\
+0.8 & 0.0909 &  &  & \\
+0.9 & 0.0909 &  &  & \\
+1 & 0.0909 &  &  & \\
+\hline
+Totals & 1 & & & 1\\
+\hline
+\end{tabular}
+\caption{\it Starting to make a Bayes' Box for the bus problem. This one
+just has the possible parameter values and the prior distribution.
+\label{tab:bus_bayes_box1}}
+\end{center}
+\end{table}
+
+To get the likelihoods, we need to think about the properties of our experiment.
+In particular, we should imagine that we knew the value of $\theta$ and were
+trying to predict what experimental outcome would occur. 
+Recall that,
+if there are $N$
+repetitions of a ``random experiment'' and the ``success'' probability is
+$\theta$ at each repitition,
+then the number of ``successes'' $x$ has a binomial distribution:
+\begin{eqnarray}
+p(x|\theta) &=& \left(\begin{array}{c}N \\ x\end{array}\right)
+\theta^x\left(1-\theta\right)^{N - x}.\label{eq:binomial_likelihood2}
+\end{eqnarray}
+where $\left(\begin{array}{c}N \\ x\end{array}\right) = \frac{N!}{x!(N-x)!}$.
+This is the probability mass function for $x$ (if we image $\theta$ to be known).
+Since there are five trials
+($N=5$) in the bus problem, the number of successes $x$ must be one of
+0, 1, 2, 3, 4, or 5.
+If $\theta$ is a high number close to one, then we would expect the resulting
+value of the data (number of successes) $x$ to be something high like 4 or 5. Low values for $x$ would
+still be possible but they would have a small probability. If $\theta$ is a
+small number, we would expect the data to be 0, 1, or 2, with less probability
+for more successes than that. This is just saying in words what is written
+precisely in Equation~\ref{eq:binomial_likelihood}. The probability distribution
+for the data $x$ is plotted in Figure~\ref{fig:binomial} for three illustrative
+values of the parameter $\theta$.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[scale=0.6]{Figures/binomial.pdf}
+\caption{\it The binomial likelihood, viewed as a probability distribution for the
+data $x$, for three different values of the parameter $\theta$. If $\theta$ is
+low then we would expect to see lower values for the data. If $\theta$ is high
+then high values are more probable (but all values from 0 to 5 inclusive are
+still possible). The actual observed value of the data was $x=2$. If we focus
+only on the values of the curves at $x=2$, then the heights of the curves give
+the likelihood values for these three illustrative values of $\theta$.
+\label{fig:binomial}}
+\end{center}
+\end{figure}
+To obtain the actual likelihood values that go into the Bayes' Box, we can
+simply substitute in the known values $N=5$ and $x=2$:
+\begin{eqnarray}
+P(x=2|\theta) &=& \left(\begin{array}{c}5 \\ 2\end{array}\right)
+\theta^2\left(1-\theta\right)^{5 - 2}\\
+&=& 10\times\theta^2\left(1-\theta\right)^3.\label{eq:binomial_likelihood3}
+\end{eqnarray}
+The resulting equation depends on $\theta$ only! We can go through the list of
+$\theta$ values and get a numerical answer for the likelihood $P(x=2|\theta)$,
+which is what we need for the Bayes' Box. The final steps are, as usual, to
+multiply the prior by the likelihood and then normalise that to get the
+posterior distribution. The completed Bayes' Box is given in
+Table~\ref{tab:bus_bayes_box2}.
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\tt{possible values} & \tt{prior} & \tt{likelihood} & \tt{prior} $\times$ \tt{likelihood} & \tt{posterior}\\
 $\theta$ & $p(\theta)$ & $p(x|\theta)$ & $p(\theta)p(x|\theta)$ & $p(\theta|x)$\\
 \hline
 0 & 0.0909 & 0 & 0 & 0\\
@@ -126,50 +227,12 @@ $\theta$ & $p(\theta)$ & $p(x|\theta)$ & $p(\theta)p(x|\theta)$ & $p(\theta|x)$\
 Totals & 1 & & 0.7145 & 1\\
 \hline
 \end{tabular}
-\caption{The completed Bayes' Box for the bus problem (binomial likelihood).\label{tab:bus_bayes_box}}
+\caption{The completed Bayes' Box for the bus problem
+(using a binomial likelihood).
+\label{tab:bus_bayes_box2}}
 \end{center}
 \end{table}
 
-To get the likelihoods, we need to think about what our experiment is doing.
-In particular, we should imagine that we knew the value of $\theta$ and were
-trying to predict what experimental outcome would occur. If there are $N=5$
-repetitions of an experiment and the ``success'' probability is $\theta$ each time,
-then the number of ``successes'' $x$ has a binomial distribution:
-\begin{eqnarray}
-p(x|\theta) &=& \left(\begin{array}{c}N \\ x\end{array}\right)
-\theta^x\left(1-\theta\right)^{N - x}.\label{eq:binomial_likelihood2}
-\end{eqnarray}
-This is the probability mass function for $x$. Since there are five trials
-($N=5$), the number of successes $x$ must be one of 0, 1, 2, 3, 4, or 5.
-If $\theta$ is a high number close to one, then we would expect the resulting
-value of the data $x$ to be something high like 4 or 5. Low values for $x$ would
-still be possible but they would have a small probability. If $\theta$ is a
-small number, we would expect the data to be 0, 1, or 2, with less probability
-for more successes than that. This is just saying in words what is written
-precisely in Equation~\ref{eq:binomial_likelihood}. The probability distribution
-for the data $x$ is plotted in Figure~\ref{fig:binomial} for three illustrative
-values of the parameter $\theta$.
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[scale=0.6]{Figures/binomial.pdf}
-\caption{The binomial likelihood, viewed as a probability distribution for the
-data $x$, for three different values of the parameter $\theta$. If $\theta$ is
-low then we would expect to see lower values for the data. If $\theta$ is high
-then high values are more probable (but all values from 0 to 5 inclusive are
-{\it possible}).
-\label{fig:binomial}}
-\end{center}
-\end{figure}
-To obtain the actual likelihood values that go into the Bayes' Box, we can
-simply substitute in the known values $N=5$ and $x=2$:
-\begin{eqnarray}
-P(x=2|\theta) &=& \left(\begin{array}{c}5 \\ 2\end{array}\right)
-\theta^2\left(1-\theta\right)^{5 - 2}\\
-&=& 10\times\theta^2\left(1-\theta\right)^3.\label{eq:binomial_likelihood3}
-\end{eqnarray}
-The resulting equation depends on $\theta$ only! We can go through the list of
-$\theta$ values and get a numerical answer for the likelihood $P(x=2|\theta)$,
-which is what we need for the Bayes' Box. The final steps are, as usual, to multiply the prior by the likelihood and then normalise that to get the posterior distribution.
 
 There are a few interesting values in the likelihood column that should help you
 to understand the concept of likelihood a bit better. Look at the likelihood for
@@ -185,9 +248,25 @@ with 100\% certainty. So $P(x=2|\theta=1) = 0$. The likelihood is highest
 for $\theta = 0.4$, which just so happens to equal 2/5. This means that this
 value for $\theta$ is the one that makes the data the least surprising. It does
 not necessarily mean that $\theta=0.4$ is the most probable value, that depends
-on the prior as well (but with a uniform prior, it will end up being that way).
+on the prior as well (but with a uniform prior, it does end up being that way,
+as you can see in the posterior distribution column, $\theta=0.4$ has the
+highest probability).
 
-\section{Prediction}
+Even though this example is meant to be introductory, there is a subtlety
+that has been swept under the rug. Notice that our data consisted of the fact
+that we got 2/5 successes in the experiment. When we worked out the likelihood,
+we were considering the probability of getting $x=2$, but we didn't have a
+probability for $N=5$. In principle, we could say that both $x$ and $N$ were data.
+We could first update from prior to the posterior given $N=5$, and then update
+again to take into account $x$ as well as $N$. However, the first update would
+be a bit weird: why would knowing the number of trials tell you anything about
+the success probability? Effectively what we have done in our analysis is that
+we have assumed that $N=5$ is prior information that lurks in the background of
+the whole problem. Therefore our uniform prior for $\theta$ already ``knows''
+that $N=5$, so we didn't have to consider $P(N=5|\theta)$ in the likelihood.
+This subtlety usually doesn't matter much.
+
+\section{Prediction in the Bus Problem}
 We have now seen how to use information (data) to update from a prior distribution
 to a posterior distribution when the set of possible values is discrete. The
 posterior distribution is the complete answer to the problem: it tells us exactly
