@@ -1,9 +1,8 @@
-\chapter{Probability Theory}
-This course will use probability theory extensively. In fact, Bayesian
-Statistics is really just probability theory used for a particular purpose --
-to describe uncertainty.
-
-The two most important rules of probability are given below.
+\chapter{Probability}
+This course will use probability theory quite a lot, but we will often use
+a fairly informal notation. Bayesian
+statistics is really just probability theory used for a particular purpose --
+to describe uncertainty. The two most important rules of probability are given below.
 
 \section{The Product Rule}
 The first important rule of probability is the
@@ -81,7 +80,7 @@ that tells you, as a function of the {\it possible} values $x$.
 For example, the equation for the Poisson distribution (a useful discrete
 distribution) is:
 \begin{eqnarray}
-P(X=x) &=& \frac{\lambda^x e^{-\lambda}}{x!}
+P(X=x) &=& \frac{\lambda^x e^{-\lambda}}{x!}\label{eq:poisson}
 \end{eqnarray}
 for $x \in \{0, 1, 2, 3, ...\}$. The actual random variable is named $X$, and
 $x$ is just used so we can write the probabilities ($P(X=0), P(X=1), ...)$ as
@@ -119,7 +118,8 @@ and the dummy variables that allow us to write the probability distribution as
 a formula, we just use the lower case for everything. Despite this simplification,
 everything still works. Just read
 $p(y|x)$ as ``the probability distribution for $y$ given $x$'' and everything
-will be fine.
+will be fine. Astute readers may have noticed that when I gave the Poisson formula
+(Equation~\ref{eq:poisson}), ``given $\lambda$'' was implicit throughout.
 
 To be clear when we are talking about a simple probability and when we are
 talking about the probability distribution for a variable, I will use upper case
