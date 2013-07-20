@@ -7,7 +7,11 @@ in this way!
 
 Firstly, what is a parameter? One way to think of a parameter is that
 it is just a fancy term for a quantity or a number that is
-unknown.
+unknown\footnote{Another use for the term parameter
+is any quantity that something else depends on. For example, a normal distribution
+has a mean $\mu$ and a standard deviation $\sigma$ that defines which normal
+distribution we are talking about. $\mu$ and $\sigma$ are then said to be
+parameters of the normal distribution.}.
 For example, how many people are currently in New
 Zealand? Well, a Google search suggests 4.405 million. But that does not mean
 there are {\bf exactly} 4,405,000 people. It could be a bit more or a bit
@@ -166,7 +170,7 @@ p(x|\theta) &=& \left(\begin{array}{c}N \\ x\end{array}\right)
 \theta^x\left(1-\theta\right)^{N - x}.\label{eq:binomial_likelihood2}
 \end{eqnarray}
 where $\left(\begin{array}{c}N \\ x\end{array}\right) = \frac{N!}{x!(N-x)!}$.
-This is the probability mass function for $x$ (if we image $\theta$ to be known).
+This is the probability mass function for $x$ (if we imagine $\theta$ to be known), hence the notation $p(x|\theta)$, read as ``the probability distribution for $x$ given $\theta$''.
 Since there are five trials
 ($N=5$) in the bus problem, the number of successes $x$ must be one of
 0, 1, 2, 3, 4, or 5.
@@ -270,12 +274,13 @@ This subtlety usually doesn't matter much.
 We have now seen how to use information (data) to update from a prior distribution
 to a posterior distribution when the set of possible values is discrete. The
 posterior distribution is the complete answer to the problem: it tells us exactly
-how strongly we should believe in the various possible solutions. However, there
+how strongly we should believe in the various possible solutions (possible
+values for the unknown parameter). However, there
 are other things we might want to do with this information. Predicting the future
 is one! It's fun, but risky. Here we will look at how it is done using the Bayesian
 framework, continuing with the bus example. To be concrete, we are interested
 in the following question: {\it what is the probability that I will catch the
-right bus tomorrow?}. This is like asking a question about what the future data
+right bus tomorrow?}. This is like asking a question about what future data
 will be.
 
 Suppose we knew that the true value of $\theta$ was 0.3. Then, we would know that
@@ -295,16 +300,20 @@ p(\theta | x)P(\textnormal{good bus tomorrow} | \theta, x)\\
 &=& \sum_{\theta}
 p(\theta | x)\theta
 \end{eqnarray}
-This says that the total probability for a good bus tomorrow (given the data)
+This says that the total probability for a good bus tomorrow (given the data,
+i.e. using the posterior distribution and not the prior distribution)
 is given by going through each possible $\theta$ value, working out the probability
 {\it assuming that $\theta$ value is true}, multiplying that by the probability
 (given the data) that that $\theta$ value is actually true, and summing. In this
 problem, because $P(\textnormal{good bus tomorrow} | \theta, x) = \theta$, it
 just so happens that the probability for tomorrow is the expectation value of
-$\theta$ using the posterior distribution.
+$\theta$ using the posterior distribution. To three decimal places, the result
+for the probability tomorrow is 0.429. Interestingly, this is not equal to
+$2/5 = 0.4$.
 
-The R code for computing the Bayes' Box in this problem is given below. This is
-very much like a lot of the problems we will work on in labs.
+The R code for computing the Bayes' Box and the probability for tomorrow
+is given below. This is
+very much like many of the problems we will work on in labs.
 
 \begin{framed}
 \begin{verbatim}
@@ -315,6 +324,8 @@ theta = seq(0, 1, by=0.1)
 prior = rep(1/11,11)
 
 # Likelihood. Notice use of dbinom() rather than formula
+# because R conveniently knows a lot of
+# standard probability distributions already
 lik = dbinom(2,5,theta)
 
 # Prior times likelihood, then normalise to get posterior
@@ -322,21 +333,42 @@ h = prior*lik
 post = h/sum(h)
 
 # Probability for good bus tomorrow (prediction!)
+# This happens to be the same as the posterior expectation of theta
+# *in this particular problem*
 prob_tomorrow = sum(theta*post)
 \end{verbatim}
 \end{framed}
 
+Mathematically, what we did to calculate the posterior distribution was to
+take the prior distribution as a whole (the whole second column) and multiply it
+by the likelihood (the whole third column) to get the
+unnormalised posterior, then normalise to get the final posterior distribution.
+This can be written as follows, which we will call the ``parameter estimation''
+version of Bayes' rule. There are three ways to write it:
+\begin{eqnarray}
+p(\theta | x) &=& \frac{p(\theta)p(x|\theta)}{p(x)}\\
+p(\theta | x) &\propto& p(\theta)p(x|\theta)\\
+{\tt posterior} &\propto& {\tt prior}\times{\tt likelihood}.
+\end{eqnarray}
+Writing the equations in these ways is most useful when you can write the
+prior $p(\theta)$ and the likelihood $p(x|\theta)$ as formulas (telling you
+how the values depend on $\theta$ as you go through the rows). Then you can get the
+posterior distribution as a formula. We will do this in the next chapter.
 
 \chapter{Parameter Estimation: Analytical Methods}
 Analytical methods are those that can be carried out with a pen and paper,
 the ``old school'' way before we all started using computers. There are some
 problems in Bayesian statistics that can be solved in this way, and we will
-see one or two of them in this course.
+see a few of them in this course. For an analytical solution to be possible, the
+mathematics usually has to work out nicely, and that doesn't always happen, so
+the techniques shown here don't {\it always} work. When they do -- great! When
+they don't, that's what MCMC (and JAGS) is for!
 
 Let's look at the {\it binomial likelihood} problem again, with the familiar
 bus example. Out of $N=5$ attempts at a ``repeatable'' experiment, there were
 $x=2$ successes. From this, we want to infer the value of $\theta$, the
-success probability that applied on each trial. Because of its meaning, we know
+success probability that applied on each trial, or the overall fraction of 
+buses that are good. Because of its meaning, we know
 with 100\% certainty that $\theta$ must be between 0 and 1 (inclusive).
 
 Recall that, if we knew the
@@ -347,8 +379,13 @@ p(x|\theta) &=& \left(\begin{array}{c}N \\ x\end{array}\right)
 \theta^x\left(1-\theta\right)^{N - x}.\label{eq:binomial_likelihood}
 \end{eqnarray}
 
-Let's use a uniform prior for $\theta$.
-The equation for a uniform probability density is:
+Let's use a uniform prior for $\theta$, but instead of making the discrete
+approximation and using a Bayes' Box, let's keep the continuous set of possibilities,
+that $\theta$ can really be any real number between 0 and 1. Because the set of
+possibilities is continuous, the prior and the posterior for $\theta$ will both
+be probability {\it densities}. If we tried to do a Bayes' Box now, it would
+have infinitely many rows!
+The equation for our prior, a uniform probability density between 0 and 1, is:
 \begin{eqnarray}
 p(\theta) &=& \left\{
 \begin{array}{lr}
@@ -357,6 +394,19 @@ p(\theta) &=& \left\{
 \end{array}
 \right.\label{eq:uniform}
 \end{eqnarray}
+If we keep in mind that $\theta$ is between 0 and 1, and therefore remember at
+all times that we are restricting our attention to $\theta \in [0, 1]$, we can
+write the uniform prior much more simply as:
+\begin{eqnarray}
+p(\theta) &=& 1.
+\end{eqnarray}
+If you find the Bayes' Box way of thinking easier to follow than the mathematics
+here, you can imagine that we are making a Bayes' Box like in
+Table~\ref{tab:bus_bayes_box1}, but with an ``infinite'' number of rows, and
+the equation for the prior tells us how the prior probability varies as a function
+of $\theta$ as we go down through the rows (since the prior is uniform, the
+probabilities don't vary at all!).
+
 To find the posterior probability density for $\theta$, we use the ``parameter
 estimation'' form of Bayes' rule:
 \begin{eqnarray}
@@ -370,12 +420,13 @@ p(\theta|x) &\propto& p(\theta)p(x|\theta)\\
 &\propto& 1 \times \left(\begin{array}{c}N \\ x\end{array}\right)
 \theta^x\left(1-\theta\right)^{N - x}
 \end{eqnarray}
-as long as $\theta \in [0, 1]$. There is a handy tip you can use a lot of the
+as long as we remember this only applies for $\theta \in [0, 1]$.
+There is a handy tip you can use a lot of the
 time when working things out analytically. Notice that the ``parameter estimation''
 form of Bayes' rule has a proportional sign in it, not an equals sign. That's
 because the prior times the likelihood can't actually be the posterior
-distribution because it may not be normalised -- the sum or integral is not 1.
-However, the equation still gives the correct shape of the probability density
+distribution because it is not normalised -- the sum or integral is not 1.
+However, the equation still gives the correct shape of the posterior probability density
 function: the way it depends on $\theta$. The reason this is helpful is that
 you can save ink: if there are some factors out the front of your expression
 that don't involve the parameter (in this case, $\theta$), you can ignore them!
@@ -390,19 +441,29 @@ leaving the symbols there. That's it! We have the correct shape of the
 posterior distribution. We can use this to plot the posterior, as you can see
 in Figure~\ref{fig:bus_inference}.
 
-\begin{figure}[h!]
+\begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/bus_inference.pdf}
-\caption{\label{fig:bus_inference}}
+\caption{\it The prior and the posterior for $\theta$ in the bus problem, given
+that we had 2/5 successes. The prior is just a uniform density and this is
+plotted as a flat line, describing the fact that $\theta$ can be anywhere between
+0 and 1 and we don't have much of an idea. After getting the data, the distribution
+changes to the posterior which is peaked at 0.4, although there is still a pretty
+wide range of uncertainty.\label{fig:bus_inference}}
 \end{center}
 \end{figure}
 
-\section{Statistician's Notation}
+\section{``$\sim$'' Notation}
 While it is very helpful to know the full equations for different kinds of
-probability distributions (both discrete ones and continuous ones), if you only
-want to say what a distribution is. Instead of saying ``the prior for $\theta$
-is uniform between 0 and 1'', or giving the formula for the prior distribution
-(Equation~\ref{eq:uniform}), you can write:
+probability distributions (both discrete ones and continuous ones), it is
+convenient to have a way to communicate about probability distributions in an
+easier manner. There is a good notation for this which we will sometimes use
+in STATS 331. If we want to communicate about our above analysis, and someone
+wanted to know what prior distribution we used, we could do several things.
+We could say ``the prior for $\theta$
+was uniform between 0 and 1'', or we could give the formula for the prior distribution
+(Equation~\ref{eq:uniform}). However, convenient shorthand that is in common use
+is to simply write:
 \begin{eqnarray}
 \theta \sim \textnormal{Uniform}(0, 1)
 \end{eqnarray}
@@ -410,18 +471,20 @@ or, even more concisely:
 \begin{eqnarray}
 \theta \sim U(0, 1).
 \end{eqnarray}
-This notation conserves ink, and is good for quick communication. It is also
+This notation conserves ink, and is good for quick communication.
+It is also
 very helpful because when we come to use JAGS in later chapters, it likes
 things to be written this way.
 
-We can also write the binomial likelihood in this way, instead of writing out
-the full equation. We can write:
+We can also write the binomial likelihood (that we used for the bus problem)
+in this notation, instead of writing out
+the full equation (Equation~\ref{eq:binomial_likelihood}). We can write:
 \begin{eqnarray}
 x | \theta \sim \textnormal{Binomial}(N, \theta)
 \end{eqnarray}
 This says that, if we knew the value of $\theta$, $x$ would have a binomial
 distribution with $N$ trials and success probability $\theta$. We can also
-make this more concise:
+make this one more concise:
 \begin{eqnarray}
 x \sim \textnormal{Bin}(N, \theta)
 \end{eqnarray}
@@ -434,24 +497,40 @@ be understood implicitly.
 We decided to do this problem with a uniform prior, because it is the obvious
 first choice to describe ``prior ignorance''. However, in principle, the prior
 could be different, and this will change the posterior distribution, and hence
-the conclusions. In this section we will look at the effect of different priors
-on the results. Specifically, we will look at three different priors: the
+the conclusions. This isn't a problem of Bayesian analysis but a feature. Data
+on its own doesn't tell us exactly what should believe: what we must do is
+combine the data with all of our other knowledge (prior information, context)
+to arrive at reasoned conclusions.
+
+In this section we will look at the effect of different priors
+on the results, again focusing on the bus problem for continuity.
+Specifically, we will look at three different priors: the
 uniform one that we already used, and two other priors discussed below.
 
 \subsection{Emphasising the Extremes}
 One possible criticism of the uniform prior is that there is not much probability
-given to extreme solutions. For example, the prior probability that $\theta$ is
-between 0 and 0.001 is only 0.001. But, depending on the situation, we might think
-that such extremely small values should be more plausible than that. One
+given to extreme solutions. For example, according to the Uniform(0, 1) prior,
+the prior probability that $\theta$ is
+between 0 and 0.1 is only $\int_0^{0.1} 1 \, d\theta = 0.1$. But, depending on the situation, we might think
+that values near zero should be more plausible than
+that\footnote{Here's another parameter that is between 0 and 1: the proportion of
+people in New Zealand that keep a Macaw as a pet (call that $\phi$).
+I hope this number is low
+(it is very difficult to take responsible care of such a smart bird). I also
+think it is probably low. I would definitely object to a prior that implied
+$P(\phi < 0.1) = 0.1$. I would want a prior that implied something like
+$P(\phi < 0.1) = 0.999999$.}.
+One
 possible choice of prior distribution
-that puts a bit more probability on the extreme values is:
+that puts a bit more probability on the extreme values (close to 0 or 1) is:
 \begin{eqnarray}
 p(\theta) \propto \theta^{-\frac{1}{2}}(1 - \theta)^{-\frac{1}{2}}.
 \end{eqnarray}
 
 \subsection{Already Being Well Informed}
+Here's another scenario that we might want to describe in our prior.
 Suppose that, before getting this data, you weren't ignorant at all, but already
-had a lot of information. Say that we already had a lot of information that
+had a lot of information about the value of the parameter. Say that we already had a lot of information that
 suggested the value of $\theta$ was probably close to 0.5. This could be modelled
 by the following choice of prior:
 \begin{eqnarray}
@@ -467,7 +546,9 @@ curves use the ``emphasising the extremes'' prior, and the green curves use the
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/three_priors.pdf}
-\caption{\label{fig:three_priors}}
+\caption{\it Three different priors (dotted lines) and the corresponding
+three posteriors (solid lines) given the bus example data. See the text
+for discussion of these results.\label{fig:three_priors}}
 \end{center}
 \end{figure}
 
@@ -491,7 +572,8 @@ basically the same as the prior.
 The two priors given above are both examples of {\it beta} distributions. A beta
 distribution is a family of probability distributions (like the normal, Poisson,
 binomial, and so on) that applies to continuous random variables that are known
-to be between 0 and 1. The general form of a beta distribution is:
+to be between 0 and 1. The general form of a beta distribution (here written
+for a variable $x$ is:
 \begin{eqnarray}
 p(x|\alpha, \beta) \propto x^{\alpha - 1}(1 - x)^{\beta - 1}. 
 \end{eqnarray}
@@ -509,7 +591,7 @@ where $B(a, b)$ (called the ``beta function'') is defined (usefully\ldots) as th
 result of doing that very integral (it can be related to factorials too, if you're interested).
 Thankfully, we can get away with the ``proportional'' version most of the time.
 
-In statisticians notation the beta distribution is written as:
+In ``$\sim$'' notation the beta distribution is written as:
 \begin{eqnarray}
 x|\alpha, \beta &\sim& \textnormal{Beta}(\alpha, \beta).
 \end{eqnarray}
