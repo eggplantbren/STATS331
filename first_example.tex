@@ -3,26 +3,26 @@ We will now look at a simple example that demonstrates all the features of
 Bayesian statistics. The problem is quite simple, but we will be able to see
 how we start with some probabilities at the beginning of the problem (these are
 called {\it prior probabilities}), and how exactly these get updated
-into after we get more information (these updated probabilities are called
+when we get more information (these updated probabilities are called
 {\it posterior probabilities}). To help make things more clear, we will
 use a table that we will call a {\it Bayes' Box} to help us calculate the
 posterior probabilities.
 
-Here is the problem we will use. Suppose that there are two balls in a bag. We know in advance
-that at least one of them is black. But we're not sure whether they're both
+Here is the problem we will use. Suppose there are two balls in a bag. We know in advance
+that at least one of them is black, but we're not sure whether they're both
 black, or whether one is black and one is white. These are the two possibilities
 we will consider.
 To keep things concise, we
 can label our two competing hypotheses. We could call them whatever we want,
 but I will call them \bb~and \bw. So, at the beginning of the problem, we know
-that {\it one and only one} of the following statements/hypothesis is true:\\
+that {\it one and only one} of the following statements/hypotheses is true:\\
 \begin{framed}
 \bb: Both balls are black\\
 \bw: One ball is black and the other is white.
 \end{framed}
 Suppose an experiment is performed to help us determine
 which of these two hypotheses is
-true. The experimenter reaches into the bag, pull out one of the balls, and
+true. The experimenter reaches into the bag, pulls out one of the balls, and
 observes its colour. The result of this experiment is (drumroll please!):
 \begin{framed}
 $D$: The ball that was removed from the bag was black.
@@ -41,15 +41,16 @@ and so we will use the following prior probabilities:
 P(\bb) &=& 0.5\\
 P(\bw) &=& 0.5.
 \end{eqnarray}
-Pay attention to the notation: the upper case $P$ stands for probability, and if we just
+Pay attention to the notation. The upper case $P$ stands for probability, and if we just
 write $P(\texttt{whatever})$, that means we are talking about the
 prior probability of {\tt whatever}. We will see the notation for the posterior probability
 shortly. Note also that since the two hypotheses are mutually exclusive
-(they can't both be true) and exhaustive (one of these is true, it can't be
+(they can't both be true) and exhaustive (one of these is true. It can't be
 some undefined third option).
 We will almost always consider mutually exclusive and exhaustive hypotheses in
 this course\footnote{If this does not appear to be true in a particular problem,
-it usually possible to redefine the various hypotheses into a set that {\it are}
+it is usually possible to redefine the various hypotheses into a set that of
+hypotheses that {\it are}
 mutually exclusive and exhaustive.}.
 
 The choice of 0.5 for the two prior probabilities describes the fact that,
@@ -58,7 +59,7 @@ hypotheses was true.
 I will now present a {\it Bayes' Box}, which lists all the hypotheses (in this
 case
 two) that might be true, and the prior probabilities. There are some extra
-columns which we haven't discussed yet, which will be needed in order to
+columns which we haven't discussed yet, and will be needed in order to
 figure out the posterior probabilities in the final column.
 \begin{table}[h!]
 \begin{center}
@@ -76,17 +77,15 @@ Totals: & 1 & & & \\
 \end{center}
 \end{table}
 The first column of a Bayes' Box is just the list of hypotheses we are
-considering, in this case there are just two. If you need to construct a Bayes' box for a new problem, just think
+considering. In this case there are just two. If you need to construct a Bayes' box for a new problem, just think
 about what the possible answers to the problem are, and list them in the first
 column. The second column lists the prior probabilities for each of the
 hypotheses.
-Above, we decided to say that there is a 50\%
-probability that \bb~is true and a 50\% probability that \bw~is true, before
-we did the experiment, hence the 0.5 values in this column.
+Above, before we did the experiment, we decided to say that there was a 50\%
+probability that \bb~is true and a 50\% probability that \bw~is true, hence the 0.5 values in this column.
 The prior column should always sum to 1. Remember, the prior probabilities
-only describe our initial uncertainty, before taking into account the
-data. Hopefully the data will help by changing these probabilities to
-something a bit more decisive!
+only describe our initial uncertainty, before taking the data into account. Hopefully the data will help by changing these probabilities to
+something a bit more decisive.
 
 \subsection{Likelihood}
 The third column is called {\it likelihood}, and this is a really important
@@ -94,17 +93,17 @@ column where the action happens. The likelihood is a quantity
 that will be used for calculating the posterior
 probabilities.
 In colloquial language, likelihood is synonymous with
-probability; it means the same thing. However, in statistics, likelihood is a
+probability. It means the same thing. However, in statistics, likelihood is a
 very
 specific kind of probability. To fill in the third column of the Bayes' Box,
 we need to calculate two likelihoods, so you can tell from this that the
-likelihood is something that is different for each hypothesis. But what is it
+likelihood is something different for each hypothesis. But what is it
 exactly?
 \begin{framed}
 {\bf The likelihood for a hypothesis is the probability that you would have
 observed the data, if that hypothesis were true. The values can be found by
-going through each hypothesis in turn, imagining it is true, and asking
-``what is the probability of getting the data that I observed?''}
+going through each hypothesis in turn, imagining it is true, and asking,
+``What is the probability of getting the data that I observed?''.}
 \end{framed}
 
 Here is the Bayes' Box with the likelihood column filled in. I will explain
@@ -142,15 +141,15 @@ put the number 1 in the Bayes Box as the likelihood for the \bb~hypothesis.
 Now imagine instead that \bw~is true. That would mean one ball is black and the
 other is white. If this were the case and we did the experiment, what would be
 the probability of getting the black ball in the experiment? Since one of the
-two balls is black, the chance of choosing this one is 50\%. Therefore the
-likelihood for the \bw~hypothesis is 0.5, so that's why I put 0.5 in the Bayes'
+two balls is black, the chance of choosing this one is 50\%. Therefore, the
+likelihood for the \bw~hypothesis is 0.5, and that's why I put 0.5 in the Bayes'
 Box for the likelihood for \bw.
 
 In general, the likelihood is the {\it probability of the data that you actually
-got, assuming that a particular hypothesis is true}. In this example it was
+got, assuming a particular hypothesis is true}. In this example it was
 fairly easy to get the likelihoods directly by asking ``if this hypothesis
-were true, what would be the probability of the experiment outcome being the
-black ball?''. Sometimes it's not so easy, and it can be helpful to think about
+is true, what is the probability of getting the black ball when we do the
+experiment?''. Sometimes it's not so easy, and it can be helpful to think about
 ALL possible experimental outcomes/data you might have seen -- even though
 ultimately, you just need to select the one that actually occurred.
 Table~\ref{tab:all_data} shows an example of this process.
@@ -171,27 +170,29 @@ Table~\ref{tab:all_data} shows an example of this process.
 \caption{\it This table demonstrates a method for calculating the likelihood
 values, by considering not just the data that actually occurred, but all
 data that might have occurred. Ultimately, it is only the probability of the
-data that actually occurred that matters, so this is highlighted in blue.
+data which actually occurred that matters, so this is highlighted in blue.
 \label{tab:all_data}}
 \end{center}
 \end{table}
 The fact that only the blue probabilities in Table~\ref{tab:all_data} enter the
-Bayes' Box calculation is related to the {\it likelihood principle} which is
-discussed in lectures. Note also that in Table~\ref{tab:all_data}, the
+Bayes' Box calculation is related to the {\it likelihood principle}, which we
+will
+discuss in lectures. Note also that in Table~\ref{tab:all_data}, the
 probabilities for the different possible data sets add to 1 within each
 hypothesis, but the sum of the blue ``selected'' likelihood values is not 1
-(it is meaningless, in fact).
+(it is, in fact, meaningless).
 
 \subsection{The Mechanical Part}
 The third column of the Bayes' Box is the product of the prior probabilities
 and the likelihoods, calculated by simple multiplication. The result will be
 called ``prior times likelihood'', but occasionally we will use the letter $h$
-for these quantities. This is the {\it unnormalised} posterior: it does not sum
+for these quantities. This is the {\it unnormalised} posterior. It does not sum
 to 1 as the posterior probabilities should, but it is at least proportional to
 the actual posterior probabilities.
 
 To find the posterior probabilities, we take the {\tt prior $\times$ likelihood}
-column and divide it by its sum, producing numbers that do sum to 1: the final
+column and divide it by its sum, producing numbers that do sum to 1. This
+gives us the final
 posterior probabilities, which were the goal all along. The completed Bayes'
 Box is shown below:
 
@@ -212,7 +213,7 @@ Totals: & 1 & & 0.75 & 1\\
 \end{table}
 We can see that the posterior probabilities are not the same as the prior
 probabilities, because we have more information now! The experimental result
-made \bb~a little bit more plausible than it was before: its probability has
+made \bb~a little bit more plausible than it was before. Its probability has
 increased from 1/2 to 2/3.
 
 \subsection{Interpretation}
@@ -223,10 +224,10 @@ To understand what this means about reasoning, consider
 the meanings of the prior and the likelihood. There are two things that can
 contribute to a hypothesis being plausible:
 \begin{itemize}
-\item If the prior probability is high, that is, the hypotheses was {\it already}
+\item If the prior probability is high. That is, the hypothesis was {\it already}
 plausible, before we got the data.
-\item If the hypotheses {\it predicted the data} well. That is, the data that
-occurred was what we would have expected to occur if the hypothesis is true.
+\item If the hypothesis {\it predicted the data} well. That is, the data was
+what we would have expected to occur if the hypothesis had been true.
 \end{itemize}
 I hope you agree that this is all very sensible.
 
@@ -240,7 +241,7 @@ Bayes' rule is an equation from probability theory, shown in
 Figure~\ref{fig:bayes_neon}. The various terms in Bayes' rule are all
 probabilities, but notice that there are conditional probabilities in there.
 For example, the left hand side of the equation is $P(A|B)$ and that means
-the probability of $A$ {\bf given} $B$; that is, it's the probability of $A$
+the probability of $A$ {\bf given} $B$. That is, it's the probability of $A$
 after taking into account the information $B$. In other words,
 $P(A|B)$ is a posterior probability, and Bayes' rule tells us how to calculate
 it from other probabilities.
@@ -258,7 +259,8 @@ Bayes' rule is true for {\it any} statements $A$ and $B$. If you took the
 equation in Figure~\ref{fig:bayes_neon} and replaced $A$ with
 ``K\={a}k\={a}p\={o} will survive beyond 2050'' and $B$ with
 ``I had coffee this morning'', the
-resulting equation would still be true\footnote{Albeit not very interesting,
+resulting equation would still be true\footnote{It would still be true, but
+it would not very interesting,
 because
 whether or not I had coffee doesn't tell you much about the survival prospects
 of endangered New Zealand parrots.}.
@@ -268,8 +270,8 @@ interpretation of how the equation is to be used. In this version of Bayes'
 rule (which is one you should commit to memory), $A$ has been replaced by $H$,
 and $B$ has been replaced by $D$. The reason for these letters is that you should
 interpret $H$ as {\it hypothesis} and $D$ as {\it data}. Then you can interpret
-Bayes' rule as telling you the probability of a hypothesis given some data --
-that is, a posterior probability.
+Bayes' rule as telling you the probability of a hypothesis given some data, in
+other words, a posterior probability.
 \begin{eqnarray}
 P(H|D) = \frac{P(H)P(D|H)}{P(D)}
 \end{eqnarray}
@@ -309,7 +311,7 @@ once for each hypothesis listed in the first column.}
 This example is based on Question 1 from the 2012 final exam. I got the
 idea for this question from an example in David MacKay's wonderful book
 ``Information Theory, Inference and Learning Algorithms''
-(available online as a free PDF download -- you're welcome to check it out, but
+(available online as a free PDF download. You're welcome to check it out, but
 it is a large book and only about 20\% of the content is relevant to this course!).
 
 You move into a new house which has a phone
@@ -323,7 +325,7 @@ If you are correct about
 the phone number, you will definitely hear a busy signal because you are calling
 yourself.
 If you are incorrect, the probability of hearing a busy signal is $1/100$.
-However, all of that is only true if you assume the phone is working -- and it
+However, all of that is only true if you assume the phone is working, and it
 might be broken! If the phone is broken, it will always give a busy signal.
 
 When you do the experiment, the outcome (the data) is that you do actually get the busy signal.
@@ -373,8 +375,8 @@ Totals: & 1 & & & \\
 \end{tabular}
 \end{center}
 \end{table}
-The next thing we need are the likelihoods. The data was that we got the busy
-signal, so we need to work out $P(\textnormal{busy signal} | H)$ for each $H$
+The next thing we need is the likelihoods. The outcome of the experiment (the
+data) was the busy signal, so we need to work out $P(\textnormal{busy signal} | H)$ for each $H$
 in the problem (there are four of them). Let's start (naturally!) with $H_1$.
 
 If we assume $H_1$ is true, then the phone is working and {\tt 555-3226} is the
@@ -457,7 +459,7 @@ P(\textnormal{phone working}|\textnormal{busy signal}) &=& P(H_1 \textbf{ or } H
 &=& 0.6689.
 \end{eqnarray}
 Our probability that the phone is working has gone down a little bit as a result of this
-evidence! That makes sense to me -- a busy signal is what you would expect to
+evidence! That makes sense to me. A busy signal is what you would expect to
 happen if the phone was broken. This data doesn't {\it prove} the phone is
 broken, but it does point in that direction a little bit, and hence the
 probability that the phone is working has been reduced from 0.8 to 0.6689.
@@ -471,15 +473,15 @@ P(H|D) = \frac{P(H)P(D|H)}{P(D)}\label{eq:bayes1}
 This gives the posterior probability $P(H|D)$ in terms of the prior probability
 $P(H)$, the likelihood $P(D|H)$ and the marginal likelihood $P(D)$ in the
 denominator. To obtain $P(H)$, think about your prior beliefs (which may
-indicate a large amount of uncertainty, or may be already well informed based
+indicate a large amount of uncertainty, or may already be well informed based
 on previous data sets). To obtain $P(D|H)$, think about what the experiment is
 doing: If $H$ is true, what data would you expect to see and with what
 probabilities?
 
 The denominator is the probability of obtaining the data $D$ but without
 assuming that $H$ is either true or false. This is obtained using the sum rule.
-There are two ways that the data $D$ could occur: either via the route of $H$
-being true (this has probability $P(H)P(D|H)$) or via the route of $H$ being
+There are two ways that the data $D$ could occur, either via the route of $H$
+being true (this has probability $P(H)P(D|H)$), or via the route of $H$ being
 false (this has probability $P(\bar{H})P(D|\bar{H})$). These two ways are
 mutually exclusive, so we can add their probabilities:
 \begin{eqnarray}
@@ -495,7 +497,7 @@ probability of each hypothesis $H_i$ (for $i=1, 2, ..., N$):
 \begin{eqnarray}
 P(H_i|D) &=& \frac{P(H_i)P(D|H_i)}{P(D)}
 \end{eqnarray}
-The denominator $P(D)$ is a single number, it does not depend on the index $i$.
+The denominator $P(D)$ is a single number. It does not depend on the index $i$.
 It can again be obtained using the sum rule. There are $N$
 mutually exclusive ways that the data $D$ could have occurred: via $H_1$ being
 true, or via $H_2$ being true, etc. Adding the probabilities of these gives:
@@ -510,7 +512,7 @@ $P(D|H_i)$ values are the likelihood column, and the denominator is the
 sum of the prior times likelihood column. For example, the posterior probability
 for $H_1$ (the top right entry in a Bayes' Box) is given by the prior probability
 for $H_1$ times the likelihood for $H_1$, divided by the sum of prior times
-likelihood values: that is, $P(H_1|D) = P(H_1)P(D|H_1)/P(D)$.
+likelihood values. That is, $P(H_1|D) = P(H_1)P(D|H_1)/P(D)$.
 The correspondence between the probabilities that go in a Bayes'
 Box (in general) and the terms in the Equations are given in
 Table~\ref{tab:general_bayes_box}.
