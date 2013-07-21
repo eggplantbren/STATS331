@@ -592,9 +592,9 @@ the probability distribution with an equals sign instead of a proportional sign:
 p(x|\alpha, \beta) &=& \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}
 {\int_0^1 x^{\alpha - 1}(1 - x)^{\beta - 1} \, dx}\\
 &=& \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}
-{B(a, b)}.
+{B(\alpha, \beta)}.
 \end{eqnarray}
-where $B(a, b)$ (called the ``beta function'') is defined (usefully\ldots) as the
+where $B(\alpha, \beta)$ (called the ``beta function'') is defined (usefully\ldots) as the
 result of doing that very integral (it can be related to factorials too, if you're interested).
 Thankfully, we can get away with the ``proportional'' version most of the time.
 In ``$\sim$'' notation the beta distribution is written as:
@@ -632,7 +632,7 @@ It is not always possible to do this!
 Remember that in this particular problem, the probability of a success tomorrow
 is simply the expectation value (mean) of the posterior distribution for $\theta$.
 We can look up (or derive) the formula for the mean of a beta distribution, and find that
-if $x \sim \textnormal{Beta}(a, b)$ then $\mathds{E}(x) = \alpha/(\alpha + \beta)$.
+if $x \sim \textnormal{Beta}(\alpha, \beta)$ then $\mathds{E}(x) = \alpha/(\alpha + \beta)$.
 Applying this to the three posterior distributions gives:
 
 \begin{table}[ht!]\begin{center}
