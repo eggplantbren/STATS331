@@ -1,6 +1,6 @@
 \chapter{Parameter Estimation I: Bayes' Box}
-One of the most important ways of using Bayes' rule is in the topic
-called {\it parameter estimation}. Parameter estimation is a fairly common
+One of the most important times to use Bayes' rule is when you want to do
+{\it parameter estimation}. Parameter estimation is a fairly common
 situation in statistics. In fact, it is possible to interpret almost any
 problem in statistics as a parameter estimation problem and approach it
 in this way!
@@ -17,13 +17,13 @@ Zealand? Well, a Google search suggests 4.405 million. But that does not mean
 there are {\bf exactly} 4,405,000 people. It could be a bit more or a bit
 less. Maybe it is 4,405,323, or maybe it is 4,403,886. We don't really know.
 We could call the true number of people in New Zealand right now $\theta$, or
-we could use some other letter or symbol if we liked. When talking about
-parameter estimation in general we will often call the unknown parameter(s)
+we could use some other letter or symbol if we want. When talking about
+parameter estimation in general we often call the unknown parameter(s)
 $\theta$, but in specific applications we will call the parameter(s) something
 else more appropriate for that application.
 
-The key is to realise that we can use the Bayes' Box like in previous chapters,
-but now, our list of possible hypotheses is a list of possible values for
+The key is to realise that we can use the Bayes' Box, like in previous chapters.
+But now, our list of possible hypotheses is a list of possible values for
 the unknown parameter. For example, a Bayes' Box for the precise number of
 people in New Zealand might look something like the one in
 Table~\ref{tab:nz_pop}.
@@ -59,7 +59,7 @@ is why I just put a bunch of ``\ldots''s in there instead of making up numbers.
 There are lots of possible hypotheses, each one corresponding to a possible value
 for
 $\theta$. The prior probabilities I have put in the second column were for
-illustrative purposes, they needn't necessarily all be equal (although that is
+illustrative purposes. They needn't necessarily all be equal (although that is
 often a convenient assumption). All the
 stuff we've seen in smaller examples of Bayes' rule and/or use of a Bayes' Box
 still applies here. The likelihoods will
@@ -82,14 +82,14 @@ distributions associated with them. In Bayesian stats, an unknown
 parameter looks mathematically like a ``random variable'', but I try to avoid
 the word random itself because it usually has connotations about something that
 fluctuates or varies. In Bayesian statistics, the prior distribution and
-posterior distribution only describe our uncertainty, the actual parameter is
+posterior distribution only describe our uncertainty. The actual parameter is
 a single fixed number.}
 \end{framed} 
 
 \section{Parameter Estimation: Bus Example}
 This is a beginning example of parameter estimation from a Bayesian point of
 view. It shows the various features that are always present in a Bayesian
-parameter estimation problem: there will be a prior distribution, the likelihood,
+parameter estimation problem. There will be a prior distribution, the likelihood,
 and the posterior distribution. We will spend a lot of time on this problem but
 keep in mind that this is just a single example, and certain things about this
 example (such as the choice of the prior and the likelihood) are specific to
@@ -179,11 +179,11 @@ This is the probability mass function for $x$ (if we imagine $\theta$ to be know
 Since there are five trials
 ($N=5$) in the bus problem, the number of successes $x$ must be one of
 0, 1, 2, 3, 4, or 5.
-If $\theta$ is a high number close to one, then we would expect the resulting
+If $\theta$ is a high number close to 1, then we would expect the resulting
 value of the data (number of successes) $x$ to be something high like 4 or 5. Low values for $x$ would
 still be possible but they would have a small probability. If $\theta$ is a
 small number, we would expect the data to be 0, 1, or 2, with less probability
-for more successes than that. This is just saying in words what is written
+for more than 2 successes. This is just saying in words what is written
 precisely in Equation~\ref{eq:binomial_likelihood}. The probability distribution
 for the data $x$ is plotted in Figure~\ref{fig:binomial} for three illustrative
 values of the parameter $\theta$.
@@ -236,7 +236,7 @@ $\theta$ & $p(\theta)$ & $p(x|\theta)$ & $p(\theta)p(x|\theta)$ & $p(\theta|x)$\
 Totals & 1 & & 0.7145 & 1\\
 \hline
 \end{tabular}
-\caption{The completed Bayes' Box for the bus problem
+\caption{\it The completed Bayes' Box for the bus problem
 (using a binomial likelihood).
 \label{tab:bus_bayes_box2}}
 \end{center}
@@ -247,58 +247,57 @@ There are a few interesting values in the likelihood column that should help you
 to understand the concept of likelihood a bit better. Look at the likelihood for
 $\theta = 0$: it is zero. What does this mean? It means that if we imagine
 $\theta=0$ is the true solution, the probability of obtaining the data that we
-got ($x=2$ successes) would be zero. That makes sense! If $\theta=0$ that means
-that none of the buses are the ``good'' buses -- so how could I have caught a
+got ($x=2$ successes) would be zero. That makes sense! If $\theta=0$, it means
+none of the buses are the ``good'' buses, so how could I have caught a
 good bus twice? The probability of that is zero.
 
 The likelihood for $\theta=1$ is also zero for similar reasons. If all of the
-buses are good, then having 2/5 successes is impossible -- you would get 5/5
+buses are good, then having 2/5 successes is impossible. You would get 5/5
 with 100\% certainty. So $P(x=2|\theta=1) = 0$. The likelihood is highest
-for $\theta = 0.4$, which just so happens to equal 2/5. This means that this
-value for $\theta$ is the one that makes the data the least surprising. It does
-not necessarily mean that $\theta=0.4$ is the most probable value, that depends
-on the prior as well (but with a uniform prior, it does end up being that way,
-as you can see in the posterior distribution column, $\theta=0.4$ has the
-highest probability).
+for $\theta = 0.4$, which just so happens to equal 2/5. This $\theta=0.4$ predicted
+the data best. It does
+not necessarily mean that $\theta=0.4$ is the most probable value. That depends
+on the prior as well (but with a uniform prior, it does end up being that way.
+As you can see in the posterior distribution column, $\theta=0.4$ has the
+highest probability in this case).
 
 Even though this example is meant to be introductory, there is a subtlety
 that has been swept under the rug. Notice that our data consisted of the fact
 that we got 2/5 successes in the experiment. When we worked out the likelihood,
 we were considering the probability of getting $x=2$, but we didn't have a
-probability for $N=5$. In principle, we could say that both $x$ and $N$ were data.
-We could first update from prior to the posterior given $N=5$, and then update
+probability for $N=5$. In principle, we could treat $x$ and $N$ as two separate data sets.
+We could first update from the prior to the posterior given $N=5$, and then update
 again to take into account $x$ as well as $N$. However, the first update would
-be a bit weird: why would knowing the number of trials tell you anything about
-the success probability? Effectively what we have done in our analysis is that
-we have assumed that $N=5$ is prior information that lurks in the background of
-the whole problem. Therefore our uniform prior for $\theta$ already ``knows''
+be a bit weird. Why would knowing the number of trials tell you anything about
+the success probability? Effectively, what we have done in our analysis is assume that $N=5$ is prior information that lurks in the background the whole time. Therefore our uniform prior for $\theta$ already ``knows''
 that $N=5$, so we didn't have to consider $P(N=5|\theta)$ in the likelihood.
 This subtlety usually doesn't matter much.
 
 \section{Prediction in the Bus Problem}
 We have now seen how to use information (data) to update from a prior distribution
 to a posterior distribution when the set of possible values is discrete. The
-posterior distribution is the complete answer to the problem: it tells us exactly
+posterior distribution is the complete answer to the problem. It tells us exactly
 how strongly we should believe in the various possible solutions (possible
 values for the unknown parameter). However, there
 are other things we might want to do with this information. Predicting the future
 is one! It's fun, but risky. Here we will look at how it is done using the Bayesian
 framework, continuing with the bus example. To be concrete, we are interested
 in the following question: {\it what is the probability that I will catch the
-right bus tomorrow?}. This is like asking a question about what future data
-will be.
+right bus tomorrow?}. This is like trying to predict the result of a future
+experiment.
 
-Suppose we knew that the true value of $\theta$ was 0.3. Then, we would know that
-the probability of catching the right bus tomorrow is 0.3. If we knew that the
-true value of $\theta$ was 0.4, we would say that the probability of catching
+Suppose we knew the true value of $\theta$ was 0.3. Then, we would know
+the probability of catching the right bus tomorrow is 0.3. If we knew the
+true value of $\theta$ was 0.4, we would say the probability of catching
 the right bus tomorrow is 0.4. The problem is, we don't know what the true value
 is. We only have the posterior distribution. Luckily, the sum rule of
-probability can help us out. We are interested in whether I will get the good
-bus tomorrow. There are 11 different ways that can happen: either $\theta=0$ and
+probability (combined with the product rule) can help us out. We are interested in whether I will get the good
+bus tomorrow. There are 11 different ways that can happen. Either $\theta=0$ and
 I get the good bus, or $\theta=0.1$ and I get the good bus, or $\theta=0.2$ and
-I get the good bus, and so on. These 11 ways are all mutually exclusive, that is,
+I get the good bus, and so on. These 11 ways are all mutually exclusive. That is,
 only one of them can be true (since $\theta$ is actually just a single number).
-Mathematically, this can be written using the sum rule:
+Mathematically, we can obtain the posterior probability of catching the good
+bus tomorrow using the sum rule:
 \begin{eqnarray}
 P(\textnormal{good bus tomorrow} | x) &=& \sum_{\theta}
 p(\theta | x)P(\textnormal{good bus tomorrow} | \theta, x)\\
@@ -308,9 +307,9 @@ p(\theta | x)\theta
 This says that the total probability for a good bus tomorrow (given the data,
 i.e. using the posterior distribution and not the prior distribution)
 is given by going through each possible $\theta$ value, working out the probability
-{\it assuming that $\theta$ value is true}, multiplying that by the probability
-(given the data) that that $\theta$ value is actually true, and summing. In this
-problem, because $P(\textnormal{good bus tomorrow} | \theta, x) = \theta$, it
+{\it assuming the $\theta$ value you are considering is true}, multiplying by the probability
+(given the data) this $\theta$ value is actually true, and summing. In this
+particular problem, because $P(\textnormal{good bus tomorrow} | \theta, x) = \theta$, it
 just so happens that the probability for tomorrow is the expectation value of
 $\theta$ using the posterior distribution. To three decimal places, the result
 for the probability tomorrow is 0.429. Interestingly, this is not equal to
@@ -361,11 +360,11 @@ how the values depend on $\theta$ as you go through the rows). Then you can get 
 posterior distribution as a formula. We will do this in the next chapter.
 
 \chapter{Parameter Estimation: Analytical Methods}
-Analytical methods are those that can be carried out with a pen and paper,
-the ``old school'' way before we all started using computers. There are some
+Analytical methods are those which can be carried out with a pen and paper,
+or the ``old school'' way before we all started using computers. There are some
 problems in Bayesian statistics that can be solved in this way, and we will
 see a few of them in this course. For an analytical solution to be possible, the
-mathematics usually has to work out nicely, and that doesn't always happen, so
+maths usually has to work out nicely, and that doesn't always happen, so
 the techniques shown here don't {\it always} work. When they do -- great! When
 they don't, that's what MCMC (and JAGS) is for!
 
@@ -386,7 +385,7 @@ p(x|\theta) &=& \left(\begin{array}{c}N \\ x\end{array}\right)
 
 Let's use a uniform prior for $\theta$, but instead of making the discrete
 approximation and using a Bayes' Box, let's keep the continuous set of possibilities,
-that $\theta$ can really be any real number between 0 and 1. Because the set of
+that $\theta$ can be any real number between 0 and 1. Because the set of
 possibilities is continuous, the prior and the posterior for $\theta$ will both
 be probability {\it densities}. If we tried to do a Bayes' Box now, it would
 have infinitely many rows!
@@ -406,11 +405,11 @@ write the uniform prior much more simply as:
 p(\theta) &=& 1.
 \end{eqnarray}
 If you find the Bayes' Box way of thinking easier to follow than the mathematics
-here, you can imagine that we are making a Bayes' Box like in
+here, you can imagine we are making a Bayes' Box like in
 Table~\ref{tab:bus_bayes_box1}, but with an ``infinite'' number of rows, and
 the equation for the prior tells us how the prior probability varies as a function
 of $\theta$ as we go down through the rows (since the prior is uniform, the
-probabilities don't vary at all!).
+probabilities don't vary at all).
 
 To find the posterior probability density for $\theta$, we use the ``parameter
 estimation'' form of Bayes' rule:
@@ -419,29 +418,31 @@ estimation'' form of Bayes' rule:
 p(\theta|x) \propto p(\theta)p(x|\theta).
 \end{eqnarray}
 We already wrote down the equations for the prior and the likelihood, so we
-just need to multiply them together.
+just need to multiply them.
 \begin{eqnarray}
 p(\theta|x) &\propto& p(\theta)p(x|\theta)\\
 &\propto& 1 \times \left(\begin{array}{c}N \\ x\end{array}\right)
 \theta^x\left(1-\theta\right)^{N - x}
 \end{eqnarray}
-as long as we remember this only applies for $\theta \in [0, 1]$.
-There is a handy tip you can use a lot of the
+Since we are using the abbreviated form of the prior, we must remember this
+equation only applies for $\theta \in [0, 1]$.
+To simplify the maths, there are some useful tricks you can use a lot of the
 time when working things out analytically. Notice that the ``parameter estimation''
 form of Bayes' rule has a proportional sign in it, not an equals sign. That's
 because the prior times the likelihood can't actually be the posterior
-distribution because it is not normalised -- the sum or integral is not 1.
+distribution because it is not normalised. The sum or integral is not 1.
 However, the equation still gives the correct shape of the posterior probability density
-function: the way it depends on $\theta$. The reason this is helpful is that
-you can save ink: if there are some factors out the front of your expression
-that don't involve the parameter (in this case, $\theta$), you can ignore them!
+function (the way it varies as a function of $\theta$). This is helpful because
+you can save ink. If there are some constant factors in your expression for
+the posterior
+that don't involve the parameter (in this case, $\theta$), you can ignore them.
 The proportional sign will take care of them. In this case, it means we can
 forget about the pesky ``$N$ choose $x$'' term, and just write:
 \begin{eqnarray}
 p(\theta|x) &\propto& \theta^x\left(1-\theta\right)^{N - x}\\
 &\propto& \theta^2\left(1-\theta\right)^3.
 \end{eqnarray}
-The final step was to substitute in the actual values of $N$ and $x$ instead of
+The final step I included was to substitute in the actual values of $N$ and $x$ instead of
 leaving the symbols there. That's it! We have the correct shape of the
 posterior distribution. We can use this to plot the posterior, as you can see
 in Figure~\ref{fig:bus_inference}.
@@ -460,15 +461,15 @@ wide range of uncertainty.\label{fig:bus_inference}}
 
 \section{``$\sim$'' Notation}
 While it is very helpful to know the full equations for different kinds of
-probability distributions (both discrete ones and continuous ones), it is
-convenient to have a way to communicate about probability distributions in an
+probability distributions (both discrete and continuous), it is
+useful to be able to communicate about probability distributions in an
 easier manner. There is a good notation for this which we will sometimes use
 in STATS 331. If we want to communicate about our above analysis, and someone
 wanted to know what prior distribution we used, we could do several things.
 We could say ``the prior for $\theta$
 was uniform between 0 and 1'', or we could give the formula for the prior distribution
-(Equation~\ref{eq:uniform}). However, convenient shorthand that is in common use
-is to simply write:
+(Equation~\ref{eq:uniform}). However, a convenient shorthand in common use is
+to simply write:
 \begin{eqnarray}
 \theta \sim \textnormal{Uniform}(0, 1)
 \end{eqnarray}
@@ -478,16 +479,16 @@ or, even more concisely:
 \end{eqnarray}
 This notation conserves ink, and is good for quick communication.
 It is also
-very helpful because when we come to use JAGS in later chapters, it likes
-things to be written this way.
+very similar to the notation used in JAGS, which will be introduced in later
+chapters.
 
-We can also write the binomial likelihood (that we used for the bus problem)
+We can also write the binomial likelihood (which we used for the bus problem)
 in this notation, instead of writing out
 the full equation (Equation~\ref{eq:binomial_likelihood}). We can write:
 \begin{eqnarray}
 x | \theta \sim \textnormal{Binomial}(N, \theta)
 \end{eqnarray}
-This says that, if we knew the value of $\theta$, $x$ would have a binomial
+This says that if we knew the value of $\theta$, $x$ would have a binomial
 distribution with $N$ trials and success probability $\theta$. We can also
 make this one more concise:
 \begin{eqnarray}
@@ -495,16 +496,16 @@ x \sim \textnormal{Bin}(N, \theta)
 \end{eqnarray}
 The differences here are that ``Binomial'' has been shortened to ``Bin'' and
 the ``given $\theta$'' part has been left out. However, we see that there is
-a $\theta$ is present on the right hand side, so the ``given $\theta$'' must
+a $\theta$ present on the right hand side, so the ``given $\theta$'' must
 be understood implicitly.
 
 \section{The Effect of Different Priors}
 We decided to do this problem with a uniform prior, because it is the obvious
 first choice to describe ``prior ignorance''. However, in principle, the prior
-could be different, and this will change the posterior distribution, and hence
-the conclusions. This isn't a problem of Bayesian analysis but a feature. Data
-on its own doesn't tell us exactly what should believe: what we must do is
-combine the data with all of our other knowledge (prior information, context)
+could be different. This will change the posterior distribution, and hence
+the conclusions. This isn't a problem of Bayesian analysis, but a feature. Data
+on its own doesn't tell us exactly what should believe. We must
+combine the data with all our other prior knowledge (i.e. put the data in context)
 to arrive at reasoned conclusions.
 
 In this section we will look at the effect of different priors
@@ -517,17 +518,16 @@ One possible criticism of the uniform prior is that there is not much probabilit
 given to extreme solutions. For example, according to the Uniform(0, 1) prior,
 the prior probability that $\theta$ is
 between 0 and 0.1 is only $\int_0^{0.1} 1 \, d\theta = 0.1$. But, depending on the situation, we might think
-that values near zero should be more plausible than
-that\footnote{Here's another parameter that is between 0 and 1: the proportion of
-people in New Zealand that keep a Macaw as a pet (call that $\phi$).
+values near zero should be more plausible\footnote{Here's another parameter that is between 0 and 1: the proportion of
+households in New Zealand that keep a Macaw as a pet (call that $\phi$).
 I hope this number is low
 (it is very difficult to take responsible care of such a smart bird). I also
-think it is probably low. I would definitely object to a prior that implied
+think it probably is low. I would definitely object to a prior that implied
 $P(\phi < 0.1) = 0.1$. I would want a prior that implied something like
 $P(\phi < 0.1) = 0.999999$.}.
 One
 possible choice of prior distribution
-that puts a bit more probability on the extreme values (close to 0 or 1) is:
+that assigns more probability to the extreme values (close to 0 or 1) is:
 \begin{eqnarray}
 p(\theta) \propto \theta^{-\frac{1}{2}}(1 - \theta)^{-\frac{1}{2}}.\label{eq:prior2}
 \end{eqnarray}
@@ -535,20 +535,20 @@ p(\theta) \propto \theta^{-\frac{1}{2}}(1 - \theta)^{-\frac{1}{2}}.\label{eq:pri
 \subsection{Prior 3: Already Being Well Informed}
 Here's another scenario that we might want to describe in our prior.
 Suppose that, before getting this data, you weren't ignorant at all, but already
-had a lot of information about the value of the parameter. Say that we already had a lot of information that
+had a lot of information about the value of the parameter. Say that we already had a lot of information which
 suggested the value of $\theta$ was probably close to 0.5. This could be modelled
 by the following choice of prior:
 \begin{eqnarray}
 p(\theta) \propto \theta^{100}(1 - \theta)^{100}.\label{eq:prior3}
 \end{eqnarray}
 
-The three priors are plotted in Figure~\ref{fig:three_priors}, as dotted lines.
+The three priors are plotted in Figure~\ref{fig:three_priors} as dotted lines.
 The three corresponding posterior distributions are plotted as solid lines.
-The posteriors were computed just by multiplying the three priors by the likelihood
+The posteriors were computed by multiplying the three priors by the likelihood
 and normalising.
-The blue curves correspond to the uniform prior that we used before, the red
+The blue curves correspond to the uniform prior we used before, the red
 curves use the ``emphasising the extremes'' prior, and the green curves use the
-``informative'' prior that assumes that $\theta$ is known to be close to 0.5.
+``informative'' prior which assumes that $\theta$ is known to be close to 0.5.
 
 \begin{figure}[h!]
 \begin{center}
@@ -561,9 +561,9 @@ for discussion of these results.\label{fig:three_priors}}
 
 There are a few interesting things to notice about this plot. Firstly, the
 posterior distributions are basically the same for the red and blue priors (the
-uniform and the one that emphasises the extremes). The main difference in the
+uniform prior and the ``emphasising the extremes'' prior). The main difference in the
 posterior is, as you would expect, that the extremes are emphasised a little
-more: if something is more plausible before you get the data, it's more
+more. If something is more plausible before you get the data, it's more
 plausible afterwards as well.
 
 The big difference is with the informative prior. Here, we were already pretty
@@ -578,16 +578,16 @@ basically the same as the prior.
 \subsection{The Beta Distribution}
 The three priors we have used are all examples of {\it beta} distributions. The beta
 distributions are a family of probability distributions (like the normal, Poisson,
-binomial, and so on) that can be applied to continuous random variables that are known
+binomial, and so on) which can be applied to continuous random variables known
 to be between 0 and 1. The general form of a beta distribution (here written
 for a variable $x$) is:
 \begin{eqnarray}
 p(x|\alpha, \beta) \propto x^{\alpha - 1}(1 - x)^{\beta - 1}\label{eq:beta}.
 \end{eqnarray}
 The quantities $\alpha$ and $\beta$ are two parameters that control the shape
-of the beta distribution. Since we know that the variable $x$ is between 0 and 1 with probability 1, the
+of the beta distribution. Since we know the variable $x$ is between 0 and 1 with probability 1, the
 normalisation constant could be found by doing an integral. Then you could write
-the probability distribution with an equals sign instead of a proportional sign:
+the probability distribution with an equals sign instead of a proportional sign,
 \begin{eqnarray}
 p(x|\alpha, \beta) &=& \frac{x^{\alpha - 1}(1 - x)^{\beta - 1}}
 {\int_0^1 x^{\alpha - 1}(1 - x)^{\beta - 1} \, dx}\\
@@ -601,7 +601,7 @@ In ``$\sim$'' notation the beta distribution is written as:
 \begin{eqnarray}
 x|\alpha, \beta &\sim& \textnormal{Beta}(\alpha, \beta).
 \end{eqnarray}
-Again, the ``given $\alpha$ and $\beta$'' can be dropped: it is implicit because
+Again, the ``given $\alpha$ and $\beta$'' can be dropped. It is implicit because
 they appear on the right hand side. By identifying the terms of
 Equation~\ref{eq:beta} with the form of our three priors (Equations~\ref{eq:uniform},~\ref{eq:prior2} and~\ref{eq:prior3})),
 we see that our three priors can be written in ``$\sim$'' notation like this:
@@ -626,12 +626,11 @@ Posterior 3: & $\theta \sim \textnormal{Beta}(103, 104)$
 \end{tabular}\end{center}
 \end{table}
 This is ``magic'' that is made possible by the mathematical form of the beta
-prior and the binomial likelihood\footnote{The technical term for this magic is ``conjugate priors''.}.
-It is not always possible to do this!
+prior and the binomial likelihood\footnote{The technical term for this magic is ``conjugate priors''.}. It is not always possible to do this.
 
 Remember that in this particular problem, the probability of a success tomorrow
 is simply the expectation value (mean) of the posterior distribution for $\theta$.
-We can look up (or derive) the formula for the mean of a beta distribution, and find that
+We can look up (or derive) the formula for the mean of a beta distribution and find that
 if $x \sim \textnormal{Beta}(\alpha, \beta)$ then $\mathds{E}(x) = \alpha/(\alpha + \beta)$.
 Applying this to the three posterior distributions gives:
 
@@ -676,6 +675,6 @@ Remember though, that when the results {\it are} sensitive
 to the choice of prior, that is not a problem with the Bayesian approach, but
 rather an important warning message: the data aren't very
 informative! Then, the options are: i) think really hard about your prior
-distribution and be careful when deciding what it should be; and ii) get more or
+distribution and be careful when deciding what it should be, and ii) get more or
 better data!
 
