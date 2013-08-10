@@ -1,23 +1,33 @@
 \chapter{Summarising the Posterior Distribution}
 The posterior distribution is the full answer to any Bayesian problem. It gives
-a complete description of our state of uncertainty about the value(s) of unknown
+a complete description of our state of knowledge and our uncertainty about the
+value(s) of unknown
 parameters. From the posterior distribution, we can calculate any probability
 we want. For example, if we had a posterior distribution $p(\theta|x)$ and we
 wanted to know the probability that $\theta$ is greater than 100, we could do:
 \begin{eqnarray}
 P(\theta > 100 | x) &=& \int_{100}^\infty p(\theta | x) \, dx.
 \end{eqnarray}
-We could also do a lot of other things.
+or
+\begin{eqnarray}
+P(\theta > 100 | x) &=& \sum_{100}^\infty p(\theta | x)
+\end{eqnarray}
+depending on whether the set of possible $\theta$ values is continuous or
+discrete. We could also work out the probability of anything else.
 However, the posterior distribution is sometimes too much
-information for us to think about easily. We need to summarise it to help
-communicating our results with others. A giant Bayes' Box, or a million MCMC
-samples of the parameter, might technically
+information for us to think about easily. Sometimes a giant list of $\theta$
+values and probabilities isn't easy to digest. Sometimes,
+we need to {\it summarise} the posterior distribution to help us
+communicate our results with others. A giant Bayes' Box (or a million MCMC
+samples of the parameter, we'll see that later), might technically
 contain everything we want, but it's not easy to talk about.
 
 For example, say you were trying to estimate
 a parameter, and a colleague asked you to state your uncertainty about the
-parameter. Well, your posterior distribution might be complicated, it might
-have bumps and wiggles in it, or some other kind of structure.
+parameter. Well, your posterior distribution might be complicated. It might
+have bumps and wiggles in it, or some other kind of structure. If there were
+two or more unknown parameters, there might be dependence in the posterior
+distribution. In some cases there might even me multiple separate peaks!
 Figure~\ref{fig:complicated_posterior} shows an example of what a complicated
 posterior distribution might look like. If this was your result, your colleague
 might not care about all the little wiggles in this plot. They just want to know
@@ -25,39 +35,48 @@ the ``big picture'' of your results.
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/complicated_posterior.pdf}
-\caption{A complicated posterior distribution.\label{fig:complicated_posterior}}
+\caption{A complicated posterior distribution. When communicating with others,
+it is often useful to summarise the posterior distribution by a few numbers. In
+this case, something like ``distance = $5 \pm 1$'' might be a useful summary.
+\label{fig:complicated_posterior}}
 \end{center}
 \end{figure}
 
+The idea of summarising the posterior distribution is very closely related to
+the idea of summarising a data set, that you have probably encountered when you
+studied descriptive statistics.
 \begin{framed}
 {\bf In descriptive statistics, you often make summaries of a complex data set
 (e.g. the mean and the standard deviation) so that you can communicate about
 the data set in a concise way. In Bayesian statistics, you often do a similar
-thing, but instead of giving a concise description of the data, you give a
-concise description of the posterior distribution.}
+thing, but instead of giving a concise description of the {\it data}, you give a
+concise description of the {\it posterior distribution}.}
 \end{framed}
 
 \section{Point Estimates}
-A ``point estimate'' refers to a single number guess for the value of the parameter.
+A ``point estimate'' refers to a single number guess for the value of a parameter.
 If you have several parameters, a point estimate would be a single guess for the
 value of each parameter (like a single point in a multidimensional space).
 If you look at the
 posterior distribution plotted in Figure~\ref{fig:complicated_posterior}, you
 can see that the true value of the parameter is probably somewhere around 5,
 but with some uncertainty. If you were to provide a single number as a guess of
-the parameter, you would probably say something close to 5. In statistics, a
-single number guess is called an ``estimate'', and is written by putting a
+the parameter, you would probably say something close to 5. In classical statistics, a
+single number guess is called an ``estimate'', and a rule for generating such
+guesses is called an ``estimator''. Estimates are usually written by putting a
 little hat over the name of the parameter. So, by looking at the plot of the
 posterior, you could give an estimate like this:
 \begin{eqnarray}
 \hat{\theta} = 5.
 \end{eqnarray}
-But there are better things you could do, and I'd bet you know some of them
+But there are better things you could do than just looking at the plot, and I'd bet you know some of them
 from previous statistics courses. Here are three methods you could use to
 choose a point estimate using the posterior distribution: the posterior mean
-(expectation value), the posterior median (the value that divides the probability
-in half), and the posterior mode (the value where the posterior PDF has its
-peak). This gives the following three possible estimates:
+(the expectation value of the parameter), the posterior median
+(the value that divides the probability
+in half), and the posterior mode (the value where the posterior distribution has its
+peak). In our illustrative example, the values of these three point estimates
+are:
 \begin{eqnarray}
 \hat{\theta} &=& 4.988 \textnormal{ (the posterior mean)}\\
 \hat{\theta} &=& 4.924 \textnormal{ (the posterior median)}\\
@@ -69,6 +88,14 @@ the posterior distribution is skewed, or has multiple modes: you may notice a
 strong analogy between this topic and descriptive statistics). Is there a way
 to say which one is the {\it best}? It turns out that there is, but that
 depends on what you mean by ``best''.
+
+Before we get on to the formal ways of deciding what is a good estimate, I will
+just mention a very common method that is widely used. If the posterior distribution
+looks even vaguely like a normal distribution, it is common to summarise it like
+this:
+\begin{eqnarray}
+\theta = \textnormal{posterior mean }\pm\textnormal{posterior standard deviation}.
+\end{eqnarray}
 
 \subsection{A Very Brief Introduction to Decision Theory}
 Decision theory is a very important topic. In this course we will use a
