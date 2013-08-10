@@ -35,8 +35,8 @@ there is an alternative way of representing this posterior distribution in a
 computer. It may seem a bit silly at first, because there is nothing wrong with
 the above method. But this second method has the advantage that it continues to
 work well on much bigger problems, such as when we have more than one parameter.
-Instead of having a two vectors: one of $\theta$ values and one of the
-corresponding probabilities,
+Instead of having two vectors (one of $\theta$ values and one of the
+corresponding probabilities),
 imagine we had some method to compute a random sample of $\theta$ values, drawn
 from the posterior distribution. There would only be one vector. So how would we
 know that there is greater probability around $\theta=1$? Well, {\it more elements
@@ -128,7 +128,18 @@ more iterations.\label{fig:mcmc}}
 \end{figure}
 
 
+
+
 \subsection{Metropolis, Stated}
+The Metropolis algorithm is given below. The first thing to do is start
+{\it somewhere} in the ``parameter space'' (set of possible values). You then
+propose to move somewhere else. There is an acceptance probability $\alpha$
+that determines whether to accept the proposal. If the proposal is better
+($h$, the prior times likelihood value is higher), then you accept it. If the
+proposal is worse, you can also accept it, but the probability of accepting is
+then $h'/h$ (e.g. if the proposed point is 1/3 as good as the current point, the
+acceptance probability is 1/3).
+
 \begin{framed}
 \begin{itemize}
 \item Start in some state $\theta$
