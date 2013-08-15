@@ -106,11 +106,11 @@ having to do hard integrals!
 The notation of random variables can be cumbersome. For example, consider
 inferring a (discrete) parameter $Y$ from (discrete) data $X$. Bayes' rule gives us:
 \begin{eqnarray}
-P(Y=y | X=x) &=& \frac{P(Y=y)P(X=x|Y=y)}{P(Y=y)}.
+P(Y=y | X=x) &=& \frac{P(Y=y)P(X=x|Y=y)}{P(X=x)}.
 \end{eqnarray}
 That's very verbose, so instead we use the shorthand:
 \begin{eqnarray}
-p(y | x) &=& \frac{p(y)p(x|y)}{p(y)}.
+p(y | x) &=& \frac{p(y)p(x|y)}{p(x)}.
 \end{eqnarray}
 In this notation we don't distinguish between the symbol for the random variable
 and the dummy variables that allow us to write the probability distribution as
