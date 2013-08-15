@@ -164,6 +164,63 @@ derivate and see that it is
 positive. But that's not really needed, it would be pretty bizarre of the
 posterior mean was the {\it worst} estimate!
 
+\subsection{Linear Loss}
+It may be the case that the quadratic loss/utility is not a reasonable model
+for the consequences of an incorrect estimate. Another plausible form for the loss
+function is the {\it linear} loss. This looks like:
+\begin{eqnarray}
+L(\hat{\theta}, \theta) &=& |\hat{\theta} - \theta|
+\end{eqnarray}
+With this assumption, the ``badness'' of an incorrect estimate is proportional
+to how far the estimate is from the true value. If the estimate is twice as
+far from the true value, it is twice as bad. We will not prove it (although you
+are welcome to derive this yourself), but if the loss function is of this type
+then the best estimate is the posterior median, which is the value of $\hat{\theta}$
+for which $P(\theta \leq \hat{\theta}) = P(\theta > \hat{\theta}) = 0.5$.
+
+\subsection{Linear Loss}
+It may be the case that the quadratic loss/utility is not a reasonable model
+for the consequences of an incorrect estimate. Another plausible form for the loss
+function is the {\it linear} loss. This looks like:
+\begin{eqnarray}
+L(\hat{\theta}, \theta) &=& |\hat{\theta} - \theta|
+\end{eqnarray}
+With this assumption, the ``badness'' of an incorrect estimate is proportional
+to how far the estimate is from the true value. If the estimate is twice as
+far from the true value, it is twice as bad. We will not prove it (although you
+are welcome to derive this yourself), but if the loss function is of this type
+then the best estimate is the posterior median.
+
+\subsection{All-or-nothing Loss}
+The third kind of loss function we will look at is the ``all-or-nothing'' loss.
+This is a good model for the situation where you need your estimate to be
+completely correct, and if it isn't correct, then it is irrelevant how far your
+estimate was from the true value. All incorrect estimates are equally bad.
+The all-or-nothing loss looks like:
+\begin{eqnarray}
+L(\hat{\theta}, \theta) = \left\{
+\begin{array}{lr}
+1, & \hat{\theta} = \theta\\
+0, & \textnormal{otherwise.}
+\end{array}
+\right.
+\end{eqnarray}
+
+If this seems true, it seems like you better make your chances as high as
+possible, which means just choosing $\hat{\theta}$ to be the most probable value,
+i.e. the posterior mode. This intuition is correct. With all-or-nothing loss,
+the best estimate is the posterior mode.
+
+\subsection{Invariance of Decisions}
+You may be wondering about the definitions of our loss functions. For example,
+we defined the quadratic loss as $(\hat{\theta} - \theta)^2$, but what if we
+instead defined it as $3(\hat{\theta} - \theta)^2 + 5$ instead? Would our
+best decision change? Luckily, the answer is no. The decision (estimate) that
+minimises the expected value of a loss function $L$ also minimises the expected
+value of a different loss function $aL + b$ where $a$ is any positive number
+and $b$ is any other number.
+For the mathematicians, the optimal decision is invariant under positive affine
+transformations of the utility or loss function. Phew!
 
 \subsection{Computing Point Estimates from a Bayes' Box}
 The posterior mean is straightforward. It's the expectation value of the parameter
