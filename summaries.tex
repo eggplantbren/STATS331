@@ -4,18 +4,18 @@ a complete description of our state of knowledge and our uncertainty about the
 value(s) of unknown
 parameters. From the posterior distribution, we can calculate any probability
 we want. For example, if we had a posterior distribution $p(\theta|x)$ and we
-wanted to know the probability that $\theta$ is greater than 100, we could do:
+wanted to know the probability that $\theta$ is greater than or equal to 100, we could do:
 \begin{eqnarray}
-P(\theta > 100 | x) &=& \int_{100}^\infty p(\theta | x) \, dx.
+P(\theta \geq 100 | x) &=& \int_{100}^\infty p(\theta | x) \, dx.
 \end{eqnarray}
 or
 \begin{eqnarray}
-P(\theta > 100 | x) &=& \sum_{100}^\infty p(\theta | x)
+P(\theta \geq 100 | x) &=& \sum_{100}^\infty p(\theta | x)
 \end{eqnarray}
 depending on whether the set of possible $\theta$ values is continuous or
 discrete. We could also work out the probability of anything else.
 However, the posterior distribution is sometimes too much
-information for us to think about easily. Sometimes a giant list of $\theta$
+information for us to think about easily. Maybe a giant list of $\theta$
 values and probabilities isn't easy to digest. Sometimes,
 we need to {\it summarise} the posterior distribution to help us
 communicate our results with others. A giant Bayes' Box (or a million MCMC
@@ -96,21 +96,44 @@ this:
 \begin{eqnarray}
 \theta = \textnormal{posterior mean }\pm\textnormal{posterior standard deviation}.
 \end{eqnarray}
+In my own research I use this kind of summary frequently.
 
 \subsection{A Very Brief Introduction to Decision Theory}
 Decision theory is a very important topic. In this course we will use a
 {\it tiny} amount of it. Just enough to solve the problem of ``which point
 estimate is best?''. If you think about it, this is a bit of a weird question.
-{\it The best point estimate is the true value}. Of course it is, how could it
-be otherwise? Our problem is that we can't actually implement this suggestion.
+Obviously, the best point estimate is the true value. Of course it is, how could it
+be otherwise? Our only problem is that we can't actually implement this suggestion.
 We don't know the true value, we only have the posterior distribution
 (which is based on all the evidence we have), so we have to do 
-the best we can with that.
-
-To think about which decision is the best, the first thing we should do is think
+the best we can with that. To think about which decision is the best,
+the first thing we should do is think
 about what decisions are {\it possible}. For estimating a single parameter, any
 real number is a possible guess.
 
+The key idea in decision theory is the concept of {\it utility}, and the related
+concept of {\it loss} (loss is just negative utility). Utility is
+a numerical measure of how good it would be if a certain outcome came true.
+Conversely, loss is a measure of how bad it would be if a certain outcome
+came true.
+Utilities are often subjective (not unlike prior probabilities), but in some
+applications utility can be more concrete. For example, in betting or investment
+decisions the utility can be measured in dollars. The problem with utility is
+that we have uncertainty about what is going to happen, or about what is true,
+so we can't just choose the decision that gives us the greatest utility. Instead
+we will use our posterior probabilities, and choose the decision that gives us
+the maximum possible {\it expected value} of the utility.
+
+Imagine that we were estimating a parameter $\theta$ and we wanted to give a
+point estimate $\hat{\theta}$. One idea for what the utility or loss might be is the
+{\it quadratic} loss function, which is given by
+\begin{eqnarray}
+L(\theta, \hat{\theta}) = \left(\hat{\theta} - \theta\right)^2.
+\end{eqnarray}
+This thing inside the parentheses is the difference between our point estimate
+and the true value. This formula says that if our point estimate is off by 2,
+that is four times as bad as if we were off by 1. If we were off by 10, that is
+100 times as bad as if we were off by 1, due to the squaring that is occurring.
 
 
 
@@ -132,19 +155,40 @@ highest probability in the Bayes' Box. Then we find the values of the parameter
 that correspond to this probability.
 \begin{framed}
 \begin{verbatim}
-max_post = max(post)
-post_mode = theta[post == max_post]
+highest_probability = max(post)
+post_mode = theta[post == highest_probability]
 \end{verbatim}
 \end{framed}
-Note that, in the case of a tie, {\tt post\_mode} might be a vector, indicating
+In the case of a tie, {\tt post\_mode} might be a vector, indicating
 that there isn't a single mode.
 
 
 
 \subsection{Computing Point Estimates from Samples}
+When we use MCMC and JAGS, the output is not a vector of parameter values and
+another vector of probabilities. Instead, we'll have just a vector of parameter
+values, and no corresponding probabilities. The vector of parameter values is
+meant to be a random sample of values drawn from the posterior distribution.
+It's like saying ``here's a bunch of guesses for the parameter'', and any
+region where there are a lot of guesses is considered to be a region with high
+probability.
 
+When we have samples instead of an exhaustive list of parameter values and
+probabilities, the methods for computing the summaries are different. For a
+parameter called $\theta$, the methods for computing the summaries are given
+below.
 
-
+\begin{framed}
+\begin{verbatim}
+# Posterior mean using samples
+post_mean = mean(theta)
+# Posterior mode using samples
+# post_mode = ??? (this can't be done easily with samples!)
+# Posterior median using samples
+sorted = sort(theta)
+post_mode = sorted[0.5*length(theta)]
+\end{verbatim}
+\end{framed}
 
 
 \section{Credible Intervals}
