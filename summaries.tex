@@ -136,6 +136,12 @@ that is four times as bad as if we were off by 1. If we were off by 10, that is
 100 times as bad as if we were off by 1, due to the squaring that is occurring.
 
 
+Here is the proof. The expected value of the loss is
+\begin{eqnarray}
+\mathds{E}\left[L(\theta, \hat{\theta})\right] =
+\int p(\theta|x)(\hat{\theta} - \theta)^2 \, d\theta
+\end{eqnarray}
+
 
 
 
