@@ -135,14 +135,34 @@ and the true value. This formula says that if our point estimate is off by 2,
 that is four times as bad as if we were off by 1. If we were off by 10, that is
 100 times as bad as if we were off by 1, due to the squaring that is occurring.
 
-
 Here is the proof. The expected value of the loss is
 \begin{eqnarray}
 \mathds{E}\left[L(\theta, \hat{\theta})\right] =
 \int p(\theta|x)(\hat{\theta} - \theta)^2 \, d\theta
 \end{eqnarray}
+Since we are summing (integrating) over all possible true $\theta$ values, this
+thing is only a function of our estimate $\hat{\theta}$. To minimise a function
+of one variable, you differentiate it and then set the derivative to zero.
+The derivative is
+\begin{eqnarray}
+\frac{d}{d\hat{\theta}}\mathds{E}\left[L(\theta, \hat{\theta})\right] &=&
+\int p(\theta|x)\frac{d}{d\hat{\theta}}(\hat{\theta} - \theta)^2 \, d\theta \\
+&=& \int p(\theta|x)2(\hat{\theta} - \theta) \, d\theta
+\end{eqnarray}
+Setting this equal to zero and then solving for $\hat{\theta}$ gives the final
+result:
+\begin{eqnarray}
+\hat{\theta} &=& \int \theta p(\theta|x) \, d\theta.
+\end{eqnarray}
+That is, the best estimate, by the criterion of minimising expected loss (when
+the loss function is quadratic), is just the posterior mean.
 
-
+Note that I didn't verify that $\hat{\theta}$ minimises the expected loss
+(setting the derivate to zero would also find a maximum). To check
+that it really does minimise the expected loss, you can calculate the second
+derivate and see that it is
+positive. But that's not really needed, it would be pretty bizarre of the
+posterior mean was the {\it worst} estimate!
 
 
 \subsection{Computing Point Estimates from a Bayes' Box}
