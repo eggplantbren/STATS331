@@ -250,7 +250,28 @@ that has 50\% of the probability to the left and 50\% of the probability to the
 right. Note that this isn't precisely defined in some cases, particularly with
 discrete distributions. For example, if $\theta$ could be 1, 2, or 3, and the
 probabilities of these were 0.3, 0.6, and 0.1, then what is the median? It is
-not entirely clear.
+not entirely clear. However, if there are a large number of possibilities then
+the definition becomes more clear.
+
+To calculate the posterior median in R, we need to use the cumulative distribution
+which is defined as $F(t) = P(\theta \leq t)$. If we then find the value of $t$
+where $F(t) = 0.5$ then we have found the posterior median. This isn't always
+possible but we can always find the value of $t$ that makes $F(t)$ very close to
+0.5.
+To obtain the cumulative distribution
+in R you can use the {\tt cumsum} function, which calculates the cumulative sum
+of a vector. The posterior vector contains the probabilities of $\theta$ equalling
+certain values, and if we want the probability that $\theta$ is $\leq$ a
+certain value, we sum all the probabilities up to and including that value. The
+cumulative sum function achieves this. Here is the code for calculating the
+posterior median:
+\begin{framed}
+\begin{verbatim}
+F = cumsum(post)
+dist = abs(F - 0.5) # Distance of the F-values from 0.5
+post_median = F[dist == min(dist)]
+\end{verbatim}
+\end{framed}
 
 
 \subsection{Computing Point Estimates from Samples}
