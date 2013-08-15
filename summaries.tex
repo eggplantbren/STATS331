@@ -245,6 +245,12 @@ post_mode = theta[post == highest_probability]
 In the case of a tie, {\tt post\_mode} might be a vector, indicating
 that there isn't a single mode.
 
+The posterior median is a little harder. We need to find the $\theta$ value
+that has 50\% of the probability to the left and 50\% of the probability to the
+right. Note that this isn't precisely defined in some cases, particularly with
+discrete distributions. For example, if $\theta$ could be 1, 2, or 3, and the
+probabilities of these were 0.3, 0.6, and 0.1, then what is the median? It is
+not entirely clear.
 
 
 \subsection{Computing Point Estimates from Samples}
