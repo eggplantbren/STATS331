@@ -2,18 +2,22 @@
 Hypothesis testing is a very important topic that is traditionally considered
 as a different topic from parameter estimation. However, in Bayesian statistics
 we will see that hypothesis testing is basically the same thing as parameter
-estimation! This is a big advantage of Bayesian statistics, that it {\it unifies}
+estimation! The one difference, for us, will be that we will sometimes change
+the prior distribution a little bit.
+
+One big advantage of Bayesian statistics is that it {\it unifies}
 parameter estimation and hypothesis
-testing\footnote{``Unifies'' is a popular word for physicists: it means that
-two seemingly different topics are fundamentally the same, or very closely
+testing\footnote{``Unifies'' is a popular word for physicists. It means that
+two seemingly different topics are fundamentally the same, or at least closely
 related.}. That's good news, because it means that instead of having to
 understand two different topics, we only have to understand one!
 
 To see why hypothesis testing is fundamentally the same, you only need to
-understand how parameter estimation works from a Bayesian point of view.
+understand how parameter estimation works from a Bayesian point of view, which
+we have already studied.
 Parameter estimation is nothing more than testing a bunch of hypotheses about
 the value of the parameter! e.g. $\theta=1$ vs. $\theta=2$ vs. $\theta=3$ and
-so on.
+so on. If we have their posterior probabilities, then we've tested them.
 
 \section{An Example Hypothesis Test}
 Suppose we were performing a Bayesian parameter estimation analysis using a
@@ -23,7 +27,7 @@ Bayes' Box. Here is an example Bayes' Box with made up numbers:
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\tt{possible Values} & \tt{prior} & \tt{likelihood} & \tt{prior} $\times$ \tt{likelihood} & \tt{posterior}\\
+\tt{Possible values} & \tt{prior} & \tt{likelihood} & \tt{prior} $\times$ \tt{likelihood} & \tt{posterior}\\
 $\theta$ & $p(\theta)$ & $p(x|\theta)$ & $p(\theta)p(x|\theta)$ & $p(\theta|x)$\\
 \hline
 1.5 & 0.25 & 0.2 & 0.05 & 0.1\\
@@ -36,17 +40,20 @@ Totals & 1 & & 0.5 & 1\\
 \end{tabular}
 \end{center}
 \end{table}
-Suppose we wanted to test the following two hypotheses about the parameter $\theta$:
+Suppose we wanted to test the following two hypotheses about the parameter $\theta$.
+The first hypothesis $H_0$ is a ``null hypothesis'', and the second hypothesis,
+$H_1$, is an ``alternative hypothesis.
 \begin{eqnarray}
 H_0: && \theta = 2\\
 H_1: && \theta \neq 2
 \end{eqnarray}
-In classical statistics, you would need to come up with a {\it test statistic},
+In classical statistics, if you saw a question phrased in this way, you would
+need to come up with a {\it test statistic},
 and then calculate a {\it p-value} which tries to say something about whether
 the value of the test statistic would be considered extreme, under the
 assumption that $H_0$ is true.
 
-In Bayesian statistics, as we have seen, the only thing we need to do is calculate
+In Bayesian statistics, the only thing we need to do is calculate
 the posterior probability of $H_0$ and the posterior probability of $H_1$.
 The posterior probability of $H_0$ is given by:
 \begin{eqnarray}
@@ -54,15 +61,10 @@ P(H_0|x) &=& P(\theta = 2|x)\\
 &=& 0.2
 \end{eqnarray}
 All we did here was look up the appropriate number in the Bayes' Box! The
-posterior probability of $H_1$ is only slightly harder to calculate: $H_1$ will
-be true if $\theta$ takes any value other than 2. Therefore:
-\begin{eqnarray}
-P(H_0|x) &=& P(\theta = 2|x)\\
-&=& 0.2
-\end{eqnarray}
-Note that we didn't use Bayes' rule here, but remember that Bayes' rule is
-what is used to calculate the posterior probabilities in the Bayes' box. In this
-example, the Bayes' rule calculations were already done for us.
+posterior probability of $H_1$ is only slightly harder (but still easy)
+to calculate: $H_1$ will
+be true if $\theta$ takes any value other than 2. Therefore the posterior
+probability of $H_1$ is
 \begin{eqnarray}
 P(H_1|x) &=& P(\theta = 1.5 \textbf{ or } \theta = 2.5 \textbf{ or } \theta = 3|x)\\
 &=& P(\theta = 1.5|x) + P(\theta = 2.5|x) + P(\theta = 3|x)\\
@@ -75,4 +77,7 @@ Alternatively, you could have just noticed that $H_1$ is true if $H_0$ is false!
 So $P(H_0|x) + P(H_1|x) = 1$ which implies $P(H_1|x) = 1 - P(H_0|x)$.
 
 \section{The Testing Prior}
+
+
+\section{Some Terminology}
 
