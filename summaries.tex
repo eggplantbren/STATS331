@@ -209,7 +209,19 @@ L(\hat{\theta}, \theta) = \left\{
 If this seems true, it seems like you better make your chances as high as
 possible, which means just choosing $\hat{\theta}$ to be the most probable value,
 i.e. the posterior mode. This intuition is correct. With all-or-nothing loss,
-the best estimate is the posterior mode.
+the best estimate is the posterior mode. The three loss functions we consider
+in STATS 331 are shown in Figure~\ref{fig:utility}.
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.5]{Figures/utility.pdf}
+\caption{Three kinds of loss function, which measure how bad it is for our
+point estimate $\hat{\theta}$ to be different from the true value of the parameter
+$\theta$. Note that the all-or-nothing loss has a small amount of width in this
+plot, that's just so that we can see the little spike at
+$\hat{\theta} - \theta$ = 0.\label{fig:utility}}
+\end{center}
+\end{figure}
 
 \subsection{Invariance of Decisions}
 You may be wondering about the definitions of our loss functions. For example,
