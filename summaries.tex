@@ -257,6 +257,7 @@ post_mode = theta[post == highest_probability]
 In the case of a tie, {\tt post\_mode} might be a vector, indicating
 that there isn't a single mode.
 
+
 The posterior median is a little harder. We need to find the $\theta$ value
 that has 50\% of the probability to the left and 50\% of the probability to the
 right. Note that this isn't precisely defined in some cases, particularly with
@@ -306,20 +307,57 @@ below.
 post_mean = mean(theta)
 # Posterior mode using samples
 # post_mode = ??? (this can't be done easily with samples!)
+# If you have a really large number of samples,
+# visually finding the peak of
+# a histogram can work.
 # Posterior median using samples
 sorted = sort(theta)
-post_mode = sorted[0.5*length(theta)]
+post_median = sorted[0.5*length(theta)]
 \end{verbatim}
 \end{framed}
 
-
 \section{Credible Intervals}
+Credible intervals are another useful kind of summary. The basic idea is to
+use the posterior distribution to find an interval $[a, b]$ such that
+\begin{eqnarray}
+P(a \leq \theta \leq b | x) &=& \alpha
+\end{eqnarray}
+where $\alpha$ is some pre-defined amount of probability. 95\% seems to be the
+most popular choice. An example of a 95\% credible interval is given in
+Figure~\ref{fig:credible_interval}.
+
+\begin{figure}
+\begin{center}
+
+\caption{A central 95\% credible interval is defined as an interval that
+contains 95\% of the posterior probability, while having 2.5\% of the probability
+above the upper limit and 2.5\% of the probability below the lower limit.
+\label{fig:credible_interval}}
+\end{center}
+\end{figure}
+
+Note that the interval shown in Figure~\ref{fig:credible_interval} is not the
+only possible interval that would contain 95\% of the probability. However, to
+make the notion of a credible interval precise, we usually use a {\it central}
+credible interval. A central credible interval containing an amount of probability
+$\alpha$ will leave $(1-\alpha)/2$ of the probability to its left and
+the same amount $(1-\alpha)/2$ of the probability to its right.
 
 \subsection{Computing Credible Intervals from a Bayes' Box}
-
+The method for computing credible intervals is closely related to the method
+for computing the posterior median. With the median, we found the value of
+$\theta$ that has 50\% of the posterior probability to its left and 50\% to its
+right. To find the lower end of a 95\% credible interval, we find the $\theta$
+value that has 2.5\% of the probability to its left. To find the upper end we
+find the value of $\theta$ that has 2.5\% of the posterior probability to its
+right, or 97.5\% to the left.
 
 \subsection{Computing Credible Intervals from Samples}
-
+If you have used MCMC and have obtained random samples from the posterior
+distribution, you can find a credible interval in a similar way to how you would
+find the posterior median. Again, instead of finding the 0.5 quantile of the
+posterior distribution you would find the 0.025 quantile and the 0.975 quantile
+(if you wanted a central 95\% credible interval).
 
 \section{Confidence Intervals}
 In previous stats courses you have probably come across the concept of a
@@ -332,16 +370,23 @@ what classical confidence intervals do}!
 
 Luckily, a lot of the time, the classical and the Bayesian methods for making
 intervals will actually give the same interval. But this isn't always the case!
-In lectures we will study an example where the Bayesian credible interval and
-the classical confidence interval give completely different results. Here is
-a teaser figure. The key thing to note is the classical confidence interval
-lies entirely in a region where we are certain (from the data) that $\theta$
-cannot possibly be!
+In lectures we will study an example (taken from an Ed Jaynes paper from the
+70s)
+where the Bayesian credible interval and
+the classical confidence interval give completely different results. The result
+is shown in Figure~\ref{fig:jaynes}. The key thing to note is the classical
+confidence interval lies entirely in a region where we are certain
+(from the data) that $\theta$ cannot possibly be!
 
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/jaynes.pdf}
-\caption{\label{fig:jaynes}}
+\caption{An example of a Bayesian credible interval and a frequentist confidence
+interval applied to a particular problem where they give different answers.
+The posterior distribution in blue shows that the parameter $\theta$ is probably
+somewhere between 11 and 12, and values above 12 are completely impossible.
+However, the entire frequentist confidence interval lies above $\theta=12$.
+\label{fig:jaynes}}
 \end{center}
 \end{figure}
 
