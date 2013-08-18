@@ -78,7 +78,53 @@ So $P(H_0|x) + P(H_1|x) = 1$ which implies $P(H_1|x) = 1 - P(H_0|x)$.
 
 \section{The Testing Prior}
 Here we will study a hypothesis testing example that involves a null and an
-alternative hypothesis.
+alternative hypothesis. Since the bus example has been used a lot, we will now
+switch over to a different example.
+
+Suppose it is known that the mean systolic blood pressure
+in the general population is 120 mm Hg, with a standard deviation of
+15 mm Hg (millimetres of mercury is an
+old fashioned unit for pressure, even though it sounds like a unit of length).
+A new drug is developed that may
+be helpful in reducing blood pressure. A sample of 100 people
+(that can be considered representative of the general population)
+are given the drug, and their systolic blood pressure is measured. This results
+in 100 blood pressure measurements $\{x_1, x_2, ..., x_{100}\}$, which will be
+our data.
+
+We are interested in whether the drug works. Let $\mu$ be the mean systolic
+blood pressure
+that would apply in the general population if everyone was taking the
+drug. Our goal is to infer the value of $\mu$ from the data. In classical
+statistics, this is sometimes phrased as a hypothesis test between the two
+competing hypotheses. We will not be concerned with the possibility that the
+drug has the opposite effect to what is intended.
+\begin{equation}
+\begin{array}{ll}
+H_0: & \mu = 120 \textnormal{ (the drug does nothing)}\\
+H_1: & \mu < 120 \textnormal{ (the drug reduces blood pressure)}
+\end{array}
+\end{equation}
+Suppose the mean of all the data values was
+\begin{eqnarray}
+\bar{x} &=& \frac{1}{N} \sum_{i=1}^{100} x_i\\
+&=& 115.9
+\end{eqnarray}
+Does this data provide evidence against $H_0$ and in favour of $H_1$? In
+classical statistics this question would be addressed using a {\it p-value}.
+The p-value would be the probability of getting a result this extreme or
+a result more extreme than what is observed, assuming that the ``null hypothesis''
+is true. That is,
+\begin{eqnarray}
+\textnormal{p-value} = P(\bar{x} \leq 115.9 | H_0).
+\end{eqnarray}
+In Bayesian statistics, p-values are not used. Instead, we should think of this
+as a parameter estimation problem. We can state a set of hypotheses about the
+value of $\mu$, and then choose a prior distribution, update to a posterior
+distribution, etc.
+
+
+
 
 \section{Hypothesis Testing and the Marginal Likelihood}
 
