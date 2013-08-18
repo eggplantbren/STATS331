@@ -1,5 +1,7 @@
-\chapter{Hypothesis Testing}
-Hypothesis testing is a very important topic that is traditionally considered
+\chapter{Hypothesis Testing and Model Selection}
+Hypothesis testing (also known as model selection, particularly when it is
+done using the method in Section~\ref{sec:marginal_likelihood})
+is a very important topic that is traditionally considered
 as a different topic from parameter estimation. However, in Bayesian statistics
 we will see that hypothesis testing is basically the same thing as parameter
 estimation! The one difference, for us, will be that we will sometimes change
@@ -12,7 +14,8 @@ two seemingly different topics are fundamentally the same, or at least closely
 related.}. That's good news, because it means that instead of having to
 understand two different topics, we only have to understand one!
 
-To see why hypothesis testing is fundamentally the same, you only need to
+To see why hypothesis testing is fundamentally the same as parameter estimation,
+you only need to
 understand how parameter estimation works from a Bayesian point of view, which
 we have already studied.
 Parameter estimation is nothing more than testing a bunch of hypotheses about
@@ -27,7 +30,7 @@ Bayes' Box. Here is an example Bayes' Box with made up numbers:
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\tt{Possible values} & \tt{prior} & \tt{likelihood} & \tt{prior} $\times$ \tt{likelihood} & \tt{posterior}\\
+\tt{possible values} & \tt{prior} & \tt{likelihood} & \tt{prior} $\times$ \tt{likelihood} & \tt{posterior}\\
 $\theta$ & $p(\theta)$ & $p(x|\theta)$ & $p(\theta)p(x|\theta)$ & $p(\theta|x)$\\
 \hline
 1.5 & 0.25 & 0.2 & 0.05 & 0.1\\
@@ -42,7 +45,7 @@ Totals & 1 & & 0.5 & 1\\
 \end{table}
 Suppose we wanted to test the following two hypotheses about the parameter $\theta$.
 The first hypothesis $H_0$ is a ``null hypothesis'', and the second hypothesis,
-$H_1$, is an ``alternative hypothesis.
+$H_1$, is an ``alternative hypothesis''.
 \begin{eqnarray}
 H_0: && \theta = 2\\
 H_1: && \theta \neq 2
@@ -52,7 +55,6 @@ need to come up with a {\it test statistic},
 and then calculate a {\it p-value} which tries to say something about whether
 the value of the test statistic would be considered extreme, under the
 assumption that $H_0$ is true.
-
 In Bayesian statistics, the only thing we need to do is calculate
 the posterior probability of $H_0$ and the posterior probability of $H_1$.
 The posterior probability of $H_0$ is given by:
@@ -73,10 +75,10 @@ P(H_1|x) &=& P(\theta = 1.5 \textbf{ or } \theta = 2.5 \textbf{ or } \theta = 3|
 \end{eqnarray}
 Here we used the fact that everything in a Bayes' Box is mutually exclusive
 (only one of the hypotheses is true) so we could add the probabilities.
-Alternatively, you could have just noticed that $H_1$ is true if $H_0$ is false!
-So $P(H_0|x) + P(H_1|x) = 1$ which implies $P(H_1|x) = 1 - P(H_0|x)$.
+Alternatively, you could have just noticed that $H_1$ is true if $H_0$ is false.
+So $P(H_0|x) + P(H_1|x) = 1$, which implies $P(H_1|x) = 1 - P(H_0|x)$.
 
-\section{The Testing Prior}
+\section{The ``Testing'' Prior}
 Here we will study a hypothesis testing example that involves a null and an
 alternative hypothesis. Since the bus example has been used a lot, we will now
 switch over to a different example.
@@ -108,7 +110,7 @@ H_1: & \mu < 120 \textnormal{ (the drug reduces blood pressure)}
 Suppose the mean of all the data values was
 \begin{eqnarray}
 \bar{x} &=& \frac{1}{N} \sum_{i=1}^{100} x_i\\
-&=& 115.9
+&=& 115.9.
 \end{eqnarray}
 Does this data provide evidence against $H_0$ and in favour of $H_1$? In
 classical statistics this question would be addressed using a {\it p-value}.
@@ -268,6 +270,6 @@ deals with ratios of probabilities instead of probabilities themselves.
 
 
 
-\section{Hypothesis Testing and the Marginal Likelihood}
+\section{Hypothesis Testing and the Marginal Likelihood}\label{sec:marginal_likelihood}
 
 
