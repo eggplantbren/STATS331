@@ -282,7 +282,7 @@ posterior median:
 \begin{verbatim}
 F = cumsum(post)
 dist = abs(F - 0.5) # Distance of the F-values from 0.5
-post_median = F[dist == min(dist)]
+post_median = theta[dist == min(dist)]
 \end{verbatim}
 \end{framed}
 
