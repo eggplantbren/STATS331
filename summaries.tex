@@ -135,6 +135,8 @@ and the true value. This formula says that if our point estimate is off by 2,
 that is four times as bad as if we were off by 1. If we were off by 10, that is
 100 times as bad as if we were off by 1, due to the squaring that is occurring.
 
+It turns out (we will prove this below) that {\it if the loss function is
+quadratic, the best estimate you can give is the posterior mean}.
 Here is the proof. The expected value of the loss is
 \begin{eqnarray}
 \mathds{E}\left[L(\theta, \hat{\theta})\right] =
@@ -154,14 +156,16 @@ result:
 \begin{eqnarray}
 \hat{\theta} &=& \int \theta p(\theta|x) \, d\theta.
 \end{eqnarray}
-That is, the best estimate, by the criterion of minimising expected loss (when
-the loss function is quadratic), is just the posterior mean.
+which is the posterior mean. Some people call the posterior mean the ``Bayes
+Estimate'' for this reason. I don't like that term because I don't think
+point estimates are really Bayesian.
+The actual output of a Bayesian analysis is the posterior distribution.
 
-Note that I didn't verify that $\hat{\theta}$ minimises the expected loss
-(setting the derivate to zero would also find a maximum). To check
+Note that I didn't verify that $\hat{\theta}$ actually minimises the expected loss
+, because setting the derivative to zero would also find a maximum. To check
 that it really does minimise the expected loss, you can calculate the second
 derivate and see that it is
-positive. But that's not really needed, it would be pretty bizarre of the
+positive. But that's not really needed, it would be pretty bizarre if the
 posterior mean was the {\it worst} estimate!
 
 \subsection{Linear Loss}
@@ -169,8 +173,10 @@ It may be the case that the quadratic loss/utility is not a reasonable model
 for the consequences of an incorrect estimate. Another plausible form for the loss
 function is the {\it linear} loss. This looks like:
 \begin{eqnarray}
-L(\hat{\theta}, \theta) &=& |\hat{\theta} - \theta|
+L(\hat{\theta}, \theta) &=& |\hat{\theta} - \theta|.
 \end{eqnarray}
+This isn't really linear because of the absolute value, so another name that is
+sometimes used is {\it absolute loss}.
 With this assumption, the ``badness'' of an incorrect estimate is proportional
 to how far the estimate is from the true value. If the estimate is twice as
 far from the true value, it is twice as bad. We will not prove it (although you
@@ -178,21 +184,9 @@ are welcome to derive this yourself), but if the loss function is of this type
 then the best estimate is the posterior median, which is the value of $\hat{\theta}$
 for which $P(\theta \leq \hat{\theta}) = P(\theta > \hat{\theta}) = 0.5$.
 
-\subsection{Linear Loss}
-It may be the case that the quadratic loss/utility is not a reasonable model
-for the consequences of an incorrect estimate. Another plausible form for the loss
-function is the {\it linear} loss. This looks like:
-\begin{eqnarray}
-L(\hat{\theta}, \theta) &=& |\hat{\theta} - \theta|
-\end{eqnarray}
-With this assumption, the ``badness'' of an incorrect estimate is proportional
-to how far the estimate is from the true value. If the estimate is twice as
-far from the true value, it is twice as bad. We will not prove it (although you
-are welcome to derive this yourself), but if the loss function is of this type
-then the best estimate is the posterior median.
-
 \subsection{All-or-nothing Loss}
-The third kind of loss function we will look at is the ``all-or-nothing'' loss.
+The third kind of loss function we will look at is the ``all-or-nothing'' loss,
+also sometimes called {\it 0-1 loss}.
 This is a good model for the situation where you need your estimate to be
 completely correct, and if it isn't correct, then it is irrelevant how far your
 estimate was from the true value. All incorrect estimates are equally bad.
@@ -206,7 +200,7 @@ L(\hat{\theta}, \theta) = \left\{
 \right.
 \end{eqnarray}
 
-If this seems true, it seems like you better make your chances as high as
+If you are in this situation, it seems like you better make your chances as high as
 possible, which means just choosing $\hat{\theta}$ to be the most probable value,
 i.e. the posterior mode. This intuition is correct. With all-or-nothing loss,
 the best estimate is the posterior mode. The three loss functions we consider
@@ -235,6 +229,9 @@ For the mathematicians, the optimal decision is invariant under positive affine
 transformations of the utility or loss function. Phew!
 
 \subsection{Computing Point Estimates from a Bayes' Box}
+We have just discussed three different point estimates, and under what
+circumstances we can consider them the be the best possible estimate we could
+make. Now, we will look at how to actually obtain the point estimates.
 The posterior mean is straightforward. It's the expectation value of the parameter
 using the posterior distribution. In R, the code is:
 \begin{framed}
@@ -257,7 +254,6 @@ post_mode = theta[post == highest_probability]
 In the case of a tie, {\tt post\_mode} might be a vector, indicating
 that there isn't a single mode.
 
-
 The posterior median is a little harder. We need to find the $\theta$ value
 that has 50\% of the probability to the left and 50\% of the probability to the
 right. Note that this isn't precisely defined in some cases, particularly with
@@ -274,7 +270,8 @@ possible but we can always find the value of $t$ that makes $F(t)$ very close to
 To obtain the cumulative distribution
 in R you can use the {\tt cumsum} function, which calculates the cumulative sum
 of a vector. The posterior vector contains the probabilities of $\theta$ equalling
-certain values, and if we want the probability that $\theta$ is $\leq$ a
+certain values, and if we want the probability that $\theta$ is less than or
+equal to a
 certain value, we sum all the probabilities up to and including that value. The
 cumulative sum function achieves this. Here is the code for calculating the
 posterior median:
@@ -285,7 +282,8 @@ dist = abs(F - 0.5) # Distance of the F-values from 0.5
 post_median = theta[dist == min(dist)]
 \end{verbatim}
 \end{framed}
-
+Note that this may also produce more than one result. Like the mode, the
+posterior median is not always uniquely defined.
 
 \subsection{Computing Point Estimates from Samples}
 When we use MCMC and JAGS, the output is not a vector of parameter values and
@@ -337,7 +335,6 @@ case the credible interval is $[3.310, 7.056]$.
 \label{fig:credible_interval}}
 \end{center}
 \end{figure}
-
 Note that the interval shown in Figure~\ref{fig:credible_interval} is not the
 only possible interval that would contain 95\% of the probability. However, to
 make the notion of a credible interval precise, we usually use a {\it central}
