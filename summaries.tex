@@ -35,15 +35,15 @@ the ``big picture'' of your results.
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/complicated_posterior.pdf}
-\caption{A complicated posterior distribution. When communicating with others,
-it is often useful to summarise the posterior distribution by a few numbers. In
+\caption{\it A complicated posterior distribution. When communicating with others,
+it is often useful to summarise the posterior distribution with a few numbers. In
 this case, something like ``the parameter = $5 \pm 1$'' might be a useful summary.
 \label{fig:complicated_posterior}}
 \end{center}
 \end{figure}
 
 The idea of summarising the posterior distribution is very closely related to
-the idea of summarising a data set, that you have probably encountered when you
+the idea of summarising a data set, which you probably encountered when you
 studied descriptive statistics.
 \begin{framed}
 {\bf In descriptive statistics, you often make summaries of a complex data set
@@ -64,13 +64,14 @@ but with some uncertainty. If you were to provide a single number as a guess of
 the parameter, you would probably say something close to 5. In classical statistics, a
 single number guess is called an ``estimate'', and a rule for generating such
 guesses is called an ``estimator''. Estimates are usually written by putting a
-little hat over the name of the parameter. So, by looking at the plot of the
+hat over the name of the parameter. So, by looking at the plot of the
 posterior, you could give an estimate like this:
 \begin{eqnarray}
 \hat{\theta} = 5.
 \end{eqnarray}
-But there are better things you could do than just looking at the plot, and I'd bet you know some of them
-from previous statistics courses. Here are three methods you could use to
+But there are better things you could do than just looking at the plot, and you've
+probably learnt some of them
+in previous statistics courses. Here are three methods you could use to
 choose a point estimate using the posterior distribution: the posterior mean
 (the expectation value of the parameter), the posterior median
 (the value that divides the probability
@@ -84,31 +85,31 @@ are:
 \end{eqnarray}
 In this example, there's not much of a difference between these three methods.
 But in other situations, they can be quite different (this usually happens if
-the posterior distribution is skewed, or has multiple modes: you may notice a
+the posterior distribution is skewed, or has multiple modes; you may notice a
 strong analogy between this topic and descriptive statistics). Is there a way
-to say which one is the {\it best}? It turns out that there is, but that
+to say which one is the {\it best}? It turns out there is, but that
 depends on what you mean by ``best''.
 
-Before we get on to the formal ways of deciding what is a good estimate, I will
-just mention a very common method that is widely used. If the posterior distribution
+Before we move on to the formal ways of deciding what constitutes a good estimate, I would
+like to mention a very common method that is easy to use. If the posterior distribution
 looks even vaguely like a normal distribution, it is common to summarise it like
 this:
 \begin{eqnarray}
 \theta = \textnormal{posterior mean }\pm\textnormal{posterior standard deviation}.
 \end{eqnarray}
-In my own research I use this kind of summary frequently.
+I use this kind of summary frequently in my own research.
 
 \subsection{A Very Brief Introduction to Decision Theory}
 Decision theory is a very important topic. In this course we will use a
-{\it tiny} amount of it. Just enough to solve the problem of ``which point
+{\it tiny} amount of it, just enough to solve the problem of ``which point
 estimate is best?''. If you think about it, this is a bit of a weird question.
 Obviously, the best point estimate is the true value. Of course it is, how could it
 be otherwise? Our only problem is that we can't actually implement this suggestion.
-We don't know the true value, we only have the posterior distribution
-(which is based on all the evidence we have), so we have to do 
-the best we can with that. To think about which decision is the best,
-the first thing we should do is think
-about what decisions are {\it possible}. For estimating a single parameter, any
+We don't know the true value. We only have the posterior distribution
+(which is based on all the evidence we have), and we have to do 
+the best we can with our incomplete information. To think about which decision is best,
+the first thing we should think
+about is which decisions are {\it possible}. For estimating a single parameter, any
 real number is a possible guess.
 
 The key idea in decision theory is the concept of {\it utility}, and the related
@@ -121,19 +122,20 @@ applications utility can be more concrete. For example, in betting or investment
 decisions the utility can be measured in dollars. The problem with utility is
 that we have uncertainty about what is going to happen, or about what is true,
 so we can't just choose the decision that gives us the greatest utility. Instead
-we will use our posterior probabilities, and choose the decision that gives us
+we will use our posterior probabilities and choose the decision that gives us
 the maximum possible {\it expected value} of the utility.
 
-Imagine that we were estimating a parameter $\theta$ and we wanted to give a
+Imagine we were estimating a parameter $\theta$ and we wanted to give a
 point estimate $\hat{\theta}$. One idea for what the utility or loss might be is the
 {\it quadratic} loss function, which is given by
 \begin{eqnarray}
 L(\theta, \hat{\theta}) = \left(\hat{\theta} - \theta\right)^2.
 \end{eqnarray}
-This thing inside the parentheses is the difference between our point estimate
+This expression inside the parentheses is the difference between our point estimate
 and the true value. This formula says that if our point estimate is off by 2,
-that is four times as bad as if we were off by 1. If we were off by 10, that is
-100 times as bad as if we were off by 1, due to the squaring that is occurring.
+that is four times worse than if we were off by 1. If we were off by 10, that is
+100 times worse than if we were off by 1, due to the squaring in the quadratic
+loss function formula.
 
 It turns out (we will prove this below) that {\it if the loss function is
 quadratic, the best estimate you can give is the posterior mean}.
@@ -142,8 +144,8 @@ Here is the proof. The expected value of the loss is
 \mathds{E}\left[L(\theta, \hat{\theta})\right] =
 \int p(\theta|x)(\hat{\theta} - \theta)^2 \, d\theta
 \end{eqnarray}
-Since we are summing (integrating) over all possible true $\theta$ values, this
-thing is only a function of our estimate $\hat{\theta}$. To minimise a function
+Since we are summing (integrating) over all possible true $\theta$ values, 
+the expected loss is only a function of our estimate $\hat{\theta}$. To minimise a function
 of one variable, you differentiate it and then set the derivative to zero.
 The derivative is
 \begin{eqnarray}
@@ -162,32 +164,32 @@ point estimates are really Bayesian.
 The actual output of a Bayesian analysis is the posterior distribution.
 
 Note that I didn't verify that $\hat{\theta}$ actually minimises the expected loss
-, because setting the derivative to zero would also find a maximum. To check
-that it really does minimise the expected loss, you can calculate the second
-derivate and see that it is
-positive. But that's not really needed, it would be pretty bizarre if the
+, because setting the derivative to zero would also find a maximum. To make sure
+it really does minimise the expected loss, you can calculate the second
+derivative and verify that it is
+positive. But that's not really needed. It would be pretty bizarre if the
 posterior mean was the {\it worst} estimate!
 
 \subsection{Linear Loss}
-It may be the case that the quadratic loss/utility is not a reasonable model
+Sometimes, the quadratic loss/utility is not a reasonable model
 for the consequences of an incorrect estimate. Another plausible form for the loss
 function is the {\it linear} loss. This looks like:
 \begin{eqnarray}
 L(\hat{\theta}, \theta) &=& |\hat{\theta} - \theta|.
 \end{eqnarray}
-This isn't really linear because of the absolute value, so another name that is
-sometimes used is {\it absolute loss}.
+This isn't really linear because of the absolute value, so another name
+is {\it absolute loss}.
 With this assumption, the ``badness'' of an incorrect estimate is proportional
 to how far the estimate is from the true value. If the estimate is twice as
 far from the true value, it is twice as bad. We will not prove it (although you
-are welcome to derive this yourself), but if the loss function is of this type
-then the best estimate is the posterior median, which is the value of $\hat{\theta}$
+are welcome to derive this yourself), but for this loss function
+the best estimate is the posterior median, which is the value of $\hat{\theta}$
 for which $P(\theta \leq \hat{\theta}) = P(\theta > \hat{\theta}) = 0.5$.
 
 \subsection{All-or-nothing Loss}
 The third kind of loss function we will look at is the ``all-or-nothing'' loss,
 also sometimes called {\it 0-1 loss}.
-This is a good model for the situation where you need your estimate to be
+Sometimes, you may need your estimate to be
 completely correct, and if it isn't correct, then it is irrelevant how far your
 estimate was from the true value. All incorrect estimates are equally bad.
 The all-or-nothing loss looks like:
@@ -200,19 +202,20 @@ L(\hat{\theta}, \theta) = \left\{
 \right.
 \end{eqnarray}
 
-If you are in this situation, it seems like you better make your chances as high as
-possible, which means just choosing $\hat{\theta}$ to be the most probable value,
-i.e. the posterior mode. This intuition is correct. With all-or-nothing loss,
+If you were in this situation you would want to make your chances as high as
+possible, which implies you should simply choose the most probable value
+of $\theta$ as your point estimate $\hat{\theta}$. That is, the appropriate
+estimate is the posterior mode. This intuition is correct. With all-or-nothing loss,
 the best estimate is the posterior mode. The three loss functions we consider
 in STATS 331 are shown in Figure~\ref{fig:utility}.
 
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/utility.pdf}
-\caption{Three kinds of loss function, which measure how bad it is for our
+\caption{\it Three kinds of loss function, which measure how bad it is for our
 point estimate $\hat{\theta}$ to be different from the true value of the parameter
 $\theta$. Note that the all-or-nothing loss has a small amount of width in this
-plot, that's just so that we can see the little spike at
+plot, just so that we can clearly see the spike at
 $\hat{\theta} - \theta$ = 0.\label{fig:utility}}
 \end{center}
 \end{figure}
@@ -220,17 +223,17 @@ $\hat{\theta} - \theta$ = 0.\label{fig:utility}}
 \subsection{Invariance of Decisions}
 You may be wondering about the definitions of our loss functions. For example,
 we defined the quadratic loss as $(\hat{\theta} - \theta)^2$, but what if we
-instead defined it as $3(\hat{\theta} - \theta)^2 + 5$ instead? Would our
-best decision change? Luckily, the answer is no. The decision (estimate) that
+defined it as $3(\hat{\theta} - \theta)^2 + 5$ instead? Would our
+best decision change? Luckily, the answer is no. The decision (estimate) which
 minimises the expected value of a loss function $L$ also minimises the expected
-value of a different loss function $aL + b$ where $a$ is any positive number
+value of a different loss function $aL + b$, where $a$ is any positive number
 and $b$ is any other number.
 For the mathematicians, the optimal decision is invariant under positive affine
 transformations of the utility or loss function. Phew!
 
 \subsection{Computing Point Estimates from a Bayes' Box}
 We have just discussed three different point estimates, and under what
-circumstances we can consider them the be the best possible estimate we could
+circumstances we can consider them to be the best possible estimate we could
 make. Now, we will look at how to actually obtain the point estimates.
 The posterior mean is straightforward. It's the expectation value of the parameter
 using the posterior distribution. In R, the code is:
@@ -243,8 +246,8 @@ You should also know how to compute this manually from a Bayes' Box, using a
 calculator.
 
 The posterior mode is also fairly straightforward. First, we can find the
-highest probability in the Bayes' Box. Then we find the values of the parameter
-that correspond to this probability.
+highest probability in the Bayes' Box. Then we find the corresponding parameter
+value.
 \begin{framed}
 \begin{verbatim}
 highest_probability = max(post)
@@ -255,7 +258,7 @@ In the case of a tie, {\tt post\_mode} might be a vector, indicating
 that there isn't a single mode.
 
 The posterior median is a little harder. We need to find the $\theta$ value
-that has 50\% of the probability to the left and 50\% of the probability to the
+which has 50\% of the probability to the left and 50\% of the probability to the
 right. Note that this isn't precisely defined in some cases, particularly with
 discrete distributions. For example, if $\theta$ could be 1, 2, or 3, and the
 probabilities of these were 0.3, 0.6, and 0.1, then what is the median? It is
@@ -264,15 +267,14 @@ the definition becomes more clear.
 
 To calculate the posterior median in R, we need to use the cumulative distribution
 which is defined as $F(t) = P(\theta \leq t)$. If we then find the value of $t$
-where $F(t) = 0.5$ then we have found the posterior median. This isn't always
-possible but we can always find the value of $t$ that makes $F(t)$ very close to
+where $F(t) = 0.5$, we have found the posterior median. This isn't always
+possible but we can always find the value of $t$ which makes $F(t)$ very close to
 0.5.
 To obtain the cumulative distribution
 in R you can use the {\tt cumsum} function, which calculates the cumulative sum
 of a vector. The posterior vector contains the probabilities of $\theta$ equalling
-certain values, and if we want the probability that $\theta$ is less than or
-equal to a
-certain value, we sum all the probabilities up to and including that value. The
+certain values. If we want the probability that $\theta$ is less than or
+equal to a certain value, we sum all the probabilities up to and including that value. The
 cumulative sum function achieves this. Here is the code for calculating the
 posterior median:
 \begin{framed}
@@ -286,11 +288,14 @@ Note that this may also produce more than one result. Like the mode, the
 posterior median is not always uniquely defined.
 
 \subsection{Computing Point Estimates from Samples}
-When we use MCMC and JAGS, the output is not a vector of parameter values and
-another vector of probabilities. Instead, we'll have just a vector of parameter
-values, and no corresponding probabilities. The vector of parameter values is
+When we use a Bayes' Box (or the equivalent R commands which represent the
+columns of a Bayes' Box as vectors), we end up with a vector of possible parameter
+values and another vector containing the posterior distribution.
+When we use MCMC and JAGS, the output is different.
+We will only have a vector of parameter
+values, without corresponding probabilities. The vector of parameter values is
 meant to be a random sample of values drawn from the posterior distribution.
-It's like saying ``here's a bunch of guesses for the parameter'', and any
+It's like saying ``here are a bunch of guesses for the parameter'', and any
 region where there are a lot of guesses is considered to be a region with high
 probability.
 
@@ -315,19 +320,21 @@ post_median = sorted[0.5*length(theta)]
 \end{framed}
 
 \section{Credible Intervals}
-Credible intervals are another useful kind of summary. The basic idea is to
+Credible intervals are another useful kind of summary. They are used to make
+statements like ``There is a 95\% probability the parameter is between
+100 and 150''. The basic idea is to
 use the posterior distribution to find an interval $[a, b]$ such that
 \begin{eqnarray}
 P(a \leq \theta \leq b | x) &=& \alpha
 \end{eqnarray}
-where $\alpha$ is some pre-defined amount of probability. 95\% seems to be the
+where $\alpha$ is some pre-defined probability. 95\% seems to be the
 most popular choice. An example of a 95\% credible interval is given in
 Figure~\ref{fig:credible_interval}.
 
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/credible_interval.pdf}
-\caption{A central 95\% credible interval is defined as an interval that
+\caption{\it A central 95\% credible interval is defined as an interval that
 contains 95\% of the posterior probability, while having 2.5\% of the probability
 above the upper limit and 2.5\% of the probability below the lower limit. The
 credible interval is formed by finding the edges of the grey region. In this
@@ -345,7 +352,7 @@ the same amount $(1-\alpha)/2$ of the probability to its right.
 \subsection{Computing Credible Intervals from a Bayes' Box}
 The method for computing credible intervals is closely related to the method
 for computing the posterior median. With the median, we found the value of
-$\theta$ that has 50\% of the posterior probability to its left and 50\% to its
+$\theta$ which has 50\% of the posterior probability to its left and 50\% to its
 right. To find the lower end of a 95\% credible interval, we find the $\theta$
 value that has 2.5\% of the probability to its left. To find the upper end we
 find the value of $\theta$ that has 2.5\% of the posterior probability to its
@@ -362,8 +369,8 @@ posterior distribution you would find the 0.025 quantile and the 0.975 quantile
 In previous stats courses you have probably come across the concept of a
 {\it confidence interval}. A confidence interval is a concept in classical
 statistics that is somewhat similar to a credible interval in Bayesian statistics.
-When people calculate confidence intervals, they usually want to be
-able to say that they are 95\% sure that the parameter is in that interval,
+When people calculate confidence intervals, they usually want to say they are
+95\% sure that the parameter is in that interval,
 given the data. This is what Bayesian credible intervals do, but {\it it is not
 what classical confidence intervals do}!
 
@@ -380,7 +387,7 @@ confidence interval lies entirely in a region where we are certain
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/jaynes.pdf}
-\caption{An example of a Bayesian credible interval and a frequentist confidence
+\caption{\it An example of a Bayesian credible interval and a frequentist confidence
 interval applied to a particular problem where they give different answers.
 The posterior distribution in blue shows that the parameter $\theta$ is probably
 somewhere between 11 and 12, and values above 12 are completely impossible.
