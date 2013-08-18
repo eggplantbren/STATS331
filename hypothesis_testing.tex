@@ -120,13 +120,32 @@ is true. That is,
 \end{eqnarray}
 In case you're curious, the p-value in this case is 0.00031, which is usually
 taken to mean that there is fairly strong evidence against $H_0$ and in favour
-of $H_1$.
+of $H_1$. To calculate the p-value I had to assume that the probability distribution
+for the data values $\{x_1, x_2, ..., x_{100}\}$ was a normal distribution, and
+that they were independent:
+\begin{eqnarray}
+x_i \sim \mathcal{N}(\mu, \sigma^2). \label{eq:normal}
+\end{eqnarray}
+
 In Bayesian statistics, p-values are not used. Instead, we should think of this
 as a parameter estimation problem. We can state a set of hypotheses about the
 value of $\mu$, and then choose a prior distribution, update to a posterior
-distribution, etc.
+distribution, etc. Then we will end up with the posterior probability of the
+null hypothesis, $P(H_0 | \{x_1, ..., x_{100}\}) = P(\mu = 120 | \{x_1, ..., x_{100}\})$.
+This is great, because the posterior probability of the null hypothesis is
+exactly what we want. It is a description of how plausible the null hypothesis
+is, given the data. It is not some other probability that isn't really relevant.
+We can also get the posterior probability of $H_1$ by summing the posterior
+probabilities for all other values of $\mu$ apart from 120, or by using
+$P(H_1 | \{x_1,...,x_{100}\}) = 1 - P(H_0 | \{x_1,...,x_{100}\})$.
 
-
+There is only one minor tweak we need to make to make Bayesian inference an
+appropriate framework for solving this problem. When the null and alternative
+hypotheses are written like we did above, it implies that the value of $\mu$
+that we are calling the ``null hypothesis'' is a {\it special value that is
+especially plausible}. To take this into account in our Bayesian analysis we
+need to make sure that the prior distribution recognises that there is a special
+value of the parameter that we think is extra plausible.
 
 
 \section{Hypothesis Testing and the Marginal Likelihood}
