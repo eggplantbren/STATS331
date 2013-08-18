@@ -118,10 +118,11 @@ is true. That is,
 \begin{eqnarray}
 \textnormal{p-value} = P(\bar{x} \leq 115.9 | H_0).
 \end{eqnarray}
-In case you're curious, the p-value in this case is 0.00031, which is usually
+In case you're curious, the p-value in this case is 0.0031, which is usually
 taken to mean that there is fairly strong evidence against $H_0$ and in favour
 of $H_1$. To calculate the p-value I had to assume that the probability distribution
-for the data values $\{x_1, x_2, ..., x_{100}\}$ was a normal distribution, and
+for the data values $\{x_1, x_2, ..., x_{100}\}$ was a normal distribution
+with a known standard deviation of $\sigma=15$, and
 that they were independent:
 \begin{eqnarray}
 x_i \sim \mathcal{N}(\mu, \sigma^2). \label{eq:normal}
@@ -145,7 +146,74 @@ hypotheses are written like we did above, it implies that the value of $\mu$
 that we are calling the ``null hypothesis'' is a {\it special value that is
 especially plausible}. To take this into account in our Bayesian analysis we
 need to make sure that the prior distribution recognises that there is a special
-value of the parameter that we think is extra plausible.
+value of the parameter that we think is extra plausible. When we do this, we
+will call it a {\it testing prior}. An example of a testing prior, and the
+resulting Bayes' Box, for
+the blood pressure problem is given in Table~\ref{tab:testing_prior}.
+The R code for calculating these results is given below.
+
+\begin{framed}
+\begin{verbatim}
+# Parameter values
+mu = seq(110, 120)
+
+# Make the testing prior
+prior = rep(0.5/10, 11)
+prior[11] = 0.5
+
+# Compute the likelihood for the 100 data points.
+# The numbers get close to 0, so logs would be useful
+lik = 1
+# Use a for loop to loop over all data values
+# and multiply the likelihoods
+for(i in 1:100)
+{
+    lik = lik*dnorm(x[i], mean=mu, sd=15)
+}
+
+# Rescale the likelihood for readability
+lik = lik/max(lik)*1000
+
+# Calculate the posterior
+h = prior*lik
+post = h/sum(h)
+
+# The null hypothesis
+post[11]
+\end{verbatim}
+\end{framed}
+
+
+\begin{table}[ht!]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\tt{possible values} & \tt{prior} & \tt{likelihood} & \tt{prior} $\times$ \tt{likelihood} & \tt{posterior}\\
+$\mu$ & $p(\mu)$ & $p(\{x_1, ..., x_{100}\}|\mu)$ & $p(\mu)p(\{x_1, ..., x_{100}\}|\mu)$ & $p(\mu|\{x_1, ..., x_{100}\})$\\
+\hline
+110 & 0.05 & 0.44	& 0.02 & 0.0001\\
+111 & 0.05 & 4.83	& 0.24 & 0.0012\\
+112 & 0.05 & 34.12	& 1.71 & 0.0086\\
+113 & 0.05 & 154.64	& 7.73 & 0.0389\\
+114 & 0.05 & 449.33	& 22.47 & 0.1129\\
+115 & 0.05 & 837.13	& 41.86 & 0.2103\\
+116 & 0.05 & 1000.00    & 50.00 & 0.2512\\
+117 & 0.05 & 756.93	& 38.30 & 0.1924\\
+118 & 0.05 & 376.15	& 18.81 & 0.0945\\
+119 & 0.05 & 118.44	& 5.92 & 0.0298\\
+{\bf 120} & {\bf 0.5}   & {\bf 23.91} & {\bf 11.96} & {\bf 0.0601}\\
+\hline
+Totals & 1 & & 630.3036 & 1\\
+\hline
+\end{tabular}
+\caption{\it An example of a testing prior for the blood pressure problem. We
+give more prior probability to the special value $\mu=120$ because it is
+particularly plausible. For readability I have rescaled the likelihoods so that
+the maximum is 1000. Note that the posterior probability of $H_0$ can simply
+be read off the table.
+\label{tab:testing_prior}}
+\end{center}
+\end{table}
 
 
 \section{Hypothesis Testing and the Marginal Likelihood}
