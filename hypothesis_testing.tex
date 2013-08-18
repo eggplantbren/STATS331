@@ -215,8 +215,59 @@ be read off the table.
 \end{center}
 \end{table}
 
+In Figure~\ref{fig:testing_priors}, there are three possible ideas for priors
+for the blood pressure question. They all may seem reasonable in this situation.
+Prior 1 is basically the same as the prior in our Bayes' Box, although it goes
+down to $\mu=100$ and divides the possible $\mu$ values more finely. This prior
+says the null has a 50\% probability, and if $\mu$ is not equal to 120 then it
+could be anything.
+Prior 2
+is similar but has only 30\% of the prior probability on the null hypothesis
+instead of 50\%,
+and the shape of the prior is non-uniform for the lower values of $\mu$.
+This is like saying ``$\mu$ could be precisely 120, and if it's not precisely
+120 then it is probably at least {\it close} to 120''.
+Prior 3 isn't really a testing prior at all (it doesn't have a spike), but is
+just a bell-shaped prior. This is like saying ``alright, I would never believe
+$\mu$ is {\it exactly} 120, but I think there's a reasonable chance it's {\it
+close} to 120.
+These three priors would give different results, and the appropriate choice
+depends on the individual problem you are solving. 
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.6]{Figures/testing_priors.pdf}
+\caption{Three possible priors we could use for the blood pressure question.
+All may seem ``reasonable'', and the choice can affect the results (quite
+significantly in some cases). Care should be taken when choosing the prior
+in hypothesis testing problems.
+\label{fig:testing_priors}}
+\end{center}
+\end{figure}
+
+
+\section{Some Terminology}
+There is some alternative terminology that is widely used that is particular
+popular in Bayesian hypothesis testing (aka model selection) problems. Suppose
+there were two hypotheses $H_1$ and $H_2$, and some data $x$. Now $H_1$ and
+$H_2$ might be a null and alternative hypothesis, or they might be two
+particular values of the parameter, or whatever. Two repetitions of Bayes' rule
+for these two hypotheses are:
+\begin{eqnarray}
+P(H_1 | x) &=& \frac{P(H_1)p(x|H_1)}{p(x)}\\
+P(H_2 | x) &=& \frac{P(H_2)p(x|H_2)}{p(x)}
+\end{eqnarray}
+Dividing these two equations gives the {\it odds form} of Bayes' rule, which
+deals with ratios of probabilities instead of probabilities themselves.
+\begin{eqnarray}
+\frac{P(H_1 | x)}{P(H_2|x)} &=& \frac{P(H_1)}{P(H_2)} \times
+\frac{p(x|H_1)}{p(x|H_2)}\\
+\end{eqnarray}
+
+
+
+
 
 \section{Hypothesis Testing and the Marginal Likelihood}
 
-\section{Some Terminology}
 
