@@ -3,8 +3,8 @@
 Monte Carlo is a general term for computational techniques that use random
 numbers.
 Monte Carlo can be used in classical and Bayesian statistics, and a special kind
-called Markov Chain Monte Carlo (MCMC) was partially responsible for the revival
-of Bayesian statistics in the second half of the 20th century.
+called Markov Chain Monte Carlo (MCMC) was one of the main reasons
+for the revival of Bayesian statistics in the second half of the 20th century.
 
 What we have seen so far is that you can represent a probability distribution
 in a computer by using a vector of possible values and a corresponding
@@ -17,10 +17,11 @@ do is plot the posterior distribution:
 plot(theta, post, xlab="Theta", ylab="Posterior Probability")
 \end{verbatim}
 This would make a plot something like the following:
+
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/normal.pdf}
-\caption{A posterior distribution can be represented in a computer by a discrete
+\caption{\it A posterior distribution can be represented in a computer by a discrete
 set of possible parameter values, and the corresponding probabilities.\label{fig:normal}}
 \end{center}
 \end{figure}
@@ -32,9 +33,13 @@ post_sd = sqrt(sum(theta^2*post) - post_mean^2)
 
 However,
 there is an alternative way of representing this posterior distribution in a
-computer. It may seem a bit silly at first, because there is nothing wrong with
-the above method. But this second method has the advantage that it continues to
-work well on much bigger problems, such as when we have more than one parameter.
+computer. It may not be immediately obvious why this is a good idea,
+because there is nothing wrong with the tried and true method we have used
+so far. But this second method has the advantage that it continues to
+work well on much bigger problems, such as when we have more than one parameter,
+whereas the ``have a vector of possible solutions'' approach fails badly on
+very large problems.
+
 Instead of having two vectors (one of $\theta$ values and one of the
 corresponding probabilities),
 imagine we had some method to compute a random sample of $\theta$ values, drawn
@@ -42,36 +47,39 @@ from the posterior distribution. There would only be one vector. So how would we
 know that there is greater probability around $\theta=1$? Well, {\it more elements
 of the vector would be near 1}. Instead of carrying around a second vector of
 probabilities, we simply let the fact that there are lots of points in certain
-regions tell us that those regions are more probable! Say our vector of random
-samples was called {\tt theta2}. Then we could look at the posterior distribution
+regions tell us that those regions are more probable. Say our vector of random
+samples was called {\tt theta\_samples}. Then we could look at the posterior distribution
 by plotting a histogram of samples:
 \begin{verbatim}
-hist(theta2, breaks=100)
+hist(theta_samples, breaks=100)
 \end{verbatim}
 The histogram would look something like this:
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/normal2.pdf}
-\caption{The posterior distribution for a parameter $\theta$ can also be
-represented by a {\it random sample} of values drawn from the posterior
+\caption{\it The posterior distribution for a parameter $\theta$ can also be
+represented by a random sample of $\theta$ values drawn from the posterior
 distribution. The fact that some $\theta$ values are more probable than others
 is encoded by the fact that certain values appear more frequently in the sample.
 \label{fig:normal2}}
 \end{center}
 \end{figure}
-We could also get our summaries, but the code looks different (It's easier!):
+We could also get our summaries, but the code looks different (it's easier!):
 \begin{verbatim}
-post_mean = mean(theta2)
-post_sd = sd(theta2)
+post_mean = mean(theta_samples)
+post_sd = sd(theta_samples)
 \end{verbatim}
-Now, because of the randomness involved in generating the {\tt theta2} samples,
+Because of the randomness involved in generating the {\tt theta\_samples} values,
 the summaries aren't exact. For example, I know that the actual posterior mean
 and standard deviation in this example were both 1, but the values obtained
 from the Monte Carlo samples were 0.9604 and 1.0008 respectively. This doesn't
 matter much though, because the conclusions about $\theta$ are that it is probably
 somewhere around 1 with an uncertainty of about 1, and the error introduced by
 using random samples are much smaller than the amount of uncertainty inherent
-in the posterior distribution itself.
+in the posterior distribution itself. For example, if I summarised the posterior
+distribution by saying $\theta = 0.9604 \pm 1.0008$, for almost all practical
+purposes the conclusion is exactly the same as the true version of the summaries
+$\theta = 1 \pm 1$.
 
 \begin{framed}
 {\bf
@@ -79,6 +87,15 @@ The purpose of Markov Chain Monte Carlo is to generate random samples of
 parameter values drawn from the posterior distribution. This makes it very easy
 to compute summaries even if you have more than one unknown parameter.}
 \end{framed}
+
+\section{Multiple Parameters}
+MCMC becomes extremely useful when we begin to look at Bayesian models involving
+more than one unknown parameter. Imagine we wanted to infer $a$ and $b$ from
+data $x$. Bayes' rule (parameter estimation version) would give us the posterior
+distribution:
+\begin{eqnarray}
+p(a, b | x) \propto p(a, b)p(x|a,b)
+\end{eqnarray}
 
 
 \section{The Metropolis Algorithm}
@@ -116,7 +133,7 @@ any particular state is proportional to the posterior probability of that state.
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.65]{Figures/mcmc.pdf}
-\caption{An illustration of the basic idea behind MCMC. Imagine we had a
+\caption{\it An illustration of the basic idea behind MCMC. Imagine we had a
 Bayes' Box with two possible states, and we knew the
 {\tt prior $\times$ likelihood} values. The amount of time the MCMC program will
 spend in each state is proportional to the posterior probability of the state.
@@ -126,9 +143,6 @@ as being 0.7. This estimate would become more accurate if we ran the MCMC for
 more iterations.\label{fig:mcmc}}
 \end{center}
 \end{figure}
-
-
-
 
 \subsection{Metropolis, Stated}
 The Metropolis algorithm is given below. The first thing to do is start
@@ -162,5 +176,4 @@ state with the proposed state
 
 
 \section{Tactile MCMC}
-
-Tactile MCMC is an idea due to Wayne Stewart.
+In class we will do ``Tactile MCMC''.
