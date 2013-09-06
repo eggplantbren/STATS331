@@ -115,7 +115,10 @@ p(a, b | x) \propto p(a, b)p(x|a,b)
 \end{eqnarray}
 
 However, what if you didn't really care about the value of $b$ but
-only really wanted to measure $a$. What you need in this case is the
+only really wanted to measure $a$. The terminology for this is that $b$ is a
+{\it nuisance parameter}: you need it to define the model, but ultimately you
+are not really interested in knowing its value.
+What you need in this case is the
 {\it marginal} posterior distribution for $a$ (that is, the posterior
 distribution for $a$ on its own, not the joint distribution with $b$).
 This can be obtained using the sum rule. The result is:
