@@ -2,7 +2,7 @@
 Hypothesis testing (also known as model selection, particularly when it is
 done using the method in Section~\ref{sec:marginal_likelihood})
 is a very important topic that is traditionally considered
-as a different topic from parameter estimation. However, in Bayesian statistics
+a different topic from parameter estimation. However, in Bayesian statistics
 we will see that hypothesis testing is basically the same thing as parameter
 estimation! The one difference, for us, will be that we will sometimes change
 the prior distribution a little bit.
@@ -11,7 +11,7 @@ One big advantage of Bayesian statistics is that it {\it unifies}
 parameter estimation and hypothesis
 testing\footnote{``Unifies'' is a popular word for physicists. It means that
 two seemingly different topics are fundamentally the same, or at least closely
-related.}. That's good news, because it means that instead of having to
+related.}. That's good news, because instead of having to
 understand two different topics, we only have to understand one!
 
 To see why hypothesis testing is fundamentally the same as parameter estimation,
@@ -19,7 +19,7 @@ you only need to
 understand how parameter estimation works from a Bayesian point of view, which
 we have already studied.
 Parameter estimation is nothing more than testing a bunch of hypotheses about
-the value of the parameter! e.g. $\theta=1$ vs. $\theta=2$ vs. $\theta=3$ and
+the value of the parameter. For example, $\theta=1$ vs. $\theta=2$ vs. $\theta=3$ and
 so on. If we have their posterior probabilities, then we've tested them.
 
 \section{An Example Hypothesis Test}
@@ -51,8 +51,8 @@ H_0: && \theta = 2\\
 H_1: && \theta \neq 2
 \end{eqnarray}
 In classical statistics, if you saw a question phrased in this way, you would
-need to come up with a {\it test statistic},
-and then calculate a {\it p-value} which tries to say something about whether
+need to come up with a {\it test statistic}
+and then calculate a {\it p-value}, which tries to say something about whether
 the value of the test statistic would be considered extreme, under the
 assumption that $H_0$ is true.
 In Bayesian statistics, the only thing we need to do is calculate
@@ -65,7 +65,7 @@ P(H_0|x) &=& P(\theta = 2|x)\\
 All we did here was look up the appropriate number in the Bayes' Box! The
 posterior probability of $H_1$ is only slightly harder (but still easy)
 to calculate: $H_1$ will
-be true if $\theta$ takes any value other than 2. Therefore the posterior
+be true if $\theta$ takes any value other than 2. Therefore, the posterior
 probability of $H_1$ is
 \begin{eqnarray}
 P(H_1|x) &=& P(\theta = 1.5 \textbf{ or } \theta = 2.5 \textbf{ or } \theta = 3|x)\\
@@ -89,7 +89,7 @@ in the general population is 120 mm Hg, with a standard deviation of
 old fashioned unit for pressure, even though it sounds like a unit of length).
 A new drug is developed that may
 be helpful in reducing blood pressure. A sample of 100 people
-(that can be considered representative of the general population)
+(who can be considered representative of the general population)
 are given the drug, and their systolic blood pressure is measured. This results
 in 100 blood pressure measurements $\{x_1, x_2, ..., x_{100}\}$, which will be
 our data.
@@ -133,24 +133,24 @@ x_i \sim \mathcal{N}(\mu, \sigma^2). \label{eq:normal}
 In Bayesian statistics, p-values are not used. Instead, we should think of this
 as a parameter estimation problem. We can state a set of hypotheses about the
 value of $\mu$, and then choose a prior distribution, update to a posterior
-distribution, etc. Then we will end up with the posterior probability of the
+distribution, etc. Then our result will be the posterior probability of the
 null hypothesis, $P(H_0 | \{x_1, ..., x_{100}\}) = P(\mu = 120 | \{x_1, ..., x_{100}\})$.
-This is great, because the posterior probability of the null hypothesis is
+This is helpful because the posterior probability of the null hypothesis is
 exactly what we want. It is a description of how plausible the null hypothesis
-is, given the data. It is not some other probability that isn't really relevant.
+is given the data. It is not some other probability that isn't really relevant.
 We can also get the posterior probability of $H_1$ by summing the posterior
 probabilities for all other values of $\mu$ apart from 120, or by using
 $P(H_1 | \{x_1,...,x_{100}\}) = 1 - P(H_0 | \{x_1,...,x_{100}\})$.
 
 There is only one minor tweak we need to make to make Bayesian inference an
 appropriate framework for solving this problem. When the null and alternative
-hypotheses are written like we did above, it implies that the value of $\mu$
+hypotheses are written like we wrote them above, it implies that the value of $\mu$
 that we are calling the ``null hypothesis'' is a {\it special value that is
 especially plausible}. To take this into account in our Bayesian analysis we
-need to make sure that the prior distribution recognises that there is a special
+need to make sure the prior distribution recognises there is a special
 value of the parameter that we think is extra plausible. When we do this, we
-will call it a {\it testing prior}. An example of a testing prior, and the
-resulting Bayes' Box, for
+will call it a {\it testing prior}. An example of a testing prior and the
+resulting Bayes' Box for
 the blood pressure problem is given in Table~\ref{tab:testing_prior}.
 The R code for calculating these results is given below.
 
@@ -222,7 +222,7 @@ of $H_0$ is 0.0601. Recall that the classical p-value was 0.0031. These numbers
 are very different, and there is no reason why they should be similar. The
 p-value might imply that the evidence is overwhelming (if you are not experienced
 at interpreting p-values), but the posterior probability still says there's a
-6\% chance that the drug does nothing.
+6\% chance the drug does nothing.
 
 Note that the calculation of the posterior distribution uses {\it all} of the
 data values, rather than reducing the whole data set down to a single number
@@ -232,33 +232,33 @@ is a ``sufficient statistic''. In this
 particular problem, throwing away information has no
 consequences!}. But in different situations (e.g. if your sampling distribution
 or likelihood was based on the heavy-tailed Cauchy distribution instead of a normal
-distribution) reducing an entire data set to a single ``test statistic'' can
+distribution), reducing an entire data set to a single ``test statistic'' can
 be extremely wasteful!
 
 Note also that there were some fairly arbitrary decisions made in choosing our
-testing prior. We decided not to allow $\mu > 120$, but the analysis could have
-also allowed for that. The discrete approximation was fairly coarse. Finally, we
-assumed that $\mu$ couldn't be lower than 110, and had a uniform prior for all
+testing prior. We decided not to allow $\mu > 120$, but the analysis could
+also have allowed for that. The discrete approximation was fairly coarse. Finally, we
+assumed $\mu$ couldn't be lower than 110, and had a uniform prior for all
 $\mu$ values apart from 120. Some of these assumptions can and should be
 questioned when applying Bayesian hypothesis testing in practice.
-In Figure~\ref{fig:testing_priors}, there are three possible ideas for priors
-for the blood pressure question. They all may seem reasonable in this situation.
+In Figure~\ref{fig:testing_priors}, there are three possible ideas for what
+the prior should be in the blood pressure question. They may all seem reasonable in this situation.
 Prior 1 is basically the same as the prior in our Bayes' Box, although it goes
 down to $\mu=100$ and divides the possible $\mu$ values more finely. This prior
-says the null has a 50\% probability, and if $\mu$ is not equal to 120 then it
+says the null has a 50\% probability, and if $\mu$ is not equal to 120, then it
 could be anything.
 Prior 2
-is similar but has only 30\% of the prior probability on the null hypothesis
+is similar, but has only 30\% of the prior probability on the null hypothesis,
 instead of 50\%,
 and the shape of the prior is non-uniform for the lower values of $\mu$.
 This is like saying ``$\mu$ could be precisely 120, and if it's not precisely
-120 then it is probably at least {\it close} to 120''. In a lot of hypothesis
+120, then it is probably at least {\it close} to 120''. In a lot of hypothesis
 testing situations this would be a more accurate description of our prior
 beliefs than Prior 1.
 Prior 3 isn't really a testing prior at all (it doesn't have a spike), but is
-just a bell-shaped prior. This is like saying ``alright, I would never believe
+just a bell-shaped prior. This is like saying ``Alright, I would never believe
 $\mu$ is {\it exactly} 120, but I think there's a reasonable chance it's {\it
-close} to 120. Often, it would be nonsense to think that the null hypothesis
+close} to 120. Often, it would be nonsense to think the null hypothesis
 is perfectly true, to an arbitrary level of accuracy. Something like Prior 3
 would be more appropriate.
 These three priors would all give different results, and the appropriate choice
@@ -273,7 +273,7 @@ really careful about choosing your prior, or you need more data.}
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/testing_priors.pdf}
-\caption{Three possible priors we could use for the blood pressure question.
+\caption{\it Three possible priors we could use for the blood pressure question.
 All may seem ``reasonable'', and the choice can affect the results (quite
 significantly in some cases). Care should be taken when choosing the prior
 in hypothesis testing problems.
@@ -283,18 +283,17 @@ in hypothesis testing problems.
 
 
 \section{Some Terminology}
-There is some alternative terminology that is widely used that is particular
+There is some alternative terminology that is widely used and is particularly
 popular in Bayesian hypothesis testing (aka model selection) problems. Suppose
-there were two hypotheses $H_1$ and $H_2$, and some data $x$. Now $H_1$ and
+there were two hypotheses $H_1$ and $H_2$, and some data $x$. Now, $H_1$ and
 $H_2$ might be a null and alternative hypothesis, or they might be two
-particular values of the parameter, or whatever. Two repetitions of Bayes' rule
+particular values of the parameter, or something else. Two repetitions of Bayes' rule
 for these two hypotheses are:
 \begin{eqnarray}
 P(H_1 | x) &=& \frac{P(H_1)p(x|H_1)}{p(x)}\\
 P(H_2 | x) &=& \frac{P(H_2)p(x|H_2)}{p(x)}
 \end{eqnarray}
-In words, these could be written in the memorable way, using the words for the
-various terms in the equation:
+These could also be written in words:
 \begin{eqnarray}
 \textnormal{posterior} &=& \frac{\textnormal{prior}\times\textnormal{likelihood}}{\textnormal{marginal likelihood}}
 \end{eqnarray}
@@ -311,13 +310,14 @@ In words, this can be written as:
 \times
 \textnormal{bayes factor}
 \end{eqnarray}
-Sometimes people talk about odds and Bayes Factors instead of about prior and
-posterior probabilities. The odds tells us how plausible $H_1$ is compared to
-$H_2$. For example, a posterior odds of 5 means $H_1$ is 5 times as plausible
+Sometimes people talk about odds (or odds ratios, which are the same thing)
+and Bayes Factors instead of about prior and
+posterior probabilities. The odds tell us how plausible $H_1$ is compared to
+$H_2$. For example, a posterior odds ratio of 5 means $H_1$ is 5 times as plausible
 as $H_2$. Of course, odds can be greater than 1 even though probabilities
 cannot be. The Bayes Factor is the ratio of the likelihoods. Results are often
 quoted as Bayes Factors because that's the part of the equation where the
-data is important. If you say ``the Bayes factor for $H_1$ over $H_2$ was 10'',
+data is important. If you say ``The Bayes Factor for $H_1$ over $H_2$ was 10'',
 then whoever you're talking to is free to apply whatever prior odds they like,
 whereas if you state the posterior odds then people may wonder what your prior
 odds were.
@@ -326,33 +326,29 @@ odds were.
 The Bayes' factor in Equation~\ref{eq:odds_form} is the ratio of likelihoods
 for two hypotheses $H_1$ and $H_2$. If we wanted to calculate the Bayes Factor
 for $H_0$ and $H_1$ in the blood pressure example, we could easily get the likelihood
-for $H_0$ (it's right there in the Bayes' Box) but how would we get $p(x|H_1)$,
+for $H_0$ (it's right there in the Bayes' Box). But how would we get $p(x|H_1)$,
 which needs to be a single number? $H_1$ is the statement $\mu = 100$ {\bf or}
 $\mu = 111$ {\bf or} $\mu = 112$ and so on up to $\mu = 119$.
 
-Imagine we had left out $\mu=120$ from our Bayes' Box and just done parameter
+Imagine we had left $\mu=120$ out of our Bayes' Box and just done parameter
 estimation within the context of $H_1$ (i.e. assuming, for argument's sake,
 that $H_1$ is true). This would involve a {\it reduced} Bayes' Box with one
 less row in it. We would end up getting some marginal likelihood
 $p(x) = \sum p(\theta)p(x|\theta)$.
-The key is to realise that since we'd be assuming $H_1$ throughout, the
+The key is to realise that since we are assuming $H_1$ throughout, the
 marginal likelihood is really $p(x|H_1) = \sum p(\theta|H_1)p(x|\theta, H_1)$,
 which is exactly the thing we need to calculate the Bayes Factor!
 
 All of this implies
-there are two mathematically equivalent ways of doing Bayesian hypothesis testing
+there are two mathematically equivalent ways of doing Bayesian hypothesis testing,
 or model selection. One is to make a big model that includes both the null and
 the alternative hypothesis. The Bayes' Box with a testing prior accomplishes this.
 In most cases this is the most convenient way to do the calculations.
 
 The other way is to do the two analyses separately. First, do parameter estimation
 within the context of $H_1$. Then, do parameter estimation within the context
-of $H_2$. Then use the marginal likelihoods as if they were likelihoods, to
+of $H_2$. Then, use the marginal likelihoods as if they were likelihoods, to
 compare $H_1$ vs. $H_2$. This second way of calculating Bayes Factors is
 most useful when the two analyses were actually done separately by different
 people.
-
-
-
-
 
