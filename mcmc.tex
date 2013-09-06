@@ -132,14 +132,41 @@ certain choices purely for mathematical convenience (e.g. choosing the prior
 to be a certain kind of distribution, not because it is a good model of your
 prior beliefs, but only because the maths works out neatly).
 
-\section{The Metropolis Algorithm}
-The Metropolis algorithm is a fairly simple idea and is the basis of a large
-number of MCMC methods. In STATS 331 we will study the basic ideas of what
-makes the Metropolis algorithm work. We will look at a small amount of R code
-that implements the Metropolis algorithm, but for solving practical problems
-it is more convenient to use the JAGS program.
+Samples of parameter values drawn from the posterior distribution
+(achieved using MCMC) make this hard problem much easier. We no longer need
+to worry about mathematical convenience.
+See Figure~\ref{fig:marginalisation} for an example showing how Monte Carlo
+sampling makes marginalisation trivial.
 
-The Metropolis algorithm was invented in the 1940s by physicists, who used it
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.5]{Figures/marginalisation.pdf}
+\caption{\it An example of a posterior distribution for two parameters, $a$ and
+$b$. The left panels show the joint posterior distribution (which has a
+correlation) and the marginal posterior distribution for $a$, obtained by
+integrating over all the possible $b$ values. The top right panel contains
+random samples
+(points) drawn from the posterior distribution for $a$ and $b$.
+All you need to do to get the
+marginal distribution for $a$ (lower right panel) is ignore the $b$-values of
+the points!
+\label{fig:marginalisation}}
+\end{center}
+\end{figure}
+
+
+\section{The Metropolis Algorithm}
+The Metropolis algorithm is the most basic MCMC method.
+The ideas behind it are fairly simple, yet Metropolis forms the basis of a large
+number of more advanced MCMC methods. In STATS 331 we will study the basic ideas
+behind how the Metropolis algorithm works. We will look at a small amount of R code
+that implements the Metropolis algorithm, but for solving practical problems
+it is more convenient to use the JAGS program\footnote{JAGS uses a number
+of MCMC methods internally, including Metropolis, ``Gibbs Sampling'', and
+``Slice Sampling'', which we will not study in this course.}.
+
+The Metropolis algorithm was invented in the 1950s by physicists
+(including Nicholas Metropolis, for whom the algorithm is named), who used it
 to do calculations in the field of statistical mechanics. This intriguing field
 focuses on calculating the macroscopic (large scale) properties of matter from
 knowledge of the small-scale properties: for example, knowing that water is
