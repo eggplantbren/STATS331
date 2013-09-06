@@ -210,8 +210,9 @@ more iterations.\label{fig:mcmc}}
 
 \subsection{Metropolis, Stated}
 The Metropolis algorithm is given below. The first thing to do is start
-{\it somewhere} in the ``parameter space'' (set of possible values). You then
-propose to move somewhere else. There is an acceptance probability $\alpha$
+{\it somewhere} in the ``parameter space'' (set of possible parameter values).
+You then
+{\it propose} to move somewhere else. There is an acceptance probability $\alpha$
 that determines whether to accept the proposal. If the proposal is better
 ($h$, the prior times likelihood value is higher), then you accept it. If the
 proposal is worse, you can also accept it, but the probability of accepting is
@@ -227,8 +228,6 @@ state with the proposed state
 \item Repeat
 \end{itemize}
 \end{framed}
-
-
 
 \begin{figure}[ht!]
 \begin{center}
