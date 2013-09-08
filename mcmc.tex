@@ -234,6 +234,10 @@ state with the proposed state
 \end{itemize}
 \end{framed}
 
+\section{A Two State Problem}
+We will now study how the Metropolis algorithm would work on a very simple
+example, namely the two-ball problem from the beginning of the notes. There
+were two hypotheses and the posterior probabilities were $1/3$ and $2/3$.
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.65]{Figures/transitions.pdf}
@@ -241,7 +245,39 @@ state with the proposed state
 \end{center}
 \end{figure}
 
+The acceptance probability $\alpha$ for a proposed move from state $i$ to
+state $j$ is given by:
+\begin{eqnarray}
+\alpha_{ij} = \textnormal{min}\left(1, \frac{h_j}{h_i}\right)
+\end{eqnarray}
+where $h_i$ and $h_j$ are proportional to the posterior probabilities of
+states $i$ and $j$ respectively. The transition probability is the probability
+of being in state $j$ at the next iteration given that you are in state $i$
+at the current iteration. The transition probability is given by the product
+rule:
+\begin{eqnarray}
+p_{ij} = q_j \alpha_{ij}
+\end{eqnarray}
+for $i \neq j$.
+The transition matrix of the Markov chain is a matrix with all the different
+$p_{ij}$ values in it:
+\begin{eqnarray}
+\mathbf{P} &=&
+\left[
+\begin{array}{cc}
+p_{11} & p_{12}\\
+p_{21} & p_{22}
+\end{array}
+\right]\\
+&=&
+\left[
+\begin{array}{cc}
+\frac{1}{2} & \frac{1}{2}\\
+\frac{1}{4} & \frac{3}{4}
+\end{array}
+\right]
+\end{eqnarray}
 
-
-\section{Tactile MCMC}
-In class we will do ``Tactile MCMC''.
+In class we will do ``Tactile MCMC'', which is an implementation of the
+Metropolis algorithm using coins and dice instead of the random number generators
+provided in computer software such as R.
