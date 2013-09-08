@@ -219,6 +219,11 @@ proposal is worse, you can also accept it, but the probability of accepting is
 then $h'/h$ (e.g. if the proposed point is 1/3 as good as the current point, the
 acceptance probability is 1/3).
 
+The Metropolis algorithm works by making transitions towards low probability
+states rare, but transitions towards high probability states are common, because
+of the acceptance probability. It is hard to move into an improbable state, so
+not much time will be spent there.
+
 \begin{framed}
 \begin{itemize}
 \item Start in some state $\theta$
