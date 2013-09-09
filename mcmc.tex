@@ -310,7 +310,14 @@ Figure~\ref{fig:transitions}.
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.65]{Figures/transitions.pdf}
-\caption{\label{fig:transitions}}
+\caption{\it A transition diagram for a Markov Chain with two possible states.
+The states (which correspond to hypotheses in Bayesian inference) are drawn
+as circles labelled ``1'' and ``2''. When the algorithm is in a particular state
+(e.g. State 1) there is a certain probability $p_{11}$ that it will be in State
+1 again at the next iteration, and another probability $p_{12}$ that it will
+move to State 2. MCMC works by making it easy to move into states with high
+posterior probability, and hard to move out of them.
+\label{fig:transitions}}
 \end{center}
 \end{figure}
 
