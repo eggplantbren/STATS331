@@ -251,14 +251,23 @@ What we need is a Markov process that will spend 1/3 of the time in State 1 and
 do what we need. The main thing we need to compute are the acceptance probabilities
 $\alpha_{ij}$ for a proposed transition from state $i$ to state $j$ where
 $i, j \in \{1, 2\}$.
-
 The acceptance probability $\alpha$ for a proposed move from state $i$ to
 state $j$ is given by:
 \begin{eqnarray}
 \alpha_{ij} = \textnormal{min}\left(1, \frac{h_j}{h_i}\right)
 \end{eqnarray}
 where $h_i$ and $h_j$ are proportional to the posterior probabilities of
-states $i$ and $j$ respectively. The transition probability is the probability
+states $i$ and $j$ respectively. This means that if the proposal is to move
+to an equal or better (higher posterior probability)
+state ($h_j \geq h_i$) then the acceptance probability is 1.
+If the proposal is to move to a less probable state then the acceptance probability
+is $h_j/h_i$, the ratio of the two posterior probabilities\footnote{Note that
+this algorithm can be used even if the marginal likelihood is unknown, because
+only ratios of posterior probabilities are needed. This is useful because the
+marginal likelihood is sometimes very hard to calculate in multi-parameter
+problems.}.
+
+The transition probability is the probability
 of being in state $j$ at the next iteration given that you are in state $i$
 at the current iteration. The transition probability is given by the product
 rule:
