@@ -269,12 +269,12 @@ do what we need. The main thing we need to compute are the acceptance probabilit
 $\alpha_{ij}$ for a proposed transition from state $i$ to state $j$ where
 $i, j \in \{1, 2\}$.
 The acceptance probability $\alpha$ for a proposed move from state $i$ to
-state $j$ is given by:
+state $j$ is given by
 \begin{eqnarray}
 \alpha_{ij} = \textnormal{min}\left(1, \frac{h_j}{h_i}\right)
 \end{eqnarray}
 where $h_i$ and $h_j$ are proportional to the posterior probabilities of
-states $i$ and $j$ respectively. This means that f the proposal is to move
+states $i$ and $j$ respectively. If the proposal is to move
 to an equal or better (higher posterior probability)
 state ($h_j \geq h_i$) then the acceptance probability is 1.
 If the proposal is to move to a less probable state then the acceptance probability
@@ -317,7 +317,7 @@ $\mathbf{P}$ using Equation~\ref{eq:transition}:
 \end{eqnarray}
 The diagonal elements can be found by knowing that the rows of $\mathbf{P}$ must
 sum to 1. We must be in {\it some} state at the next iteration. Therefore the
-transition matrix of our Markov chain on this two-state problem is:
+transition matrix of our Markov chain in this two-state problem is:
 \begin{eqnarray}
 \mathbf{P}
 &=&
@@ -326,7 +326,7 @@ transition matrix of our Markov chain on this two-state problem is:
 \frac{1}{2} & \frac{1}{2}\\
 \frac{1}{4} & \frac{3}{4}
 \end{array}
-\right]\label{eq:transition}
+\right]\label{eq:p_matrix}
 \end{eqnarray}
 
 A Markov chain with a small number of possible states can be represented
@@ -378,16 +378,16 @@ v_2 &=& v_1p_{12} + v_2p_{22}
 \end{eqnarray}
 which can also be written in matrix form as $\mathbf{v} = \mathbf{P}\mathbf{v}$
 where $\mathbf{v} = \left(v_1, v_2\right)$ and $\mathbf{P}$ is the transition
-matrix\footnote{Mathematics students might recognise this as the statement
-that $\mathbf{v}$ is the left-eigenvector of $\mathbf{P}$, with eigenvalue 1.}.
+matrix\footnote{Mathematics students might recognise this equation, which says
+$\mathbf{v}$ is the left-eigenvector of $\mathbf{P}$, with eigenvalue 1.}.
 These two simultaneous equations can be solved for $v_1$ and $v_2$.
 However there is a third constraint, that is $v_1 + v_2 = 1$. Since there
 are three equations but two unknowns, it seems like the problem might be
 ``over-determined'', but that is not actually the case because the transition
 matrix rows are not all linearly independent.
 It is left as an exercise for the reader to show that the steady state
-distribution for our Markov chain (Equation~\ref{eq:transition}) is in fact
-the posterior distribution, so
+distribution for our Markov chain (Equation~\ref{eq:p_matrix}) is in fact
+equal to the posterior distribution, so
 $\mathbf{v} = \left(\frac{1}{3}, \frac{2}{3}\right)$.
 
 \section{Tactile MCMC}
