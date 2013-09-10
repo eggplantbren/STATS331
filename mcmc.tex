@@ -6,7 +6,9 @@ Monte Carlo can be used in classical and Bayesian statistics, and a special kind
 called Markov Chain Monte Carlo (MCMC) was one of the main reasons
 for the revival of Bayesian statistics in the second half of the 20th century.
 Before MCMC became popular, one of the major drawbacks of the Bayesian approach
-was that the calculations were too hard. 
+was that some of the calculations were too hard to do. MCMC enables us to solve
+a wide range of Bayesian problems that cannot be solved using analytical
+methods.
 
 \subsection{Summaries}
 So far, we have represented our probability distributions (prior and posterior)
@@ -15,11 +17,11 @@ vector of probabilities. For example, suppose we had a single parameter $\theta$
 and we had worked out the posterior distribution by using a Bayes' Box. This
 will have given us a vector {\tt theta} of possible $\theta$ values and a corresponding
 vector {\tt post} containing the posterior probabilities. Well, one thing we could
-do is plot the posterior distribution:
+do is plot the posterior distribution, resulting in a plot like the one in
+Figure~\ref{fig:normal}.
 \begin{verbatim}
 plot(theta, post, xlab="Theta", ylab="Posterior Probability")
 \end{verbatim}
-This would make a plot something like the following:
 
 \begin{figure}[ht!]
 \begin{center}
@@ -61,8 +63,7 @@ by plotting a histogram of samples:
 \begin{verbatim}
 hist(theta, breaks=100)
 \end{verbatim}
-The histogram would look something like this:
-
+The histogram would look something like the one in Figure~\ref{fig:normal2}.
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/normal2.pdf}
@@ -73,9 +74,8 @@ is encoded by the fact that certain values appear more frequently in the sample.
 \label{fig:normal2}}
 \end{center}
 \end{figure}
-
 We could also get our summaries, but the code looks different
-(it's actually easier!):
+(it's actually easier than before!):
 \begin{verbatim}
 post_mean = mean(theta)
 post_sd = sd(theta)
@@ -86,7 +86,7 @@ and standard deviation in this example were both 1, but the values obtained
 from the Monte Carlo samples were 0.9604 and 1.0008 respectively. This doesn't
 matter much though, because the conclusions about $\theta$ are that it is probably
 somewhere around 1 with an uncertainty of about 1, and the error introduced by
-using random samples are much smaller than the amount of uncertainty inherent
+using random samples is much smaller than the amount of uncertainty inherent
 in the posterior distribution itself. For example, if I summarised the posterior
 distribution by saying $\theta = 0.9604 \pm 1.0008$, for almost all practical
 purposes the conclusion is exactly the same as the true version of the summaries
@@ -107,7 +107,8 @@ to compute summaries even if you have more than one unknown parameter.}
 MCMC becomes extremely useful when we begin to look at Bayesian models involving
 more than one unknown parameter. 
 Having posterior samples makes the process of {\it marginalisation}
-much easier. Imagine we wanted to infer $a$ and $b$ from
+much easier. Imagine we wanted to infer two parameters, called $a$ and $b$,
+from
 data $x$. Bayes' rule (parameter estimation version) would give us the posterior
 distribution:
 \begin{eqnarray}
@@ -115,7 +116,7 @@ p(a, b | x) \propto p(a, b)p(x|a,b)
 \end{eqnarray}
 
 However, what if you didn't really care about the value of $b$ but
-only really wanted to measure $a$. The terminology for this is that $b$ is a
+only really wanted to measure $a$? The terminology for this is that $b$ is a
 {\it nuisance parameter}: you need it to define the model, but ultimately you
 are not really interested in knowing its value.
 What you need in this case is the
@@ -129,7 +130,7 @@ or
 \begin{eqnarray}
 p(a | x) &=& \sum_{b} p(a, b|x)
 \end{eqnarray}
-depending on whether the possible $b$ values are continuous or discrete.
+depending on whether the set of possible $b$ values is continuous or discrete.
 Before MCMC, these integrals or sums usually couldn't be done without making
 certain choices purely for mathematical convenience (e.g. choosing the prior
 to be a certain kind of distribution, not because it is a good model of your
@@ -162,7 +163,8 @@ the points!
 The Metropolis algorithm is the most basic MCMC method.
 The ideas behind it are fairly simple, yet Metropolis forms the basis of a large
 number of more advanced MCMC methods. In STATS 331 we will study the basic ideas
-behind how the Metropolis algorithm works. We will look at a small amount of R code
+behind how the Metropolis algorithm works, which will involve a small amount
+of Markov chain theory. We will also look at a small amount of R code
 that implements the Metropolis algorithm, but for solving practical problems
 it is more convenient to use the JAGS program\footnote{JAGS uses a number
 of MCMC methods internally, including Metropolis, ``Gibbs Sampling'', and
@@ -172,33 +174,39 @@ The Metropolis algorithm was invented in the 1950s by physicists
 (including Nicholas Metropolis, for whom the algorithm is named), who used it
 to do calculations in the field of statistical mechanics. This intriguing field
 focuses on calculating the macroscopic (large scale) properties of matter from
-knowledge of the small-scale properties: for example, knowing that water is
-H$_2$O, you could use statistical mechanics to figure out that if you have a lot
+knowledge of the small-scale properties. For example, if you know that water is
+composed of H$_2$O molecules, you could use statistical mechanics to figure out
+that if you have a lot
 of water molecules, it will freeze at 0 degrees Celsius and boil at 100 degrees
 Celsius.
 
 It took
-many decades before people started to realise that the Metropolis algorithm was useful in Bayesian
-statistics as well. Even though the Bayesian approached seemed very elegant and
+many decades before people started to realise that the Metropolis algorithm was
+useful in Bayesian
+statistics as well as statistical mechanics. Even though the Bayesian approached
+seemed very elegant and
 useful to many people, it could always be criticised on the basis that, in order
 to implement it on practical problems, you usually had to do difficult or
 impossible integrals (to summarise the posterior, or to get rid of nuisance
 parameters). MCMC changed all that, and is one of the reasons for the
 explosion in the popularity of Bayesian statistics beginning in the 1990s.
 
-\begin{framed}
-{\bf
 The basic idea of MCMC is that we want a method that will travel between
 different possible states (such as the possible hypotheses/parameter values in
 a Bayesian analysis), and has the property that the amount of time spent in
-any particular state is proportional to the posterior probability of that state.}
-\end{framed}
+any particular state is proportional to the posterior probability of that state.
+The computer ``explores'' the set of possible parameter values, spending a lot
+of time in the regions with high posterior probability, and only rarely visiting regions
+of low posterior probability. Figure~\ref{fig:mcmc} shows an example of MCMC
+applied to a problem with only two possible hypotheses or parameter values.
+Nobody would actually use MCMC on such a small problem, but it is helpful for
+explaining how MCMC works.
 
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.65]{Figures/mcmc.pdf}
 \caption{\it An illustration of the basic idea behind MCMC. Imagine we had a
-Bayes' Box with two possible states, and we knew the
+Bayes' Box with two possible hypotheses, and we knew the
 {\tt prior $\times$ likelihood} values. The amount of time the MCMC program will
 spend in each state is proportional to the posterior probability of the state.
 In this example, the MCMC algorithm was in State 1 three times and in State 2
@@ -214,15 +222,22 @@ The Metropolis algorithm is given below. The first thing to do is start
 You then
 {\it propose} to move somewhere else. There is an acceptance probability $\alpha$
 that determines whether to accept the proposal. If the proposal is better
-($h$, the prior times likelihood value is higher), then you accept it. If the
+($h$, the prior times likelihood value is higher), then you accept it, and the
+proposed state becomes the new state of the algorithm.
+If the
 proposal is worse, you can also accept it, but the probability of accepting is
-then $h'/h$ (e.g. if the proposed point is 1/3 as good as the current point, the
-acceptance probability is 1/3).
+given by the ratio of the unnormalised posterior probabilities, i.e. $h'/h$.
+For example, if the proposed point is 1/3 as good as the current point, the
+acceptance probability is 1/3. If the proposed point is rejected, the original
+point remains the state of the algorithm, and gets counted again in the results.
 
-The Metropolis algorithm works by making transitions towards low probability
-states rare, but transitions towards high probability states are common, because
+The Metropolis algorithm works because it makes transitions towards low
+probability
+states rare, while transitions towards high probability states are common, because
 of the acceptance probability. It is hard to move into an improbable state, so
-not much time will be spent there.
+not much time will be spent there. Over time, the fraction of time spent in
+any given state is equal to the posterior probability of the corresponding
+hypothesis.
 
 \begin{framed}
 \begin{itemize}
@@ -240,10 +255,10 @@ example, namely the two-ball problem from the beginning of the notes. There
 were two hypotheses and the posterior probabilities were $1/3$ and $2/3$.
 It is important to note that MCMC is not actually needed for a problem this
 simple, but it is a good test case to see precisely how an MCMC algorithm works.
-This means we'll discuss a small amount of Markov chain theory.
-However, when we solve real data analysis problems with JAGS,
+When we solve real data analysis problems with JAGS,
 we won't have to think too
-much about how the MCMC works.
+much about how the MCMC works, but can concentrate instead on the Bayesian
+statistics problem at hand.
 
 Let's
 call the less probable hypothesis ``State 1'' and the more probable hypothesis
