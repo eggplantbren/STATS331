@@ -5,14 +5,17 @@ very quickly. Gibbs Sampling is a particular MCMC technique that is beyond the
 scope of this course: however, it is not that different from the Metropolis-Hastings
 method that we do study in this course. If you are faced with a statistics
 problem that you would like to solve in a Bayesian way, JAGS makes it very
-straightforward to implement a Bayesian model. Essentially, we just need to tell
+straightforward to implement a Bayesian model. Essentially, you just need to tell
 JAGS the following things:
 \begin{itemize}
-\item The names of our parameters and the prior distributions
+\item The names of your unknown parameter(s) and the prior distributions
 \item The likelihood
 \end{itemize}
-Then we simply load in the data and let it go!
+Then we simply load in the data and let it go! JAGS will run MCMC, automatically
+choosing an appropriate starting point based on your prior, and moving the parameter
+values around so that the posterior distribution is well sampled.
 
+JAGS is similar to several other programs out there.
 Starting in the late 1980s, a program called BUGS (Bayesian inference Using
 Gibbs Sampling) was developed, and this evolved into the program WinBUGS. These
 programs had a huge effect on the uptake of Bayesian statistics, by dramatically
@@ -28,17 +31,17 @@ WinBUGS, so I decided to switch over to JAGS in 2013. The main advantages of
 JAGS over WinBUGS are: i) it is open source software and works on all
 operating systems, ii) it allows a more concise version of notation that can
 save a lot of space and increase the readability of the code, and iii) it can
-be called from R more easily than WinBUGS in my opinion. In addition to the
+be called from R more easily than WinBUGS. In addition to the
 final point, a lot of time in previous iterations of 331 was spent teaching
 different ways of using WinBUGS (i.e. calling from R, vs. using the graphical
 interface). In JAGS we only need to learn one way of using
 it, which frees up time for us to concentrate on the stats!
 
 \section{Basic JAGS Example}
-It is instructive to go back to our very first parameter estimation problem:
-the binomial likelihood with a uniform prior, our bus example. There we had a
+Since we have used it a lot already, it makes sense to look at how the bus
+problem looks in JAGS. Recall we had a
 single unknown parameter $\theta$, with a uniform prior between 0 and 1.
-Recall that we also had a binomial likelihood, which we could write as
+We also had a binomial likelihood, which we could write as
 $x \sim \textnormal{Binomial}(N, \theta)$.
 To implement this model in JAGS, the code looks like this:
 \begin{framed}
@@ -53,11 +56,15 @@ model
 }
 \end{verbatim}
 \end{framed}
-That's it! Note that comments can be written with a \# symbol, just like in R.
-This should be saved in a text file somewhere on your computer, preferably in
-the same directory as the R code that will actually launch JAGS. Note that
-the whole specification of the problem we are solving must be wrapped inside
-a {\tt model {   }} block. Eventually, the likelihood will go in there as well.
+Note that comments can be written with a \# symbol, just like in R.
+The names of the distributions in JAGS are very similar to (but not always
+exactly the same as) the names of the R functions that evaluate the probability
+densities or mass functions. In this example, {\tt dunif} is the uniform
+distribution and {\tt dbin} is the binomial distribution. One final thing to
+note is the order of the parameters in the binomial distribution. In JAGS the
+success probability comes first and the number of parameters comes second.
+There are some quirks with the other distributions as well, such as the normal
+distribution.
 
 Let's deconstruct our first line of JAGS code, {\tt theta \~{ } dunif(0, 1)}. The
 first thing is simply the name of our parameter. We are free to name it as we
@@ -77,40 +84,82 @@ prior part. So how does JAGS know that {\tt x} is data and not just another
 parameter? Well, when we call JAGS, we can pass to it a list of data. Since we
 will provide a value for {\tt x} in this list, it knows it is data.
 
-R code for running the MCMC is given below. Note that the {\tt make\_list()}
-function is written by me and is provided in a file called {\tt make\_list.r}
-on Cecil. It just takes the output as produced by JAGS and formats it
-conveniently into an R list, which is a bit easier to work with than the raw
-JAGS output.
+The JAGS model has been specified, but this isn't all we need. The most
+convenient way to use JAGS is to call it from R, using the {\tt use\_jags.r}
+template given below.
+This code calls JAGS and formats the
+output into a convenient R list called {\tt results}.
 
 \begin{framed}
 \begin{verbatim}
-# Load the rjags library
+# The data, formatted as a list
+data = list(x=2, N=5)
+
+# The JAGS model
+model = "
+model
+{
+    theta ~ dunif(0, 1)
+
+    x ~ dbin(theta, N)
+}
+"
+
+# Variables to monitor
+variable_names = c('theta')
+
+# How many burn-in steps?
+burn_in = 1000
+
+# How many proper steps?
+steps = 100000
+
+# Thinning?
+thin = 1
+
+
+
+
+# NO NEED TO EDIT PAST HERE!!!
+# Just run it all and use the results list.
+
 library('rjags')
 
-# Load my make_list function
-source('make_list.r')
+# Write model out to file
+fileConn=file("modeltemp")
+writeLines(model, fileConn)
+close(fileConn)
 
-# Create a JAGS model object
-m = jags.model(file='model.txt', data=data)
-
-# Do 10,000 steps for burn-in
-update(m, 10000)
-
-# Do 100,000 MCMC steps and save every 10th theta value
-draw = jags.samples(m, 100000, thin=10, variable.names = c('theta'))
-
+m = jags.model(file="modeltemp", data=data)
+update(m, burn_in)
+draw = jags.samples(m, steps, thin=thin, variable.names = variable_names)
 # Convert to a list
+make_list <- function(draw)
+{
+	results = list()
+	for(name in names(draw))
+	{
+		# Extract "chain 1"
+		results[[name]] = as.array(draw[[name]][,,1])
+		
+		# Transpose 2D arrays
+		if(length(dim(results[[name]])) == 2)
+			results[[name]] = t(results[[name]])
+	}
+	return(results)
+}
 results = make_list(draw)
 \end{verbatim}
 \end{framed}
 When this code is executed, the object {\tt results} is a list containing a
 vector for each variable that was ``monitored'' by listing its name in
-the {\tt variable.names} array when we called the {\tt jags.samples} function.
+the {\tt variable\_names} vector.
 Notice also the various options such as the number of steps, and the {\tt thin}
 option. Try playing around with these on your own and making sure you understand
 what they do!
 
+One of the most important things to check after running JAGS is a {\it trace
+plot} of the parameters. A trace plot is a plot of a parameter over time.
 To plot a trace plot of the MCMC run, we can simply do
 the following:
 \begin{framed}
@@ -120,4 +169,10 @@ plot(results$theta, type='l')
 \end{framed}
 You could look at the posterior (which is the same as the prior here) using a
 histogram, and you can compute summaries using the methods discussed earlier.
+
+\begin{framed}
+\begin{verbatim}
+hist(results$theta, breaks=100)
+\end{verbatim}
+\end{framed}
 
