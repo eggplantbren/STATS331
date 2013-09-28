@@ -1,4 +1,4 @@
-\chapter{JAGS}
+\chapter{Using JAGS}
 JAGS stands for ``Just Another Gibbs Sampler''. It is a program that allows the user
 to implement Markov Chain Monte Carlo (MCMC) on fairly complicated problems
 very quickly. Gibbs Sampling is a particular MCMC technique that is beyond the
@@ -15,8 +15,13 @@ Then we simply load in the data and let it go! JAGS will run MCMC, automatically
 choosing an appropriate starting point based on your prior,
 and moving the parameter
 values around so that the posterior distribution is well sampled.
+In this chapter we will see how to use JAGS with a simple example, and we will
+see some more features of JAGS when we come to study more complex examples.
+There are some more advanced features of JAGS that we will not use in this
+course.
 
-JAGS is similar to several other programs out there.
+JAGS is not the first program of its kind, and it is related to many other
+available programs.
 Starting in the late 1980s, a program called BUGS (Bayesian inference Using
 Gibbs Sampling) was developed, and this evolved into the program WinBUGS. These
 programs had a huge effect on the uptake of Bayesian statistics, by dramatically
@@ -36,6 +41,8 @@ WinBUGS is not actively developed or maintained any more. In addition, a lot of 
 different ways of using WinBUGS (i.e. calling from R, vs. using the graphical
 interface, vs. writing a script). In JAGS we only need to learn one way of using
 it (calling it from R), which frees up time for us to concentrate on the stats!
+There is another up to date BUGS program called OpenBUGS, but it too is only
+a Windows program.
 
 \section{Basic JAGS Example}
 Since we have used it a lot already, it makes sense to look at how the bus
@@ -108,6 +115,13 @@ calling JAGS from R.
 The first part of {\tt use\_jags.r} is given below. This is the part you
 can modify to load different data, change the model assumptions, and decide
 how long of a JAGS run you want.
+
+The {\it burn-in} is an initial part of the
+MCMC run where results are not saved. This is beneficial because sometimes
+it can take a while for the MCMC to locate the regions of high posterior
+probability, and if you include the initial parts of the run in you results,
+you can get incorrect answers. For most of our models in STATS 331, we do not
+need a long burn-in period.
 
 \begin{framed}
 \begin{verbatim}
@@ -186,18 +200,18 @@ what they do!
 One of the most important things to check after running JAGS is a {\it trace
 plot} of the parameters. A trace plot is a plot of the value of the parameter
 over time, as the MCMC was running.
-To plot a trace plot of the MCMC run, we can simply do
-the following:
+To plot a trace plot of the MCMC run, we can simply use the following code,
+for a parameter called {\tt theta}.
 \begin{framed}
 \begin{verbatim}
 plot(results$theta, type='l')
 \end{verbatim}
 \end{framed}
 
-
 You could look at the posterior using a
 histogram, and you can compute summaries using the methods discussed in
-Chapter~\ref{chapter:summaries}.
+Chapter~\ref{chapter:summaries}. The code for the histogram for a parameter
+{\tt theta} is given below.
 
 \begin{framed}
 \begin{verbatim}
@@ -206,5 +220,19 @@ hist(results$theta, breaks=100)
 \end{framed}
 
 \section{Checklist for Using JAGS}
+When running JAGS using the {\tt use\_jags.r} script provided, there are several
+things you need to ensure. These are listed below.
 
-
+\begin{itemize}
+\item The data you want to analyse must be contained in an R
+list called {\tt data}. Inside this list you should also include variables
+such as the size of the data set, or any other known constants that are
+referred to in the model.
+\item The JAGS model must be correctly written inside the R string called
+{\tt model}. In the likelihood part of the JAGS model, you must ensure that
+the names of the data variables match the names in your {\tt data} list. In
+the example of this chapter, the number of successes is called {\tt x} in both
+the data list and in the JAGS model.
+\item The {\tt variable\_names} vector, which lists the parameters you are
+interested in, can only list parameters that actually exist in the JAGS model!
+\end{itemize}
