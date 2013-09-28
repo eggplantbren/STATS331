@@ -219,6 +219,25 @@ hist(results$theta, breaks=100)
 \end{verbatim}
 \end{framed}
 
+Examples of a trace plot and a histogram are given in Figure~\ref{fig:results}.
+Trace plots are the best diagnostic tool for seeing whether MCMC is working
+properly. Ideally, they should look like ``noise'', without strong correlations
+between one point and the next. If there are strong correlations in the
+trace plot, the MCMC will need to be run for a longer period of time to obtain
+effectively independent samples from the posterior distribution.
+
+\begin{figure}[ht!]
+\begin{center}
+\includegraphics[scale=0.5]{Figures/jags_example.pdf}
+\caption{\it The trace plot and histogram of the MCMC samples returned by
+JAGS. The trace plot (top) is zoomed in on the first 500 samples, and shows the
+{\tt theta} value moving around as the MCMC proceeds. The histogram of {\tt
+theta} values, sampled from the posterior distribution, is given in the lower
+panel. You can compare this with Figure~\ref{fig:bus_inference}.
+\label{fig:results}}
+\end{center}
+\end{figure}
+
 \section{Checklist for Using JAGS}
 When running JAGS using the {\tt use\_jags.r} script provided, there are several
 things you need to ensure. These are listed below.
