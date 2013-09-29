@@ -270,5 +270,7 @@ the names of the data variables match the names in your {\tt data} list. In
 the example of this chapter, the number of successes is called {\tt x} in both
 the data list and in the JAGS model.
 \item The {\tt variable\_names} vector, which lists the parameters you are
-interested in, can only list parameters that actually exist in the JAGS model!
+interested in, can only list parameters that actually exist in the JAGS model.
+If you try to monitor a variable that isn't in your model, you will get an
+error message.
 \end{itemize}
