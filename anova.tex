@@ -19,8 +19,8 @@ measured by their lifetime. To determine this, we obtain 9 widgets from
 manufacturer $1$ and 4 widgets from manufacturer $2$. The results for the
 lifetimes are given below:
 \begin{eqnarray}
-y^1 &=& \{41.26, 35.81, 36.01, 43.59, 37.50, 52.70, 42.43, 32.52, 56.20\}\\
-y^2 &=& \{54.97, 47.07, 57.12, 40.84\}
+x^1 &=& \{41.26, 35.81, 36.01, 43.59, 37.50, 52.70, 42.43, 32.52, 56.20\}\\
+x^2 &=& \{54.97, 47.07, 57.12, 40.84\}
 \end{eqnarray}
 These measurements can be summarised by the means and standard deviations, these
 are $42 \pm 7.48$ for group $1$ and $50 \pm 6.48$ for group $2$.
@@ -32,11 +32,11 @@ use your intuition: what do {\it you} think about what the evidence says?
 The underlying assumption of a classical $t$-test is that the data are normally
 distributed around the mean values for each group. We may as well adopt this
 assumption for our Bayesian model. If we call the group 1
-data points $\{y^1_1, y^1_2, ..., y^1_{N_1}\}$ and the group 2 data points
-$\{y^2_1, y^2_2, ..., y^2_{N_1}\}$, then the likelihood is:
+data points $\{x^1_1, x^1_2, ..., x^1_{N_1}\}$ and the group 2 data points
+$\{x^2_1, x^2_2, ..., x^2_{N_1}\}$, then the likelihood is:
 \begin{eqnarray}
-y^1_i &\sim& \mathcal{N}\left(\mu_1, \sigma^2\right)\nonumber\\
-y^2_i &\sim& \mathcal{N}\left(\mu_2, \sigma^2\right)\label{eq:ttest_likelihood}
+x^1_i &\sim& \mathcal{N}\left(\mu_1, \sigma^2\right)\nonumber\\
+x^2_i &\sim& \mathcal{N}\left(\mu_2, \sigma^2\right)\label{eq:ttest_likelihood}
 \end{eqnarray}
 Where all the data points are independent given the parameters. Note the assumption that
 the two groups have the same underlying (``population'') standard deviation $\sigma$. This is a popular
@@ -61,24 +61,22 @@ situation: there is no ``one size fits all'' model.
 # Actually allow mu1=mu2
 model
 {
-    # Log-uniform prior for the s.d.
-    log_sigma ~ dunif(-5, 5)
+    # Priors for the means
+    mu1 ~ dnorm(0, 1/1000^2)
+    mu2 ~ dnorm(0, 1/1000^2)
+
+    # Log-uniform prior for the amount of scatter
+    log_sigma ~ dunif(-10, 10)
     sigma <- exp(log_sigma)
-
-    # First mean
-    mu1 ~ dunif(-1000, 1000)
-
-    # Prior on second mean
-    mu2 ~ dunif(-1000, 1000)
 
     # Sampling distribution/likelihood
     for(i in 1:N1)
     {
-        y1[i] ~ dnorm(mu1, pow(sigma, -2))
+        x1[i] ~ dnorm(mu1, 1/sigma^2)
     }
     for(i in 1:N2)
     {
-        y2[i] ~ dnorm(mu2, pow(sigma, -2))
+        x2[i] ~ dnorm(mu2, 1/sigma^2)
     }
 
 }
@@ -92,28 +90,27 @@ model
 # Actually allow mu1=mu2
 model
 {
-    # Log-uniform prior for the s.d.
-    log_sigma ~ dunif(-5, 5)
+    # Log-uniform prior for the amount of scatter
+    log_sigma ~ dunif(-10, 10)
     sigma <- exp(log_sigma)
 
     # First mean
-    mu1 ~ dunif(-1000, 1000)
+    mu1 ~ dnorm(0, 1/1000^2)
 
     # Prior on second mean
-    difference ~ dt(0., pow(5., -2), 1.)
-    flag ~ dunif(0., 1.)
-    mu2 <- mu1 + step(flag - 0.5)*difference
+    difference ~ dt(0, 1/5^2, 1)
+    flag ~ dunif(0, 1)
+    mu2 <- mu1 + difference*step(flag - 0.5)
 
     # Sampling distribution/likelihood
     for(i in 1:N1)
     {
-        y1[i] ~ dnorm(mu1, pow(sigma, -2))
+        x1[i] ~ dnorm(mu1, 1/sigma^2)
     }
     for(i in 1:N2)
     {
-        y2[i] ~ dnorm(mu2, pow(sigma, -2))
+        x2[i] ~ dnorm(mu2, 1/sigma^2)
     }
-
 }
 \end{verbatim}
 \end{framed}
@@ -124,45 +121,6 @@ The results of the three different models are shown below:
 \includegraphics[scale=0.6]{Figures/ttest.pdf}
 \end{center}
 \end{figure}
-
-
-\subsection{Hierarchical Model}
-The main advantage of this model is that it generalises to more than two groups
-in a very straightforward way. The difference is the prior. Whereas the first
-model had independent priors for the means of the groups, this version is our
-first example of a {\it hierarchical model}.
-\begin{framed}
-\begin{verbatim}
-model
-{
-    # Log-uniform prior for the s.d.
-    log_sigma ~ dunif(-5, 5)
-    sigma <- exp(log_sigma)
-
-    # Hierarchical prior for the means
-    # Hyperparameters
-    grand_mean ~ dunif(-1000, 1000)
-    log_diversity ~ dunif(-5., 5.)
-    diversity <- exp(log_diversity)
-
-    # Parameters
-    mu1 ~ dnorm(grand_mean, pow(diversity, -2))
-    mu2 ~ dnorm(grand_mean, pow(diversity, -2))
-
-    # Sampling distribution/likelihood
-    for(i in 1:N1)
-    {
-        y1[i] ~ dnorm(mu1, pow(sigma, -2))
-    }
-    for(i in 1:N2)
-    {
-        y2[i] ~ dnorm(mu2, pow(sigma, -2))
-    }
-}
-
-\end{verbatim}
-\end{framed}
-
 
 
 \section{One Way Anova}
@@ -185,5 +143,38 @@ The masses of starlings were measured at four locations.
 \end{center}
 \end{figure}
 
+
+\subsection{Hierarchical Model}
+The main advantage of this model is that it generalises to more than two groups
+in a very straightforward way. The difference is the prior. Whereas the first
+model had independent priors for the means of the groups, this version is our
+first example of a {\it hierarchical model}.
+\begin{framed}
+\begin{verbatim}
+model
+{
+    # Log-uniform prior for the scatter
+    log_sigma ~ dunif(-10, 10)
+    sigma <- exp(log_sigma)
+
+    # Hierarchical prior for the means
+    # Hyperparameters
+    grand_mean ~ dnorm(0, 1/1000^2)
+    log_diversity ~ dunif(-10, 10)
+    diversity <- exp(log_diversity)
+
+    # Parameters
+    mu1 ~ dnorm(grand_mean, 1/diversity^2)
+    mu2 ~ dnorm(grand_mean, 1/diversity^2)
+
+    # Sampling distribution/likelihood
+    for(i in 1:N)
+    {
+        x[i] ~ dnorm(mu[group[i]], 1/sigma^2)
+    }
+}
+
+\end{verbatim}
+\end{framed}
 
 
