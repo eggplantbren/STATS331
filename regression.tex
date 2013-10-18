@@ -376,9 +376,10 @@ we knew the parameters.
 
 This equation is telling us to imagine that we know the
 true parameter values, make a prediction (in terms of a probability distribution),
-do this for all possible parameter values
+repeat this for all possible parameter values
 and then average together all the probability distributions into one ``final''
-distribution, giving more weight to those that were based on plausible values.
+distribution. In the averaging process we should give more weight
+to the probability distributions that were based on plausible values of $\theta$.
 
 Thankfully, actually doing this is much easier than it sounds, thanks to MCMC.
 Remarkably, we can accomplish all this, and obtain our probability distribution
@@ -408,7 +409,7 @@ in Figure~\ref{fig:road_prediction}.
 question ``what do we know about $y$ at $x=90$?''. Summaries are shown in
 the title. If we simply assumed the best fit line was true and applied a
 point estimate of $\sigma$ to get our uncertainty, we would have obtained a
-prediction of $306.07 \pm 49.76$.}
+prediction of $306.07 \pm 49.76$.\label{fig:road_prediction}}
 \end{center}
 \end{figure}
 
