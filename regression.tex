@@ -26,7 +26,7 @@ The purpose of simple linear regression is to find a straight line that goes
 throught the data points. The slope and intercept of the straight line are then
 helpful for understanding what is going on. Also, the straight line can be used
 to predict future data, such as the maximum distance for reading the sign for a
-person who is 100 years old. The most common method for obtaining the straight
+person who is 90 years old. The most common method for obtaining the straight
 line is to find the line (i.e. the slope and intercept values) that fits best
 by the criterion of ``least squares''.
 
@@ -263,7 +263,10 @@ Our JAGS output will contain samples from the posterior distribution for
 $\beta_0$, $\beta_1$ and $\sigma$. The first thing we should to is make
 trace plots and check that everything converged properly. Then we can make
 histograms of each parameter to visually inspect the (marginal) posterior
-distribution for each parameter.
+distribution for each parameter. We can also plot one parameter vs. another
+to look at the {\it joint} posterior distribution for the parameters. R code
+for all of these is given below.
+
 \begin{framed}
 \begin{verbatim}
 # Plot trace plots
@@ -280,81 +283,128 @@ hist(results$sigma, breaks=20, xlab='sigma')
 plot(results$beta0, results$beta1, cex=0.1, xlab='beta0', ylab='beta1')
 \end{verbatim}
 \end{framed}
-All of the plots for the road data are shown below, in Figure~\ref{fig:road_results}.
+
+All of the plots for the road data are shown in Figure~\ref{fig:road_results}.
 \begin{figure}[ht!]
 \begin{center}
-\includegraphics[scale=0.5]{Figures/road_trace.pdf}
+\includegraphics[scale=0.35]{Figures/road_trace.pdf}
+\includegraphics[scale=0.35]{Figures/road_hist.pdf}
+\includegraphics[scale=0.35]{Figures/road_joint.pdf}
+\caption{\it Results (posterior samples) from the simple linear regression model
+applied to the road data.
+{\bf Top Left}: Trace plots showing the parameters moving around over time (as the
+MCMC progressed). 
+{\bf Top Right}: Histograms of the posterior samples, showing the marginal
+posterior distributions for the parameters.
+{\bf Bottom}: A plot of $\beta_1$ vs. $\beta_0$, showing samples from the joint
+posterior for these two parameters. These parameters had independent priors, but
+the posterior shows a correlation. All this means is that if $\beta_0$ is a
+high value then $\beta_1$ must be low, and vice versa.
+\label{fig:road_results}}
 \end{center}
 \end{figure}
 
-\begin{figure}[ht!]
-\begin{center}
-\includegraphics[scale=0.5]{Figures/road_hist.pdf}
-\end{center}
-\end{figure}
+With classical linear regression it is usually helpful to plot the best fitting
+line through the data. In Bayesian linear regression our output is posterior
+samples for what the parameters might be (and therefore what the line might be).
+A common way of displaying the posterior is to plot many lines through the data,
+with the lines produced using the posterior samples. Some R code for doing this
+is given below. The plot produced looks like the one in
+Figure~\ref{fig:road_lines}.
 
-\begin{figure}[ht!]
-\begin{center}
-\includegraphics[scale=0.5]{Figures/road_joint.pdf}
-\end{center}
-\end{figure}
+\begin{framed}
+\begin{verbatim}
+# Plot the data
+plot(data$x, data$y)
+
+# Make some x-values for plotting lines
+x = c(0, 100)
+
+# Plot the first 30 lines from the posterior distribution
+for(i in 1:30)
+{
+    lines(x, results$beta0[i] + results$beta1[i]*x)
+}
+\end{verbatim}
+\end{framed}
 
 
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/road_lines.pdf}
+\caption{\it The road data with credible regression lines (sampled from the
+posterior distribution) overplotted.\label{fig:road_lines}}
 \end{center}
 \end{figure}
 
-Everything checks out (it's quite rare to see such perfect trace plots!), so
-we can use the samples to make any posterior summaries we might want.
-
 \section{Predicting New Data}
-One of the most important uses of regression models is for prediction.
+One of the most important uses of regression models is for prediction. Given
+this data, what can we say about the value of the output variable $y$ at some
+new value of the input variable, $x_{\rm new}$? It's unknown, but let's call it
+$y_{\rm new}$. With our road example, we will try to predict the maximum reading
+distance of a person who is $x_{\rm new}=90$ years old.
+If we knew the parameters of the straight line (or had a good point estimate),
+we could extend it out to $x=90$, and compute our predicted value:
 
-We can do the prediction in R by taking the posterior samples for the parameters,
-computing the prediction based on each posterior sample, and then combining
-the results from each sample. Alternatively, an extra line can be added to the
-JAGS model. Since this extra variable is not observed (it's not data: we didn't
-give it a fixed value) it will just get sampled from its distribution as the
-MCMC goes along. These two approaches will give equivalent results. Which one
-is more convenient depends mostly on how long the MCMC takes. If it takes a long
-time, you may not want to run it again, in which case basing the prediction on
-existing samples is probably the best idea. If it's no problem to re-run the
-MCMC, it is less programming work to add the extra variable in JAGS (don't forget
-to monitor it!).
+\begin{eqnarray}
+y_{\rm new} &=& \beta_0 + \beta_1 x_{\rm new}\\
+&=& \beta_0 + \beta_1\times 90
+\end{eqnarray}
+but that's not quite in the Bayesian spirit. Firstly, we don't know the value
+of the parameters, we only have the posterior distribution. Secondly, we would
+like not just a point estimate for $y_{\rm new}$ but a whole probability distribution,
+describing all of the uncertainty in the prediction. One simple improvement
+would be to state that our uncertainty about $y_{\rm new}$ should be described
+by a normal distribution around the straight line, with standard deviation $\sigma$.
+This still isn't quite right though, because we'd need to know the true values
+of the parameters to actually do it.
 
-Let's predict the maximum sign-reading distance for a 90-year old. Classically,
-you could take the best-fit line and extrapolate it to $x=90$ to obtain an
-estimate. That works here too, but we need to consider some changes to this
-procedure. Firstly, note that the estimate based on simply extrapolating a
-single line is just a number. We are being Bayesian, so we do not want a single
-number ``guess'' as our answer: we want a probability distribution! Notice that
-{\it if} we knew the true values of the parameters, we could simply put a normal
-distribution around what the true straight line predicts at $x=90$. But we
-{\it don't know} the true values, we only have the posterior distribution. What
-probability theory tells us to do is to in this situation is to make a {\it
-mixture}: that is, take the normal distribution you'd get for each possible
-value of the parameters, and add them all up, weighted by their posterior
-probability. This gives a distribution that is wider than what you'd get by
-using a single guess for the parameters. While the distribution is wider, it
-is more honest, because it takes into account all the relevant uncertainty.
+In general, Bayesian prediction works like so. With parameters
+$\theta$ and data $x$, we can predict ``new data'' $x'$ by calculating the
+``posterior predictive distribution'' which is just the probability distribution
+for $x'$ given $x$:
+\begin{eqnarray}
+p(x' | x) &=& \int p(\theta, x' | x) \, d\theta\\
+&=& \int p(\theta|x) p(x' | x, \theta)\, d\theta
+\end{eqnarray}
+We first saw this in Section~\ref{sec:prediction_bus_problem}.
+The first term inside the integral is the posterior, and therefore the
+whole integral is an expectation value, with respect to the posterior distribution.
+The second term is
+the probability distribution for $x'$ given the parameters, i.e. imagining that
+we knew the parameters.
 
-In JAGS, the prediction can be implemented by adding this single extra line:
+This equation is telling us to imagine that we know the
+true parameter values, make a prediction (in terms of a probability distribution),
+do this for all possible parameter values
+and then average together all the probability distributions into one ``final''
+distribution, giving more weight to those that were based on plausible values.
+
+Thankfully, actually doing this is much easier than it sounds, thanks to MCMC.
+Remarkably, we can accomplish all this, and obtain our probability distribution
+for $y_{\rm new}$, by adding just a single line to the JAGS model:
 \begin{framed}
 \begin{verbatim}
-y_new ~ dnorm(beta0 + beta1*90, pow(sigma, -2))
+y_new ~ dnorm(beta0 + beta1*90, 1/sigma^2)
 \end{verbatim}
 \end{framed}
-and then monitoring {\tt y\_new} during the run. The samples of {\tt y\_new}
+Of course, to look at the posterior samples for {\tt y\_new}, you'll need to
+monitor it. The samples of {\tt y\_new}
 will be drawn from the posterior predictive distribution for the new data.
-Note that when predicting new data, the extra line(s) you'll add to the JAGS
-model usually resemble the likelihood. The predictive distribution is shown in
-Figure~\ref{fig:road_prediction}.
+Internally, JAGS will simulate a new value of {\tt y\_new} at every iteration,
+from the specified distribution, and using its current estimates of the parameters.
+Since the parameters are not fixed, but explore the posterior distribution, the
+distribution of {\tt y\_new} values will take into account all of the uncertainty
+we have about the parameter values.
+
+As a general rule for predicting new data in JAGS, the extra line(s) you'll add to the JAGS
+model will usually resemble the likelihood, but the variable will have a different name.
+The results for the road data prediction are shown
+in Figure~\ref{fig:road_prediction}.
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/road_prediction.pdf}
-\caption{Samples from the posterior predictive distribution, answering the
+\caption{\it Samples from the posterior predictive distribution, answering the
 question ``what do we know about $y$ at $x=90$?''. Summaries are shown in
 the title. If we simply assumed the best fit line was true and applied a
 point estimate of $\sigma$ to get our uncertainty, we would have obtained a
@@ -365,22 +415,23 @@ prediction of $306.07 \pm 49.76$.}
 \section{Simple Linear Regression With Outliers}
 One complication that is common in linear regression (or other model-fitting)
 problems is the existence of outliers. These are points that do not fit in with
-the general trend. If these are left in the analysis, the results can easily
-be incorrect. Many methods exist for deciding how to ``detect'' and ``remove''
-outliers. In lectures and labs we will study and extension to the simple linear
-regression model that allows for outliers. Bayesian statistics is capable of
-handling outliers well, as long as we build our model in such a way that it says
-outliers are possible: i.e. we reject the simple normal distribution likelihood
-because it doesn't have heavy enough tails.
-Rather than simply ``rejecting'' some
-points as outliers, we can leave them in, but there will be a posterior probability
-that each point is an outlier! That way, all points can contribute to the results.
-Information is not wasted.
+the general trend assumed by the model. Many methods exist for deciding how to
+``detect'' and ``remove''
+outliers. From a Bayesian point of view, there is not a one-size-fits-all approach
+to outliers. If you really believe in your model assumptions, an ``outlier''
+might be your most important data point. If you aren't really sure of your
+model assumptions and are just using a convenient default model, then your results
+may be misleading.
+In lectures and labs we will study an extension to the simple linear
+regression model that allows for outliers by using a heavier-tailed sampling
+distribution, the Student-$t$ distribution.
 
 \section{Multiple Linear Regression and Logistic Regression}
-We will study an example of multiple linear regression in lectures.
+We will study an example of multiple linear regression, and nonlinear regression
+(involving an ``interaction term'') in lectures.
+We will not study a logistic regression explicitly, but the special
+lecture on predicting sports matches is very closely related to logistic
+regression. The main difference between linear regression is that the output
+variable can only be 0 or 1, so the likelihood will usually involve the
+``Bernoulli'' distribution (a Binomial distribution with one trial).
 
-We will not study a classic example of logistic regression, but the special
-lecture on predicting sports matches will be very closely related to logistic
-regression! The main difference here is that the output variables are binary
-(zeroes and ones) instead of continuous.
