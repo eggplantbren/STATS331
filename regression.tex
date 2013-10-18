@@ -180,52 +180,53 @@ Standard errors describe how different your point estimate would be if your data
 set was different.
 
 \section{Solution With JAGS}
-The above results made one major unrealistic assumption: that the standard
-deviation $\sigma$, or scatter, was known. In practice, it usually needs to be
+The above analytical results made one major unrealistic assumption: that the standard
+deviation $\sigma$, of the scatter, was known. In practice, $\sigma$ usually needs to be
 estimated from the data as well. Therefore, in the Bayesian framework, we should
-have it be an unknown parameter. Now we have three unknown parameters instead
-of two: these are the intercept of the straight line, the gradient of
-the straight line, and the standard deviation of the noise or scatter.
-\begin{eqnarray}
-\boldsymbol{\theta} = \{\beta_0, \beta_1, \sigma\}.
-\end{eqnarray}
+include it as an extra unknown parameter. Now we have three unknown parameters instead
+of two. Our parameters are now $\beta_0$, $\beta_1$, and $\sigma$.
 One major advantage of MCMC is that we can increase the number of unknown parameters
 without having to worry about the fact that the posterior distribution might
 be hard to interpret or plot.
 
-The data is the same as before:
-\begin{eqnarray}
-\boldsymbol{D} = \{y_1, y_2, ..., y_N\}
-\end{eqnarray}
-and so is the likelihood:
+The data is the same as before, $\{y_1, y_2, ..., y_N\}$. The likelihood is
+also the same as before:
 \begin{eqnarray}
 y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i, \sigma^2).
 \end{eqnarray}
 
 Our three parameters will need priors. JAGS requires proper priors (i.e. we
-can't have a uniform prior over an infinite range), so we will have to be a
-little careful about that. Instead of using uniform distributions this time,
+can't have a uniform prior over an infinite range), but we can still make our
+priors very wide. Instead of using uniform distributions this time,
 we will use normal distributions with a mean of 0 and a large standard deviation
 of 1000.
 
 For the standard deviation parameter $\sigma$, we know firstly that this cannot
-be negative. Let's use a log-uniform prior with generous lower and upper limits,
-so we express uncertainty about the order of magnitude of $\sigma$.
+be negative. We will use a ``log-uniform'' prior with generous lower and upper limits,
+to express uncertainty about the order of magnitude of $\sigma$. This prior implies
+things like $P(1 < \sigma < 10) = P(10 < \sigma < 100) = P(100 < \sigma < 1000)$,
+which is sometimes a good description of a large amount of uncertainty about
+a positive parameter. The easiest way to implement this in JAGS is to actually
+use $\log(\sigma)$ as the parameter, with a uniform prior, and then define
+$\sigma = \exp\left(\log(\sigma)\right)$. Notice that ``deterministic nodes''
+(quantities that are defined in terms of other variables) in JAGS are defined
+using ``{\tt <-}'' instead of ``{\tt \~{ }}''.
+
 In JAGS, the model looks like this:
 \begin{framed}
 \begin{verbatim}
 model
 {
     # Prior for all the parameters
-    beta0 ~ dnorm(0, pow(1E3, -2))
-    beta1 ~ dnorm(0, pow(1E3, -2))
+    beta0 ~ dnorm(0, 1/1000^2)
+    beta1 ~ dnorm(0, 1/1000^2)
     log_sigma ~ dunif(-10, 10)
     sigma <- exp(log_sigma)
 
     # Likelihood
     for(i in 1:N)
     {
-        y[i] ~ dnorm(beta0 + beta1*x[i], pow(sigma, -2))
+        y[i] ~ dnorm(beta0 + beta1*x[i], 1/sigma^2)
     }
 }
 \end{verbatim}
@@ -233,18 +234,29 @@ model
 The first part defines the priors for the parameters. For $\beta_0$ and $\beta_1$,
 we have just chosen very broad priors that describe vague prior knowledge. Note
 that the standard deviations of the priors are 1000, so we should be careful
-to only apply this code to situtations where we don't expect the intercept or
+to only apply this code in situtations where we don't expect the intercept or
 slope to take on an extreme value.
 
 For the standard deviation parameter $\sigma$ which describes how much we
 expect the data points to be scattered around the straight line, we have assigned
 a log-uniform prior. The limits of $-10$ and $10$ for {\tt log\_sigma} imply
 limits of $4.5 \times 10^{-5}$ to 22,000 for {\tt sigma}, a generous range.
-Again, if we thought the scatter
-was going to be outside this range, we should change the prior to something
+If we thought $\sigma$
+might actually be outside this range, we should change the prior to something
 else or risk getting strange answers.
 
-So we have the code - now all we have to do is run it!
+The likelihood part of the code involves a {\tt for} loop, because our data
+is more than just a single number. The code inside the loop is effectively
+duplicated $N$ times (with $i=1$, then with $i=2$, etc), once for each data
+point. Since the loop refers to a quantity {\tt N}, this must be specified in
+the {\tt data} list if you are using my {\tt use\_jags.r} template code.
+
+Another new feature of this JAGS model is the normal distribution, which is
+called {\tt dnorm} in JAGS. Usually a normal distribution is written
+$\mathcal{N}(\mu, \sigma^2)$ where $\mu$ is the mean and $\sigma$ is the standard
+deviation (and $\sigma^2$ is the variance). Unfortunately, in JAGS there is a
+quirk: the first argument to {\tt dnorm} is indeed the mean, but the second argument
+must be one over the variance, or one over the standard deviation squared.
 
 \section{Results for ``Road'' Data}
 Our JAGS output will contain samples from the posterior distribution for
