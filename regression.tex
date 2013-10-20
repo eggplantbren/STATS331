@@ -15,7 +15,7 @@ Figure~\ref{fig:road} shows the data.
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.5]{Figures/road.pdf}
-\caption{The distance at which a person can read a road sign, vs. the age of
+\caption{\it The maximum distance at which a person can read a road sign vs. the age of
 the person. There are $N=30$ data points. You can clearly see that older people
 have, on average, worse eyesight. Simple linear regression can be thought of as
 ``fitting a straight line'' to the data.
@@ -24,26 +24,26 @@ have, on average, worse eyesight. Simple linear regression can be thought of as
 \end{figure}
 The purpose of simple linear regression is to find a straight line that goes
 throught the data points. The slope and intercept of the straight line are then
-helpful for understanding what is going on. Also, the straight line can be used
-to predict future data, such as the maximum distance for reading the sign for a
-person who is 90 years old. The most common method for obtaining the straight
-line is to find the line (i.e. the slope and intercept values) that fits best
+helpful for understanding the relationship between the variables. Also, the straight line can be used
+to predict future data, such as the maximum distance at which a 90-year-old person
+could read the sign. The most common method used to obtain the straight
+line is to find the line (i.e. the slope and intercept values) which fits best
 by the criterion of ``least squares''.
 
 \section{Interpretation as a Bayesian Question}
 From what you now know about Bayesian statistics, you might be able to come up
-with some thoughts for what is unsatisfactory about the standard least squares
-solution to linear regression. One glaring issue is that the data are hardly ever
-going to be good enoughto tell us with certainty that a particular slope and intercept
-are correct (the exception would be if three or more points laid perfectly on a straight
+with some reasons why the standard least squares
+solution is unsatisfactory. One glaring issue is that the data are hardly ever
+going to be good enough to tell us with certainty that a particular slope and intercept
+are correct (the exception would be if three or more points lie perfectly on a straight
 line, with no scatter).
 In principle, we will almost always have uncertainty about the slope and
 the intercept. From a Bayesian perspective, our goal is not to find a point
 estimate for the slope and the intercept. Instead we should calculate the
 {\it posterior distribution for the slope and the intercept, given the data}.
 The posterior distribution will tell us exactly how much uncertainty we have.
-If we do want, summaries for convenience, we can use the posterior distribution
-to create the summaries, as discussed in previous chapters.
+If we do want summaries for convenience, we can use the posterior distribution
+to create the summaries, as discussed in Chapter~\ref{chapter:summaries}.
 
 The equation for a straight line is usually written as $y = mx + b$ where $m$
 is the gradient/slope and $b$ is the intercept. However,
@@ -65,7 +65,7 @@ p(\theta|x) \propto p(\theta)p(x|\theta)
 This is the generic form for parameters $\theta$ and data
 $x$. In our particular case, the
 unknown parameters are $\beta_0$ and $\beta_1$, and the data are the
-$y$ values of the data points. The data also consist of a number $N$ of points,
+$y$ values of the data points. The data also consist of a number $N$ of points
 and the $x$-values,
 but we shall assume that these on their own provide no information about the
 slope and intercept (it would be a bit strange if they did). So the $x$-values
@@ -92,11 +92,11 @@ p(\beta_0, \beta_1) \propto 1.
 Note that we have written proportional instead of equals. If we decided to
 place the limits at -500 and 500 (say) then the actual value of the density
 would be $10^{-6}$. But this is just a number and in the end, when we normalise
-the posterior distribution it won't matter. We can even imagine making our
+the posterior distribution, it won't matter. We can even imagine making our
 prior ``infinitely wide'', which is called an improper prior. In many cases
 simply writing $p(\beta_0, \beta_1) \propto 1$ will not cause any problems. We
 are assuming the prior probability density is uniform over a very wide range
-that we will not specify.
+which we will not specify.
 
 Now, on to the likelihood. There are $N$ data points and so there are $N$
 $y$-values in the dataset, called $\{y_1, y_2, ..., y_N\}$. We can obtain the
@@ -110,7 +110,6 @@ $y$-values to be scattered around the straight line. Specifically we
 will assume that each point departs from the straight line by an amount
 $\epsilon_i$ which has a $\mathcal{N}(0, \sigma^2)$ probability distribution.
 For now, we will assume $\sigma$, the standard deviation of the scatter, is known.
-
 In ``$\sim$'' notation, this can be written as:
 \begin{eqnarray}
 y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i, \sigma^2).
@@ -122,10 +121,10 @@ normal densities, one for each data point:
 p(\{y_1, y_2, ..., y_N\}|\beta_0, \beta_1) &=& \prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
 \exp\left[-\frac{1}{2\sigma^2}\left(y_i - (\beta_0 + \beta_1 x_i)\right)^2\right].
 \end{eqnarray}
-Remember that when we combine the likelihood with the prior using Bayes' rule,
-we can usually ignore any constant factors out the front that do not depend on
+Remember, when we combine the likelihood with the prior using Bayes' rule,
+we can usually ignore any constant factors which do not depend on
 the parameters. This allows us to ignore the first part of the product, outside
-the exponential.
+the exponential (since we are assuming $\sigma$ is known).
 \begin{eqnarray}
 p(\beta_0, \beta_1 | y_1, y_2, ..., y_N) &\propto& p(\beta_0, \beta_1)
 p(y_1, y_2, ..., y_N|\beta_0, \beta_1)\\
@@ -146,7 +145,7 @@ and $\beta_1$ in linear and second-order ways (if you were to expand the square,
 you would get terms like $\beta_0\beta_1$ and $\beta_0^2$). Mathematicians would
 call the expression inside the exponential a {\it quadratic form}. When a
 probability density can be written as the exponential of a quadratic form, it
-is a normal density. Therefore the posterior distribution for $\beta_0$ and
+is a normal density. Therefore, the posterior distribution for $\beta_0$ and
 $\beta_1$ is a (bivariate) normal distribution.
 
 We can obtain some more insight about this problem by inspecting the
@@ -154,7 +153,7 @@ sum term inside the exponential in the posterior distribution
 (Equation~\ref{eq:leastsquares}). The sum is over all the data points, and
 what is being summed is the difference between the data value $y_i$ and the
 straight line prediction $\beta_0 + \beta_1 x_i$, all squared.
-In other words, the sum term is nothing more than the sum of squared
+The sum term is just the sum of squared
 residuals that is minimised when solving this problem by ``least squares''.
 In classical least squares linear regression, $\beta_0$ and $\beta_1$ are
 estimated by minimising this sum of squared residuals. Because of the exp and
@@ -175,12 +174,12 @@ least squares fitting will be fine. Otherwise, you'd better do a Bayesian analys
 
 While classical regression results may come with ``standard errors'', these are
 not the same as a posterior distribution. A posterior distribution describes the
-uncertainty about the parameters, given the specific data set you actually have.
+uncertainty about the parameters given the specific data set you actually have.
 Standard errors describe how different your point estimate would be if your data
 set was different.
 
 \section{Solution With JAGS}
-The above analytical results made one major unrealistic assumption: that the standard
+The above analytical results made the unrealistic assumption that the standard
 deviation $\sigma$, of the scatter, was known. In practice, $\sigma$ usually needs to be
 estimated from the data as well. Therefore, in the Bayesian framework, we should
 include it as an extra unknown parameter. Now we have three unknown parameters instead
@@ -235,9 +234,9 @@ The first part defines the priors for the parameters. For $\beta_0$ and $\beta_1
 we have just chosen very broad priors that describe vague prior knowledge. Note
 that the standard deviations of the priors are 1000, so we should be careful
 to only apply this code in situtations where we don't expect the intercept or
-slope to take on an extreme value.
+slope to have an extreme value (either positive or negative).
 
-For the standard deviation parameter $\sigma$ which describes how much we
+For the standard deviation parameter $\sigma$, which describes how much we
 expect the data points to be scattered around the straight line, we have assigned
 a log-uniform prior. The limits of $-10$ and $10$ for {\tt log\_sigma} imply
 limits of $4.5 \times 10^{-5}$ to 22,000 for {\tt sigma}, a generous range.
@@ -260,7 +259,7 @@ must be one over the variance, or one over the standard deviation squared.
 
 \section{Results for ``Road'' Data}
 Our JAGS output will contain samples from the posterior distribution for
-$\beta_0$, $\beta_1$ and $\sigma$. The first thing we should to is make
+$\beta_0$, $\beta_1$ and $\sigma$. The first thing we should do is make
 trace plots and check that everything converged properly. Then we can make
 histograms of each parameter to visually inspect the (marginal) posterior
 distribution for each parameter. We can also plot one parameter vs. another
