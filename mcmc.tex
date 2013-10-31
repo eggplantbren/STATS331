@@ -383,10 +383,12 @@ equations
 v_1 &=& v_1p_{11} + v_2p_{21}\\
 v_2 &=& v_1p_{12} + v_2p_{22}
 \end{eqnarray}
-which can also be written in matrix form as $\mathbf{v} = \mathbf{P}\mathbf{v}$
+which can also be written in matrix form as $\mathbf{v}\mathbf{P} = \mathbf{v}$
 where $\mathbf{v} = \left(v_1, v_2\right)$ and $\mathbf{P}$ is the transition
 matrix\footnote{Mathematics students might recognise this equation, which says
-$\mathbf{v}$ is the left-eigenvector of $\mathbf{P}$, with eigenvalue 1.}.
+$\mathbf{v}$ is the left-eigenvector of $\mathbf{P}$, with eigenvalue 1.
+An alternative is to write the stationary distribution as a column vector and
+use $\mathbf{P}^T\mathbf{v} = \mathbf{v}$.}.
 These two simultaneous equations can be solved for $v_1$ and $v_2$.
 However there is a third constraint, that is $v_1 + v_2 = 1$. Since there
 are three equations but two unknowns, it seems like the problem might be
