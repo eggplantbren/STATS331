@@ -72,7 +72,7 @@ exactly the same as) the names of the R functions for evaluating the probability
 densities or mass functions. In this example, {\tt dunif} is the uniform
 distribution and {\tt dbin} is the binomial distribution. One final thing to
 note is the order of the parameters in the binomial distribution. In JAGS the
-success probability comes first and the number of parameters comes second.
+success probability comes first and the number of trials comes second.
 There are some quirks with the other distributions as well, such as the normal
 distribution, which we will see in later chapters.
 
@@ -97,7 +97,7 @@ The notation for the likelihood is very similar. We write the name of the data
 followed by ``{\tt \~{ }}'' and then the distribution, in this case the
 binomial distribution.
 One annoying this about the binomial distribution is the ordering of the parameters.
-Usually people write the number of successes first and the success probability
+Usually people write the number of trials first and the success probability
 second, but in JAGS it's the other way around.
 
 Interestingly, the likelihood part of the code looks exactly like the
