@@ -46,6 +46,6 @@ plot(chains3[:,0], chains3[:,1], 'b.', markersize=1)
 axis('scaled')
 xlabel('mu1')
 axis([20, 70, 20, 70])
-savefig('ttest.pdf', bbox_inches='tight')
+#savefig('ttest.pdf', bbox_inches='tight')
 show()
 

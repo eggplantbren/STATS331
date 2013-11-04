@@ -48,6 +48,6 @@ plt.title('Marginal Posterior Distribution')
 plt.xlabel('$a$', fontsize=20)
 plt.ylabel('Number of Samples')
 plt.gca().set_yticks([0, 10, 20, 30, 40, 50])
-plt.savefig('marginalisation.pdf', bbox_inches='tight')
+#plt.savefig('marginalisation.pdf', bbox_inches='tight')
 plt.show()
 

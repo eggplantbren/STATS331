@@ -18,6 +18,6 @@ plt.hist(theta, 100, alpha=0.5)
 plt.xlabel('theta')
 plt.ylabel('Frequency')
 
-plt.savefig('jags_example.pdf', bbox_inches='tight')
+#plt.savefig('jags_example.pdf', bbox_inches='tight')
 plt.show()
 
