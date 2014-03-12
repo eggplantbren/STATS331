@@ -133,18 +133,15 @@ need a long burn-in period.
 
 \begin{framed}
 \begin{verbatim}
-# The data, formatted as a list
-data = list(x=2, N=5)
-
-# The JAGS model
-model = "
-model
+model = "model
 {
-    theta ~ dunif(0, 1)
-
-    x ~ dbin(theta, N)
+  theta ~ dunif(0, 1)
+  x ~ dbin(theta, N)
 }
 "
+
+# The data (use NA for no data)
+data = list(x=2, N=5)
 
 # Variables to monitor
 variable_names = c('theta')
@@ -153,7 +150,7 @@ variable_names = c('theta')
 burn_in = 1000
 
 # How many proper steps?
-steps = 100000
+steps = 10000
 
 # Thinning?
 thin = 1
@@ -171,11 +168,17 @@ this or know much about it, but for completeness, here it is:
 library('rjags')
 
 # Write model out to file
-fileConn=file("modeltemp")
+fileConn=file("model.temp")
 writeLines(model, fileConn)
 close(fileConn)
 
-m = jags.model(file="modeltemp", data=data)
+if(all(is.na(data)))
+{
+    m = jags.model(file="model.temp")
+} else
+{
+    m = jags.model(file="model.temp", data=data)
+}
 update(m, burn_in)
 draw = jags.samples(m, steps, thin=thin, variable.names = variable_names)
 # Convert to a list
