@@ -2,7 +2,8 @@
 One-way ANOVA is a common procedure in statistics, and is related to the
 simpler idea of a t-test. In this chapter we will look at the same questions
 but will answer them using a Bayesian model instead of a classical statistical
-test.
+test. We will also use this example to discuss some issues about the choice
+of priors, and to introduce the idea of a {\it hierarchical model}.
 
 \section{A T-Test}
 We will look at a simple example first, and then a more complex one.
@@ -16,20 +17,22 @@ It's also where I got the crazy confidence interval example from.
 Two manufacturers, $1$ and $2$, both make ``widgets'', and we are interested
 in figuring out which manufacturer makes the best widgets (on average), as
 measured by their lifetime. To determine this, we obtain 9 widgets from
-manufacturer $1$ and 4 widgets from manufacturer $2$. The results for the
-lifetimes are given below:
+manufacturer $1$ and 4 widgets from manufacturer $2$, and measure their
+lifetimes. The results are given below:
 \begin{eqnarray}
 x^1 &=& \{41.26, 35.81, 36.01, 43.59, 37.50, 52.70, 42.43, 32.52, 56.20\}\\
 x^2 &=& \{54.97, 47.07, 57.12, 40.84\}
 \end{eqnarray}
-These measurements can be summarised by the means and standard deviations, these
+These measurements can be summarised by the means and standard deviations, which
 are $42 \pm 7.48$ for group $1$ and $50 \pm 6.48$ for group $2$.
 The question is: given this data, is there evidence that one of the manufacturers
-is better, and if so, by how much? Classically, this could be solved by using a
-$t$-test, but before we do anything I'd like you to consider the numbers and
-use your intuition: what do {\it you} think about what the evidence says?
+is better than the other, and if so, by how much?
+In classical statistics the standard procedure for this situation would be a
+two sample $t$0-test. However, before we do anything I'd like you to consider
+the numbers and use your intuition: what do {\it you} think about what the
+evidence says?
 
-The underlying assumption of a classical $t$-test is that the data are normally
+An underlying assumption of a classical $t$-test is that the data are normally
 distributed around the mean values for each group. We may as well adopt this
 assumption for our Bayesian model. If we call the group 1
 data points $\{x^1_1, x^1_2, ..., x^1_{N_1}\}$ and the group 2 data points
