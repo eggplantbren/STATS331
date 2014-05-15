@@ -59,7 +59,7 @@ influence the results (of course), but in ways that make sense. Which of these
 models is more appropriate in a practical situation would depend on the exact
 situation. There is no ``one size fits all'' model.
 
-\subsection{Naive Model}
+\subsection{Likelihood}
 To implement our model in JAGS, we can begin by specifying the likelihood
 part like so:
 
@@ -80,38 +80,33 @@ We have called our data arrays {\tt x1} and {\tt x2}, and we have also
 assumed that the sample sizes {\tt N1} and {\tt N2} are defined, so our
 {\tt data} list will need to be consistent with these choices. The parameters
 we will be estimating are {\tt mu1}, {\tt mu2}, and {\tt sigma}, so we will
-need to specify prior distributions for them.
-
-
+need to specify prior distributions for them. In the following sections, we'll
+use the same prior for {\tt sigma}, so we may as well specify that now.
+Let's use a log-uniform prior.
 
 \begin{framed}
 \begin{verbatim}
-# Actually allow mu1=mu2
-model
-{
-    # Priors for the means
-    mu1 ~ dnorm(0, 1/1000^2)
-    mu2 ~ dnorm(0, 1/1000^2)
-
-    # Log-uniform prior for the amount of scatter
+    # Prior for sigma
     log_sigma ~ dunif(-10, 10)
     sigma <- exp(log_sigma)
-
-    # Sampling distribution/likelihood
-    for(i in 1:N1)
-    {
-        x1[i] ~ dnorm(mu1, 1/sigma^2)
-    }
-    for(i in 1:N2)
-    {
-        x2[i] ~ dnorm(mu2, 1/sigma^2)
-    }
-
-}
 \end{verbatim}
 \end{framed}
 
-\subsection{Model that allows exact equality}
+\subsection{Prior 1: Very Vague}
+The last missing ingredient to finish the JAGS model are the priors for
+{\tt mu1} and {\tt mu2}. For our first model, let's be really naive and assign
+super-wide uniform priors.
+
+\begin{framed}
+\begin{verbatim}
+    # Prior 1: Very Vague
+    mu1 ~ dunif(-1000, 1000)
+    mu2 ~ dunif(-1000, 1000)
+\end{verbatim}
+\end{framed}
+
+
+\subsection{Prior 2: They might be equal!}
 
 \begin{framed}
 \begin{verbatim}
@@ -142,6 +137,8 @@ model
 }
 \end{verbatim}
 \end{framed}
+
+\subsection{Prior 3: Alright, they're not equal, but they might be {\it close}}
 
 The results of the three different models are shown below:
 \begin{figure}
