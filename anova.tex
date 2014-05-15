@@ -57,9 +57,32 @@ $\sigma$.
 We will be able to see that the choice of prior does
 influence the results (of course), but in ways that make sense. Which of these
 models is more appropriate in a practical situation would depend on the exact
-situation: there is no ``one size fits all'' model.
+situation. There is no ``one size fits all'' model.
 
 \subsection{Naive Model}
+To implement our model in JAGS, we can begin by specifying the likelihood
+part like so:
+
+\begin{framed}
+\begin{verbatim}
+    # Sampling distribution/likelihood
+    for(i in 1:N1)
+    {
+        x1[i] ~ dnorm(mu1, 1/sigma^2)
+    }
+    for(i in 1:N2)
+    {
+        x2[i] ~ dnorm(mu2, 1/sigma^2)
+    }
+\end{verbatim}
+\end{framed}
+We have called our data arrays {\tt x1} and {\tt x2}, and we have also
+assumed that the sample sizes {\tt N1} and {\tt N2} are defined, so our
+{\tt data} list will need to be consistent with these choices. The parameters
+we will be estimating are {\tt mu1}, {\tt mu2}, and {\tt sigma}, so we will
+need to specify prior distributions for them.
+
+
 
 \begin{framed}
 \begin{verbatim}
