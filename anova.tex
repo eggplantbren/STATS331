@@ -1,13 +1,14 @@
 \chapter{ANOVA}
 One-way ANOVA is a common procedure in statistics, and is related to the
-simpler idea of a t-test. In this chapter we will look at the same questions
-but will answer them using a Bayesian model instead of a classical statistical
-test. We will also use this example to discuss some issues about the choice
-of priors, and to introduce the idea of a {\it hierarchical model}.
+simpler idea of a t-test. These classical tests were designed for particular
+kinds of problems, and in this chapter we will study similar problems but
+solve them from a Bayesian point of view.
+We will also use these examples to discuss some issues about the choice
+of prior distributions when there are more than a few parameters,
+and to introduce the idea of a {\it hierarchical model}.
 
-\section{A T-Test}
-We will look at a simple example first, and then a more complex one.
-The first example is based on one given in a 1976 article by physicist E. T. Jaynes,
+\section{A T-Test Example}
+This example is based on one given in a 1976 article by physicist E. T. Jaynes,
 called ``Confidence Intervals vs. Bayesian Intervals''. This is a very strongly
 worded paper and might be an interesting read for
 those who are interested in the battle between frequentist and Bayesian statistics
@@ -18,7 +19,7 @@ Two manufacturers, $1$ and $2$, both make ``widgets'', and we are interested
 in figuring out which manufacturer makes the best widgets (on average), as
 measured by their lifetime. To determine this, we obtain 9 widgets from
 manufacturer $1$ and 4 widgets from manufacturer $2$, and measure their
-lifetimes. The results are given below:
+lifetimes, in days. The results are given below:
 \begin{eqnarray}
 x^1 &=& \{41.26, 35.81, 36.01, 43.59, 37.50, 52.70, 42.43, 32.52, 56.20\}\\
 x^2 &=& \{54.97, 47.07, 57.12, 40.84\}
@@ -45,8 +46,9 @@ Where all the data points are independent given the parameters. Note the assumpt
 the two groups have the same underlying (``population'') standard deviation $\sigma$. This is a popular
 assumption in this kind of analysis but it is not necessarily well justified!
 We will build our Bayesian models using this assumption, but it is not that
-difficult to relax it if you want to (just include multiple $\sigma$ parameters
-in similar ways to how we will include the multiple $\mu$ parameters).
+difficult to relax it if you want to. You could just include multiple
+$\sigma$ parameters in the model,
+just like how we will include the multiple $\mu$ parameters.
 
 We will study three variations on the t-test. They all have the same likelihood
 as given above in Equation~\ref{eq:ttest_likelihood},
