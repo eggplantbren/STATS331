@@ -1,6 +1,0 @@
-model
-{
-	theta ~ dunif(0., 1.)
-	x ~ dbin(theta, N)
-}
-
