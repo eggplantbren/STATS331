@@ -95,7 +95,7 @@ $e^{10}$.
 \end{framed}
 
 \subsection{Prior 1: Very Vague}
-The last missing ingredient to finish the JAGS model are the priors for
+The last missing ingredients to finish the JAGS model are the priors for
 {\tt mu1} and {\tt mu2}. For our first model, let's be really naive and assign
 super-wide uniform priors.
 
@@ -106,6 +106,17 @@ super-wide uniform priors.
     mu2 ~ dunif(-1000, 1000)
 \end{verbatim}
 \end{framed}
+
+At first glance, this might seem like a fairly reasonable thing to do. In many
+problems, it doesn't make much difference if we just use vague priors and get
+on with the calculation (as opposed to thinking really hard about the prior,
+and what is actually known about the parameters).
+
+However, this prior has a number of properties that suggest it might not be
+quite right: firstly, the probability that $\mu_1 = \mu_2$ is precisely zero.
+In classical t-tests, the whole point is to test the hypothesis that
+$\mu_1 = \mu_2$, and here, we're saying we already know that the two means
+are different!
 
 
 \subsection{Prior 2: They might be equal!}
