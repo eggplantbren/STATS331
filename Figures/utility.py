@@ -13,7 +13,6 @@ xlabel('$\hat{\\theta} - \\theta$', fontsize=20)
 title('Three Loss Functions')
 legend(loc='upper center')
 ylabel('Loss (badness) (negative of utility)')
-#savefig('utility.pdf', bbox_inches='tight')
-show()
-
+savefig('utility.pdf', bbox_inches='tight')
+#show()
 

@@ -25,6 +25,6 @@ legend(loc='upper left')
 xlabel('Parameter $\\mu$')
 ylabel('Prior Probability')
 title('Three Different Priors')
-#savefig('testing_priors.pdf', bbox_inches='tight')
-show()
+savefig('testing_priors.pdf', bbox_inches='tight')
+#show()
 
