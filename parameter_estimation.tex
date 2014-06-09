@@ -164,11 +164,14 @@ just has the possible parameter values and the prior distribution.
 
 To get the likelihoods, we need to think about the properties of our experiment.
 In particular, we should imagine that we knew the value of $\theta$ and were
-trying to predict what experimental outcome would occur. 
+trying to predict what experimental outcome (data) would occur. Ultimately,
+we want to find the probability of our actual data set (2 out of the 5 buses
+were ``good''), for all of our possible $\theta$ values.
+
 Recall that,
 if there are $N$
 repetitions of a ``random experiment'' and the ``success'' probability is
-$\theta$ at each repitition,
+$\theta$ at each repetition,
 then the number of ``successes'' $x$ has a binomial distribution:
 \begin{eqnarray}
 p(x|\theta) &=& \left(\begin{array}{c}N \\ x\end{array}\right)
@@ -190,8 +193,7 @@ values of the parameter $\theta$.
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/binomial.pdf}
-\caption{\it The binomial likelihood, viewed as a probability distribution for the
-data $x$, for three different values of the parameter $\theta$. If $\theta$ is
+\caption{\it The binomial probability distribution for the data $x$, for three different values of the parameter $\theta$. If $\theta$ is
 low then we would expect to see lower values for the data. If $\theta$ is high
 then high values are more probable (but all values from 0 to 5 inclusive are
 still possible). The actual observed value of the data was $x=2$. If we focus
@@ -237,7 +239,7 @@ Totals & 1 & & 0.1515 & 1\\
 \hline
 \end{tabular}
 \caption{\it The completed Bayes' Box for the bus problem
-(using a binomial likelihood).
+(using a binomial distribution to obtain the likelihood).
 \label{tab:bus_bayes_box2}}
 \end{center}
 \end{table}
