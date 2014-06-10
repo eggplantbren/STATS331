@@ -244,7 +244,6 @@ Totals & 1 & & 0.1515 & 1\\
 \end{center}
 \end{table}
 
-
 There are a few interesting values in the likelihood column that should help you
 to understand the concept of likelihood a bit better. Look at the likelihood for
 $\theta = 0$: it is zero. What does this mean? It means that if we imagine
@@ -263,6 +262,18 @@ on the prior as well (but with a uniform prior, it does end up being that way.
 As you can see in the posterior distribution column, $\theta=0.4$ has the
 highest probability in this case).
 
+\subsection{Sampling Distribution and Likelihood}
+As we study more examples of parameter estimation, you might notice that
+we always find the likelihood by specifying a probability distribution for
+the data given the parameters $p(x|\theta)$, and then we substituting in the
+actual observed data (Equations~\ref{eq:binomial_likelihood2}
+and~\ref{eq:binomial_likelihood3}). Technically, only the version with the
+actual data set substituted in is called the likelihood. The probability
+distribution $p(x|\theta)$, which gives the probability of other data sets
+that did not occur (as well as the one that did), is sometimes called the
+{\it sampling distribution}.
+
+\subsection{What is the ``Data''?}
 Even though this example is meant to be introductory, there is a subtlety
 that has been swept under the rug. Notice that our data consisted of the fact
 that we got 2/5 successes in the experiment. When we worked out the likelihood,
