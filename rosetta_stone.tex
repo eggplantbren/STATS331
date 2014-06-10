@@ -18,14 +18,14 @@ classical statistics.
 \subsection*{Sampling Distribution, Probability Model for the Data,
 Generative Model, Likelihood Function, Likelihood}
 This is the thing that we
-write as $p(D|\theta)$. Sometimes it is called the sampling distribution or
+write as $p(x|\theta)$. Sometimes it is called the sampling distribution or
 a generative model because
 you can sometimes think of the data as having been ``drawn from''
-$p(D|\theta)$ but using the true value of $\theta$, which you don't actually
+$p(x|\theta)$ but using the true value of $\theta$, which you don't actually
 know. There is a subtlety here, and that is that the word likelihood can be
-used to mean either $p(D|\theta)$ before $D$ is known (in which case it is the
-thing you would use to predict possible data) or after $D$ is known. In the latter
-case $p(D|\theta)$ is only a function of $\theta$ because $D$ is fixed at the
+used to mean either $p(x|\theta)$ before $x$ is known (in which case it is the
+thing you would use to predict possible data) or after $x$ is known. In the latter
+case $p(x|\theta)$ is only a function of $\theta$ because $x$ is fixed at the
 observed value. The term likelihood function is often used at this point.
 
 \subsection*{Probability Distribution}
@@ -36,7 +36,7 @@ former only gives a probability if you integrate it within some region.
 
 \subsection*{Marginal Likelihood, Evidence, Prior Predictive Probability, Normalising
 Constant}
-This is the $p(D)$ or $P(D)$ term in the denominator of Bayes' rule,
+This is the $p(x)$ or $P(x)$ term in the denominator of Bayes' rule,
 and it is also the total of the {\tt prior} $\times$ {\tt likelihood} column
 of a Bayes' Box. This is the probability of getting the data that you actually got,
 before you observed it: hence the terminology ``prior predictive probability''.
