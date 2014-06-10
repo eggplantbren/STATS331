@@ -1,7 +1,8 @@
 \chapter{Probability}
 This course will use probability theory quite a lot, but we will often use
 a fairly informal notation. Bayesian
-statistics is really just probability theory used for a particular purpose (to describe uncertainty). The two most important rules of probability are given below.
+statistics is really just probability theory used for a particular purpose (to describe uncertainty). The two most important rules of probability are given below,
+for reference.
 
 \section{The Product Rule}
 The first important rule of probability is the
@@ -20,17 +21,31 @@ that $B$ is true:
 \begin{eqnarray}
 P(A, B) &=& P(B)P(A|B).\label{product2}
 \end{eqnarray}
+
+When using the product rule (or any rule of probability, for that matter), you
+must ensure that the statements to the right of the ``given'' sign (or the
+absence of any statements) are consistent throughout. For example,
+$P(A, B|C) = P(A|C)P(B|A, C)$ is a valid use of the product rule, since
+``given C'' is part of the background information in all of the terms.
+
 You may be familiar with the idea of a {\it tree diagram} from earlier
 statistics courses or maybe even high school. A tree diagram is a helpful way
 to work with the product rule. If you find tree diagrams helpful, feel free to
 use them, although tree diagrams themselves will not be examinable.
+An example tree diagram is given in Figure~\ref{fig:tree_diagram}.
 
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.9]{Figures/tree_diagram.pdf}
-\caption{\it A tree diagram.}
+\caption{\it A tree diagram.\label{fig:tree_diagram}}
 \end{center}
 \end{figure}
+
+The product rule can also be applied to more than two propositions, like so:
+\begin{eqnarray}
+P(A, B, C) &=& P(A)P(B|A)P(C|B,A).
+\end{eqnarray}
+
 
 \subsection{Bayes' Rule}
 Looking at Equations~\ref{product1} and~\ref{product2}, they are both equations
