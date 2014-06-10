@@ -5,7 +5,7 @@ lists various common terms that are basically synonymous (they mean the same thi
 I may even throw in the different terms from time to time, intentionally or
 unintentionally!
 
-{\bf Event, Hypothesis, Proposition, Statement}\\
+\subsection*{Event, Hypothesis, Proposition, Statement}
 These are all basically the same thing.
 A proposition is something that can be either true or false, such as ``my age is
 greater than 35'' or ``the number of Aardvarks in my room is either zero or
@@ -14,8 +14,9 @@ probability statements: If we write $P(A|B)$, $A$ and $B$ are both propositions,
 that is, statements that may be true or false. Event is the preferred term in
 classical statistics.
 
-{\bf Sampling Distribution, Probability Model for the Data, 
-Generative Model, Likelihood Function, Likelihood}\\
+
+\subsection*{Sampling Distribution, Probability Model for the Data,
+Generative Model, Likelihood Function, Likelihood}
 This is the thing that we
 write as $p(D|\theta)$. Sometimes it is called the sampling distribution or
 a generative model because
@@ -27,13 +28,15 @@ thing you would use to predict possible data) or after $D$ is known. In the latt
 case $p(D|\theta)$ is only a function of $\theta$ because $D$ is fixed at the
 observed value. The term likelihood function is often used at this point.
 
-{\bf Probability Distribution} is used to describe either the probability density
+\subsection*{Probability Distribution}
+The term probability distribution is used to refer to either a probability density
 function (in the continuous case) or a probability mass function (in the discrete
 case). The latter gives the probability of each particular value, whereas the
 former only gives a probability if you integrate it within some region.
 
-{\bf Marginal Likelihood, Evidence, Prior Predictive Probability, Normalising
-Constant}\\ This is the $p(D)$ or $P(D)$ term in the denominator of Bayes' rule,
+\subsection*{Marginal Likelihood, Evidence, Prior Predictive Probability, Normalising
+Constant}
+This is the $p(D)$ or $P(D)$ term in the denominator of Bayes' rule,
 and it is also the total of the {\tt prior} $\times$ {\tt likelihood} column
 of a Bayes' Box. This is the probability of getting the data that you actually got,
 before you observed it: hence the terminology ``prior predictive probability''.
