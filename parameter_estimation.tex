@@ -340,16 +340,18 @@ $\theta$ using the posterior distribution. To three decimal places, the result
 for the probability tomorrow is 0.429. Interestingly, this is not equal to
 $2/5 = 0.4$.
 
+In practice, these kinds of calculations are usually done in a computer.
 The R code for computing the Bayes' Box and the probability for tomorrow
-is given below. This is
-very much like many of the problems we will work on in labs.
+is given below. This is very much like many of the problems we will work on in
+labs.
 
 \begin{framed}
 \begin{verbatim}
 # Make a vector of possibilities (first column of the Bayes' Box)
 theta = seq(0, 1, by=0.1)
 
-# Corresponding vector of prior probabilities (second column of the Bayes' Box)
+# Corresponding vector of prior probabilities
+# (second column of the Bayes' Box)
 prior = rep(1/11,11)
 
 # Likelihood. Notice use of dbinom() rather than formula
@@ -363,12 +365,13 @@ post = h/sum(h)
 
 # Probability for good bus tomorrow (prediction!)
 # This happens to be the same as the posterior expectation of theta
-# *in this particular problem* because the probability of a good bus tomorrow
-# GIVEN theta is just theta.
+# *in this particular problem* because the probability of a
+# good bus tomorrow GIVEN theta is just theta.
 prob_tomorrow = sum(theta*post)
 \end{verbatim}
 \end{framed}
 
+\section{Bayes' Rule, Parameter Estimation Version}
 Mathematically, what we did to calculate the posterior distribution was to
 take the prior distribution as a whole (the whole second column) and multiply it
 by the likelihood (the whole third column) to get the
