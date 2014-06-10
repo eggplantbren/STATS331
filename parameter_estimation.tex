@@ -290,16 +290,26 @@ This subtlety usually doesn't matter much.
 
 \section{Prediction in the Bus Problem}\label{sec:prediction_bus_problem}
 We have now seen how to use information (data) to update from a prior distribution
-to a posterior distribution when the set of possible values is discrete. The
+to a posterior distribution when the set of possible parameter values is
+discrete. The
 posterior distribution is the complete answer to the problem. It tells us exactly
 how strongly we should believe in the various possible solutions (possible
 values for the unknown parameter). However, there
 are other things we might want to do with this information. Predicting the future
-is one! It's fun, but risky. Here we will look at how it is done using the Bayesian
+is one! It's fun, but risky. Here we will look at how prediction is done using the Bayesian
 framework, continuing with the bus example. To be concrete, we are interested
 in the following question: {\it what is the probability that I will catch the
 right bus tomorrow?}. This is like trying to predict the result of a future
 experiment.
+
+In the Bayesian framework, our predictions are always in the form of
+probabilities or (later) probability distributions. They are usually calculated
+in three stages. First, you pretend you {\it actually know} the true value of
+the parameters, and calculate the probability based on that assumption. Then,
+you do this for all possible values of the parameter $\theta$
+(alternatively, you can calculate the probability as a function of $\theta$).
+Finally, you combine all of these probabilities in a particular way to get
+one final probability which tells you how confident you are of your prediction.
 
 Suppose we knew the true value of $\theta$ was 0.3. Then, we would know
 the probability of catching the right bus tomorrow is 0.3. If we knew the
@@ -320,7 +330,7 @@ p(\theta | x)P(\textnormal{good bus tomorrow} | \theta, x)\\
 p(\theta | x)\theta
 \end{eqnarray}
 This says that the total probability for a good bus tomorrow (given the data,
-i.e. using the posterior distribution and not the prior distribution)
+i.e. {\it using the posterior distribution} and not the prior distribution)
 is given by going through each possible $\theta$ value, working out the probability
 {\it assuming the $\theta$ value you are considering is true}, multiplying by the probability
 (given the data) this $\theta$ value is actually true, and summing. In this
