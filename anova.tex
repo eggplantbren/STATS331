@@ -120,41 +120,24 @@ on with the calculation (as opposed to thinking really hard about the prior,
 and what is actually known about the parameters).
 
 However, this prior has a number of properties that suggest it might not be
-quite right: firstly, the probability that $\mu_1 = \mu_2$ is precisely zero.
+quite right: firstly, what is the probability that $\mu_1 = \mu_2$?
 In classical t-tests, the whole point is to test the hypothesis that
-$\mu_1 = \mu_2$, and here, we're saying we already know that the two means
-are different!
-
+the two ``population means'' (parameters) are equal. However, our prior
+actually implies that the probability they are equal is 0!
 
 \subsection{Prior 2: They might be equal!}
+The problem with prior 1 is that we may think $\mu_1$ might exactly equal
+$\mu_2$.
 
 \begin{framed}
 \begin{verbatim}
-# Actually allow mu1=mu2
-model
-{
-    # Log-uniform prior for the amount of scatter
-    log_sigma ~ dunif(-10, 10)
-    sigma <- exp(log_sigma)
-
     # First mean
-    mu1 ~ dnorm(0, 1/1000^2)
+    mu1 ~ dunif(-1000, 1000)
 
-    # Prior on second mean
-    difference ~ dt(0, 1/5^2, 1)
+    # Prior on second mean, if it's different
+    maybe ~ dunif(-1000, 1000)
     flag ~ dunif(0, 1)
-    mu2 <- mu1 + difference*step(flag - 0.5)
-
-    # Sampling distribution/likelihood
-    for(i in 1:N1)
-    {
-        x1[i] ~ dnorm(mu1, 1/sigma^2)
-    }
-    for(i in 1:N2)
-    {
-        x2[i] ~ dnorm(mu2, 1/sigma^2)
-    }
-}
+    mu2 <- mu1 + (maybe - mu1)*step(flag - 0.5)
 \end{verbatim}
 \end{framed}
 
