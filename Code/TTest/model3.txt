@@ -7,12 +7,12 @@ model
 	# Hierarchical prior for the means
 	# Hyperparameters
 	grand_mean ~ dunif(-1000, 1000)
-	log_diversity ~ dunif(-5., 5.)
+	log_diversity ~ dunif(-5, 5)
 	diversity <- exp(log_diversity)
 
 	# Parameters
-	mu1 ~ dnorm(grand_mean, pow(diversity, -2))
-	mu2 ~ dnorm(grand_mean, pow(diversity, -2))
+	mu1 ~ dnorm(grand_mean, 1/diversity^2)
+	mu2 ~ dnorm(grand_mean, 1/diversity^2)
 
 	# Sampling distribution/likelihood
 	for(i in 1:N1)
