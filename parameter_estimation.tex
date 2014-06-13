@@ -698,7 +698,8 @@ like one purple curve.\label{fig:lots_of_data}}
 This is reassuring. Note, however, that this only occurs because the three
 analyses used the same likelihood. If three people have different prior
 distributions for something {\it and} they can't agree on what the experiment
-even means, there is no guarantee they will end up agreeing!
+even means, there is no guarantee they will end up agreeing, even if there's
+a large amount of data!
 
 Remember though, that when the results {\it are} sensitive
 to the choice of prior, that is not a problem with the Bayesian approach, but
@@ -710,8 +711,12 @@ better data!
 %\section{Poisson Example}
 %We have just seen an example of how to calculate the posterior distribution for
 %a single parameter, given some data. Now let's consider another example
-%involving different probability distributions.
+%involving different probability distributions. The Poisson distribution is
+%commonly used for so-called ``rare events''. For example, how many ...
 
-%The Poisson distribution is commonly used to model 
+%The probability mass function for the Poisson distribution is:
+%\begin{eqnarray}
+%p(x | \lambda) &=& \frac{\lambda^x e^{-\lambda}}{x!}
+%\end{eqnarray}
 
 
