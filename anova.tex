@@ -126,8 +126,9 @@ the two ``population means'' (parameters) are equal. However, our prior
 actually implies that the probability they are equal is 0!
 
 \subsection{Prior 2: They might be equal!}
-The problem with prior 1 is that we may think $\mu_1$ might exactly equal
-$\mu_2$.
+The problem with Prior 1 is that we may think $\mu_1$ might exactly equal
+$\mu_2$, and Prior 1 doesn't allow for this. So here's another way we might
+set up the prior. We'll start by 
 
 \begin{framed}
 \begin{verbatim}
@@ -149,6 +150,13 @@ The results of the three different models are shown below:
 \includegraphics[scale=0.6]{Figures/ttest.pdf}
 \end{center}
 \end{figure}
+
+The inferences are different, as you would expect, and that's entirely down
+to the choice of the prior.
+
+Prior 1 ...
+Prior 2 has bad mixing (and sensitivity to where we put the edge of the prior)
+Prior 3 seems like it's what we might want in general.
 
 
 \section{One Way Anova}
