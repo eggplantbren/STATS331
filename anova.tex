@@ -123,7 +123,9 @@ However, this prior has a number of properties that suggest it might not be
 quite right: firstly, what is the probability that $\mu_1 = \mu_2$?
 In classical t-tests, the whole point is to test the hypothesis that
 the two ``population means'' (parameters) are equal. However, our prior
-actually implies that the probability they are equal is 0!
+actually implies that the probability they are equal is 0! Therefore, no matter
+what data we get, the posterior probability of $\mu_1 = \mu_2$ will always be
+zero.
 
 \subsection{Prior 2: They might be equal!}
 The problem with Prior 1 is that we may think $\mu_1$ might exactly equal
@@ -131,7 +133,8 @@ $\mu_2$, and Prior 1 doesn't allow for this. So here's another way we might
 set up the prior. We'll start by defining the prior for $\mu_1$ as we did
 before. Then, when we consider $\mu_2$, we need a way of giving it a
 50\% probability of equalling $\mu_1$, and if not, then it should have
-a uniform distribution between -1000 and 1000.
+a uniform distribution between -1000 and 1000. Here is our solution. Read it
+carefully and make sure you understand what this prior does.
 
 \begin{framed}
 \begin{verbatim}
@@ -146,6 +149,12 @@ a uniform distribution between -1000 and 1000.
 \end{framed}
 
 \subsection{Prior 3: Alright, they're not equal, but they might be {\it close}}
+Prior 2 is also a little bit strange, if you think about it. If we're comparing
+these two manufacturers of widgets, why would we think it is possible that the
+two manufacturers are {\tt exactly} equal. Maybe we just think they're likely
+to be similar in value. In other words, we shouldn't worry so much about the
+prior probablity of $\mu_1 = \mu_2$, but we should at least make sure there's
+a moderate prior probability that $\mu_1 \approx \mu_2$.
 
 \begin{framed}
 \begin{verbatim}
