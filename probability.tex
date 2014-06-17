@@ -45,6 +45,12 @@ The product rule can also be applied to more than two propositions, like so:
 \begin{eqnarray}
 P(A, B, C) &=& P(A)P(B|A)P(C|B,A).
 \end{eqnarray}
+You can also apply the product rule in a situation where there is a common
+statement in the ``given part'' of all probabilities in the expression. For
+example, the following is also valid:
+\begin{eqnarray}
+P(A, B, C | D) &=& P(A |D)P(B|A,D)P(C|B,A,D).
+\end{eqnarray}
 
 
 \subsection{Bayes' Rule}
