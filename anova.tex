@@ -188,7 +188,8 @@ in value.\label{fig:ttest1}}
 
 The posteriors are shown in Figure~\ref{fig:ttest2}.
 The inferences are different, as you would expect, and that's entirely down
-to the choice of the prior.
+to the choice of the prior. Any summaries we make will therefore depend on
+which prior we want to use.
 \begin{figure}[h]
 \begin{center}
 \includegraphics[scale=0.8]{Figures/ttest2.pdf}
@@ -197,6 +198,20 @@ based on the three different priors for $\mu_1$ and $\mu_2$.\label{fig:ttest2}}
 \end{center}
 \end{figure}
 
+The original question was whether manufacturer two was better, equal, or worse
+than manufacturer one. We can answer that question by calculating the
+posterior probabilities of $\mu_1 = \mu_2$, $\mu_1 < \mu_2$, and
+$\mu_1 > \mu_2$.
+
+\begin{table}
+\begin{tabular}{|lcc|}
+\hline
+Hypothesis	&	Prior Probability	&	Posterior Probability\\
+$\mu_1 < \mu_2$ &	(0.5, 0.25, 0.5)	&	\\
+$\mu_1 = \mu_2$ &	\\
+\hline
+\end{tabular}
+\end{table}
 
 Prior 1 ...
 Prior 2 has bad mixing (and sensitivity to where we put the edge of the prior).
