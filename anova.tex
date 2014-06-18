@@ -151,10 +151,17 @@ carefully and make sure you understand what this prior does.
 \subsection{Prior 3: Alright, they're not equal, but they might be {\it close}}
 Prior 2 is also a little bit strange, if you think about it. If we're comparing
 these two manufacturers of widgets, why would we think it is possible that the
-two manufacturers are {\tt exactly} equal. Maybe we just think they're likely
-to be similar in value. In other words, we shouldn't worry so much about the
+two manufacturers are {\tt exactly} equal? Maybe we just think the parameters
+$\mu_1$ and $\mu_2$ are likely to be {\it similar} in value.
+In other words, we shouldn't worry so much about the
 prior probablity of $\mu_1 = \mu_2$, but we should at least make sure there's
 a moderate prior probability that $\mu_1 \approx \mu_2$.
+
+One way we could do this is by applying a normal prior to both $\mu_1$ and
+$\mu_2$ with some mean (let's call it the ``grand mean'')
+and some standard deviation. That way, $\mu_1$ and
+$\mu_2$ would both be likely to be somewhere around the grand mean, and
+they would likely be different by roughly the size of the standard deviation.
 
 \begin{framed}
 \begin{verbatim}
