@@ -159,9 +159,13 @@ a moderate prior probability that $\mu_1 \approx \mu_2$.
 
 One way we could do this is by applying a normal prior to both $\mu_1$ and
 $\mu_2$ with some mean (let's call it the ``grand mean'')
-and some standard deviation. That way, $\mu_1$ and
+and some standard deviation (let's call it the ``diversity'').
+That way, $\mu_1$ and
 $\mu_2$ would both be likely to be somewhere around the grand mean, and
-they would likely be different by roughly the size of the standard deviation.
+they would likely be different by roughly the size of the diversity.
+The challenge now seems to be the choice of appropriate values for the grand
+mean and the diversity. Fortunately, we don't actually have to! What we can
+do instead is apply priors for them instead.
 
 \begin{framed}
 \begin{verbatim}
@@ -171,7 +175,7 @@ they would likely be different by roughly the size of the standard deviation.
     log_diversity ~ dunif(-5, 5)
     diversity <- exp(log_diversity)
 
-    # Parameters
+    # Prior for the parameters given the hyperparameters
     mu1 ~ dnorm(grand_mean, 1/diversity^2)
     mu2 ~ dnorm(grand_mean, 1/diversity^2)
 \end{verbatim}
