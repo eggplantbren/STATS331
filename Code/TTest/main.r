@@ -68,6 +68,9 @@ chains[,1] = results$mu1
 chains[,2] = results$mu2
 chains[,3] = results$sigma
 write.table(chains, file='chains1.txt', row.names=FALSE, col.names=FALSE)
+print(mean(results$mu1 < results$mu2))
+print(mean(results$mu1 == results$mu2))
+print(mean(results$mu1 > results$mu2))
 
 # Run model 2 and save results
 m = jags.model(file='model2.txt', inits=list(.RNG.seed=42, .RNG.name="base::Mersenne-Twister"), data=data)
@@ -80,6 +83,9 @@ chains[,1] = results$mu1
 chains[,2] = results$mu2
 chains[,3] = results$sigma
 write.table(chains, file='chains2.txt', row.names=FALSE, col.names=FALSE)
+print(mean(results$mu1 < results$mu2))
+print(mean(results$mu1 == results$mu2))
+print(mean(results$mu1 > results$mu2))
 
 # Run model 3 and save results
 m = jags.model(file='model3.txt', inits=list(.RNG.seed=42, .RNG.name="base::Mersenne-Twister"), data=data)
@@ -92,4 +98,8 @@ chains[,1] = results$mu1
 chains[,2] = results$mu2
 chains[,3] = results$sigma
 write.table(chains, file='chains3.txt', row.names=FALSE, col.names=FALSE)
+print(mean(results$mu1 < results$mu2))
+print(mean(results$mu1 == results$mu2))
+print(mean(results$mu1 > results$mu2))
+
 
