@@ -167,6 +167,12 @@ The challenge now seems to be the choice of appropriate values for the grand
 mean and the diversity. Fortunately, we don't actually have to! What we can
 do instead is apply priors for them instead.
 
+This is our first example of a {\it hierarchical model}. In a hierarchical
+model, instead of directly assigning priors to our parameters, we imagine that
+we knew the values of some other parameters (called ``hyperparameters''), and
+assign our prior for the parameters {\it given} the hyperparameters. Then we
+assign a prior for they hyperparameters as well, to complete the model.
+
 \begin{framed}
 \begin{verbatim}
     # Hierarchical prior for the means
