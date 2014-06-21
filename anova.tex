@@ -253,6 +253,10 @@ make the posterior probability nonzero. However, according to this model, there
 is quite strong evidence that $\mu_1 < \mu_2$, as the probability changed from
 0.5 to 0.946.
 
+Prior 2 did allow the two parameters to be equal, and if we use Prior 2, we
+seem to have found strong evidence that they are, in fact, equal. The probability
+increased from 0.5 to 0.972. According to Prior 2, if $\mu_1 \neq \mu_2$, then
+$\mu_1 < \mu_2$ is the next most likely scenario.
 
 Prior 2 has bad mixing (and sensitivity to where we put the edge of the prior).
 Prior 3 seems like it's what we might want in general.
