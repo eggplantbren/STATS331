@@ -256,7 +256,10 @@ is quite strong evidence that $\mu_1 < \mu_2$, as the probability changed from
 Prior 2 did allow the two parameters to be equal, and if we use Prior 2, we
 seem to have found strong evidence that they are, in fact, equal. The probability
 increased from 0.5 to 0.972. According to Prior 2, if $\mu_1 \neq \mu_2$, then
-$\mu_1 < \mu_2$ is the next most likely scenario.
+$\mu_1 < \mu_2$ is the next most likely scenario. However, Prior 2 has a couple
+of issues. If we were to re-run the analysis with a narrower prior for the
+parameters (for example, by putting the limits at $\pm 100$ instead of 1000),
+we would find weaker evidence for $\mu_1 = \mu_2$.
 
 Prior 2 has bad mixing (and sensitivity to where we put the edge of the prior).
 Prior 3 seems like it's what we might want in general.
