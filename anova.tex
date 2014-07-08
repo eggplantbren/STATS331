@@ -272,8 +272,9 @@ the prior, the lower we make the prior probability that $\mu_1$ and $\mu_2$
 are close but not equal, giving the model no choice but to believe that they're
 equal.
 
-Prior 3 seems like it's what we might want in general.
-
+Prior 3 seems like it's what we might want in general. It's often silly to think
+two parameters might be {\it exactly} equal. What we really think is that there
+is a difference, and it might be very small, or moderate or large.
 
 \section{One Way Anova}
 One-way ANOVA can be considered as a generalisation of a t-test to more than
@@ -284,8 +285,16 @@ make a model that has some prior probability that the group means are equal.
 However, this gets more tricky with multiple groups. Therefore we will build our
 one-way ANOVA model in a similar way to the ``hierarchical model'' version of the
 t-test model. There will be one other major difference, but it is a difference
-in the way the model is coded, not a conceptual difference. In the t-test
-section we used different 
+in the way the model is coded, not a conceptual difference.
+
+In the t-test section our data set was composed of measurements in two groups
+and our data list contained two vectors of measurements, called {\tt x1} and
+{\tt x2}. The sampling distribution/likelihood part of our JAGS model also
+needed two {\tt for} loops, one for each group.
+If we have many groups (in the following example we will have four),
+it can get awkward having to write all those loops. Therefore, when we develop
+our ``one-way ANOVA'' model, we will format the data differently by putting
+all measurements into a single vector {\tt x}.
 
 The masses of starlings were measured at four locations.
 
