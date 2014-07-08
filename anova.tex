@@ -242,8 +242,11 @@ Prior	&	$\mu_1 < \mu_2$	& $\mu_1 = \mu_2$	& $\mu_1 > \mu_2$\\
 3 	&	0.693		&	0		&	0.307\\
 \hline
 \end{tabular}
-
-\caption{\label{tab:ttest_results}}
+\caption{Prior and posterior probabilities for three different hypotheses about
+the two manufacturers, based on the models with the three different priors.
+As you can see, the conclusions are quite sensitive to the choice of prior in
+this case.
+\label{tab:ttest_results}}
 \end{center}
 \end{table}
 
@@ -257,11 +260,18 @@ Prior 2 did allow the two parameters to be equal, and if we use Prior 2, we
 seem to have found strong evidence that they are, in fact, equal. The probability
 increased from 0.5 to 0.972. According to Prior 2, if $\mu_1 \neq \mu_2$, then
 $\mu_1 < \mu_2$ is the next most likely scenario. However, Prior 2 has a couple
-of issues. If we were to re-run the analysis with a narrower prior for the
-parameters (for example, by putting the limits at $\pm 100$ instead of 1000),
-we would find weaker evidence for $\mu_1 = \mu_2$.
+of issues. Our prior does not say that it is particularly likely for $\mu_1$
+to be {\it close to}, but not equal to, $\mu_2$. So the fact the two data sets
+were fairly similar was taken by the model as evidence that they are exactly
+equal. In fact, if we were to widen the prior bounds on $\mu_1$ and $\mu_2$, we
+could make this conclusion arbitrarily strong! Some people think this is a
+danger of Bayesian inference (if you want, you can do a web search for the
+``Jeffreys-Lindley paradox''),
+but it is behaving logically: the wider we make
+the prior, the lower we make the prior probability that $\mu_1$ and $\mu_2$
+are close but not equal, giving the model no choice but to believe that they're
+equal.
 
-Prior 2 has bad mixing (and sensitivity to where we put the edge of the prior).
 Prior 3 seems like it's what we might want in general.
 
 
