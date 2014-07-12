@@ -294,9 +294,12 @@ needed two {\tt for} loops, one for each group.
 If we have many groups (in the following example we will have four),
 it can get awkward having to write all those loops. Therefore, when we develop
 our ``one-way ANOVA'' model, we will format the data differently by putting
-all measurements into a single vector {\tt x}.
+all measurements into a single vector {\tt x}. To make this work, we'll need
+an extra vector in the dataset, which tells us which group each data point
+belongs to.
 
-The masses of starlings were measured at four locations.
+The masses of starlings were measured at four locations. We are interested
+in the differences between the locations.
 
 \begin{figure}[ht!]
 \begin{center}
