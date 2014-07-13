@@ -299,7 +299,8 @@ an extra vector in the dataset, which tells us which group each data point
 belongs to.
 
 The masses of starlings were measured at four locations. We are interested
-in the differences between the locations.
+in the differences between the locations. How similar are they? We will have
+four $\mu$ parameters, one for each of the locations.
 
 \begin{figure}[ht!]
 \begin{center}
@@ -309,6 +310,8 @@ in the differences between the locations.
 
 
 \subsection{Hierarchical Model}
+Our ``one-way ANOVA'' model is very much the same as our final ``t-test'' model,
+except for the format of the dataset.
 The main advantage of this model is that it generalises to more than two groups
 in a very straightforward way. The difference is the prior. Whereas the first
 model had independent priors for the means of the groups, this version is our
