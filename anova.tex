@@ -313,9 +313,9 @@ four $\mu$ parameters, one for each of the locations.
 Our ``one-way ANOVA'' model is very much the same as our final ``t-test'' model,
 except for the format of the dataset.
 The main advantage of this model is that it generalises to more than two groups
-in a very straightforward way. The difference is the prior. Whereas the first
-model had independent priors for the means of the groups, this version is our
-first example of a {\it hierarchical model}.
+in a very straightforward way; we no longer need to write separate for loops
+for each group.
+
 \begin{framed}
 \begin{verbatim}
 model
@@ -326,13 +326,15 @@ model
 
     # Hierarchical prior for the means
     # Hyperparameters
-    grand_mean ~ dnorm(0, 1/1000^2)
+    grand_mean ~ dunif(-1000, 1000)
     log_diversity ~ dunif(-10, 10)
     diversity <- exp(log_diversity)
 
     # Parameters
-    mu1 ~ dnorm(grand_mean, 1/diversity^2)
-    mu2 ~ dnorm(grand_mean, 1/diversity^2)
+    for(i in 1:N)
+    {
+      mu[i] ~ dnorm(grand_mean, 1/diversity^2)
+    }
 
     # Sampling distribution/likelihood
     for(i in 1:N)
