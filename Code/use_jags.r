@@ -20,7 +20,8 @@ steps = 10000
 # Thinning?
 thin = 1
 
-
+# Random number seed
+seed = 42
 
 
 # NO NEED TO EDIT PAST HERE!!!
@@ -35,10 +36,10 @@ close(fileConn)
 
 if(all(is.na(data)))
 {
-	m = jags.model(file="model.temp", inits=list(.RNG.seed=42, .RNG.name="base::Mersenne-Twister"))
+	m = jags.model(file="model.temp", inits=list(.RNG.seed=seed, .RNG.name="base::Mersenne-Twister"))
 } else
 {
-	m = jags.model(file="model.temp", data=data, inits=list(.RNG.seed=42, .RNG.name="base::Mersenne-Twister"))
+	m = jags.model(file="model.temp", data=data, inits=list(.RNG.seed=seed, .RNG.name="base::Mersenne-Twister"))
 }
 update(m, burn_in)
 draw = jags.samples(m, steps, thin=thin, variable.names = variable_names)
