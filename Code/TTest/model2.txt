@@ -2,16 +2,24 @@
 model
 {
 	# Log-uniform prior for the s.d.
-	log_sigma ~ dunif(-5, 5)
+	log_sigma ~ dunif(-10, 10)
 	sigma <- exp(log_sigma)
 
 	# First mean
 	mu1 ~ dunif(-1000, 1000)
 
-	# Prior on second mean, if it's different
-	maybe ~ dunif(-1000, 1000)
-	flag ~ dunif(0, 1)
-	mu2 <- mu1 + (maybe - mu1)*step(flag - 0.5)
+	# Prior for difference, mu2 - mu1
+	u ~ dunif(-1, 1)
+
+	# Length of exponential prior given difference != 0
+	L <- 5
+	size_of_difference <- step(u)*(-L*log(1 - u))
+
+	# To make the difference positive or negative
+	C ~ dbin(0.5, 1)
+	difference <- (2*C - 1)*size_of_difference
+
+	mu2 <- mu1 + difference
 
 	# Sampling distribution/likelihood
 	for(i in 1:N1)

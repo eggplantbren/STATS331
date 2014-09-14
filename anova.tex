@@ -133,18 +133,28 @@ $\mu_2$, and Prior 1 doesn't allow for this. So here's another way we might
 set up the prior. We'll start by defining the prior for $\mu_1$ as we did
 before. Then, when we consider $\mu_2$, we need a way of giving it a
 50\% probability of equalling $\mu_1$, and if not, then it should have
-a uniform distribution between -1000 and 1000. Here is our solution. Read it
-carefully and make sure you understand what this prior does.
+a ``bi-exponential'' distribution centered around $\mu_1$.
+Here is our solution. Read it carefully and make sure you understand what this
+prior does.
 
 \begin{framed}
 \begin{verbatim}
-    # First mean
-    mu1 ~ dunif(-1000, 1000)
+	# First mean
+	mu1 ~ dunif(-1000, 1000)
 
-    # Prior on second mean, if it's different
-    maybe ~ dunif(-1000, 1000)
-    flag ~ dunif(0, 1)
-    mu2 <- mu1 + (maybe - mu1)*step(flag - 0.5)
+	# Prior for difference, mu2 - mu1
+	u ~ dunif(-1, 1)
+
+	# Length of exponential prior given difference != 0
+	L <- 5
+	size_of_difference <- step(u)*(-L*log(1 - u))
+
+	# To make the difference positive or negative
+	C ~ dbin(0.5, 1)
+	difference <- (2*C - 1)*size_of_difference
+
+	# Second mean
+	mu2 <- mu1 + difference
 \end{verbatim}
 \end{framed}
 
@@ -238,7 +248,7 @@ Prior	&	$\mu_1 < \mu_2$	& $\mu_1 = \mu_2$	& $\mu_1 > \mu_2$\\
 Prior	&	$\mu_1 < \mu_2$	& $\mu_1 = \mu_2$	& $\mu_1 > \mu_2$\\
 \hline
 1 	&	0.946		&	0		&	0.054\\
-2 	&	0.026		&	0.972		&	0.002\\
+2 	&	0.507		&	0.424		&	0.069\\
 3 	&	0.693		&	0		&	0.307\\
 \hline
 \end{tabular}
@@ -257,20 +267,27 @@ is quite strong evidence that $\mu_1 < \mu_2$, as the probability changed from
 0.5 to 0.946.
 
 Prior 2 did allow the two parameters to be equal, and if we use Prior 2, we
-seem to have found strong evidence that they are, in fact, equal. The probability
-increased from 0.5 to 0.972. According to Prior 2, if $\mu_1 \neq \mu_2$, then
-$\mu_1 < \mu_2$ is the next most likely scenario. However, Prior 2 has a couple
-of issues. Our prior does not say that it is particularly likely for $\mu_1$
-to be {\it close to}, but not equal to, $\mu_2$. So the fact the two data sets
-were fairly similar was taken by the model as evidence that they are exactly
-equal. In fact, if we were to widen the prior bounds on $\mu_1$ and $\mu_2$, we
-could make this conclusion arbitrarily strong! Some people think this is a
+seem to have found very weak evidence that they are not in fact equal. The probability
+decreased from 0.5 to 0.424. According to Prior 2, if $\mu_1 \neq \mu_2$, then
+$\mu_1 < \mu_2$ is the next most likely scenario. However, Prior 2 has an issue
+associated with it. Our prior says that if $\mu_2$ is not equal to $\mu_1$, then
+it is likely to be close to $\mu_1$. Exactly how close we expect it to be is
+set by the variable {\tt L} in the model.
+If we were to make {\tt L} very large, then the data would go from weak evidence
+against $\mu_1 = \mu_2$ to strong evidence for it! Why does this happen? Well,
+if we increased {\tt L}, the prior probability that $\mu_2$ and $\mu_1$ are
+close given that they're different is decreased. Then, the hypothesis that
+the $\mu$s are different does not predict our data as well, since our data
+looks like the $\mu$s are close together. Since it doesn't predict the data as
+well as before, its posterior probability will be lower.
+ Some people think this sensitivity to the prior is a
 danger of Bayesian inference (if you want, you can do a web search for the
 ``Jeffreys-Lindley paradox''),
 but it is behaving logically: the wider we make
 the prior, the lower we make the prior probability that $\mu_1$ and $\mu_2$
 are close but not equal, giving the model no choice but to believe that they're
-equal.
+equal. If the results are sensitive to the prior, that's important, and you
+should think about the logic of the problem to understand why.
 
 Prior 3 seems like it's what we might want in general. It's often silly to think
 two parameters might be {\it exactly} equal. What we really think is that there
