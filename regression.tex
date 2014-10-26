@@ -212,10 +212,13 @@ $\sigma = \exp\left(\log(\sigma)\right)$. Notice that ``deterministic nodes''
 using ``{\tt <-}'' instead of ``{\tt \~{ }}''.
 
 In JAGS, the model looks like this:
-\begin{framed}
-\begin{verbatim}
-model
-{
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{r}
+  model
+  {
     # Prior for all the parameters
     beta0 ~ dnorm(0, 1/1000^2)
     beta1 ~ dnorm(0, 1/1000^2)
@@ -227,9 +230,9 @@ model
     {
         y[i] ~ dnorm(beta0 + beta1*x[i], 1/sigma^2)
     }
-}
-\end{verbatim}
-\end{framed}
+  }
+\end{minted}
+
 The first part defines the priors for the parameters. For $\beta_0$ and $\beta_1$,
 we have just chosen very broad priors that describe vague prior knowledge. Note
 that the standard deviations of the priors are 1000, so we should be careful
