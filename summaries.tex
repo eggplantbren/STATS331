@@ -170,15 +170,13 @@ derivative and verify that it is
 positive. But that's not really needed. It would be pretty bizarre if the
 posterior mean was the {\it worst} estimate!
 
-\subsection{Linear Loss}
+\subsection{Absolute Loss}
 Sometimes, the quadratic loss/utility is not a reasonable model
 for the consequences of an incorrect estimate. Another plausible form for the loss
-function is the {\it linear} loss. This looks like:
+function is the {\it absolute} loss. This looks like:
 \begin{eqnarray}
 L(\hat{\theta}, \theta) &=& |\hat{\theta} - \theta|.
 \end{eqnarray}
-This isn't really linear because of the absolute value, so another name
-is {\it absolute loss}.
 With this assumption, the ``badness'' of an incorrect estimate is proportional
 to how far the estimate is from the true value. If the estimate is twice as
 far from the true value, it is twice as bad. We will not prove it (although you
