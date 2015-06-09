@@ -392,4 +392,40 @@ for the $\mu$s. Here it is:
 \end{framed}
 
 To understand why this causes problems, we need to understand a little about
-how JAGS works internally.
+how JAGS works internally. JAGS uses two main MCMC methods, known as
+{\it Gibbs Sampling} and {\it Slice Sampling}. Both of these methods usually
+work by updating a single parameter or hyperparameter at a time, while keeping
+all of the others fixed. Because JAGS is sampling the posterior, each
+parameter will tend to move about as far as it can without the new value
+becoming inconsistent with the data or the (joint) prior distribution. But
+the above model doesn't just have problems exploring the posterior efficiently,
+but would also have problems exploring the prior!
+
+For example, if the current values of {\tt grand\_mean} and {\tt diversity}
+are 50 and 5, and JAGS is moving the parameter {\tt mu[3]}, it will probably
+move it to somewhere within the range 50 $\pm$ 5, roughly speaking, since
+the prior for {\tt mu[3]} given {\tt grand\_mean}=50 and {\tt diversity}=5
+is Normal($50, 5^2$). But another possibility that is (speaking loosely again)
+compatible with the prior is to have {\tt grand\_mean}=-1500,
+{\tt diversity}=10000, and {\tt y[3]}=5600.
+
+
+The alternative parameterisation is given below.
+
+\begin{framed}
+\begin{verbatim}
+    # Hierarchical prior for the means
+    # Hyperparameters
+    grand_mean ~ dunif(-1000, 1000)
+    log_diversity ~ dunif(-10, 10)
+    diversity <- exp(log_diversity)
+
+    # Parameters
+    for(i in 1:N)
+    {
+      n[i] ~ dnorm(0, 1)
+      mu[i] <- grand_mean + diversity*n[i]
+    }
+\end{verbatim}
+\end{framed}
+
