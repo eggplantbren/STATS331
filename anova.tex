@@ -364,3 +364,13 @@ model
 \end{framed}
 
 
+\subsection{MCMC Efficiency}
+The hierarchical ``one-way ANOVA'' model given above works, but a quick look
+at the trace plots suggests the mixing (how easily the MCMC algorithm is
+able to move around) isn't very good. In some models, it makes sense to
+consider the {\it parameterisation} of the model. There are actually different
+ways to implement exactly the same model assumptions, but in a way that helps
+the efficiency of the MCMC sampling.
+
+
+
