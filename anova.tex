@@ -372,5 +372,24 @@ consider the {\it parameterisation} of the model. There are actually different
 ways to implement exactly the same model assumptions, but in a way that helps
 the efficiency of the MCMC sampling.
 
+Let's look at a small subset of the above model: just the hierarchical prior
+for the $\mu$s. Here it is:
 
+\begin{framed}
+\begin{verbatim}
+    # Hierarchical prior for the means
+    # Hyperparameters
+    grand_mean ~ dunif(-1000, 1000)
+    log_diversity ~ dunif(-10, 10)
+    diversity <- exp(log_diversity)
 
+    # Parameters
+    for(i in 1:N)
+    {
+      mu[i] ~ dnorm(grand_mean, 1/diversity^2)
+    }
+\end{verbatim}
+\end{framed}
+
+To understand why this causes problems, we need to understand a little about
+how JAGS works internally.
