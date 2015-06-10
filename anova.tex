@@ -71,19 +71,21 @@ situation. There is no ``one size fits all'' model.
 To implement our model in JAGS, we can begin by specifying the likelihood
 part like so:
 
-\begin{framed}
-\begin{verbatim}
-    # Sampling distribution/likelihood
-    for(i in 1:N1)
-    {
-        x1[i] ~ dnorm(mu1, 1/sigma^2)
-    }
-    for(i in 1:N2)
-    {
-        x2[i] ~ dnorm(mu2, 1/sigma^2)
-    }
-\end{verbatim}
-\end{framed}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
+# Sampling distribution/likelihood
+for(i in 1:N1)
+{
+  x1[i] ~ dnorm(mu1, 1/sigma^2)
+}
+for(i in 1:N2)
+{
+  x2[i] ~ dnorm(mu2, 1/sigma^2)
+}
+\end{minted}
 We have called our data arrays {\tt x1} and {\tt x2}, and we have also
 assumed that the sample sizes {\tt N1} and {\tt N2} are defined, so our
 {\tt data} list will need to be consistent with these choices. The parameters
@@ -93,26 +95,30 @@ use the same prior for {\tt sigma}, so we may as well specify that now.
 Let's use a log-uniform prior where $\sigma$ is between $e^{-10}$ and
 $e^{10}$.
 
-\begin{framed}
-\begin{verbatim}
-    # Prior for sigma
-    log_sigma ~ dunif(-10, 10)
-    sigma <- exp(log_sigma)
-\end{verbatim}
-\end{framed}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
+# Prior for sigma
+log_sigma ~ dunif(-10, 10)
+sigma <- exp(log_sigma)
+\end{minted}
 
 \subsection{Prior 1: Very Vague}
 The last missing ingredients to finish the JAGS model are the priors for
 {\tt mu1} and {\tt mu2}. For our first model, let's be really naive and assign
 super-wide uniform priors.
 
-\begin{framed}
-\begin{verbatim}
-    # Prior 1: Very Vague
-    mu1 ~ dunif(-1000, 1000)
-    mu2 ~ dunif(-1000, 1000)
-\end{verbatim}
-\end{framed}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
+# Prior 1: Very Vague
+mu1 ~ dunif(-1000, 1000)
+mu2 ~ dunif(-1000, 1000)
+\end{minted}
 
 At first glance, this might seem like a fairly reasonable thing to do. In many
 problems, it doesn't make much difference if we just use vague priors and get
@@ -137,26 +143,28 @@ a ``bi-exponential'' distribution centered around $\mu_1$.
 Here is our solution. Read it carefully and make sure you understand what this
 prior does.
 
-\begin{framed}
-\begin{verbatim}
-	# First mean
-	mu1 ~ dunif(-1000, 1000)
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
+# First mean
+mu1 ~ dunif(-1000, 1000)
 
-	# Prior for difference, mu2 - mu1
-	u ~ dunif(-1, 1)
+# Prior for difference, mu2 - mu1
+u ~ dunif(-1, 1)
 
-	# Length of exponential prior given difference != 0
-	L <- 5
-	size_of_difference <- step(u)*(-L*log(1 - u))
+# Length of exponential prior given difference != 0
+L <- 5
+size_of_difference <- step(u)*(-L*log(1 - u))
 
-	# To make the difference positive or negative
-	C ~ dbin(0.5, 1)
-	difference <- (2*C - 1)*size_of_difference
+# To make the difference positive or negative
+C ~ dbin(0.5, 1)
+difference <- (2*C - 1)*size_of_difference
 
-	# Second mean
-	mu2 <- mu1 + difference
-\end{verbatim}
-\end{framed}
+# Second mean
+mu2 <- mu1 + difference
+\end{minted}
 
 \subsection{Prior 3: Alright, they're not equal, but they might be {\it close}}
 Prior 2 is also a little bit strange, if you think about it. If we're comparing
@@ -183,20 +191,21 @@ we knew the values of some other parameters (called ``hyperparameters''), and
 assign our prior for the parameters {\it given} the hyperparameters. Then we
 assign a prior for they hyperparameters as well, to complete the model.
 
-\begin{framed}
-\begin{verbatim}
-    # Hierarchical prior for the means
-    # Hyperparameters
-    grand_mean ~ dunif(-1000, 1000)
-    log_diversity ~ dunif(-5, 5)
-    diversity <- exp(log_diversity)
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
+# Hierarchical prior for the means
+# Hyperparameters
+grand_mean ~ dunif(-1000, 1000)
+log_diversity ~ dunif(-5, 5)
+diversity <- exp(log_diversity)
 
-    # Prior for the parameters given the hyperparameters
-    mu1 ~ dnorm(grand_mean, 1/diversity^2)
-    mu2 ~ dnorm(grand_mean, 1/diversity^2)
-\end{verbatim}
-\end{framed}
-
+# Prior for the parameters given the hyperparameters
+mu1 ~ dnorm(grand_mean, 1/diversity^2)
+mu2 ~ dnorm(grand_mean, 1/diversity^2)
+\end{minted}
 
 Samples (obtained using JAGS) of the three priors are shown in
 Figure~\ref{fig:ttest1}.
@@ -333,8 +342,11 @@ The main advantage of this model is that it generalises to more than two groups
 in a very straightforward way; we no longer need to write separate for loops
 for each group.
 
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 model
 {
     # Log-uniform prior for the scatter
@@ -359,9 +371,7 @@ model
         x[i] ~ dnorm(mu[group[i]], 1/sigma^2)
     }
 }
-
-\end{verbatim}
-\end{framed}
+\end{minted}
 
 
 \subsection{MCMC Efficiency}
@@ -375,21 +385,23 @@ the efficiency of the MCMC sampling.
 Let's look at a small subset of the above model: just the hierarchical prior
 for the $\mu$s. Here it is:
 
-\begin{framed}
-\begin{verbatim}
-    # Hierarchical prior for the means
-    # Hyperparameters
-    grand_mean ~ dunif(-1000, 1000)
-    log_diversity ~ dunif(-10, 10)
-    diversity <- exp(log_diversity)
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
+# Hierarchical prior for the means
+# Hyperparameters
+grand_mean ~ dunif(-1000, 1000)
+log_diversity ~ dunif(-10, 10)
+diversity <- exp(log_diversity)
 
-    # Parameters
-    for(i in 1:N)
-    {
-      mu[i] ~ dnorm(grand_mean, 1/diversity^2)
-    }
-\end{verbatim}
-\end{framed}
+# Parameters
+for(i in 1:N)
+{
+  mu[i] ~ dnorm(grand_mean, 1/diversity^2)
+}
+\end{minted}
 
 To understand why this causes problems, we need to understand a little about
 how JAGS works internally. JAGS uses two main MCMC methods, known as
@@ -412,20 +424,22 @@ compatible with the prior is to have {\tt grand\_mean}=-1500,
 
 The alternative parameterisation is given below.
 
-\begin{framed}
-\begin{verbatim}
-    # Hierarchical prior for the means
-    # Hyperparameters
-    grand_mean ~ dunif(-1000, 1000)
-    log_diversity ~ dunif(-10, 10)
-    diversity <- exp(log_diversity)
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
+# Hierarchical prior for the means
+# Hyperparameters
+grand_mean ~ dunif(-1000, 1000)
+log_diversity ~ dunif(-10, 10)
+diversity <- exp(log_diversity)
 
-    # Parameters
-    for(i in 1:N)
-    {
-      n[i] ~ dnorm(0, 1)
-      mu[i] <- grand_mean + diversity*n[i]
-    }
-\end{verbatim}
-\end{framed}
+# Parameters
+for(i in 1:N)
+{
+  n[i] ~ dnorm(0, 1)
+  mu[i] <- grand_mean + diversity*n[i]
+}
+\end{minted}
 

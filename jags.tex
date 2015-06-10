@@ -53,8 +53,11 @@ single unknown parameter $\theta$, with a uniform prior between 0 and 1.
 We also had a binomial likelihood, which we could write as
 $x \sim \textnormal{Binomial}(N, \theta)$.
 To implement this model in JAGS, the code looks like this:
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 model
 {
     # Parameters and the priors
@@ -63,8 +66,7 @@ model
     # Likelihood
     x ~ dbin(theta, N)
 }
-\end{verbatim}
-\end{framed}
+\end{minted}
 As in R, comments (statements that have no effect but help to annotate the
 code) can be written with a \# symbol.
 The names of the distributions in JAGS are very similar to (but not always
@@ -131,8 +133,11 @@ probability, and if you include the initial parts of the run in you results,
 you can get incorrect answers. For most of our models in STATS 331, we do not
 need a long burn-in period.
 
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 model = "model
 {
   theta ~ dunif(0, 1)
@@ -154,14 +159,16 @@ steps = 10000
 
 # Thinning?
 thin = 1
-\end{verbatim}
-\end{framed}
+\end{minted}
 
 The second part of {\tt use\_jags.r} actually runs JAGS. You won't need to edit
 this or know much about it, but for completeness, here it is:
 
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 # NO NEED TO EDIT PAST HERE!!!
 # Just run it all and use the results list.
 
@@ -197,8 +204,7 @@ make_list <- function(draw)
   return(results)
 }
 results = make_list(draw)
-\end{verbatim}
-\end{framed}
+\end{minted}
 
 When this code is executed, it creates an R list called {\tt results}.
 Inside {\tt results}, there is a vector
@@ -220,22 +226,26 @@ over time, as the MCMC was running.
 To plot a trace plot of the MCMC run, we can simply use the following code,
 for a parameter called {\tt theta}. If the parameter has a different name,
 replace {\tt theta} with the actual name of the parameter.
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 plot(results$theta, type='l')
-\end{verbatim}
-\end{framed}
+\end{minted}
 
 You could look at the posterior distribution using a
 histogram, and you can compute summaries using the methods discussed in
 Chapter~\ref{chapter:summaries}. The code for the histogram for a parameter
 {\tt theta} is given below.
 
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 hist(results$theta, breaks=100)
-\end{verbatim}
-\end{framed}
+\end{minted}
 
 Examples of a trace plot and a histogram are given in Figure~\ref{fig:results}.
 Trace plots are the best diagnostic tool for seeing whether MCMC is working

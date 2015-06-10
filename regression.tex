@@ -214,23 +214,23 @@ using ``{\tt <-}'' instead of ``{\tt \~{ }}''.
 In JAGS, the model looks like this:
 \begin{minted}[mathescape,
                numbersep=5pt,
-               gobble=2,
-               frame=lines,
-               framesep=2mm]{r}
-  model
-  {
-    # Prior for all the parameters
-    beta0 ~ dnorm(0, 1/1000^2)
-    beta1 ~ dnorm(0, 1/1000^2)
-    log_sigma ~ dunif(-10, 10)
-    sigma <- exp(log_sigma)
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
+model
+{
+  # Prior for all the parameters
+  beta0 ~ dnorm(0, 1/1000^2)
+  beta1 ~ dnorm(0, 1/1000^2)
+  log_sigma ~ dunif(-10, 10)
+  sigma <- exp(log_sigma)
 
-    # Likelihood
-    for(i in 1:N)
-    {
-        y[i] ~ dnorm(beta0 + beta1*x[i], 1/sigma^2)
-    }
+  # Likelihood
+  for(i in 1:N)
+  {
+    y[i] ~ dnorm(beta0 + beta1*x[i], 1/sigma^2)
   }
+}
 \end{minted}
 
 The first part defines the priors for the parameters. For $\beta_0$ and $\beta_1$,
@@ -269,8 +269,11 @@ distribution for each parameter. We can also plot one parameter vs. another
 to look at the {\it joint} posterior distribution for the parameters. R code
 for all of these is given below.
 
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 # Plot trace plots
 plot(results$beta0, type='l', xlab='Iteration', ylab='beta0')
 plot(results$beta1, type='l', xlab='Iteration', ylab='beta1')
@@ -283,8 +286,7 @@ hist(results$sigma, breaks=20, xlab='sigma')
 
 # Plot joint posterior distribution of beta0 and beta1
 plot(results$beta0, results$beta1, cex=0.1, xlab='beta0', ylab='beta1')
-\end{verbatim}
-\end{framed}
+\end{minted}
 
 All of the plots for the road data are shown in Figure~\ref{fig:road_results}.
 \begin{figure}[ht!]
@@ -314,8 +316,11 @@ with the lines produced using the posterior samples. Some R code for doing this
 is given below. The plot produced looks like the one in
 Figure~\ref{fig:road_lines}.
 
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 # Plot the data
 plot(data$x, data$y)
 
@@ -326,8 +331,7 @@ for(i in 1:30)
 {
     lines(x, results$beta0[i] + results$beta1[i]*x)
 }
-\end{verbatim}
-\end{framed}
+\end{minted}
 
 
 \begin{figure}[ht!]
@@ -385,11 +389,13 @@ to the probability distributions that were based on plausible values of $\theta$
 Thankfully, actually doing this is much easier than it sounds, thanks to MCMC.
 Remarkably, we can accomplish all this, and obtain our probability distribution
 for $y_{\rm new}$, by adding just a single line to the JAGS model:
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 y_new ~ dnorm(beta0 + beta1*90, 1/sigma^2)
-\end{verbatim}
-\end{framed}
+\end{minted}
 Of course, to look at the posterior samples for {\tt y\_new}, you'll need to
 monitor it. The samples of {\tt y\_new}
 will be drawn from the posterior predictive distribution for the new data.

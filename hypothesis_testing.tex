@@ -154,8 +154,11 @@ resulting Bayes' Box for
 the blood pressure problem is given in Table~\ref{tab:testing_prior}.
 The R code for calculating these results is given below.
 
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 # Parameter values
 mu = seq(110, 120)
 
@@ -182,8 +185,7 @@ post = h/sum(h)
 
 # The null hypothesis
 post[11]
-\end{verbatim}
-\end{framed}
+\end{minted}
 
 
 \begin{table}[ht!]

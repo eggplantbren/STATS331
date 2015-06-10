@@ -235,23 +235,27 @@ circumstances we can consider them to be the best possible estimate we could
 make. Now, we will look at how to actually obtain the point estimates.
 The posterior mean is straightforward. It's the expectation value of the parameter
 using the posterior distribution. In R, the code is:
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 post_mean = sum(theta*post)
-\end{verbatim}
-\end{framed}
+\end{minted}
 You should also know how to compute this manually from a Bayes' Box, using a
 calculator.
 
 The posterior mode is also fairly straightforward. First, we can find the
 highest probability in the Bayes' Box. Then we find the corresponding parameter
 value.
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 highest_probability = max(post)
 post_mode = theta[post == highest_probability]
-\end{verbatim}
-\end{framed}
+\end{minted}
 In the case of a tie, {\tt post\_mode} might be a vector, indicating
 that there isn't a single mode.
 
@@ -275,13 +279,15 @@ certain values. If we want the probability that $\theta$ is less than or
 equal to a certain value, we sum all the probabilities up to and including that value. The
 cumulative sum function achieves this. Here is the code for calculating the
 posterior median:
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 F = cumsum(post)
 dist = abs(F - 0.5) # Distance of the F-values from 0.5
 post_median = theta[dist == min(dist)]
-\end{verbatim}
-\end{framed}
+\end{minted}
 Note that this may also produce more than one result. Like the mode, the
 posterior median is not always uniquely defined.
 
@@ -302,8 +308,11 @@ probabilities, the methods for computing the summaries are different. For a
 parameter called $\theta$, the methods for computing the summaries are given
 below.
 
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 # Posterior mean using samples
 post_mean = mean(theta)
 # Posterior mode using samples
@@ -314,8 +323,7 @@ post_mean = mean(theta)
 # Posterior median using samples
 sorted = sort(theta)
 post_median = sorted[0.5*length(theta)]
-\end{verbatim}
-\end{framed}
+\end{minted}
 
 \section{Credible Intervals}
 Credible intervals are another useful kind of summary. They are used to make

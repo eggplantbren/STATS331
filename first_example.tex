@@ -422,8 +422,11 @@ To conclude this phone problem, I should admit that
 I actually calculated the numbers in the Bayes' Box using R. My code is shown
 below. A lot of the code we write in labs will look like this. Obviously in the
 2012 exam the students had to use their calculators instead.
-\begin{framed}
-\begin{verbatim}
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
 prior = c(0.4, 0.4, 0.1, 0.1) # Vector of prior probs
 lik = c(1, 0.01, 1, 1)        # Vector of likelihoods
 h = prior*lik
@@ -435,8 +438,8 @@ print(lik)
 print(h)
 print(Z)
 print(post)
-\end{verbatim}
-\end{framed}
+\end{minted}
+
 Now let's try to see if this makes sense. There are many things we could think
 about, but let's just consider the question of whether
 the phone is working or not. The first two hypotheses correspond to the phone
