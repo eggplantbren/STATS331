@@ -381,12 +381,23 @@ version of Bayes' rule. There are three ways to write it:
 \begin{eqnarray}
 p(\theta | x) &=& \frac{p(\theta)p(x|\theta)}{p(x)}\\
 p(\theta | x) &\propto& p(\theta)p(x|\theta)\\
-{\tt posterior} &\propto& {\tt prior}\times{\tt likelihood}.
+{\tt posterior} &\propto& {\tt prior}\times{\tt likelihood}.\label{eq:bayes_pe}
 \end{eqnarray}
 Writing the equations in these ways is most useful when you can write the
 prior $p(\theta)$ and the likelihood $p(x|\theta)$ as formulas (telling you
-how the values depend on $\theta$ as you go through the rows). Then you can get the
-posterior distribution as a formula. We will do this in the next chapter.
+how the values depend on $\theta$ as you go through the rows). Then you can get
+the equation for the posterior distribution (whether it is a discrete
+distribution, or a continuous one, in which case $p(\theta)$ and
+$p(\theta|x)$ are probability densities. We will do this in the next chapter.
+
+The notation in Equation~\ref{eq:bayes_pe} is very simplified and concise, but
+is a popular kind of notation in Bayesian work. For an explanation of the
+relationship between this notation and other common
+choices (such as $P(X=x)$ for a
+discrete distribution or $f(x)$ for a density), see
+Appendix~\ref{sec:probability}.
+
+
 
 \chapter{Parameter Estimation: Analytical Methods}
 Analytical methods are those which can be carried out with a pen and paper,
