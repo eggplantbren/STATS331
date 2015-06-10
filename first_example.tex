@@ -424,22 +424,17 @@ below. A lot of the code we write in labs will look like this. Obviously in the
 2012 exam the students had to use their calculators instead.
 \begin{framed}
 \begin{verbatim}
-> prior = c(0.4, 0.4, 0.1, 0.1) # Vector of prior probs
-> lik = c(1, 0.01, 1, 1)        # Vector of likelihoods
-> h = prior*lik
-> Z = sum(h)                    # Sum of prior times likelihood
-> post = prior*lik/Z            # Normalise to get posterior
-> # Look at all the results
-> print(prior)
-[1] 0.4 0.4 0.1 0.1
-> print(lik)
-[1] 1.00 0.01 1.00 1.00
-> print(h)
-[1] 0.400 0.004 0.100 0.100
-> print(Z)
-[1] 0.604
-> print(post)
-[1] 0.662251656 0.006622517 0.165562914 0.165562914
+prior = c(0.4, 0.4, 0.1, 0.1) # Vector of prior probs
+lik = c(1, 0.01, 1, 1)        # Vector of likelihoods
+h = prior*lik
+Z = sum(h)                    # Sum of prior times likelihood
+post = prior*lik/Z            # Normalise to get posterior
+# Look at all the results
+print(prior)
+print(lik)
+print(h)
+print(Z)
+print(post)
 \end{verbatim}
 \end{framed}
 Now let's try to see if this makes sense. There are many things we could think
