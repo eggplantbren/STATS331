@@ -668,7 +668,20 @@ Posterior 3: & $\theta \sim \textnormal{Beta}(103, 104)$
 \end{tabular}\end{center}
 \end{table}
 This is ``magic'' that is made possible by the mathematical form of the beta
-prior and the binomial likelihood\footnote{The technical term for this magic is ``conjugate priors''.}. It is not always possible to do this.
+prior and the binomial likelihood\footnote{The technical term for this magic is that the beta distribution is a {\it conjugate prior} for the binomial
+likelihood.}. It is not always possible to do this.
+
+We can also derive the general solution for the posterior for $\theta$ when
+the prior is a Beta$(\alpha, \beta)$ distribution, the likelihood is a
+binomial distribution, and $x$ successes were observed out of $N$ trials.
+The posterior is:
+\begin{eqnarray}
+p(\theta | x) &\propto& p(\theta)p(x|\theta)\\
+&\propto& \theta^{\alpha - 1}(1-\theta)^{\beta-1} \times
+\theta^x (1-\theta)^{N-x}\\
+&=& \theta^{\alpha + x - 1}(1 - \theta)^{\beta + N - x - 1}
+\end{eqnarray}
+which can be recognised as a Beta$(\alpha+x, \beta+N-x)$ distribution.
 
 Remember that in this particular problem, the probability of a success tomorrow
 is simply the expectation value (mean) of the posterior distribution for $\theta$.
