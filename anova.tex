@@ -419,7 +419,20 @@ move it to somewhere within the range 50 $\pm$ 5, roughly speaking, since
 the prior for {\tt mu[3]} given {\tt grand\_mean}=50 and {\tt diversity}=5
 is Normal($50, 5^2$). But another possibility that is (speaking loosely again)
 compatible with the prior is to have {\tt grand\_mean}=-1500,
-{\tt diversity}=10000, and {\tt y[3]}=5600.
+{\tt diversity}=10000, and {\tt mu[3]}=5600. How would the sampler move from
+having {\tt mu[3]}=5 to having {\tt mu[3]}=5600? It certainly couldn't do this
+while {\tt diversity} was still 5. Somehow, {\tt diversity} would have to be
+much greater than 5. Yet when the sampler tries to increase the value of
+{\tt diversity}, it won't be able to move very far, because that would make
+it inconsistent with the values of the other {\tt mu} parameters!
+
+Many MCMC methods (and importantly for us, the ones used by JAGS)
+are inefficient when the posterior distribution has strong
+{\it dependence} between different parameters. Unfortunately, in our one-way
+ANOVA model, it's not just the posterior that has strong dependence, but
+even the prior has strong dependence!
+
+\subsection{An Alternative Parameterisation}
 
 
 The alternative parameterisation is given below.
