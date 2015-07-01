@@ -9,7 +9,7 @@ model
 	mu1 ~ dnorm(0, 1/1000^2)
 
 	# Prior on second mean
-	mu2 ~ dunif(0, 1/1000^2)
+	mu2 ~ dnorm(0, 1/1000^2)
 
 	# Sampling distribution/likelihood
 	for(i in 1:N1)
