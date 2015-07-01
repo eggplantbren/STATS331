@@ -116,8 +116,8 @@ super-wide uniform priors.
                frame=single,
                framesep=2mm, fontsize=\small]{r}
 # Prior 1: Very Vague
-mu1 ~ dunif(-1000, 1000)
-mu2 ~ dunif(-1000, 1000)
+mu1 ~ dnorm(0, 1/1000^2)
+mu2 ~ dnorm(0, 1/1000^2)
 \end{minted}
 
 At first glance, this might seem like a fairly reasonable thing to do. In many
@@ -149,7 +149,7 @@ prior does.
                frame=single,
                framesep=2mm, fontsize=\small]{r}
 # First mean
-mu1 ~ dunif(-1000, 1000)
+mu1 ~ dnorm(0, 1/1000^2)
 
 # Prior for difference, mu2 - mu1
 u ~ dunif(-1, 1)
@@ -198,8 +198,8 @@ assign a prior for they hyperparameters as well, to complete the model.
                framesep=2mm, fontsize=\small]{r}
 # Hierarchical prior for the means
 # Hyperparameters
-grand_mean ~ dunif(-1000, 1000)
-log_diversity ~ dunif(-5, 5)
+grand_mean ~ dnorm(0, 1/1000^2)
+log_diversity ~ dunif(-10, 10)
 diversity <- exp(log_diversity)
 
 # Prior for the parameters given the hyperparameters
@@ -355,7 +355,7 @@ model
 
     # Hierarchical prior for the means
     # Hyperparameters
-    grand_mean ~ dunif(-1000, 1000)
+    grand_mean ~ dnorm(0, 1/1000^2)
     log_diversity ~ dunif(-10, 10)
     diversity <- exp(log_diversity)
 
@@ -392,7 +392,7 @@ for the $\mu$s. Here it is:
                framesep=2mm, fontsize=\small]{r}
 # Hierarchical prior for the means
 # Hyperparameters
-grand_mean ~ dunif(-1000, 1000)
+grand_mean ~ dnorm(0, 1/1000^2)
 log_diversity ~ dunif(-10, 10)
 diversity <- exp(log_diversity)
 
@@ -444,7 +444,7 @@ The alternative parameterisation is given below.
                framesep=2mm, fontsize=\small]{r}
 # Hierarchical prior for the means
 # Hyperparameters
-grand_mean ~ dunif(-1000, 1000)
+grand_mean ~ dnorm(0, 1/1000^2)
 log_diversity ~ dunif(-10, 10)
 diversity <- exp(log_diversity)
 
