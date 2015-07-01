@@ -2,14 +2,14 @@
 model
 {
 	# Log-uniform prior for the s.d.
-	log_sigma ~ dunif(-5, 5)
+	log_sigma ~ dunif(-10, 10)
 	sigma <- exp(log_sigma)
 
 	# First mean
-	mu1 ~ dunif(-1000, 1000)
+	mu1 ~ dnorm(0, 1/1000^2)
 
 	# Prior on second mean
-	mu2 ~ dunif(-1000, 1000)
+	mu2 ~ dunif(0, 1/1000^2)
 
 	# Sampling distribution/likelihood
 	for(i in 1:N1)

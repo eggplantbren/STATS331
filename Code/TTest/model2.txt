@@ -6,7 +6,7 @@ model
 	sigma <- exp(log_sigma)
 
 	# First mean
-	mu1 ~ dunif(-1000, 1000)
+	mu1 ~ dnorm(0, 1/1000^2)
 
 	# Prior for difference, mu2 - mu1
 	u ~ dunif(-1, 1)
