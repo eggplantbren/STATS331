@@ -38,10 +38,10 @@ variable_names = c('mu', 'sigma', 'grand_mean', 'log_diversity')
 burn_in = 10000
 
 # How many proper steps?
-steps = 100000
+steps = 10000
 
 # Thinning?
-thin = 10
+thin = 1
 
 
 
@@ -61,7 +61,7 @@ if(all(is.na(data)))
 	m = jags.model(file="model.temp", inits=list(.RNG.seed=42, .RNG.name="base::Mersenne-Twister"))
 } else
 {
-	m = jags.model(file="model.temp", data=data, inits=list(.RNG.seed=42, .RNG.name="base::Mersenne-Twister"))
+	m = jags.model(file="model.temp", data=data, inits=list(.RNG.seed=123, .RNG.name="base::Mersenne-Twister"))
 }
 update(m, burn_in)
 draw = jags.samples(m, steps, thin=thin, variable.names = variable_names)
