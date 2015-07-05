@@ -340,7 +340,11 @@ Our ``one-way ANOVA'' model is very much the same as our final ``t-test'' model,
 except for the format of the dataset.
 The main advantage of this model is that it generalises to more than two groups
 in a very straightforward way; we no longer need to write separate for loops
-for each group.
+for each group. As with the third ``t-test'' model, we are not seriously
+considering the hypothesis that all of the group means (i.e. the $\mu$
+parameters) are exactly equal, but we are allowing them to be quite close
+together, or quite distinct in value, by using the hierarchical model
+structure with the {\tt diversity} parameter.
 
 \begin{minted}[mathescape,
                numbersep=5pt,
@@ -373,10 +377,16 @@ model
 }
 \end{minted}
 
+After running this model on the starling data, we can plot any results we
+wish. In Figure~\ref{fig:trace_starlings2}, I have plotted a trace plot of
+$\mu_1$, the parameter for the mean weight of starlings at location 1.
 
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/trace_starlings.pdf}
+\caption{A trace plot of $\mu_1$ from a JAGS run on the starling data. Things
+appear to be mixing well, except for an odd feature near iteration 1000.
+\label{fig:trace_starlings2}}
 \end{center}
 \end{figure}
 
