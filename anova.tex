@@ -242,6 +242,7 @@ $\mu_1 > \mu_2$. The results are shown in Table~\ref{tab:ttest_results}.
 \begin{table}
 \begin{center}
 {\bf Prior Probabilities}:\\
+\vspace{0.3cm}
 \begin{tabular}{|l|c|c|c|}
 \hline
 Prior	&	$\mu_1 < \mu_2$	& $\mu_1 = \mu_2$	& $\mu_1 > \mu_2$\\
@@ -251,7 +252,9 @@ Prior	&	$\mu_1 < \mu_2$	& $\mu_1 = \mu_2$	& $\mu_1 > \mu_2$\\
 3 	&	0.5		&	0		&	0.5\\
 \hline
 \end{tabular}\\
+\vspace{0.5cm}
 {\bf Posterior Probabilities}:\\
+\vspace{0.3cm}
 \begin{tabular}{|l|c|c|c|}
 \hline
 Prior	&	$\mu_1 < \mu_2$	& $\mu_1 = \mu_2$	& $\mu_1 > \mu_2$\\
@@ -261,7 +264,7 @@ Prior	&	$\mu_1 < \mu_2$	& $\mu_1 = \mu_2$	& $\mu_1 > \mu_2$\\
 3 	&	0.629		&	0		&	0.372\\
 \hline
 \end{tabular}
-\caption{Prior and posterior probabilities for three different hypotheses about
+\caption{\it Prior and posterior probabilities for three different hypotheses about
 the two manufacturers, based on the models with the three different priors.
 As you can see, the conclusions are quite sensitive to the choice of prior in
 this case.
@@ -384,7 +387,7 @@ $\mu_1$, the parameter for the mean weight of starlings at location 1.
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/trace_starlings.pdf}
-\caption{A trace plot of $\mu_1$ from a JAGS run on the starling data. Things
+\caption{\it A trace plot of $\mu_1$ from a JAGS run on the starling data. Things
 appear to be mixing well, except for an odd feature near iteration 1000.
 \label{fig:trace_starlings2}}
 \end{center}
@@ -393,7 +396,7 @@ appear to be mixing well, except for an odd feature near iteration 1000.
 \begin{figure}[ht!]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/diversity.pdf}
-\caption{The posterior distribution for {\tt log\_diversity}.\label{fig:diversity}}
+\caption{\it The posterior distribution for {\tt log\_diversity}.\label{fig:diversity}}
 \end{center}
 \end{figure}
 
