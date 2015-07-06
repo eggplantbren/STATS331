@@ -355,6 +355,27 @@ most useful when the two analyses were actually done separately by different
 people.
 
 \section{Analytic Solution}
+In this section we'll solve the blood pressure model selection problem
+analytically. Firstly, let's write down the likelihood,
+which is a product of $N$ univariate normal densities:
+\begin{eqnarray}
+p(x | \mu) &=&
+\prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
+\exp
+\left[-\frac{1}{2\sigma^2}\left(x_i - \mu\right)^2\right].
+\end{eqnarray}
+
+As we saw before, model selection problems can be solved in two different ways
+(but with equivalent results). We can calculate the posterior for $\mu$ in
+a way that includes both $H_0$ and $H_1$ in the calculation from the beginning
+(perhaps assigning 50\% prior probability to $H_0$), or we can compute the
+marginal likelihoods for $H_0$ and $H_1$ separately.
+
+We now need to write down the equation for our prior. In the situation where
+we want a certain value of $\mu$ to have nonzero prior probability, the density
+
+
+
 
 Let's make the prior for $\mu$, conditional on $H_1$, a normal distribution
 centered at $m$ with a standard deviation of $s$.
