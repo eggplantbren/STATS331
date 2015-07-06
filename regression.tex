@@ -289,7 +289,7 @@ plot(results$beta0, results$beta1, cex=0.1, xlab='beta0', ylab='beta1')
 \end{minted}
 
 All of the plots for the road data are shown in Figure~\ref{fig:road_results}.
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.35]{Figures/road_trace.pdf}
 \includegraphics[scale=0.35]{Figures/road_hist.pdf}
@@ -334,7 +334,7 @@ for(i in 1:30)
 \end{minted}
 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/road_lines.pdf}
 \caption{\it The road data with credible regression lines (sampled from the
@@ -409,7 +409,7 @@ As a general rule for predicting new data in JAGS, the extra line(s) you'll add 
 model will usually resemble the likelihood, but the variable will have a different name.
 The results for the road data prediction are shown
 in Figure~\ref{fig:road_prediction}.
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/road_prediction.pdf}
 \caption{\it Samples from the posterior predictive distribution, answering the

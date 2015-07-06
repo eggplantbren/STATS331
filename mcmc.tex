@@ -24,7 +24,7 @@ Figure~\ref{fig:normal}.
 plot(theta, post, xlab="Theta", ylab="Posterior Probability")
 \end{verbatim}
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/normal.pdf}
 \caption{\it A posterior distribution can be represented in a computer by a discrete
@@ -65,7 +65,7 @@ by plotting a histogram of samples:
 hist(theta, breaks=100)
 \end{verbatim}
 The histogram looks something like the one in Figure~\ref{fig:normal2}.
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/normal2.pdf}
 \caption{\it The posterior distribution for a parameter $\theta$ can also be
@@ -143,7 +143,7 @@ to worry about mathematical convenience.
 See Figure~\ref{fig:marginalisation} for an example showing how Monte Carlo
 sampling makes marginalisation trivial.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.5]{Figures/marginalisation.pdf}
 \caption{\it An example of a posterior distribution for two parameters, $a$ and
@@ -203,7 +203,7 @@ applied to a problem with only two possible hypotheses or parameter values.
 Nobody would actually use MCMC on such a small problem, but it is helpful for
 explaining how MCMC works.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.65]{Figures/mcmc.pdf}
 \caption{\it An illustration of the basic idea behind MCMC. Imagine we had a
@@ -334,7 +334,7 @@ A Markov chain with a small number of possible states can be represented
 graphically using a {\it transition diagram}, as in
 Figure~\ref{fig:transitions}.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.65]{Figures/transitions.pdf}
 \caption{\it A transition diagram for a Markov Chain with two possible states.

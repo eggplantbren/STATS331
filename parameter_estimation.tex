@@ -28,7 +28,7 @@ the unknown parameter. For example, a Bayes' Box for the precise number of
 people in New Zealand might look something like the one in
 Table~\ref{tab:nz_pop}.
 
-\begin{table}[ht!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -134,7 +134,7 @@ in all of our parameter estimation examples (although the parameter(s) and data
 may have different symbols when $\theta$ and $x$ respectively are not
 appropriate).
 
-\begin{table}[ht!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -190,7 +190,7 @@ for more than 2 successes. This is just saying in words what is written
 precisely in Equation~\ref{eq:binomial_likelihood}. The probability distribution
 for the data $x$ is plotted in Figure~\ref{fig:binomial} for three illustrative
 values of the parameter $\theta$.
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/binomial.pdf}
 \caption{\it The binomial probability distribution for the data $x$, for three different values of the parameter $\theta$. If $\theta$ is
@@ -216,7 +216,7 @@ multiply the prior by the likelihood and then normalise that to get the
 posterior distribution. The completed Bayes' Box is given in
 Table~\ref{tab:bus_bayes_box2}.
 
-\begin{table}[ht!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -489,7 +489,7 @@ leaving the symbols there. That's it! We have the correct shape of the
 posterior distribution. We can use this to plot the posterior, as you can see
 in Figure~\ref{fig:bus_inference}.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/bus_inference.pdf}
 \caption{\it The prior and the posterior for $\theta$ in the bus problem, given
@@ -592,7 +592,7 @@ The blue curves correspond to the uniform prior we used before, the red
 curves use the ``emphasising the extremes'' prior, and the green curves use the
 ``informative'' prior which assumes that $\theta$ is known to be close to 0.5.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/three_priors.pdf}
 \caption{\it Three different priors (dotted lines) and the corresponding
@@ -648,7 +648,7 @@ they appear on the right hand side. By identifying the terms of
 Equation~\ref{eq:beta} with the form of our three priors (Equations~\ref{eq:uniform},~\ref{eq:prior2} and~\ref{eq:prior3})),
 we see that our three priors can be written in ``$\sim$'' notation like this:
 
-\begin{table}[ht!]\begin{center}
+\begin{table}[!ht]\begin{center}
 \begin{tabular}{ll}
 Prior 1: & $\theta \sim \textnormal{Beta}(1, 1)$\\
 Prior 2: & $\theta \sim \textnormal{Beta}\left(\frac{1}{2}, \frac{1}{2}\right)$\\
@@ -660,7 +660,7 @@ When you work out the posterior distributions analytically and then compare them
 to the formula for the beta distribution, you can see that the three posteriors
 are also beta distributions! Specifically, you get:
 
-\begin{table}[ht!]\begin{center}
+\begin{table}[!ht]\begin{center}
 \begin{tabular}{ll}
 Posterior 1: & $\theta \sim \textnormal{Beta}(3, 4)$\\
 Posterior 2: & $\theta \sim \textnormal{Beta}(2.5, 3.5)$\\
@@ -689,7 +689,7 @@ We can look up (or derive) the formula for the mean of a beta distribution and f
 if $x \sim \textnormal{Beta}(\alpha, \beta)$ then $\mathds{E}(x) = \alpha/(\alpha + \beta)$.
 Applying this to the three posterior distributions gives:
 
-\begin{table}[ht!]\begin{center}
+\begin{table}[!ht]\begin{center}
 \begin{tabular}{lll}
 $P(\textnormal{good bus tomorrow}|x) = 3/7 $    & $\approx 0.429$ & (using prior 1)\\
 $P(\textnormal{good bus tomorrow}|x) = 2.5/6$   & $\approx 0.417$ & (using prior 2)\\
@@ -709,7 +709,7 @@ we did a much bigger version of the bus experiment with $N=1000$ trials, which
 resulted in $x=500$ successes. Then the posterior distributions corresponding
 to the three different priors are all very similar (Figure~\ref{fig:lots_of_data}).
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/lots_of_data.pdf}
 \caption{\it When you have a lot of data, the results are less sensitive

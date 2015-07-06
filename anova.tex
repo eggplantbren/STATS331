@@ -209,7 +209,7 @@ mu2 ~ dnorm(grand_mean, 1/diversity^2)
 
 Samples (obtained using JAGS) of the three priors are shown in
 Figure~\ref{fig:ttest1}.
-\begin{figure}[h]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.8]{Figures/ttest1.pdf}
 \caption{\it The three different priors we are trying for our Bayesian
@@ -226,7 +226,7 @@ The posteriors are shown in Figure~\ref{fig:ttest2}.
 The inferences are different, as you would expect, and that's entirely down
 to the choice of the prior. Any summaries we make will therefore depend on
 which prior we want to use.
-\begin{figure}[h]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.8]{Figures/ttest2.pdf}
 \caption{\it The posterior distributions, given the widget data,
@@ -331,7 +331,7 @@ The masses of starlings were measured at four locations. We are interested
 in the differences between the locations. How similar are they? We will have
 four $\mu$ parameters, one for each of the locations.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/starling.pdf}
 \end{center}
@@ -384,7 +384,7 @@ After running this model on the starling data, we can plot any results we
 wish. In Figure~\ref{fig:trace_starlings2}, I have plotted a trace plot of
 $\mu_1$, the parameter for the mean weight of starlings at location 1.
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/trace_starlings.pdf}
 \caption{\it A trace plot of $\mu_1$ from a JAGS run on the starling data. Things
@@ -393,7 +393,7 @@ appear to be mixing well, except for an odd feature near iteration 1000.
 \end{center}
 \end{figure}
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/diversity.pdf}
 \caption{\it The posterior distribution for {\tt log\_diversity}.\label{fig:diversity}}
@@ -484,7 +484,7 @@ for(i in 1:N)
 
 
 
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/trace_starlings2.pdf}
 \end{center}
