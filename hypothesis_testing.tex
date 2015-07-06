@@ -369,7 +369,18 @@ As we saw before, model selection problems can be solved in two different ways
 (but with equivalent results). We can calculate the posterior for $\mu$ in
 a way that includes both $H_0$ and $H_1$ in the calculation from the beginning
 (perhaps assigning 50\% prior probability to $H_0$), or we can compute the
-marginal likelihoods for $H_0$ and $H_1$ separately.
+marginal likelihoods for $H_0$ and $H_1$ separately. In analytical calculations
+the separate calculation is the most popular, so let's do it that way first.
+
+The posterior odds ratio for $H_0$ over $H_1$ is
+\begin{eqnarray}
+\frac{P(H_0 | x)}{P(H_1|x)} &=& \frac{P(H_0)}{P(H_1)} \times
+\frac{p(x|H_0)}{p(x|H_1)}\label{eq:odds_form2}.
+\end{eqnarray}
+If we're assigning 50\% prior probability to $H_0$ and to $H_1$, then the
+prior odds ratio is $0.5 / 0.5 = 1$. Therefore we just need the two likelihoods,
+$p(x | H_0)$ and $p(x | H_1)$.
+
 
 We now need to write down the equation for our prior. In the situation where
 we want a certain value of $\mu$ to have nonzero prior probability, the density
