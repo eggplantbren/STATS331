@@ -111,7 +111,7 @@ Suppose the mean of all the data values was
 \begin{eqnarray}
 \bar{x} &=& \frac{1}{N} \sum_{i=1}^{100} x_i\\
 &=& 115.9.
-\end{eqnarray}
+\end{eqnarray} % and (x squared)bar = 13654.82
 Does this data provide evidence against $H_0$ and in favour of $H_1$? In
 classical statistics this question would be addressed using a {\it p-value}.
 The p-value would be the probability of getting a result this extreme or
@@ -373,7 +373,7 @@ p(x | \mu) &=& \sigma^{-N}(2\pi)^{-N/2}
 \left[-\frac{1}{2\sigma^2}\left(N\bar{x^2} - 2N\mu\bar{x} + N\mu^2\right)\right]\\
 &=& \sigma^{-N}(2\pi)^{-N/2}
 \exp
-\left[-\frac{N}{2\sigma^2}\left(\bar{x^2} + \mu^2\right) + \frac{N\mu}{\sigma^2}\bar{x}\right].
+\left[-\frac{N}{2\sigma^2}\left(\bar{x^2} + \mu^2\right) + \frac{N\mu}{\sigma^2}\bar{x}\right].\label{eq:lik_simplified}
 %\sum_{i=1}^N\left(x_i^2 - 2\mu x_i + \mu^2\right)\right].
 \end{eqnarray}
 where $\bar{x}$ is the arithmetic mean of the data and $\bar{x^2}$ is the mean
@@ -395,7 +395,10 @@ The posterior odds ratio for $H_0$ over $H_1$ is
 If we're assigning 50\% prior probability to $H_0$ and to $H_1$, then the
 prior odds ratio is $0.5 / 0.5 = 1$. Therefore we just need the two likelihoods,
 $p(x | H_0)$ and $p(x | H_1)$. The first of these is fairly straightforward to
-get, since $H_0$ implies $\mu = 120$.
+get, since $H_0$ implies $\mu = 120$. We just calculate the value of the
+likelihood using Equation~\ref{eq:lik_simplified}, which we've already done
+(it was in Table~\ref{tab:testing_prior}). Therefore
+$p(x | H_0) = 0.02391$.
 
 
 We now need to write down the equation for our prior. In the situation where
