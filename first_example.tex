@@ -60,7 +60,7 @@ case
 two) that might be true, and the prior probabilities. There are some extra
 columns which we haven't discussed yet, and will be needed in order to
 figure out the posterior probabilities in the final column.
-\begin{table}[h!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -107,7 +107,7 @@ going through each hypothesis in turn, imagining it is true, and asking,
 
 Here is the Bayes' Box with the likelihood column filled in. I will explain
 how these numbers were calculated in a bit more detail in the next subsection.
-\begin{table}[ht!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -153,7 +153,7 @@ ALL possible experimental outcomes/data you might have seen -- even though
 ultimately, you just need to select the one that actually occurred.
 Table~\ref{tab:all_data} shows an example of this process.
 
-\begin{table}[ht!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
@@ -199,7 +199,7 @@ gives us the final
 posterior probabilities, which were the goal all along. The completed Bayes'
 Box is shown below:
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -248,7 +248,7 @@ the probability of $A$ {\bf given} $B$. That is, it's the probability of $A$
 after taking into account the information $B$. In other words,
 $P(A|B)$ is a posterior probability, and Bayes' rule tells us how to calculate
 it from other probabilities.
-\begin{figure}[ht!]
+\begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.4]{Figures/bayes_neon.jpg}
 \caption{\it A blue neon sign displaying Bayes' rule.
@@ -334,7 +334,7 @@ might be broken! If the phone is broken, it will always give a busy signal.
 When you do the experiment, the outcome (the data) is that you do actually get the busy signal.
 The question asked us to consider the following four hypotheses, and to calculate
 their posterior probabilities:
-\begin{table}[h!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -361,7 +361,7 @@ Bayes' Box with just those two, but it is possible to put these together (using
 We will go through the solution using a Bayes' Box. The four hypotheses listed
 in Table~\ref{tab:phone} and their prior probabilities are given, so we can fill
 out the first two columns of a Bayes' Box right away:
-\begin{table}[h!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -400,7 +400,7 @@ because they both imply the phone is broken, and that means a busy signal is cer
 Therefore $P(\textnormal{busy signal} | H_3) = P(\textnormal{busy signal} | H_4) = 1$.
 We have our four likelihoods, and can proceed to work out everything in the
 Bayes' Box, including the main goal -- the posterior probabilities! Here it is:
-\begin{table}[ht!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
@@ -520,7 +520,7 @@ The correspondence between the probabilities that go in a Bayes'
 Box (in general) and the terms in the Equations are given in
 Table~\ref{tab:general_bayes_box}.
 
-\begin{table}[ht!]
+\begin{table}[!ht]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
