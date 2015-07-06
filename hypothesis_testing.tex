@@ -230,9 +230,8 @@ Note that the calculation of the posterior distribution uses {\it all} of the
 data values, rather than reducing the whole data set down to a single number
 (the sample mean $\bar{x}$). In this particular example, reducing the whole
 dataset to a single number is harmless\footnote{In this problem, the sample mean
-is a ``sufficient statistic''. In this
-particular problem, throwing away information has no
-consequences!}. But in different situations (e.g. if your sampling distribution
+is a ``sufficient statistic'': deleting all of the data and using just the
+mean has no consequences!}. But in different situations (e.g. if your sampling distribution
 or likelihood was based on the heavy-tailed Cauchy distribution instead of a normal
 distribution), reducing an entire data set to a single ``test statistic'' can
 be extremely wasteful!
@@ -364,6 +363,22 @@ p(x | \mu) &=&
 \exp
 \left[-\frac{1}{2\sigma^2}\left(x_i - \mu\right)^2\right].
 \end{eqnarray}
+We can rearrange this a bit, which will be useful later:
+\begin{eqnarray}
+p(x | \mu) &=& \sigma^{-N}(2\pi)^{-N/2}
+\exp
+\left[-\frac{1}{2\sigma^2}\sum_{i=1}^N\left(x_i - \mu\right)^2\right]\\
+&=& \sigma^{-N}(2\pi)^{-N/2}
+\exp
+\left[-\frac{1}{2\sigma^2}\left(N\bar{x^2} - 2N\mu\bar{x} + N\mu^2\right)\right]\\
+&=& \sigma^{-N}(2\pi)^{-N/2}
+\exp
+\left[-\frac{N}{2\sigma^2}\left(\bar{x^2} + \mu^2\right) + \frac{N\mu}{\sigma^2}\bar{x}\right].
+%\sum_{i=1}^N\left(x_i^2 - 2\mu x_i + \mu^2\right)\right].
+\end{eqnarray}
+where $\bar{x}$ is the arithmetic mean of the data and $\bar{x^2}$ is the mean
+squared value of the data.
+
 
 As we saw before, model selection problems can be solved in two different ways
 (but with equivalent results). We can calculate the posterior for $\mu$ in
@@ -379,7 +394,8 @@ The posterior odds ratio for $H_0$ over $H_1$ is
 \end{eqnarray}
 If we're assigning 50\% prior probability to $H_0$ and to $H_1$, then the
 prior odds ratio is $0.5 / 0.5 = 1$. Therefore we just need the two likelihoods,
-$p(x | H_0)$ and $p(x | H_1)$.
+$p(x | H_0)$ and $p(x | H_1)$. The first of these is fairly straightforward to
+get, since $H_0$ implies $\mu = 120$.
 
 
 We now need to write down the equation for our prior. In the situation where
