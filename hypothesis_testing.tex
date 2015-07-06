@@ -354,3 +354,28 @@ compare $H_1$ vs. $H_2$. This second way of calculating Bayes Factors is
 most useful when the two analyses were actually done separately by different
 people.
 
+\section{Analytic Solution}
+
+Let's make the prior for $\mu$, conditional on $H_1$, a normal distribution
+centered at $m$ with a standard deviation of $s$.
+
+\begin{eqnarray}
+p(\mu | H_1) &=& \frac{1}{s\sqrt{2\pi}}\exp
+\left[-\frac{1}{2s^2}\left(\mu - m\right)^2\right]
+\end{eqnarray}
+
+Using Bayes' rule, the posterior is proportional to the prior multiplied by
+the likelihood. This is all conditional on $H_1$, which we should remember
+to put in the right hand side of the ``given'' sign in all of our terms:
+
+\begin{eqnarray}
+p(\mu | x, H_1) &\propto& p(\mu | H_1)p(x | \mu, H_1) \\
+&\propto&
+\frac{1}{s\sqrt{2\pi}}\exp
+\left[-\frac{1}{2s^2}\left(\mu - m\right)^2\right]
+\times
+\prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
+\exp
+\left[-\frac{1}{2\sigma^2}\left(x_i - \mu\right)^2\right]
+\end{eqnarray}
+
