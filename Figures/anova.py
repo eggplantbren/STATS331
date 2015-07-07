@@ -14,7 +14,7 @@ plt.title('Trace Plot')
 plt.savefig('trace_starlings.pdf', bbox_inches='tight')
 plt.show()
 
-plt.hist(chains[:,4], 100, alpha=0.2)
+plt.hist(chains[:,6], 100, alpha=0.2)
 plt.xlabel('$\\log$(diversity)')
 plt.ylabel('Number')
 plt.title('Marginal Posterior')
