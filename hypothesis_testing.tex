@@ -167,19 +167,19 @@ mu = seq(110, 120)
 # Make the testing prior
 prior = rep(0.5/10, 11)
 prior[11] = 0.5
-
 # Compute the likelihood for the 100 data points.
-# The numbers get close to 0, so logs would be useful
-lik = 1
+# The numbers get close to 0, so let's use logs
+log_lik = 1
 # Use a for loop to loop over all data values
 # and multiply the likelihoods
 for(i in 1:100)
 {
-    lik = lik*dnorm(x[i], mean=mu, sd=15)
+  log_lik = log_lik + dnorm(x[i], mean=mu, sd=15, log=TRUE)
 }
 
 # Rescale the likelihood for readability
-lik = lik/max(lik)*1000
+lik = exp(log_lik - max(log_lik))*1000
+#lik = lik/max(lik)*1000
 
 # Calculate the posterior
 h = prior*lik
@@ -245,7 +245,9 @@ assumed $\mu$ couldn't be lower than 110, and had a uniform prior for all
 $\mu$ values apart from 120. Some of these assumptions can and should be
 questioned when applying Bayesian hypothesis testing in practice.
 In Figure~\ref{fig:testing_priors}, there are three possible ideas for what
-the prior should be in the blood pressure question. They may all seem reasonable in this situation.
+the prior should be in the blood pressure question. They may all seem somewhat
+reasonable in this situation, but could lead to different conclusions.
+
 Prior 1 is basically the same as the prior in our Bayes' Box, although it goes
 down to $\mu=100$ and divides the possible $\mu$ values more finely. This prior
 says the null has a 50\% probability, and if $\mu$ is not equal to 120, then it
@@ -269,7 +271,7 @@ depends on the individual problem you are solving.
 
 \begin{framed}
 {\bf Remember, if the conclusions depend sensitively on the choice of the
-prior distribution, then that is an important finding. You either need to be
+prior distribution, that is an important finding. You either need to be
 really careful about choosing your prior, or you need more data.}
 \end{framed}
 
