@@ -332,12 +332,17 @@ The masses of some starlings were measured at four locations. We are interested
 in the differences between the locations. How similar are they in terms of the
 average weight of starlings? Are they basically the same, radically different,
 or something in between? A boxplot of the data is shown in
-Figure~\ref{fig:starling}.
+Figure~\ref{fig:starling}, which seems to show substantial differences between
+the locations. However, only ten starlings were measured at each location, so
+we can't be absolutely sure of this, and our goal is to investigate how
+sure we should be.
 
-
-
-We will have
-four $\mu$ parameters, one for each of the locations.
+To solve this problem in a Bayesian way, we will treat it as a parameter
+estimation problem with four $\mu$ parameters, one for each of the locations.
+We will also need at least one parameter describing the standard deviation
+of the starling masses at each location. For convenience we'll assume that's
+the same across all locations, but it is straightforward to relax this
+assumption later.
 
 \begin{figure}[!ht]
 \begin{center}
