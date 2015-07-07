@@ -327,13 +327,25 @@ all measurements into a single vector {\tt x}. To make this work, we'll need
 an extra vector in the dataset, which tells us which group each data point
 belongs to.
 
-The masses of starlings were measured at four locations. We are interested
-in the differences between the locations. How similar are they? We will have
+We'll use an example dataset on the masses of starlings (a type of bird).
+The masses of some starlings were measured at four locations. We are interested
+in the differences between the locations. How similar are they in terms of the
+average weight of starlings? Are they basically the same, radically different,
+or something in between? A boxplot of the data is shown in
+Figure~\ref{fig:starling}.
+
+
+
+We will have
 four $\mu$ parameters, one for each of the locations.
 
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/starling.pdf}
+\caption{\it The masses of starlings as measured at four different locations.
+It seems as though the mean mass varies somewhat according to the location, and
+our results will tell us how plausible this is.
+\label{fig:starling}}
 \end{center}
 \end{figure}
 
