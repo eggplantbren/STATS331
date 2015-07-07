@@ -399,7 +399,19 @@ model
 
 After running this model on the starling data, we can plot any results we
 wish. In Figure~\ref{fig:trace_starlings2}, I have plotted a trace plot of
-$\mu_1$, the parameter for the mean weight of starlings at location 1.
+$\mu_1$, the parameter for the mean weight of starlings at location 1. This
+is a healthy trace plot, although there is a strange feature near iteration
+1000 which we will discuss in the next section. Figure~\ref{fig:diversity}
+shows the posterior distribution for the {\tt log\_diversity} hyperparameter,
+which quantifies how different the groups really are. Our prior for this
+parameter was U(-10, 10), and the posterior peaks at around 1.5, which
+corresponds to {\tt diversity}$\approx$ 4.5, although there is a fair bit of
+uncertainty. Notice also the long tail of the posterior on the left hand side.
+Although we never allowed the $\mu$s to be exactly the same, we did allow them
+to be close (and this corresponds to the diversity being low). The fact that
+some posterior samples landed between -10 and 0 suggests there is a small
+probability that the differences between groups are very small, despite the
+fact that the data doesn't look that way.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -419,7 +431,7 @@ appear to be mixing well, except for an odd feature near iteration 1000.
 
 \subsection{MCMC Efficiency}
 The hierarchical ``one-way ANOVA'' model given above works, but a quick look
-at the trace plots suggests the mixing (how easily the MCMC algorithm is
+at the trace plot suggests the mixing (how easily the MCMC algorithm is
 able to move around) isn't very good. In some models, it makes sense to
 consider the {\it parameterisation} of the model. There are actually different
 ways to implement exactly the same model assumptions, but in a way that helps
