@@ -405,7 +405,7 @@ is a healthy trace plot, although there is a strange feature near iteration
 shows the posterior distribution for the {\tt log\_diversity} hyperparameter,
 which quantifies how different the groups really are. Our prior for this
 parameter was U(-10, 10), and the posterior peaks at around 1.5, which
-corresponds to {\tt diversity}$\approx$ 4.5, although there is a fair bit of
+corresponds to {\tt diversity} $\approx$ 4.5, although there is a fair bit of
 uncertainty. Notice also the long tail of the posterior on the left hand side.
 Although we never allowed the $\mu$s to be exactly the same, we did allow them
 to be close (and this corresponds to the diversity being low). The fact that
@@ -428,6 +428,22 @@ appear to be mixing well, except for an odd feature near iteration 1000.
 \caption{\it The posterior distribution for {\tt log\_diversity}.\label{fig:diversity}}
 \end{center}
 \end{figure}
+
+As usual, we can use our posterior samples to calculate the posterior
+probability of any hypothesis that we can think of based on the parameters.
+Here are a couple of interesting examples:
+\begin{minted}[mathescape,
+               numbersep=5pt,
+               gobble=0,
+               frame=single,
+               framesep=2mm, fontsize=\small]{r}
+# Is mu2 really greater than mu3?
+> mean(results\$mu[,2] > results\$mu[,3])
+[1] 0.672
+# Is the diversity really less than 1 (log diversity less than 0)?
+> mean(results\$diversity < 0)
+[1] 0.0272
+\end{minted}
 
 \subsection{MCMC Efficiency}
 The hierarchical ``one-way ANOVA'' model given above works, but a quick look
