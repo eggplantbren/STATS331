@@ -398,7 +398,7 @@ model
 \end{minted}
 
 After running this model on the starling data, we can plot any results we
-wish. In Figure~\ref{fig:trace_starlings2}, I have plotted a trace plot of
+wish. In Figure~\ref{fig:trace_starlings}, I have plotted a trace plot of
 $\mu_1$, the parameter for the mean weight of starlings at location 1. This
 is a healthy trace plot, although there is a strange feature near iteration
 1000 which we will discuss in the next section. Figure~\ref{fig:diversity}
@@ -418,7 +418,7 @@ fact that the data doesn't look that way.
 \includegraphics[scale=0.6]{Figures/trace_starlings.pdf}
 \caption{\it A trace plot of $\mu_1$ from a JAGS run on the starling data. Things
 appear to be mixing well, except for an odd feature near iteration 1000.
-\label{fig:trace_starlings2}}
+\label{fig:trace_starlings}}
 \end{center}
 \end{figure}
 
@@ -448,14 +448,19 @@ Here are a couple of interesting examples:
 \subsection{MCMC Efficiency}
 The hierarchical ``one-way ANOVA'' model given above works, but a quick look
 at the trace plot suggests the mixing (how easily the MCMC algorithm is
-able to move around) isn't very good. In some models, it makes sense to
+able to move around) did have some difficulties
+(see Figure~\ref{fig:trace_starlings}). In this particular example the problem
+wasn't fatal, but this problem could be more severe with a different data set.
+In some models, it makes sense to
 consider the {\it parameterisation} of the model. There are actually different
 ways to implement exactly the same model assumptions, but in a way that helps
-the efficiency of the MCMC sampling.
+the efficiency of the MCMC sampling. This is done by changing which parameters
+are defined by ``{\verb|~|}'' and which are defined by ``{\tt <-}'', in a way
+that keeps the meaning of the model intact, but forces JAGS to do the
+exploration differently.
 
 Let's look at a small subset of the above model: just the hierarchical prior
 for the $\mu$s. Here it is:
-
 \begin{minted}[mathescape,
                numbersep=5pt,
                gobble=0,
@@ -503,8 +508,13 @@ are inefficient when the posterior distribution has strong
 ANOVA model, it's not just the posterior that has strong dependence, but
 even the prior has strong dependence!
 
-\subsection{An Alternative Parameterisation}
+This was the cause of the strange feature in Figure~\ref{fig:trace_starlings}.
 
+
+\subsection{An Alternative Parameterisation}
+We will now look at an alternative way of implementing the hierarchical model,
+that entails exactly the same assumptions (the same prior distributions and
+sampling distribution), yet has computational advantages.
 
 The alternative parameterisation is given below.
 
