@@ -412,6 +412,16 @@ is $p(\boldsymbol{x} | H_0) = 1.638 \times 10^{-159}$.
 To complete the calculation we need the value of $p(\boldsymbol{x}|H_1)$, but
 this is a bit more difficult since $H_1$ doesn't correspond to a particular
 value of $\mu$, but instead implies that $\mu$ is any value other than 120.
+So what exactly does it mean? In the discrete situation, it's possible to
+calculate $p(\boldsymbol{x}|H_1)$ by recognising that $H_1$ is equivalent to
+$(\mu = 110) {\textbf or } (\mu = 111) {\textbf or }... (\mu = 119)$. Then
+we can use the sum rule:
+\begin{eqnarray}
+p(\boldsymbol{x}|H_1) &=& \sum_{\theta=110}^{119} p(\theta | H_1)
+p(\boldsymbol{x}|\theta, H_1).
+\end{eqnarray}
+
+
 We now need to write down the equation for our prior. In the situation where
 we want a certain value of $\mu$ to have nonzero prior probability, the density
 
