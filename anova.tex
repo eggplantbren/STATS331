@@ -508,14 +508,10 @@ are inefficient when the posterior distribution has strong
 ANOVA model, it's not just the posterior that has strong dependence, but
 even the prior has strong dependence!
 
-This was the cause of the strange feature in Figure~\ref{fig:trace_starlings}.
-
-
 \subsection{An Alternative Parameterisation}
 We will now look at an alternative way of implementing the hierarchical model,
 that entails exactly the same assumptions (the same prior distributions and
 sampling distribution), yet has computational advantages.
-
 The alternative parameterisation is given below.
 
 \begin{minted}[mathescape,
@@ -536,6 +532,14 @@ for(i in 1:N)
   mu[i] <- grand_mean + diversity*n[i]
 }
 \end{minted}
+The only difference between this implementation and the original is the part
+within the loop. Instead of defining the prior for the $\mu$s directly, we
+have defined different parameters called {\tt n}, with standard normal priors.
+We then compute the {\tt mu}s deterministically from the {\tt n}s. In this
+alternative parameterisation, the prior for the {\tt n}s is completely
+independent of {\tt grand\_mean} and {\tt diversity}, so sampling from the
+prior would be extremely efficient, yet the implied prior for the {\tt mu}s
+is exactly the same as before.
 
 
 
