@@ -362,14 +362,14 @@ In this section we'll solve the blood pressure model selection problem
 analytically. Firstly, let's write down the likelihood,
 which is a product of $N$ univariate normal densities:
 \begin{eqnarray}
-p(x | \mu) &=&
+p(\boldsymbol{x} | \mu) &=&
 \prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
 \exp
 \left[-\frac{1}{2\sigma^2}\left(x_i - \mu\right)^2\right].
 \end{eqnarray}
 We can rearrange this a bit, which will be useful later:
 \begin{eqnarray}
-p(x | \mu) &=& \sigma^{-N}(2\pi)^{-N/2}
+p(\boldsymbol{x} | \mu) &=& \sigma^{-N}(2\pi)^{-N/2}
 \exp
 \left[-\frac{1}{2\sigma^2}\sum_{i=1}^N\left(x_i - \mu\right)^2\right]\\
 &=& \sigma^{-N}(2\pi)^{-N/2}
@@ -381,7 +381,12 @@ p(x | \mu) &=& \sigma^{-N}(2\pi)^{-N/2}
 %\sum_{i=1}^N\left(x_i^2 - 2\mu x_i + \mu^2\right)\right].
 \end{eqnarray}
 where $\bar{x}$ is the arithmetic mean of the data and $\bar{x^2}$ is the mean
-squared value of the data.
+squared value of the data. Notice that the likelihood only depends on the data
+through the values of $\bar{x}$ and $\bar{x^2}$. In fact, if we're only trying
+to infer $\mu$ and not $\sigma$ then the part that depends on $\bar{x^2}$
+can be treated as a ``constant'', and will not affect the posterior for $\mu$.
+This is why $\bar{x}$ is a sufficient statistic. If we were treating $\sigma$
+as unknown as well, $\bar{x}$ and $\bar{x^2}$ would be sufficient statistics.
 
 
 As we saw before, model selection problems can be solved in two different ways
