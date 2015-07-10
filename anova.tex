@@ -539,13 +539,18 @@ We then compute the {\tt mu}s deterministically from the {\tt n}s. In this
 alternative parameterisation, the prior for the {\tt n}s is completely
 independent of {\tt grand\_mean} and {\tt diversity}, so sampling from the
 prior would be extremely efficient, yet the implied prior for the {\tt mu}s
-is exactly the same as before.
+is exactly the same as before. Of course, the posterior (what we actually want
+to sample) will still probably have dependence, but hopefully less.
 
-
+Running this new version of the model on the starling data gives the trace
+plot in Figure~\ref{fig:trace_starlings2}, which doesn't have any strange
+features.
 
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[scale=0.6]{Figures/trace_starlings2.pdf}
+\caption{A trace plot of the parameter $\mu_1$ using the revised model.
+\label{fig:trace_starlings2}}
 \end{center}
 \end{figure}
 
