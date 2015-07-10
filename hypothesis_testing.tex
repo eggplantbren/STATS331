@@ -398,18 +398,20 @@ the separate calculation is the most popular, so let's do it that way first.
 
 The posterior odds ratio for $H_0$ over $H_1$ is
 \begin{eqnarray}
-\frac{P(H_0 | x)}{P(H_1|x)} &=& \frac{P(H_0)}{P(H_1)} \times
-\frac{p(x|H_0)}{p(x|H_1)}\label{eq:odds_form2}.
+\frac{P(H_0 | \boldsymbol{x})}{P(H_1|\boldsymbol{x})} &=& \frac{P(H_0)}{P(H_1)} \times
+\frac{p(\boldsymbol{x}|H_0)}{p(\boldsymbol{x}|H_1)}\label{eq:odds_form2}.
 \end{eqnarray}
 If we're assigning 50\% prior probability to $H_0$ and to $H_1$, then the
 prior odds ratio is $0.5 / 0.5 = 1$. Therefore we just need the two likelihoods,
-$p(x | H_0)$ and $p(x | H_1)$. The first of these is fairly straightforward to
+$p(\boldsymbol{x} | H_0)$ and $p(\boldsymbol{x} | H_1)$. The first of these is fairly straightforward to
 get, since $H_0$ implies $\mu = 120$. We just calculate the value of the
 likelihood using Equation~\ref{eq:lik_simplified}, which we've already done
-(it was in Table~\ref{tab:testing_prior}). Therefore
-$p(x | H_0) = 0.02391$.
+(it was in Table~\ref{tab:testing_prior}, albeit arbitrarily scaled). Its value
+is $p(\boldsymbol{x} | H_0) = 1.638 \times 10^{-159}$.
 
-
+To complete the calculation we need the value of $p(\boldsymbol{x}|H_1)$, but
+this is a bit more difficult since $H_1$ doesn't correspond to a particular
+value of $\mu$, but instead implies that $\mu$ is any value other than 120.
 We now need to write down the equation for our prior. In the situation where
 we want a certain value of $\mu$ to have nonzero prior probability, the density
 
