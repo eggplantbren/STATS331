@@ -439,9 +439,15 @@ If we look at Equation~\ref{eq:lik_simplified} as a function of $\mu$, we
 can see that it is an exponential of a quadratic term, which has the same
 mathematical form as a gaussian.
 
-Let's make the prior for $\mu$, conditional on $H_1$, a normal distribution
-centered at $m$ with a standard deviation of $s$.
+If we make the prior for $\mu$ (given $H_1$) a normal distribution, then the
+equation for the density will also be a gaussian function of $\mu$. Two
+gaussian functions multiplied together become a single gaussian function, whose
+integral we can do. This is the kind of thing that Bayesians used to have to
+do in order to make their calculations tractable. It's okay if you wouldn't
+have guessed that a normal distribution would be the conjugate prior here.
 
+A normal prior centered at centered at $m$ with a standard deviation of $s$
+has the following probability density function:
 \begin{eqnarray}
 p(\mu | H_1) &=& \frac{1}{s\sqrt{2\pi}}\exp
 \left[-\frac{1}{2s^2}\left(\mu - m\right)^2\right]
