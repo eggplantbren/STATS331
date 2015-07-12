@@ -418,15 +418,15 @@ $(\mu = 110) \textbf{ or } (\mu = 111) \textbf{ or }... (\mu = 119)$. Then
 we can use the sum rule:
 \begin{eqnarray}
 p(\boldsymbol{x}|H_1) &=& \sum_{\mu=110}^{119} p(\mu | H_1)
-p(\boldsymbol{x}|\mu, H_1).\label{eqn:discrete_evidence}
+p(\boldsymbol{x}|\mu, H_1).\label{eq:discrete_evidence}
 \end{eqnarray}
 Since we're working analytically, we'll be replacing this marginal likelihood
 with a continuous version that allows any possible $\mu$ value on the real line.
 The integral for the marginal likelihood will take a form analogous to
-Equation~\ref{eqn:discrete_evidence}:
+Equation~\ref{eq:discrete_evidence}:
 \begin{eqnarray}
 p(\boldsymbol{x}|H_1) &=& \int p(\mu | H_1)
-p(\boldsymbol{x}|\mu, H_1) \, d\mu.\label{eqn:continuous_evidence}
+p(\boldsymbol{x}|\mu, H_1) \, d\mu.\label{eq:continuous_evidence}
 \end{eqnarray}
 The limits for the integration must be whatever range of $\mu$ is possible.
 
@@ -453,18 +453,13 @@ p(\mu | H_1) &=& \frac{1}{s\sqrt{2\pi}}\exp
 \left[-\frac{1}{2s^2}\left(\mu - m\right)^2\right]
 \end{eqnarray}
 
-Using Bayes' rule, the posterior is proportional to the prior multiplied by
-the likelihood. This is all conditional on $H_1$, which we should remember
-to put in the right hand side of the ``given'' sign in all of our terms:
-
-\begin{eqnarray}
-p(\mu | x, H_1) &\propto& p(\mu | H_1)p(x | \mu, H_1) \\
-&\propto&
-\frac{1}{s\sqrt{2\pi}}\exp
-\left[-\frac{1}{2s^2}\left(\mu - m\right)^2\right]
-\times
-\prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
+Substituting this and the likelihood into Equation~\ref{eq:continuous_evidence},
+and simplifying a bit, we get:
+\begin{equation}
+p(\boldsymbol{x}|H_1) = \int s^{-1}
+\sigma^{-N}(2\pi)^{-N/2-1}
 \exp
-\left[-\frac{1}{2\sigma^2}\left(x_i - \mu\right)^2\right]
-\end{eqnarray}
+\left[-\frac{1}{2s^2}\left(\mu - m\right)^2-\frac{N}{2\sigma^2}\left(\bar{x^2} + \mu^2\right) + \frac{N\mu}{\sigma^2}\bar{x}\right] \, d\mu.\label{eq:continuous_evidence2}
+\end{equation}
+
 
