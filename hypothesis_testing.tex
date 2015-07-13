@@ -456,10 +456,26 @@ p(\mu | H_1) &=& \frac{1}{s\sqrt{2\pi}}\exp
 Substituting this and the likelihood into Equation~\ref{eq:continuous_evidence},
 and simplifying a bit, we get:
 \begin{equation}
-p(\boldsymbol{x}|H_1) = \int s^{-1}
-\sigma^{-N}(2\pi)^{-N/2-1}
+p(\boldsymbol{x}|H_1) = s^{-1}
+\sigma^{-N}(2\pi)^{-N/2-1} \int 
 \exp
 \left[-\frac{1}{2s^2}\left(\mu - m\right)^2-\frac{N}{2\sigma^2}\left(\bar{x^2} + \mu^2\right) + \frac{N\mu}{\sigma^2}\bar{x}\right] \, d\mu.\label{eq:continuous_evidence2}
 \end{equation}
 
+To do the integral, we need to work with the term inside the exponential until
+it is of the form $-\frac{1}{2s'^2}(\mu - m')^2$, i.e. what's usually inside
+the exponential part of a gaussian function. If we could do that, then we
+could do the integral like so:
+\begin{equation}
+\int_{-\infty}^{\infty} \exp\left[-\frac{1}{2s'^2}(\mu - m')^2\right]\, d\mu
+= s'\sqrt{2\pi}
+\end{equation}
+which is just the normalisation condition of a normal distribution.
+Rearranging Equation~\ref{eq:continuous_evidence2} into this form is a pain
+(it involves expanding and simplifying various terms and then
+``completing the square''), and so I'll just state the result. If we set
+\begin{eqnarray}
+m' &=& \frac{\frac{m}{s^2} + \frac{N\bar{x}}{\sigma^2}}{\frac{1}{s^2} + \frac{N}{\sigma^2}}\\
+\frac{1}{s'^2} &=& \frac{1}{s^2} + \frac{N}{\sigma^2}
+\end{eqnarray}
 
