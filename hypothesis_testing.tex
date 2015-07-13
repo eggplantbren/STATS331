@@ -467,8 +467,8 @@ it is of the form $-\frac{1}{2s'^2}(\mu - m')^2$, i.e. what's usually inside
 the exponential part of a gaussian function. If we could do that, then we
 could do the integral like so:
 \begin{equation}
-\int_{-\infty}^{\infty} \exp\left[-\frac{1}{2s'^2}(\mu - m')^2\right]\, d\mu
-= s'\sqrt{2\pi}
+\int_{-\infty}^{\infty} \exp\left[C-\frac{1}{2s'^2}(\mu - m')^2\right]\, d\mu
+= s'\sqrt{2\pi}\exp(C)\label{eq:doable}
 \end{equation}
 which is just the normalisation condition of a normal distribution.
 Rearranging Equation~\ref{eq:continuous_evidence2} into this form is a pain
@@ -476,6 +476,16 @@ Rearranging Equation~\ref{eq:continuous_evidence2} into this form is a pain
 ``completing the square''), and so I'll just state the result. If we set
 \begin{eqnarray}
 m' &=& \frac{\frac{m}{s^2} + \frac{N\bar{x}}{\sigma^2}}{\frac{1}{s^2} + \frac{N}{\sigma^2}}\\
-\frac{1}{s'^2} &=& \frac{1}{s^2} + \frac{N}{\sigma^2}
+\frac{1}{s'^2} &=& \frac{1}{s^2} + \frac{N}{\sigma^2}\\
+C &=& \frac{m^2}{2s^2} + \frac{m'^2}{2s'^2}
 \end{eqnarray}
+then the integral in Equation~\ref{eq:continuous_evidence2} matches that in
+Equation~\ref{eq:doable}. Therefore the marginal likelihood is
+\begin{equation}
+p(\boldsymbol{x}|H_1) = \frac{s'}{s}
+\sigma^{-N}(2\pi)^{-N/2} 
+\exp
+\left[\frac{m^2}{2s^2} + \frac{m'^2}{2s'^2}\right].
+\end{equation}
+
 
