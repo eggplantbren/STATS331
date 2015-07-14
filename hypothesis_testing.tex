@@ -359,8 +359,12 @@ people.
 
 \section{Analytic Solution}
 In this section we'll solve the blood pressure model selection problem
-analytically. Firstly, let's write down the likelihood,
-which is a product of $N$ univariate normal densities:
+analytically. Along the way, we'll learn a useful conjugate prior for when the
+likelihood is based on a normal distribution.
+
+Firstly, let's write down the likelihood,
+which is a product of $N$ univariate normal densities with mean $\mu$ and
+standard deviation $\sigma$:
 \begin{eqnarray}
 p(\boldsymbol{x} | \mu) &=&
 \prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
@@ -388,13 +392,12 @@ can be treated as a ``constant'', and will not affect the posterior for $\mu$.
 This is why $\bar{x}$ is a sufficient statistic. If we were treating $\sigma$
 as unknown as well, $\bar{x}$ and $\bar{x^2}$ would be sufficient statistics.
 
-
 As we saw before, model selection problems can be solved in two different ways
 (but with equivalent results). We can calculate the posterior for $\mu$ in
 a way that includes both $H_0$ and $H_1$ in the calculation from the beginning
 (perhaps assigning 50\% prior probability to $H_0$), or we can compute the
 marginal likelihoods for $H_0$ and $H_1$ separately. In analytical calculations
-the separate calculation is the most popular, so let's do it that way first.
+the separate calculation is the most popular method, so we'll use it here.
 
 The posterior odds ratio for $H_0$ over $H_1$ is
 \begin{eqnarray}
@@ -429,6 +432,8 @@ p(\boldsymbol{x}|H_1) &=& \int p(\mu | H_1)
 p(\boldsymbol{x}|\mu, H_1) \, d\mu.\label{eq:continuous_evidence}
 \end{eqnarray}
 The limits for the integration must be whatever range of $\mu$ is possible.
+The product of two terms inside the integral of Equation~\ref{eq:continuous:evidence} is the prior times the likelihood for a parameter estimation problem in
+which we want to infer $\mu$ from the data,
 
 Recall the notion of a ``conjugate prior'' which was discussed briefly earlier
 (when we used a beta prior together with a binomial sampling distribution).
@@ -475,6 +480,7 @@ Rearranging Equation~\ref{eq:continuous_evidence2} into this form is a pain
 (it involves expanding and simplifying various terms and then
 ``completing the square''), and so I'll just state the result. If we set
 \begin{eqnarray}
+
 m' &=& \frac{\frac{m}{s^2} + \frac{N\bar{x}}{\sigma^2}}{\frac{1}{s^2} + \frac{N}{\sigma^2}}\\
 \frac{1}{s'^2} &=& \frac{1}{s^2} + \frac{N}{\sigma^2}\\
 C &=& \frac{m^2}{2s^2} + \frac{m'^2}{2s'^2}
