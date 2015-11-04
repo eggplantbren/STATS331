@@ -7,7 +7,7 @@ x = linspace(-2, 2, 1001)
 
 plot(x, x**2, 'b', linewidth=2, label='Quadratic')
 plot(x, abs(x), 'r', linewidth=2, label='Linear')
-plot(x, abs(x) < 0.05, 'g', linewidth=2, label='All-or-nothing')
+plot(x, abs(x) > 0.05, 'g', linewidth=2, label='All-or-nothing')
 ylim([-0.1, 4])
 xlabel('$\hat{\\theta} - \\theta$', fontsize=20)
 title('Three Loss Functions')
