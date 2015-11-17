@@ -357,140 +357,140 @@ compare $H_1$ vs. $H_2$. This second way of calculating Bayes Factors is
 most useful when the two analyses were actually done separately by different
 people.
 
-\section{Analytic Solution}
-In this section we'll solve the blood pressure model selection problem
-analytically. Along the way, we'll learn a useful conjugate prior for when the
-likelihood is based on a normal distribution.
+%\section{Analytic Solution}
+%In this section we'll solve the blood pressure model selection problem
+%analytically. Along the way, we'll learn a useful conjugate prior for when the
+%likelihood is based on a normal distribution.
 
-Firstly, let's write down the likelihood,
-which is a product of $N$ univariate normal densities with mean $\mu$ and
-standard deviation $\sigma$:
-\begin{eqnarray}
-p(\boldsymbol{x} | \mu) &=&
-\prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
-\exp
-\left[-\frac{1}{2\sigma^2}\left(x_i - \mu\right)^2\right].
-\end{eqnarray}
-We can rearrange this a bit, which will be useful later:
-\begin{eqnarray}
-p(\boldsymbol{x} | \mu) &=& \sigma^{-N}(2\pi)^{-N/2}
-\exp
-\left[-\frac{1}{2\sigma^2}\sum_{i=1}^N\left(x_i - \mu\right)^2\right]\\
-&=& \sigma^{-N}(2\pi)^{-N/2}
-\exp
-\left[-\frac{1}{2\sigma^2}\left(N\bar{x^2} - 2N\mu\bar{x} + N\mu^2\right)\right]\\
-&=& \sigma^{-N}(2\pi)^{-N/2}
-\exp
-\left[-\frac{N}{2\sigma^2}\left(\bar{x^2} + \mu^2\right) + \frac{N\mu}{\sigma^2}\bar{x}\right].\label{eq:lik_simplified}
-%\sum_{i=1}^N\left(x_i^2 - 2\mu x_i + \mu^2\right)\right].
-\end{eqnarray}
-where $\bar{x}$ is the arithmetic mean of the data and $\bar{x^2}$ is the mean
-squared value of the data. Notice that the likelihood only depends on the data
-through the values of $\bar{x}$ and $\bar{x^2}$. In fact, if we're only trying
-to infer $\mu$ and not $\sigma$ then the part that depends on $\bar{x^2}$
-can be treated as a ``constant'', and will not affect the posterior for $\mu$.
-This is why $\bar{x}$ is a sufficient statistic. If we were treating $\sigma$
-as unknown as well, $\bar{x}$ and $\bar{x^2}$ would be sufficient statistics.
+%Firstly, let's write down the likelihood,
+%which is a product of $N$ univariate normal densities with mean $\mu$ and
+%standard deviation $\sigma$:
+%\begin{eqnarray}
+%p(\boldsymbol{x} | \mu) &=&
+%\prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
+%\exp
+%\left[-\frac{1}{2\sigma^2}\left(x_i - \mu\right)^2\right].
+%\end{eqnarray}
+%We can rearrange this a bit, which will be useful later:
+%\begin{eqnarray}
+%p(\boldsymbol{x} | \mu) &=& \sigma^{-N}(2\pi)^{-N/2}
+%\exp
+%\left[-\frac{1}{2\sigma^2}\sum_{i=1}^N\left(x_i - \mu\right)^2\right]\\
+%&=& \sigma^{-N}(2\pi)^{-N/2}
+%\exp
+%\left[-\frac{1}{2\sigma^2}\left(N\bar{x^2} - 2N\mu\bar{x} + N\mu^2\right)\right]\\
+%&=& \sigma^{-N}(2\pi)^{-N/2}
+%\exp
+%\left[-\frac{N}{2\sigma^2}\left(\bar{x^2} + \mu^2\right) + \frac{N\mu}{\sigma^2}\bar{x}\right].\label{eq:lik_simplified}
+%%\sum_{i=1}^N\left(x_i^2 - 2\mu x_i + \mu^2\right)\right].
+%\end{eqnarray}
+%where $\bar{x}$ is the arithmetic mean of the data and $\bar{x^2}$ is the mean
+%squared value of the data. Notice that the likelihood only depends on the data
+%through the values of $\bar{x}$ and $\bar{x^2}$. In fact, if we're only trying
+%to infer $\mu$ and not $\sigma$ then the part that depends on $\bar{x^2}$
+%can be treated as a ``constant'', and will not affect the posterior for $\mu$.
+%This is why $\bar{x}$ is a sufficient statistic. If we were treating $\sigma$
+%as unknown as well, $\bar{x}$ and $\bar{x^2}$ would be sufficient statistics.
 
-As we saw before, model selection problems can be solved in two different ways
-(but with equivalent results). We can calculate the posterior for $\mu$ in
-a way that includes both $H_0$ and $H_1$ in the calculation from the beginning
-(perhaps assigning 50\% prior probability to $H_0$), or we can compute the
-marginal likelihoods for $H_0$ and $H_1$ separately. In analytical calculations
-the separate calculation is the most popular method, so we'll use it here.
+%As we saw before, model selection problems can be solved in two different ways
+%(but with equivalent results). We can calculate the posterior for $\mu$ in
+%a way that includes both $H_0$ and $H_1$ in the calculation from the beginning
+%(perhaps assigning 50\% prior probability to $H_0$), or we can compute the
+%marginal likelihoods for $H_0$ and $H_1$ separately. In analytical calculations
+%the separate calculation is the most popular method, so we'll use it here.
 
-The posterior odds ratio for $H_0$ over $H_1$ is
-\begin{eqnarray}
-\frac{P(H_0 | \boldsymbol{x})}{P(H_1|\boldsymbol{x})} &=& \frac{P(H_0)}{P(H_1)} \times
-\frac{p(\boldsymbol{x}|H_0)}{p(\boldsymbol{x}|H_1)}\label{eq:odds_form2}.
-\end{eqnarray}
-If we're assigning 50\% prior probability to $H_0$ and to $H_1$, then the
-prior odds ratio is $0.5 / 0.5 = 1$. Therefore we just need the two likelihoods,
-$p(\boldsymbol{x} | H_0)$ and $p(\boldsymbol{x} | H_1)$. The first of these is fairly straightforward to
-get, since $H_0$ implies $\mu = 120$. We just calculate the value of the
-likelihood using Equation~\ref{eq:lik_simplified}, which we've already done
-(it was in Table~\ref{tab:testing_prior}, albeit arbitrarily scaled). Its value
-is $p(\boldsymbol{x} | H_0) = 1.638 \times 10^{-159}$.
+%The posterior odds ratio for $H_0$ over $H_1$ is
+%\begin{eqnarray}
+%\frac{P(H_0 | \boldsymbol{x})}{P(H_1|\boldsymbol{x})} &=& \frac{P(H_0)}{P(H_1)} \times
+%\frac{p(\boldsymbol{x}|H_0)}{p(\boldsymbol{x}|H_1)}\label{eq:odds_form2}.
+%\end{eqnarray}
+%If we're assigning 50\% prior probability to $H_0$ and to $H_1$, then the
+%prior odds ratio is $0.5 / 0.5 = 1$. Therefore we just need the two likelihoods,
+%$p(\boldsymbol{x} | H_0)$ and $p(\boldsymbol{x} | H_1)$. The first of these is fairly straightforward to
+%get, since $H_0$ implies $\mu = 120$. We just calculate the value of the
+%likelihood using Equation~\ref{eq:lik_simplified}, which we've already done
+%(it was in Table~\ref{tab:testing_prior}, albeit arbitrarily scaled). Its value
+%is $p(\boldsymbol{x} | H_0) = 1.638 \times 10^{-159}$.
 
-To complete the calculation we need the value of $p(\boldsymbol{x}|H_1)$, but
-this is a bit more difficult since $H_1$ doesn't correspond to a particular
-value of $\mu$, but instead implies that $\mu$ is any value other than 120.
-So what exactly does it mean? In the discrete situation, it's possible to
-calculate $p(\boldsymbol{x}|H_1)$ by recognising that $H_1$ is equivalent to
-$(\mu = 110) \textbf{ or } (\mu = 111) \textbf{ or }... (\mu = 119)$. Then
-we can use the sum rule:
-\begin{eqnarray}
-p(\boldsymbol{x}|H_1) &=& \sum_{\mu=110}^{119} p(\mu | H_1)
-p(\boldsymbol{x}|\mu, H_1).\label{eq:discrete_evidence}
-\end{eqnarray}
-Since we're working analytically, we'll be replacing this marginal likelihood
-with a continuous version that allows any possible $\mu$ value on the real line.
-The integral for the marginal likelihood will take a form analogous to
-Equation~\ref{eq:discrete_evidence}:
-\begin{eqnarray}
-p(\boldsymbol{x}|H_1) &=& \int p(\mu | H_1)
-p(\boldsymbol{x}|\mu, H_1) \, d\mu.\label{eq:continuous_evidence}
-\end{eqnarray}
-The limits for the integration must be whatever range of $\mu$ is possible.
-The product of two terms inside the integral of Equation~\ref{eq:continuous:evidence} is the prior times the likelihood for a parameter estimation problem in
-which we want to infer $\mu$ from the data,
+%To complete the calculation we need the value of $p(\boldsymbol{x}|H_1)$, but
+%this is a bit more difficult since $H_1$ doesn't correspond to a particular
+%value of $\mu$, but instead implies that $\mu$ is any value other than 120.
+%So what exactly does it mean? In the discrete situation, it's possible to
+%calculate $p(\boldsymbol{x}|H_1)$ by recognising that $H_1$ is equivalent to
+%$(\mu = 110) \textbf{ or } (\mu = 111) \textbf{ or }... (\mu = 119)$. Then
+%we can use the sum rule:
+%\begin{eqnarray}
+%p(\boldsymbol{x}|H_1) &=& \sum_{\mu=110}^{119} p(\mu | H_1)
+%p(\boldsymbol{x}|\mu, H_1).\label{eq:discrete_evidence}
+%\end{eqnarray}
+%Since we're working analytically, we'll be replacing this marginal likelihood
+%with a continuous version that allows any possible $\mu$ value on the real line.
+%The integral for the marginal likelihood will take a form analogous to
+%Equation~\ref{eq:discrete_evidence}:
+%\begin{eqnarray}
+%p(\boldsymbol{x}|H_1) &=& \int p(\mu | H_1)
+%p(\boldsymbol{x}|\mu, H_1) \, d\mu.\label{eq:continuous_evidence}
+%\end{eqnarray}
+%The limits for the integration must be whatever range of $\mu$ is possible.
+%The product of two terms inside the integral of Equation~\ref{eq:continuous:evidence} is the prior times the likelihood for a parameter estimation problem in
+%which we want to infer $\mu$ from the data,
 
-Recall the notion of a ``conjugate prior'' which was discussed briefly earlier
-(when we used a beta prior together with a binomial sampling distribution).
-This is a mathematical trick where we choose a particular kind of prior
-that works together nicely with the mathematical form of the likelihood, so
-that we can do our calculations and actually get an answer in closed form.
-If we look at Equation~\ref{eq:lik_simplified} as a function of $\mu$, we
-can see that it is an exponential of a quadratic term, which has the same
-mathematical form as a gaussian.
+%Recall the notion of a ``conjugate prior'' which was discussed briefly earlier
+%(when we used a beta prior together with a binomial sampling distribution).
+%This is a mathematical trick where we choose a particular kind of prior
+%that works together nicely with the mathematical form of the likelihood, so
+%that we can do our calculations and actually get an answer in closed form.
+%If we look at Equation~\ref{eq:lik_simplified} as a function of $\mu$, we
+%can see that it is an exponential of a quadratic term, which has the same
+%mathematical form as a gaussian.
 
-If we make the prior for $\mu$ (given $H_1$) a normal distribution, then the
-equation for the density will also be a gaussian function of $\mu$. Two
-gaussian functions multiplied together become a single gaussian function, whose
-integral we can do. This is the kind of thing that Bayesians used to have to
-do in order to make their calculations tractable. It's okay if you wouldn't
-have guessed that a normal distribution would be the conjugate prior here.
+%If we make the prior for $\mu$ (given $H_1$) a normal distribution, then the
+%equation for the density will also be a gaussian function of $\mu$. Two
+%gaussian functions multiplied together become a single gaussian function, whose
+%integral we can do. This is the kind of thing that Bayesians used to have to
+%do in order to make their calculations tractable. It's okay if you wouldn't
+%have guessed that a normal distribution would be the conjugate prior here.
 
-A normal prior centered at centered at $m$ with a standard deviation of $s$
-has the following probability density function:
-\begin{eqnarray}
-p(\mu | H_1) &=& \frac{1}{s\sqrt{2\pi}}\exp
-\left[-\frac{1}{2s^2}\left(\mu - m\right)^2\right]
-\end{eqnarray}
+%A normal prior centered at centered at $m$ with a standard deviation of $s$
+%has the following probability density function:
+%\begin{eqnarray}
+%p(\mu | H_1) &=& \frac{1}{s\sqrt{2\pi}}\exp
+%\left[-\frac{1}{2s^2}\left(\mu - m\right)^2\right]
+%\end{eqnarray}
 
-Substituting this and the likelihood into Equation~\ref{eq:continuous_evidence},
-and simplifying a bit, we get:
-\begin{equation}
-p(\boldsymbol{x}|H_1) = s^{-1}
-\sigma^{-N}(2\pi)^{-N/2-1} \int 
-\exp
-\left[-\frac{1}{2s^2}\left(\mu - m\right)^2-\frac{N}{2\sigma^2}\left(\bar{x^2} + \mu^2\right) + \frac{N\mu}{\sigma^2}\bar{x}\right] \, d\mu.\label{eq:continuous_evidence2}
-\end{equation}
+%Substituting this and the likelihood into Equation~\ref{eq:continuous_evidence},
+%and simplifying a bit, we get:
+%\begin{equation}
+%p(\boldsymbol{x}|H_1) = s^{-1}
+%\sigma^{-N}(2\pi)^{-N/2-1} \int 
+%\exp
+%\left[-\frac{1}{2s^2}\left(\mu - m\right)^2-\frac{N}{2\sigma^2}\left(\bar{x^2} + \mu^2\right) + \frac{N\mu}{\sigma^2}\bar{x}\right] \, d\mu.\label{eq:continuous_evidence2}
+%\end{equation}
 
-To do the integral, we need to work with the term inside the exponential until
-it is of the form $-\frac{1}{2s'^2}(\mu - m')^2$, i.e. what's usually inside
-the exponential part of a gaussian function. If we could do that, then we
-could do the integral like so:
-\begin{equation}
-\int_{-\infty}^{\infty} \exp\left[C-\frac{1}{2s'^2}(\mu - m')^2\right]\, d\mu
-= s'\sqrt{2\pi}\exp(C)\label{eq:doable}
-\end{equation}
-which is just the normalisation condition of a normal distribution.
-Rearranging Equation~\ref{eq:continuous_evidence2} into this form is a pain
-(it involves expanding and simplifying various terms and then
-``completing the square''), and so I'll just state the result. If we set
-\begin{eqnarray}
-m' &=& \frac{\frac{m}{s^2} + \frac{N\bar{x}}{\sigma^2}}{\frac{1}{s^2} + \frac{N}{\sigma^2}}\\
-\frac{1}{s'^2} &=& \frac{1}{s^2} + \frac{N}{\sigma^2}\\
-C &=& \frac{m^2}{2s^2} + \frac{m'^2}{2s'^2}
-\end{eqnarray}
-then the integral in Equation~\ref{eq:continuous_evidence2} matches that in
-Equation~\ref{eq:doable}. Therefore the marginal likelihood is
-\begin{equation}
-p(\boldsymbol{x}|H_1) = \frac{s'}{s}
-\sigma^{-N}(2\pi)^{-N/2} 
-\exp
-\left[\frac{m^2}{2s^2} + \frac{m'^2}{2s'^2}\right].
-\end{equation}
+%To do the integral, we need to work with the term inside the exponential until
+%it is of the form $-\frac{1}{2s'^2}(\mu - m')^2$, i.e. what's usually inside
+%the exponential part of a gaussian function. If we could do that, then we
+%could do the integral like so:
+%\begin{equation}
+%\int_{-\infty}^{\infty} \exp\left[C-\frac{1}{2s'^2}(\mu - m')^2\right]\, d\mu
+%= s'\sqrt{2\pi}\exp(C)\label{eq:doable}
+%\end{equation}
+%which is just the normalisation condition of a normal distribution.
+%Rearranging Equation~\ref{eq:continuous_evidence2} into this form is a pain
+%(it involves expanding and simplifying various terms and then
+%``completing the square''), and so I'll just state the result. If we set
+%\begin{eqnarray}
+%m' &=& \frac{\frac{m}{s^2} + \frac{N\bar{x}}{\sigma^2}}{\frac{1}{s^2} + \frac{N}{\sigma^2}}\\
+%\frac{1}{s'^2} &=& \frac{1}{s^2} + \frac{N}{\sigma^2}\\
+%C &=& \frac{m^2}{2s^2} + \frac{m'^2}{2s'^2}
+%\end{eqnarray}
+%then the integral in Equation~\ref{eq:continuous_evidence2} matches that in
+%Equation~\ref{eq:doable}. Therefore the marginal likelihood is
+%\begin{equation}
+%p(\boldsymbol{x}|H_1) = \frac{s'}{s}
+%\sigma^{-N}(2\pi)^{-N/2} 
+%\exp
+%\left[\frac{m^2}{2s^2} + \frac{m'^2}{2s'^2}\right].
+%\end{equation}
 
 
