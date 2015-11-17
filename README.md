@@ -7,6 +7,12 @@ minimal background in mathematics and probability. The first ten chapters are
 relatively complete but could use more examples. The latter chapter chapters
 are rough drafts and are works in progress.
 
+If you don't want the Latex source and just want a PDF file of the notes, I
+you can get it from:
+
+https://www.stat.auckland.ac.nz/~brewer/stats331.pdf
+
+
 (c) 2012, 2013, 2014, 2015 Brendon J. Brewer
 
 LICENCE
