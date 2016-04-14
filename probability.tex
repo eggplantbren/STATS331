@@ -1,7 +1,8 @@
 \chapter{Probability}\label{sec:probability}
 This course will use probability theory quite a lot, but we will often use
 a fairly informal notation. Bayesian
-statistics is really just probability theory used for a particular purpose (to describe uncertainty). The two most important rules of probability are given below,
+statistics is really just probability theory used for a particular purpose,
+to describe uncertainty. The two most important rules of probability are given below,
 for reference.
 
 \section{The Product Rule}
@@ -9,7 +10,7 @@ The first important rule of probability is the
 product rule. This tells us how to calculate the probability that any two
 propositions or hypotheses, $A$ and $B$, are {\bf both} true.
 The probability of $A$ {\bf and}
-$B$ will be denoted $P(A, B)$. This can be calculated by first finding the
+$B$, will be denoted $P(A, B)$. This can be calculated by first finding the
 probability that $A$ is true, and then multiplying by the probability that $B$
 is true {\it given} that $A$ is true.
 \begin{eqnarray}
@@ -26,7 +27,7 @@ When using the product rule (or any rule of probability, for that matter), you
 must ensure that the statements to the right of the ``given'' sign (or the
 absence of any statements) are consistent throughout. For example,
 $P(A, B|C) = P(A|C)P(B|A, C)$ is a valid use of the product rule, since
-``given C'' is part of the background information in all of the terms.
+``given $C$'' is part of the background information in all of the terms.
 
 You may be familiar with the idea of a {\it tree diagram} from earlier
 statistics courses or maybe even high school. A tree diagram is a helpful way
@@ -51,7 +52,9 @@ example, the following is also valid:
 \begin{eqnarray}
 P(A, B, C | D) &=& P(A |D)P(B|A,D)P(C|B,A,D).
 \end{eqnarray}
-
+In fact, it's best to regard even ``unconditional'' probabilities such
+as $P(A)$ as being conditional on some prior information $I$, which is just
+left out to keep the notation simple.
 
 \subsection{Bayes' Rule}
 Looking at Equations~\ref{product1} and~\ref{product2}, they are both equations
@@ -71,18 +74,27 @@ probabilities. Say we want the probability of $A$ but to do that, we would need
 to know the status (truth or falsehood) of some other statement $B$. Then we
 can use the sum rule,
 \begin{eqnarray}
-P(A) &=& P(A, B) + P(A, \bar{B})\\
-&=& P(B)P(A|B) + P(\bar{B})P(A|\bar{B}).
+P(A) &=& P(A, B) + P(A, \neg B)\\
+&=& P(B)P(A|B) + P(\neg B)P(A|\neg B).
 \end{eqnarray}
-where the over-bar means ``not'', i.e. $\bar{B}$ means $B$ is false. To understand
+where the $\neg$ symbol means ``not'', i.e. $\neg B$ is the statement that
+$B$ is false. To understand
 this formula, imagine we want to know the probability of $A$. There are
 two mutually exclusive ways that could happen: via $B$ being true, or via $B$
 being false. The first way has probability $P(B)P(A|B)$, and the second way
-has probability $P(\bar{B})P(A|\bar{B})$.
+has probability $P(\neg B)P(A|\neg B)$.
+
+If, instead of just two mutually exclusive and exhaustive
+pathways $B$ and $\neg B$, there are many, such as $B_1, ..., B_n$.
+Then the sum rule takes the form
+\begin{eqnarray}
+P(A) &=& \sum_{i=1}^n P(B_i)P(A|B_i).
+\end{eqnarray}
 
 In Bayesian statistics the sum rule is most often used to calculate the
-normalising constant $P(D)$, and it is also used to marginalise out ``nuisance
-parameters'', although in STATS 331 we will mostly use MCMC to do the latter.
+marginal likelihood $P(D)$, and to marginalise out ``nuisance
+parameters'' from the posterior distribution. In STATS 331 we will mostly use
+MCMC to do the latter.
 
 \section{Random Variables}
 Throughout this course I will use the term ``probability distribution'' to
