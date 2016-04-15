@@ -167,9 +167,11 @@ mu = seq(110, 120)
 # Make the testing prior
 prior = rep(0.5/10, 11)
 prior[11] = 0.5
+
 # Compute the likelihood for the 100 data points.
 # The numbers get close to 0, so let's use logs
-log_lik = 1
+log_lik = rep(0, 11)
+
 # Use a for loop to loop over all data values
 # and multiply the likelihoods
 for(i in 1:100)
