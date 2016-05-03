@@ -243,7 +243,7 @@ hypothesis.
 \begin{framed}
 \begin{itemize}
 \item Start in some state $\theta$
-\item Generate a ``proposal'' state $\theta'$ from a {\it proposal distribution} $q(\theta' | \theta)$
+\item Generate a ``proposal'' state $\theta'$ from a {\it proposal distribution} $q$ (assumed symmetric so that $q(\theta'|\theta)=q(\theta|\theta')$)
 \item With probability $\alpha = \textnormal{min}(1, h'/h)$, replace the current
 state with the proposed state
 \item Repeat
