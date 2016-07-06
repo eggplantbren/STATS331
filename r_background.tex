@@ -26,7 +26,33 @@ with vectors too, if they're the same length. For example:
 > c(1,2,3)*c(2,5,3)
 [1]  2 10 9
 \end{verbatim}
-If you wanted, you could assign the output to a new variable.
+If you wanted, you could assign the output to a new variable:
+\begin{verbatim}
+> x = c(1,2,3)
+> y = c(2,5,3)
+> z = x*y
+> z
+[1]  2 10 9
+\end{verbatim}
+It is important to understand how to access subsets (or ``slices'') of vectors
+based on which elements satisfy a certain condition. Here is an example:
+\begin{verbatim}
+> x = c(1, 2, 3, 0, 10)
+> test = x > 3
+> test
+[1] FALSE FALSE FALSE FALSE  TRUE
+> y = x[x <= 2]
+> y
+[1] 1 2 0
+> z = sum(x[x <= 2])
+> z
+[1] 3
+\end{verbatim}
+This kind of thing will be used frequently in the computational parts of the
+course.
+
+
+
 
 \section{Lists}
 Lists are a bit like vectors, in that they can contain a lot of information in
