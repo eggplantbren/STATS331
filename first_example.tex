@@ -448,15 +448,19 @@ being in a working state. If you want to calculate the probability of $A$
 exclusive. The prior probability that the phone is working is
 therefore:
 \begin{eqnarray}
-P(\textnormal{phone working}) &=& P(H_1 \textbf{ or } H_2)\\
+P(\textnormal{phone working}) &=& P(H_1 \vee H_2)\\
 &=& P(H_1) + P(H_2)\\
 &=& 0.4 + 0.4\\
 &=& 0.8.
 \end{eqnarray}
+Here, I have introduced the notation $\vee$, meaning ``logical or'': For
+any two propositions $A$, $B$, the proposition $(A \vee B)$ is true if
+either one of $A$ or $B$ is true (or both).
+
 The posterior probability is worked out in a similar way, but using the posterior
 probabilities instead of the prior ones:
 \begin{eqnarray}
-P(\textnormal{phone working}|\textnormal{busy signal}) &=& P(H_1 \textbf{ or } H_2 | \textnormal{busy signal})\\
+P(\textnormal{phone working}|\textnormal{busy signal}) &=& P(H_1 \vee H_2 | \textnormal{busy signal})\\
 &=& P(H_1|\textnormal{busy signal}) + P(H_2|\textnormal{busy signal})\\
 &=& 0.662 + 0.00662\\
 &=& 0.6689.
