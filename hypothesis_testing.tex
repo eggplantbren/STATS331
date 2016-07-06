@@ -68,7 +68,7 @@ to calculate: $H_1$ will
 be true if $\theta$ takes any value other than 2. Therefore, the posterior
 probability of $H_1$ is
 \begin{eqnarray}
-P(H_1|x) &=& P(\theta = 1.5 \textbf{ or } \theta = 2.5 \textbf{ or } \theta = 3|x)\\
+P(H_1|x) &=& P(\theta = 1.5 \vee \theta = 2.5 \vee \theta = 3|x)\\
 &=& P(\theta = 1.5|x) + P(\theta = 2.5|x) + P(\theta = 3|x)\\
 &=& 0.1 + 0.3 + 0.4\\
 &=& 0.8.
@@ -419,7 +419,7 @@ people.
 %value of $\mu$, but instead implies that $\mu$ is any value other than 120.
 %So what exactly does it mean? In the discrete situation, it's possible to
 %calculate $p(\boldsymbol{x}|H_1)$ by recognising that $H_1$ is equivalent to
-%$(\mu = 110) \textbf{ or } (\mu = 111) \textbf{ or }... (\mu = 119)$. Then
+%$(\mu = 110) \vee (\mu = 111) \vee... (\mu = 119)$. Then
 %we can use the sum rule:
 %\begin{eqnarray}
 %p(\boldsymbol{x}|H_1) &=& \sum_{\mu=110}^{119} p(\mu | H_1)

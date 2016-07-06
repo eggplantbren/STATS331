@@ -68,11 +68,18 @@ Bayes' rule will be used extensively throughout this course. You will need to
 know it and know how to use it!
 
 \section{The Sum Rule}
-The sum rule is the second important rule of probability. It is used to obtain
-the probability that some proposition $A$ is true from some other
-probabilities. Say we want the probability of $A$ but to do that, we would need
-to know the status (truth or falsehood) of some other statement $B$. Then we
-can use the sum rule,
+The sum rule is the second important rule of probability. A general statement
+of the sum rule is
+\begin{align}
+P(A \vee B) &= P(A) + P(B) - P(A, B).
+\end{align}
+where $\vee$ means logical {\em or}.
+
+The sum rule is often used to calculate the
+probability of some statement
+$A$ when we only know the probability of $A$ conditional on some
+some other statement $B$. Then we
+can use the sum rule like this:
 \begin{eqnarray}
 P(A) &=& P(A, B) + P(A, \neg B)\\
 &=& P(B)P(A|B) + P(\neg B)P(A|\neg B).
