@@ -71,7 +71,7 @@ know it and know how to use it!
 The sum rule is the second important rule of probability. A general statement
 of the sum rule is
 \begin{align}
-P(A \vee B) &= P(A) + P(B) - P(A, B).
+P(A \vee B) &= P(A) + P(B) - P(A, B).\label{eqn:sum_rule}
 \end{align}
 where $\vee$ means logical {\em or}.
 
@@ -97,6 +97,8 @@ Then the sum rule takes the form
 \begin{eqnarray}
 P(A) &=& \sum_{i=1}^n P(B_i)P(A|B_i).
 \end{eqnarray}
+As an exercise, you can try proving this version of the sum rule
+starting from the simpler version of Equation~\ref{eqn:sum_rule}.
 
 In Bayesian statistics the sum rule is most often used to calculate the
 marginal likelihood $P(D)$, and to marginalise out ``nuisance
