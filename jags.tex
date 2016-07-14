@@ -117,12 +117,12 @@ smmaries. The
 {\tt rjags} library has many features and options, and it can be a bit
 overwhelming to figure out all of them using the documentation.
 Therefore, I have written a template
-R script called {\tt use\_jags.r} where you can specify the data, the JAGS
+R script called {\tt use\_jags.R} where you can specify the data, the JAGS
 model, and some options at the
 top of the file, and you do not have to worry about all the functions for
 calling JAGS from R.
 
-The first part of {\tt use\_jags.r} is given below. This is the part you
+The first part of {\tt use\_jags.R} is given below. This is the part you
 can modify to load different data, change the model assumptions, and decide
 how long (for how many iterations or steps) you would like the MCMC to run for.
 
@@ -161,7 +161,7 @@ steps = 10000
 thin = 1
 \end{minted}
 
-The second part of {\tt use\_jags.r} actually runs JAGS. You won't need to edit
+The second part of {\tt use\_jags.R} actually runs JAGS. You won't need to edit
 this or know much about it, but for completeness, here it is:
 
 \begin{minted}[mathescape,
@@ -268,7 +268,7 @@ panel. You can compare this with Figure~\ref{fig:bus_inference}.
 \end{figure}
 
 \section{Checklist for Using JAGS}
-When running JAGS using the {\tt use\_jags.r} script provided, there are several
+When running JAGS using the {\tt use\_jags.R} script provided, there are several
 things you need to ensure. These are listed below.
 
 \begin{itemize}
