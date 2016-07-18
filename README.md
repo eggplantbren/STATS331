@@ -13,7 +13,7 @@ you can get it from:
 https://www.stat.auckland.ac.nz/~brewer/stats331.pdf
 
 
-(c) 2012, 2013, 2014, 2015 Brendon J. Brewer
+(c) 2012--2016 Brendon J. Brewer
 
 LICENCE
 =======
