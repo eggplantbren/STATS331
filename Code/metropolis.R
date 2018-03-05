@@ -35,7 +35,11 @@ for(i in 1:steps)
     params2 = proposal(params)
 
     # Measure how good it is
-    logh2 = log_prior(params2) + log_likelihood(params2)
+    logh2 = log_prior(params2)
+    if(logh2 != -Inf)
+    {
+        logh2 = logh2 + log_likelihood(params2)
+    }
 
     # Acceptance probability
     log_alpha = logh2 - logh
