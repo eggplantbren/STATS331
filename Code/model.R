@@ -5,7 +5,7 @@ data = list(t=c(1,   2,  3,  4,  5,  6,  7,  8,  9, 10),
             N=10)
 
 # Prior widths for each parameter (these help set scale for proposal)
-widths = c(10, 1)
+widths = c(10, 20)
 
 # Function for the prior distribution
 # Input: parameter vector
@@ -17,8 +17,8 @@ log_prior = function(params)
     # A Normal(0, sd=10) prior for the first parameter
     logp = logp + dnorm(params["log_lambda0"], 0, 10, log=TRUE)
 
-    # A Normal(0, 1) prior for the second parameter
-    logp = logp + dnorm(params["slope"], 0, 1, log=TRUE)
+    # A Uniform(-10, 10) prior for the second parameter
+    logp = logp + dunif(params["slope"], -10, 10, log=TRUE)
 
     return(logp)
 }
