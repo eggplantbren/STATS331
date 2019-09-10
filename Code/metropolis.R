@@ -11,13 +11,20 @@ thin = 10
 source("model.R")
 
 # Starting position in parameter space
-params = c(0, 0)
+params = c(0.5)
 
-# Give the parameters names
-names(params) = c("log_lambda0", "slope")
+# Give the parameters names (OPTIONAL)
+names(params) = c("theta")
 
 # Measure how good it is
-logh = log_prior(params) + log_likelihood(params)
+logp = log_prior(params)
+if(is.nan(logp) | is.infinite(logp))
+{
+    print("Bad initial position!")
+    stop()
+}
+logh = logp + log_likelihood(params)
+
 
 # Set up 2D array for storage of results
 keep = array(NA, dim=c(steps/thin, length(params)))
@@ -34,14 +41,18 @@ for(i in 1:steps)
     # Propose to move somewhere else
     params2 = proposal(params)
 
-    # Measure how good it is
-    logh2 = log_prior(params2)
-    if(logh2 != -Inf)
+    # Measure how good it is. Handle any awkward cases of infinity
+    # I.e., if the log prior is -infinity, don't even evaluate log likelihood
+    logp2 = log_prior(params2)
+    if(is.nan(logp2) | is.infinite(logp2))
     {
-        logh2 = logh2 + log_likelihood(params2)
+        logh2 = -Inf
+    } else
+    {
+        logh2 = logp2 + log_likelihood(params2)
     }
 
-    # Acceptance probability
+    # Log of acceptance probability
     log_alpha = logh2 - logh
     if(log_alpha > 0)
     {
@@ -67,10 +78,4 @@ for(i in 1:steps)
 
 # Print Metropolis acceptance rate
 cat("Acceptance rate =", accepted/steps, "\n")
-
-# Plot joint posterior distribution of the two parameters,
-# excluding a burn-in period.
-L = dim(keep)[1]
-plot(keep[1000:L, 1], keep[1000:L ,2],
-     xlab="log_lambda0", ylab="slope", cex=0.1)
 

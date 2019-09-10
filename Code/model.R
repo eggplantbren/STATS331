@@ -1,11 +1,7 @@
-# A dataset
-# This could easily be loaded from an external file
-data = list(t=c(1,   2,  3,  4,  5,  6,  7,  8,  9, 10),
-            y=c(21, 19, 23, 40, 27, 22, 31, 39, 28, 42),
-            N=10)
+# A dataset could be loaded here
 
 # Prior widths for each parameter (these help set scale for proposal)
-widths = c(10, 20)
+widths = c(1)
 
 # Function for the prior distribution
 # Input: parameter vector
@@ -13,13 +9,7 @@ widths = c(10, 20)
 log_prior = function(params)
 {
     logp = 0
-
-    # A Normal(0, sd=10) prior for the first parameter
-    logp = logp + dnorm(params["log_lambda0"], 0, 10, log=TRUE)
-
-    # A Uniform(-10, 10) prior for the second parameter
-    logp = logp + dunif(params["slope"], -10, 10, log=TRUE)
-
+    logp = dunif(params, 0, 1, log=TRUE)
     return(logp)
 }
 
@@ -28,12 +18,8 @@ log_prior = function(params)
 # Output: log likelihood value
 log_likelihood = function(params)
 {
-    # Calculate poisson rate as a function of time
-    lambda = exp(params["log_lambda0"] + params["slope"]*data$t)
-
-    # Poisson likelihood
-    logl = sum(dpois(data$y, lambda, log=TRUE))
-
+    # More generally this will use a bigger dataset loaded from a file
+    logl = 6*log(params[1]) + 4*log(1 - params[1])
     return(logl)
 }
 
