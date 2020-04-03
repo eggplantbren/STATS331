@@ -9,53 +9,35 @@ model = "model
 data = list(x=2, N=5)
 
 # Variables to monitor
-variable_names = c('theta')
+variable_names = c("theta", "x")
 
 # How many burn-in steps?
 burn_in = 1000
 
 # How many proper steps?
-steps = 10000
+steps = 100000
 
 # Thinning?
-thin = 1
+thin = 10
 
 # Random number seed
 seed = 42
 
-
-# NO NEED TO EDIT PAST HERE!!!
-# Just run it all and use the results list.
-
-library('rjags')
+library("rjags")
 
 # Write model out to file
-fileConn=file("model.temp")
+fileConn=file("model_temp.txt")
 writeLines(model, fileConn)
 close(fileConn)
 
-if(all(is.na(data)))
-{
-	m = jags.model(file="model.temp", inits=list(.RNG.seed=seed, .RNG.name="base::Mersenne-Twister"))
-} else
-{
-	m = jags.model(file="model.temp", data=data, inits=list(.RNG.seed=seed, .RNG.name="base::Mersenne-Twister"))
-}
-update(m, burn_in)
-draw = jags.samples(m, steps, thin=thin, variable.names = variable_names)
-# Convert to a list
-make_list <- function(draw)
-{
-	results = list()
-	for(name in names(draw))
-	{
-		# Extract "chain 1"
-		results[[name]] = as.array(draw[[name]][,,1])
-		
-		# Transpose 2D arrays
-		if(length(dim(results[[name]])) == 2)
-			results[[name]] = t(results[[name]])
-	}
-	return(results)
-}
-results = make_list(draw)
+# Create a JAGS model object
+jm = jags.model("model_temp.txt", data)
+
+# Do some burn-in
+update(jm, burn_in)
+
+# Do some MCMC
+results = jags.samples(jm, variable_names, steps, thin)
+
+# Plot a trace plot
+plot(as.vector(results$theta), type="l")
