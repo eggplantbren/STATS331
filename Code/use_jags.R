@@ -29,13 +29,8 @@ thin = 10
 # Import the rjags library
 library("rjags")
 
-# Write model out to file
-fileConn=file("model_temp.txt")
-writeLines(model, fileConn)
-close(fileConn)
-
 # Create a JAGS model object
-jm = jags.model("model_temp.txt", data)
+jm = jags.model(textConnection(model), data)
 
 # Do some MCMC
 results = coda.samples(jm, variable_names, steps, thin=thin)
