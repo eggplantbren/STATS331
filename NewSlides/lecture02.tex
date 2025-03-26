@@ -185,6 +185,48 @@ The mathematics would be exactly the same, but the meaning of the quantities
 is different.
 \end{frame}
 
+\begin{frame}
+\frametitle{Probability --- Sum Rule}
+If we have two propositions or
+statements
+ $A$ and $B$, the probability that either $A$ or $B$ is true (or both)
+is given by the sum rule:
+\begin{align}
+P(A \vee B) &= P(A) + P(B) - P(A, B)
+\end{align}\pause
+
+The $\vee$ means `or'. To remember: if a question involves
+`and', use the product rule. If it involves `or', use the sum rule.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Probability --- Sum Rule --- Special Case}
+We often deal with {\bf mutually exclusive} statements or propositions ---
+both can't be true. E.g., `the balance in my bank account is $\$100.00$'
+and `the balance in my bank account is $\$105.00$'.
+In this case, the final term in the sum rule is equal to zero:
+\begin{align}
+P(A \vee B) &= P(A) + P(B)
+\end{align}\pause
+
+We use this frequently.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The Most General Sum Rule}
+We can write down the sum rule in its most general form by inserting
+`given $C$' in the right hand side of every term, where $C$ is some third
+proposition:
+
+\begin{align}
+P(A \vee B \given C) &= P(A \given C) + P(B \given C) - P(A, B \given C).
+\end{align}
+
+\end{frame}
 
 \end{document}
 
