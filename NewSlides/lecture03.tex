@@ -1,0 +1,120 @@
+\documentclass{beamer}
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          bullet=circle,% Use circles instead of squares for bullets.
+          titleline=true,% Show a line below the frame title.
+          alternativetitlepage=true,% Use the fancy title page.
+       %   titlepagelogo=logo-polito,% Logo for the first page.
+       %   watermark=watermark-polito,% Watermark used in every page.
+       %   watermarkheight=100px,% Height of the watermark.
+       %   watermarkheightmult=4,% The watermark image is 4 times bigger
+                                % than watermarkheight.
+          ]{Torino}
+
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,dp=1ex]{footline}
+    \vspace{5pt} \hspace{1em} \insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}
+}
+
+\author{Brendon J. Brewer}
+\title{STATS 331 -- Introduction to Bayesian Statistics}
+\institute{The University of Auckland}
+\date{}
+
+
+\linespread{1.3}
+\usepackage{minted}
+\usepackage[utf8]{inputenc}
+\usepackage{dsfont}
+\newcommand{\given}{\,|\,}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Probability as Plausibility}
+The main distinction between Bayesian and frequentist/classical statistics
+is the meaning of probability. What we think a probability {\em is}
+influences {\em what calculations we think it is valid to do.}\\[0.5em]\pause
+
+In Bayesian statistics, $P(A \given B)$ means how plausible statement $A$ is,
+assuming that $B$ is true (this might be hypothetical --- {\em if} $B$
+were true --- or we might actually know $B$ is true).
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Example of Probability as Plausibility}
+Suppose there is some {\bf statement}
+or {\bf proposition} $A$, and we are not sure whether it is true or
+false. For example, {\em $A \equiv$ New Zealand wins more bronze medals than
+Australia at the 2028 Olympics}.\pause
+
+We can describe the degree of plausibility of $A$ using a value between 0 and 1.
+For instance:
+\begin{itemize}
+\item $P(A) = 1$ (it is definitely true) \\
+\item $P(A) = 1$ (it is definitely false) \\
+\item $P(A) = 0.1$ (it is probably false) \\
+\item $P(A) = 0.5$ (as certain as a coin landing heads)
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayesian Interpretations of Probability}
+There are some language choices people use to describe what
+Bayesian probabilities represent. Examples:\pause
+
+\begin{itemize}
+\item Plausibility \pause
+\item Degree of confidence \pause
+\item Degree of belief \pause
+\item The degree to which one statement implies another
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Subjective Probabilities}
+Some people say that Bayesian probabilities are subjective.
+This is often true. It is certainly the case
+that they depend on what information you have.\\[0.3em]\pause
+
+Consider the statement that NZ's population is greater than 8
+million people. I would assign a probability close to zero.
+Someone from afar might assign a probability closer to 0.5.\\[0.3em]\pause
+
+When different people have different probability judgments,
+it is usually because they have different information or assumptions.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Assumptions}
+\begin{itemize}
+\item Even though different people might have different probability
+judgments, the rules linking one probability to another --- the sum
+and product rule (etc) --- are consistent.\\\pause
+\item When we start working on problems, we will see that some
+input probabilities in the problem
+are judgment calls, but other ones are calculated.\\\pause
+\item The most obvious place where assumptions are needed is the
+`prior' which we will meet soon, but it's not the only place
+where assumptions enter.
+\end{itemize}
+
+\end{frame}
+
+
+\end{document}
+
