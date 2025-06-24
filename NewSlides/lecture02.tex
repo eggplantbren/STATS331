@@ -28,6 +28,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{dsfont}
 \newcommand{\given}{\,|\,}
+\newcommand{\Var}{\textnormal{Var}}
 
 
 \begin{document}
@@ -319,6 +320,71 @@ we will know which one it is.
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Example Involving Symmetry}
+Suppose $x \sim \textnormal{Normal}(0, 1)$, so the probability density function
+(PDF) is
+\begin{align}
+p(x) &= \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}x^2\right).
+\end{align}
+Find the value of the following integral:
+\begin{align}
+P(x > 0) &= \int_0^\infty p(x) \, dx = ?
+\end{align}\pause
+Since the integrand is symmetric (an `even function'), we know that the
+probability must be 1/2.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Involving a Discrete Distribution}
+Suppose $y$ can be either 1, 2, 3, or 4, with probabilities
+0.1, 0.1, 0.3, and 0.5 respectively.\pause
+
+What is the probability that $y$ is either 2 or 3?\\\pause
+{\bf Answer}:
+\begin{align}
+P(y = 2 \vee y=3) &= P(y=2) + P(y=3) \\
+                  &= 0.1 + 0.3 \\
+                  &= 0.4.
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Expected Value}
+The expected value (or expectation) is a measure of where the
+`centre' of a probability distribution is. It is a weighted average
+of the possible values, with the probabilities (or density) providing
+the weights. The definition for the discrete and continuous case:
+\begin{align}
+E(X) &= \sum x p(x) \\
+E(X) &= \int x p(x) \, dx
+\end{align}\pause
+{\bf Note}: In this course, integrals written without limits are
+{\em definite integrals over the whole (implicit) range}.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Variance and Standard Deviation}
+\begin{itemize}
+\item Variance and standard deviation are measures of how wide
+a probability distribution is.\pause
+\item Standard deviation is usually more intuitive
+when you are going to give it a number, while theoretical
+results are usually `nicer' in terms of variance.\pause
+\end{itemize}
+\begin{align}
+\Var(x) &= E\left[(X - E(X))^2\right] \\
+\textnormal{sd}(x) &= \sqrt{\Var(x)}.
+\end{align}
+
+\end{frame}
 
 
 \end{document}
