@@ -116,5 +116,87 @@ where assumptions enter.
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Updating Probabilities}
+There is a well-defined procedure for updating probabilities to take new
+information into account. For example, suppose you are interested in
+the proposition $A$.\pause
+\begin{itemize}
+\item You assign a {\bf prior} probability $P(A)$.\pause
+\item Then, you learn that
+some related proposition $B$ is true. You should update your probability
+to $P(A \given B)$, called a {\bf posterior} probability.\pause
+\item If you then learn that $C$ is true, you should update
+to $P(A \given B, C)$, another posterior probability.\pause
+\item And so on.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Updating Probabilities: Bayes' Rule}
+Bayes' rule (derived from the product rule) gives us the procedure to
+calculate updated (posterior) probabilities.
+
+\begin{align}
+P(H \given D) &= \frac{P(H) P(D\given H)}{P(D)}.
+\end{align}
+
+\pause
+The terms have names:
+\begin{align}
+\textnormal{posterior prob.} &=
+        \frac{\textnormal{prior prob.} \times \textnormal{likelihood}}{\textnormal{marginal likelihood}}
+\end{align}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Updating Probabilities: Bayes' Rule}
+The statements in the previous equation were $H$ and $D$.
+These stand for {\em hypothesis} and {\em data} respectively,
+to indicate how we use Bayes' theorem.\\[0.5em]\pause
+
+We usually want to know if $H$ is true, and we don't know,
+so we calculate a probability for it. We usually have some
+data proposition $D$ which we do know is true, so we use that.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Interpretation of the Terms}
+
+\begin{itemize}
+\item $P(H\given D)$ is the updated (posterior) probability, which we
+want.\pause
+\item $P(H)$ is the initial (prior) probability. It describes
+how plausible $H$ is without taking $D$ into account.\pause
+\item $P(D \given H)$ is the likelihood value --- how plausible would $D$
+have been if we knew $H$ was true?\pause
+\item $P(D)$ is the marginal likelihood\footnote{Sometimes called the
+{\bf evidence}, especially by physicists.} --- how plausible would $D$ have been
+whether $H$ is true or not?
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Input and Output}
+Two of the probabilities --- the prior and the likelihood --- are inputs to
+the calculation, that we assign based on judgment calls or prior/external
+information.\\
+
+The other two --- the posterior and the marginal likelihood --- are outputs
+that we compute.
+\end{frame}
+
+
+
 \end{document}
 
