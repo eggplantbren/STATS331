@@ -38,3 +38,23 @@ plt.fill_between(x[subset],
                  y1=np.zeros(len(x[subset])), y2=p[subset], color="r", alpha=0.3)
 plt.savefig("images/integral.pdf", bbox_inches="tight")
 
+
+plt.close("all")
+x = np.arange(31)
+p1 = np.exp(-0.5*(x - 15)**2/2**2)
+p1 = p1/np.sum(p1)
+p2 = np.exp(-0.5*(x - 15)**2/5**2)
+p2 = p2/np.sum(p2)
+
+plt.figure(figsize=(8, 9))
+plt.subplot(2, 1, 1)
+plt.bar(x, p1)
+plt.title("Probability Mass Function 1")
+plt.ylabel("Probability")
+
+plt.subplot(2, 1, 2)
+plt.bar(x, p2)
+plt.title("Probability Mass Function 2")
+plt.xlabel("$x$")
+plt.ylabel("Probability")
+plt.savefig("images/two_distributions.pdf", bbox_inches="tight")
