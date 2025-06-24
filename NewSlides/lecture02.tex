@@ -503,5 +503,57 @@ Subsets of vectors can be accessed using the square brackets
 \end{minted}
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Probability Distributions in R}
+Many probability distributions are built into R, and there
+are functions for generating random numbers and for evaluating
+the PDF or PMF. Example using Uniform$(0, 1)$:
+\begin{minted}{r}
+> runif(3)
+[1] 0.7289419 0.9163833 0.5571766
+> dunif(c(0.3, 0.7, 1.5))
+[1] 1 1 0
+\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Standard Normal Distribution in R}
+\begin{minted}{r}
+> rnorm(3)
+[1] -0.2732889  0.0432207 -0.3625170
+> dnorm(c(1, -5, 10))
+[1] 2.419707e-01 1.486720e-06 7.694599e-23
+\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Plotting Probability Distributions}
+We will often have a vector of possible values of some
+quantity (\mintinline{r}{x}, say) and a corresponding vector of
+probabilities or density values
+\mintinline{r}{p}. We can plot the distribution:
+\begin{minted}{r}
+x = seq(-10, 10, length=101)
+p = dnorm(x, mean=3, sd=1)
+plot(x, p, type="l")
+\end{minted}
+Note the use of optional arguments to functions.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{R plot}
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/R_normal.pdf}
+\end{center}
+\vspace{-1.5em}
+{\bf Note}: \mintinline{r}{type="h"} is often better for
+discrete distributions.
+\end{frame}
+
 \end{document}
 
