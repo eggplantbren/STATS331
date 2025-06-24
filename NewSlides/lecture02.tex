@@ -418,5 +418,90 @@ results are usually `nicer' in terms of variance.\pause
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Log and Exp}
+We will occasionally make use of logarithms and exponentials.
+Be familiar with them.\pause
+\begin{align}
+e^a e^b &= e^{a+b} \\
+(e^a)^b &= e^{ab} \\
+\log(ab) &= \log(a) + \log(b) \\
+\log(a^b) &= b \log(a)
+\end{align}\pause
+Note: $e \approx 2.71828$ and if I write log without a base, I usually mean
+natural log ($\log_e$ or $\ln$).
+\end{frame}
+
+\begin{frame}
+\frametitle{R}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/Rlogo.png}
+\end{center}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Basics of R}
+We will use R a fair bit. Here is a reminder of some basic
+things, such as creating and using variables. The \mintinline{r}{>}
+here is the R console prompt, not part of the code.
+\begin{minted}{r}
+> x = 5
+> y = 3.2
+> health = x + 3*y
+> health
+> [1] 14.6
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{R Vectors}
+We will use R vectors frequently. These are collections of values of the
+same type (usually numeric/floating point values for us).
+One way of creating vectors is with the \mintinline{r}{c()} function.
+\begin{minted}{r}
+> x = c(5, 3, -3.3)
+> x
+[1] 5.0 3.0 -3.3
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{R Vectors}
+Subsets of vectors can be accessed using the square brackets
+\mintinline{r}{[]}.
+\begin{minted}{r}
+> y = c(5, 3, -3.3, 7.2)
+> y[3]
+[1] -3.3
+> y[1:2]
+[1] 5 3
+> y > 2
+[1]  TRUE  TRUE FALSE  TRUE
+> y[y > 2]
+[1] 5.0 3.0 7.2
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Some Functions for R Vectors}
+\begin{minted}{r}
+> a_sequence = seq(1, 2, by=0.2)
+> a_sequence
+[1] 1.0 1.2 1.4 1.6 1.8 2.0
+> boring = rep(2, 4)
+> boring
+[1] 2 2 2 2
+> sum(boring)
+[1] 8
+> length(boring)
+[1] 4
+\end{minted}
+\end{frame}
+
 \end{document}
 
