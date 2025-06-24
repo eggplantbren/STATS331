@@ -555,5 +555,50 @@ Note the use of optional arguments to functions.
 discrete distributions.
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Uses of dnorm etc.}
+\begin{itemize}
+\item In the previous example, \mintinline{r}{x} was a vector
+and the mean and sd of the distribution were scalars.\pause
+\item However we will often use \mintinline{r}{dnorm()}
+for the {\em likelihood function} in which case it will be the
+other way around.\pause
+\item Sometimes we will need the {\em log} of the probability
+or probability density. By passing \mintinline{r}{log=TRUE}
+as another argument, we can get this.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Help on Built-in R Functions}
+\begin{itemize}
+\item For help on the function \mintinline{r}{rnorm()}, do this:
+\begin{minted}{r}
+> ?rnorm
+\end{minted}
+\item If you don't know what function you're looking for, search
+with \mintinline{r}{??}. E.g.:
+\begin{minted}{r}
+> ??poisson
+\end{minted}
+The R help pages will have way more information than you actually need.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Summary}
+\begin{itemize}
+\item Maths: integration (the concepts, not hard integrals, computers
+will generally do these for us).\pause
+\item Stats: Probability, probability distributions, expected value,
+variance and standard deviation.\pause
+\item Working with R vectors.\pause
+\item Working with probability distributions in R, using the d and the r
+functions.
+\end{itemize}
+\end{frame}
+
 \end{document}
 
