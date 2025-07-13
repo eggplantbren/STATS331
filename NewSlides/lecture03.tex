@@ -409,5 +409,23 @@ calculation.
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{R Code for Bayes' Box Calculation}
+The calculation equivalent to a Bayes' Box (or Bayes' rule twice) can be
+done easily in R. Each column of the Bayes' Box is an R {\bf vector}.\pause
+
+\begin{minted}{r}
+prior = rep(0.5, 2)
+lik = c(1, 0.5)
+h = prior*lik
+Z = sum(h)
+post = h/Z
+\end{minted}
+\pause
+For some reason, \mintinline{r}{h} is the traditional symbol for prior times
+likelihood, and \mintinline{r}{Z} for the marginal likelihood.
+\end{frame}
+
+
 \end{document}
 
