@@ -371,6 +371,88 @@ represented by `1' in the data?
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Estimating a Proportion --- Uniform Prior}
+
+\centering
+{\footnotesize
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Parameter & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+$\theta$  & $p(\theta)$ & $p(x \given \theta)$ & $p(\theta)p(x\given\theta)$ & $p(\theta\given x)$ \\
+\hline
+0 & 0.0909 & & & \\
+0.1 & 0.0909  &  & & \\
+0.2 & 0.0909  &  & & \\
+0.3 & 0.0909 &  & & \\
+0.4 & 0.0909  &  & & \\
+0.5 & 0.0909 & & & \\
+0.6 & 0.0909 & & & \\
+0.7 & 0.0909 & & & \\
+0.8 & 0.0909 & & & \\
+0.9 & 0.0909 & & & \\
+1   & 0.0909 & & & \\
+\hline
+Total & 1 & & & 1 \\
+\hline
+\end{tabular}
+}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Creating the Parameter and Prior Vectors in R}
+We will often use R's \mintinline{r}{seq()} and
+\mintinline{r}{rep()} functions to do this.\pause
+
+\begin{minted}{r}
+theta = seq(0, 1, by=0.1)
+prior = rep(1/length(theta), length(theta))
+\end{minted}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Likelihood}
+We called 10 people and the data was
+$\{1, 1, 0, 0, 1, 0, 1, 0, 1, 1\}$. We can reason out the likelihood
+--- imagining we know $\theta$, but leaving it as a symbol, so we get
+all likelihood values at once.\pause
+\begin{align}
+P(1 \given \theta) &= \theta \\
+P(0 \given \theta) &= 1-\theta \\
+P(\{1, 1, 0\} \given \theta) &= \theta\theta(1-\theta) \\
+P(\{1, 1, 0, 0, 1, 0, 1, 0, 1, 1\}) &= \theta^6(1-\theta)^4
+\end{align}
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Likelihood}
+In the beginning of this course, finding likelihoods is the hardest
+part for many students. Put yourself in the hypothetical situation
+of knowing $\theta$ but not knowing the data, and ask yourself
+what the probability would be of the data that you got.\\[1em]\pause
+
+Later, this will get easier, when we use
+{\bf sampling distributions}
+as a stepping stone to getting the likelihood function.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Likelihood in R}
+We have a formula involving $\theta$, so we can simply use it
+in R:
+
+\begin{minted}{r}
+lik = theta^6*(1-theta)^4
+\end{minted}
+
+\end{frame}
 
 \end{document}
 
