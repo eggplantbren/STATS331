@@ -197,6 +197,95 @@ that we compute.
 \end{frame}
 
 
+\begin{frame}
+\frametitle{More Than One Hypothesis}
+Usually there is more than one hypothesis of interest, so we will calculate
+more than one posterior probability. For example, $P(H_1 \given D)$ and
+$P(H_2 \given D)$. In fact, for any $H$, the negation $\neg H$ exists
+(it means {\bf $H$ is false}), so there are always at least two hypotheses.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{First Example}
+\begin{itemize}
+\item There are two balls in a bag \pause
+\item We don't know which of the following possibilities is true:\\\pause
+{\em $BB$: Both balls are black}\\
+{\em $BW$: One is black and one is white}
+\end{itemize}\pause
+
+Note: $BW = \neg BB$.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Data}
+To help us figure out which hypothesis is true, one ball is picked
+from the bag. {\bf It is black}. What happens to the plausibility of
+the hypothesis $BB$, that both are black?\pause
+
+\begin{itemize}
+\item[(a)] It is now more plausible
+\item[(b)] It is now less plausible
+\item[(c)] No change.
+\end{itemize}\pause
+
+I hope your intuition chooses (a). We will now do the calculation to
+show exactly how plausible $BB$ is.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Box}
+In the first part of the course, we will make tables of probabilities
+which we call a Bayes' Box. It gives a simple view of the probabilities
+involved in the problem.\\[0.5em]\pause
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+\hline
+$BB$ & 0.5 & & & \\
+$BW$ & 0.5 & & & \\
+\hline
+Total & 1 & & & \\
+\hline
+\end{tabular}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prior Probabilities}
+In the Bayes' Box on the previous slide, I have assigned uniform (equal)
+prior probabilities of 0.5 to the two hypotheses. This represents the state
+of having no idea apart from the fact that there are two possibilities.\pause
+
+\begin{alertblock}{Note}
+The sum of the values in the prior column should always be 1.
+The prior column forms a discrete probability distribution.
+We sometimes just call it ``the prior''.
+\end{alertblock}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Bar Plot of the Prior Probabilities}
+
+\centering
+\includegraphics[width=0.7\textwidth]{images/two_balls_prior.pdf}
+
+\end{frame}
+
+
 
 \end{document}
 

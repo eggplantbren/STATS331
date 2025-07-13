@@ -58,3 +58,15 @@ plt.title("Probability Mass Function 2")
 plt.xlabel("$x$")
 plt.ylabel("Probability")
 plt.savefig("images/two_distributions.pdf", bbox_inches="tight")
+
+
+plt.close("all")
+x = np.arange(2)
+p = 0.5*np.ones(2)
+plt.bar(x, p, width=0.3)
+plt.xticks([0, 1], ["$BB$", "$BW$"])
+plt.xlim([-1, 2])
+plt.ylabel("Probability")
+plt.title("Two Balls Problem: Prior")
+plt.savefig("images/two_balls_prior.pdf", bbox_inches="tight")
+
