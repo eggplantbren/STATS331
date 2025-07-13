@@ -29,7 +29,6 @@
 \usepackage{dsfont}
 \newcommand{\given}{\,|\,}
 
-
 \begin{document}
 
 \frame{\titlepage}
@@ -47,7 +46,7 @@ Randall Monroe, xkcd.com
 \begin{frame}
 
 \begin{center}
-\large
+\Large
 Bigger Bayes' Boxes and \\
 Introduction to Parameter Estimation
 \end{center}
@@ -211,6 +210,85 @@ as given on the previous slide.
 
 \end{frame}
 
+\begin{frame}
+
+\begin{center}
+\Large
+Parameter Estimation
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Parameter Estimation}
+
+\begin{itemize}
+\item Parameter estimation is a really important part of statistics.\pause
+\item A parameter is {\bf a quantity whose value we would like to
+        know.}\footnote{It's a bit more than this, but this will do for now.}\pause
+\item We will describe our uncertainty about the value of the parameter
+using a {\bf probability distribution}.\pause
+\item This gets updated from a {\bf prior distribution}
+    to a {\bf posterior distribution}
+    as we get more information.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Parameter Estimation}
+Recall that Bayes' rule can be used on a set of mutually exclusive hypotheses.
+These can be statements about the value of the parameter $\theta$.\pause
+
+\begin{itemize}
+\item One hypothesis might be ``$\theta = 1$'' \pause
+\item Another might be ``$\theta = 2$'' \pause
+\item We might get some data like ``$x = 3$''.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule Lots of Times}
+\begin{align}
+P(\theta = 1 \given x = 3) &= \frac{P(\theta=1)P(x=3 \given \theta=1)}{P(x=3)}\\
+P(\theta = 2 \given x = 3) &= \frac{P(\theta=2)P(x=3 \given \theta=2)}{P(x=3)}\\
+&...&\\
+P(\theta = 9 \given x = 3) &= \frac{P(\theta=9)P(x=3 \given \theta=9)}{P(x=3)}\\
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayes' Rule Lots of Times}
+\begin{align}
+\color{red}{P(\theta = 1 \given x = 3)} &= \frac{{\color{blue}P(\theta=1)}P(x=3 \given \theta=1)}{P(x=3)}\\
+\color{red}{P(\theta = 2 \given x = 3)} &= \frac{{\color{blue}P(\theta=2)}P(x=3 \given \theta=2)}{P(x=3)}\\
+&...&\\
+\color{red}{P(\theta = 9 \given x = 3)} &= \frac{{\color{blue}P(\theta=9)}P(x=3 \given \theta=9)}{P(x=3)}\\
+\end{align}
+
+{\color{red}Posterior Distribution}
+{\color{blue}Prior Distribution}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule Lots of Times}
+\begin{align}
+P(\theta = 1 \given x = 3) &= \frac{P(\theta=1){\color{orange}P(x=3 \given \theta=1)}}{\color{green}P(x=3)}\\
+P(\theta = 2 \given x = 3) &= \frac{P(\theta=2){\color{orange}P(x=3 \given \theta=2)}}{\color{green}P(x=3)}\\
+&...&\\
+P(\theta = 9 \given x = 3) &= \frac{P(\theta=9){\color{orange}P(x=3 \given \theta=9)}}{\color{green}P(x=3)}\\
+\end{align}
+
+{\color{orange}Likelihood Function}
+{\color{green}Marginal Likelihood (common to all $\theta$ values)}
+
+\end{frame}
 
 \end{document}
 
