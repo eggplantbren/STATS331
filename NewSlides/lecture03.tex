@@ -426,6 +426,75 @@ For some reason, \mintinline{r}{h} is the traditional symbol for prior times
 likelihood, and \mintinline{r}{Z} for the marginal likelihood.
 \end{frame}
 
+\begin{frame}
+\frametitle{More Data}
+What happens if we accumulate more data? Suppose the experiment was repeated
+a further 4 times (so 5 in total), and the outcome was the same every time,
+i.e., {\bf the black ball was drawn five times}. This seems like compelling
+evidence for $BB$ and against $BW$. What are the posterior probabilities?
 
+\end{frame}
+
+\begin{frame}
+\frametitle{More Data}
+Let's go back to our 50/50 prior, and consider the data
+proposition $D_5 = $~the black ball was drawn five times.
+We need likelihood values.\pause
+
+If $BB$ is true, what is the probability of $D_5$?
+\begin{align}
+P(D_5 \given BB) &= 1.
+\end{align}
+\pause
+If $BW$ is true, what is the probability of $D_5$?
+\begin{align}
+P(D_5 \given BW) &= \frac{1}{2}\times\frac{1}{2}\times\frac{1}{2}\times
+                    \frac{1}{2}\times\frac{1}{2}\\
+                 &= \frac{1}{32}.
+\end{align}\pause
+When there is more than one data point, the likelihood is a
+product.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Filling in the Bayes' Box}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+\hline
+$BB$ & 0.5 & 1 & 0.5 & 0.9696... \\
+$BW$ & 0.5 & 0.03125 & 0.015625 & 0.0303... \\
+\hline
+Total & 1 & & 0.515625 & 1\\
+\hline
+\end{tabular}
+\pause
+
+$BB$ is now highly plausible and $BW$ is quite implausible.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Sequential Updating}
+
+\begin{itemize}
+\item To solve the inference with the ``5 black draws'' example,
+we went back to the beginning, back to a 50/50 prior and
+using the likelihood for 5 black draws\pause
+\item Instead, we could have started with the 67/33 prior and then used
+the likelihood for 4 extra black draws\pause
+\item  The answers would have been the same, but usually
+``back to the beginning'' is more convenient\pause
+\item If done sequentially, 
+the posterior after analysing one data set becomes
+the prior for analysing the next.
+\end{itemize}
+
+
+\end{frame}
 \end{document}
 
