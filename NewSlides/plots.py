@@ -80,3 +80,23 @@ plt.ylabel("Probability")
 plt.title("Two Balls Problem: Posterior")
 plt.savefig("images/two_balls_posterior.pdf", bbox_inches="tight")
 
+
+plt.close("all")
+plt.figure(figsize=(10, 8))
+x = np.arange(2)
+prior = np.array([0.5, 0.5])
+
+for i in range(9):
+    plt.subplot(3, 3, i+1)
+    lik = np.array([1.0, 0.5**i])
+    h = prior*lik
+    Z = np.sum(h)
+    post = h/Z
+
+    plt.bar(x, post, width=0.3)
+    plt.xlim([-1, 2])
+    plt.xticks([])
+    plt.yticks([])
+    plt.title(str(i))
+plt.savefig("images/two_balls_updating.pdf", bbox_inches="tight")
+

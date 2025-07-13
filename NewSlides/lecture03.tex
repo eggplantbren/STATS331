@@ -380,10 +380,15 @@ or evidence $P(D)$. It has two uses --- one of which we just saw.\\[0.5em]\pause
 We can understand it as being the sum of the two mutually exclusive ways
 $D$ could have come true --- via $BB$ or via $BW$. Mathematically this is
 the {\bf partition theorem} which you might have seen before:
-
 \begin{align}
 P(D) &= P(BB)P(D \given BB) + P(BW)P(D \given BW).
 \end{align}
+\pause
+More generally,
+\begin{align}
+P(D) &= \sum_i P(H_i, D) = \sum_i P(H_i)P(D \given H_i).
+\end{align}
+
 \end{frame}
 
 
@@ -496,5 +501,27 @@ the prior for analysing the next.
 
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Sequential Updating}
+We can watch the posterior change, assuming the black ball continues to be
+drawn. If the white ball were ever drawn, the posterior would ``snap'' to $BW$.
+
+\centering
+\includegraphics[width=0.4\textwidth]{images/two_balls_updating.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sequential Updating}
+We can watch the posterior change, assuming the black ball continues to be
+drawn. If the white ball were ever drawn, the posterior would ``snap'' to $BW$.
+
+\centering
+\includegraphics[width=0.4\textwidth]{images/two_balls_updating.pdf}
+
+\end{frame}
+
 \end{document}
 
