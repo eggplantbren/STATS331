@@ -269,7 +269,7 @@ of having no idea apart from the fact that there are two possibilities.\pause
 \begin{alertblock}{Note}
 The sum of the values in the prior column should always be 1.
 The prior column forms a discrete probability distribution.
-We sometimes just call it ``the prior''.
+We sometimes just call it ``the prior distribution'' or just ``the prior''.
 \end{alertblock}
 
 
@@ -286,6 +286,119 @@ We sometimes just call it ``the prior''.
 \end{frame}
 
 
+
+\begin{frame}
+\frametitle{More Input Needed}
+To compute the posterior probabilities (which we want to do), we need
+the likelihood values. These represent the probability of the data, assuming
+each hypothesis is true (hypothetically), in turn. The data was
+$D = $~{\bf black ball was drawn}.\pause
+
+The values are:
+\begin{align}
+P(D \given BB) &= 1 \\
+P(D \given BW) &= 0.5
+\end{align}
+Why? {\bf Imagine knowing the answer, but not knowing the data.}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayes' Box}
+We now have more values for our Bayes' Box.\\[0.5em]\pause
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+\hline
+$BB$ & 0.5 & 1 & & \\
+$BW$ & 0.5 & 0.5 & & \\
+\hline
+Total & 1 & & & \\
+\hline
+\end{tabular}\pause
+
+\begin{alertblock}{Likelihoods}
+We call this column the ``likelihood function'' or just ``the likelihood''.
+The sum does not need to be 1, and is meaningless in
+general.
+\end{alertblock}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Box}
+The rest of the Bayes' Box is not {\em assigned}, but is {\em computed}
+using the rules of probability theory. Specifically, Bayes' rule applied
+twice: once to get $P(BB \given D)$ and once to get $P(BW \given D)$.
+It is easy to do the calculation using the Bayes' Box. First just multiply
+priors by likelihoods, then sum the column:
+\\[0.5em]\pause
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+\hline
+$BB$ & 0.5 & 1 & 0.5 & \\
+$BW$ & 0.5 & 0.5 & 0.25 & \\
+\hline
+Total & 1 & & 0.75 & \\
+\hline
+\end{tabular}\pause
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Box}
+We almost have the result! The priors times the likelihoods gives us the
+{\em relative} updated plausibility of the two hypotheses. To become a
+probability distribution, we need to force it to sum to 1. We do this
+using ``normalisation'', i.e., dividing the column by its own total:\\[0.5em]\pause
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+\hline
+$BB$ & 0.5 & 1 & 0.5 & 2/3 \\
+$BW$ & 0.5 & 0.5 & 0.25 & 1/3 \\
+\hline
+Total & 1 & & 0.75 & 1\\
+\hline
+\end{tabular}\pause
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Marginal Likelihood}
+The sum of the prior times likelihood column is the marginal likelihood
+or evidence $P(D)$. It has two uses --- one of which we just saw.\\[0.5em]\pause
+
+We can understand it as being the sum of the two mutually exclusive ways
+$D$ could have come true --- via $BB$ or via $BW$. Mathematically this is
+the {\bf partition theorem} which you might have seen before:
+
+\begin{align}
+P(D) &= P(BB)P(D \given BB) + P(BW)P(D \given BW).
+\end{align}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Posterior Probabilities}
+The posterior probabilities now add up to 1 and form the posterior distribution,
+or just ``the posterior''. We see that the probabilities have changed from
+50:50 to 67:33 based on the data.\pause
+
+\begin{alertblock}{Outputs}
+The posterior distribution and the marginal likelihood are the outputs of the
+calculation.
+\end{alertblock}
+
+\end{frame}
 
 \end{document}
 
