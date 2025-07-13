@@ -44,5 +44,173 @@ Randall Monroe, xkcd.com
 \end{frame}
 
 
+\begin{frame}
+
+\begin{center}
+\large
+Bigger Bayes' Boxes and \\
+Introduction to Parameter Estimation
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Medical Testing Example}
+
+
+    \begin{columns} % Create two columns
+        \column{0.7\textwidth} % Left column (50% width)
+
+        \begin{itemize}
+        \item There is a disease $A$ and your prior
+                probability of having it is 0.01,
+                given that you have the symptoms.
+
+        \item   There is a test which tells you
+                whether you have $A$, but with 5\%
+                probability the test result is flipped.
+
+        \item The test is also sensitive to the
+                more common disease $B$, and you
+                have a 0.05 prior probability of
+                having that.
+        \end{itemize}
+
+        \column{0.3\textwidth} % Right column (50% width)
+        \includegraphics[width=0.6\linewidth]{images/medicine.jpg}
+       
+         (public domain image)
+     \end{columns}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The Data}
+
+\begin{itemize}
+\item The test result is the data. $D$ = ``The test comes back positive''.\pause
+\item How plausible is it that you have $A$? \pause
+\item Difficulty: need list of mutually exclusive hypotheses
+        to make a Bayes' Box. How do we get $B$ involved? \pause
+\item Solution: Use logical AND. Four possibilities:
+        You have $A$ only, $B$ only, both, or neither.
+        Assume independence to get the prior
+        probabilities of these.
+\end{itemize}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Bayes' Box}
+Setting up the prior column of the Bayes' Box using independence:
+\vspace{1em}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+\hline
+$A$ only & 0.01 $\times$ 0.95 & & & \\
+$B$ only & 0.99 $\times$ 0.05 & & & \\
+Both     & 0.01 $\times$ 0.05 & & & \\
+Neither  & 0.99 $\times$ 0.95 & & & \\
+\hline
+Total & 1 & & & \\
+\hline
+\end{tabular}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Box}
+Setting up the likelihood column of the Bayes' Box using the information
+about test reliability:
+\vspace{1em}
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+\hline
+$A$ only & 0.01 $\times$ 0.95 & 0.95 & & \\
+$B$ only & 0.99 $\times$ 0.05 & 0.95 & & \\
+Both     & 0.01 $\times$ 0.05 & 0.95 & & \\
+Neither  & 0.99 $\times$ 0.95 & 0.05 & & \\
+\hline
+Total & 1 & & & \\
+\hline
+\end{tabular}
+
+\pause
+\vspace{0.3em}
+Which hypothesis would ``maximum likelihood estimation''
+select?
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{The Calculation Process in R}
+
+\begin{minted}{r}
+> prior = c(0.01*0.95, 0.99*0.05, 0.01*0.05, 0.99*0.95)
+> prior
+[1] 0.0095 0.0495 0.0005 0.9405
+> lik = c(0.95, 0.95, 0.95, 0.05)
+> h = prior*lik
+> Z = sum(h)
+> Z
+[1] 0.10355
+> post = h/Z
+> post
+[1] 0.087155963 0.454128440 0.004587156 0.454128440
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Medical Testing Example: Conclusion}
+It is most plausible that you have either $B$ or nothing.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule for Sets of Hypotheses}
+Suppose we have a set of mutually exclusive and exhaustive hypotheses
+$H_1, ..., H_n$. This means one and only one of them is true --- this is usually
+the way things are initially arranged and the medical testing example was an
+exception.\pause
+
+Bayes' rule for the posterior probability of each hypothesis $H_i$:
+\begin{align}
+P(H_i \given D) &= \frac{P(H_i)P(D \given H_i)}{P(D)}
+\end{align}\pause
+The marginal likelihood involves a sum over all hypotheses:
+\begin{align}
+P(D) &= \sum_{i=1}^n P(H_i)P(D \given H_i).
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule $n$ times $\equiv$ Bayes' Box}
+Using a Bayes' Box with $n$ rows and applying the procedure there
+(once you have assigned priors and likelihoods) is equivalent
+to using Bayes' rule $n$ times and the marginal likelihood formula
+as given on the previous slide.
+
+\end{frame}
+
+
 \end{document}
 
