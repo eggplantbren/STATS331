@@ -523,5 +523,56 @@ drawn. If the white ball were ever drawn, the posterior would ``snap'' to $BW$.
 
 \end{frame}
 
+
+
+\begin{frame}
+\frametitle{Different Priors}
+Suppose we didn't start with a 50/50 prior, but were initially sceptical of
+$BB$ for some reason, giving it a prior probability of 0.01.
+We would have to give $BW$ a prior probability of 0.99.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayes' Box, Sceptical Prior}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+\hline
+$BB$ & 0.01 & 1 & 0.01 & 0.2443 \\
+$BW$ & 0.99 & 0.03125 & 0.0309375 & 0.7557 \\
+\hline
+Total & 1 & & 0.0409375 & 1\\
+\hline
+\end{tabular}
+\pause
+\\[0.5em]
+The data has made $BB$ more plausible than it was before, but we are not yet
+convinced of it.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Different Priors}
+If we start with a low prior probability for one of the hypotheses, it takes
+{\bf more data} to increase the probability to a high level.
+
+
+
+    \begin{columns} % Create two columns
+        \column{0.5\textwidth} % Left column (50% width)
+        \hspace{2em}
+        \includegraphics[width=0.6\linewidth]{images/sagan.jpg}
+
+        \column{0.5\textwidth} % Right column (50% width)
+        ``Extraordinary claims require extraordinary evidence'' --
+        Carl Sagan (image credit: NASA/JPL)
+     \end{columns}
+
+
+\end{frame}
+
 \end{document}
 
