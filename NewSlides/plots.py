@@ -70,3 +70,13 @@ plt.ylabel("Probability")
 plt.title("Two Balls Problem: Prior")
 plt.savefig("images/two_balls_prior.pdf", bbox_inches="tight")
 
+plt.close("all")
+x = np.arange(2)
+p = np.array([2/3, 1/3])
+plt.bar(x, p, width=0.3)
+plt.xticks([0, 1], ["$BB$", "$BW$"])
+plt.xlim([-1, 2])
+plt.ylabel("Probability")
+plt.title("Two Balls Problem: Posterior")
+plt.savefig("images/two_balls_posterior.pdf", bbox_inches="tight")
+
