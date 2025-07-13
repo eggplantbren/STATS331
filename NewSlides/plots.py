@@ -100,3 +100,23 @@ for i in range(9):
     plt.title(str(i))
 plt.savefig("images/two_balls_updating.pdf", bbox_inches="tight")
 
+
+plt.close("all")
+plt.figure(figsize=(10, 8))
+plt.subplot(2, 1, 1)
+x = np.linspace(0.0, 20.0, 51)
+p = np.exp(-0.5*(x - 10.0)**2/3.0**2)
+p = p/np.sum(p)
+plt.bar(x, p, width=0.3)
+plt.ylabel("Probability")
+plt.title("Prior Distribution $p(\\theta)$")
+
+plt.subplot(2, 1, 2)
+p = np.exp(-0.5*(x - 8.0)**2/0.9**2)
+p = p/np.sum(p)
+plt.bar(x, p, width=0.3)
+plt.title("Posterior Distribution $p(\\theta \\,|\\, x)$")
+plt.xlabel("Possible parameter value $\\theta$")
+plt.ylabel("Probability")
+plt.savefig("images/updating.pdf", bbox_inches="tight")
+

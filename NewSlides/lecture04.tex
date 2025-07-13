@@ -290,5 +290,71 @@ P(\theta = 9 \given x = 3) &= \frac{P(\theta=9){\color{orange}P(x=3 \given \thet
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Bayes' Box for Parameter Estimation}
+Since a Bayes' Box is equivalent to these repeated uses of Bayes' rule,
+we can use them for parameter estimation (when there is only one unknown
+parameter).
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example Bayes' Box for Parameter Estimation}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Parameter & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+$\theta$  & $p(\theta)$ & $p(x \given \theta)$ & $p(\theta)p(x\given\theta)$ & $p(\theta\given x)$ \\
+\hline
+0.1 & 0.2  &  & & \\
+0.2 & 0.2  &  & & \\
+0.3 & 0.2 &  & & \\
+0.4 & 0.2  &  & & \\
+0.5 & 0.2 & & & \\
+\hline
+Total & 1 & & & 1 \\
+\hline
+\end{tabular}
+\pause
+\vspace{1em}
+
+Note the notation for the columns with the lower case $p$
+which means ``probability distribution for''.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule for Parameter Estimation}
+Instead of writing down Bayes' rule lots of times, we often write it down
+once only, with each term being a whole function of $\theta$ not just
+a single probability.\pause
+\begin{align}
+p(\theta \given x) &= \frac{p(\theta)p(x \given \theta)}{p(x)} \\
+p(\theta \given x) &\propto p(\theta)p(x \given \theta) \\
+\texttt{posterior} &\propto \texttt{prior} \times \texttt{likelihood}
+\end{align}
+\pause
+We will use this more when we do {\bf analytical methods}. For now, we will
+stick to the Bayes' Box.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{What Usually Happens}
+Usually, the prior distribution $p(\theta)$ is something wide (indicating
+a lot of uncertainty). After analysing data we get the posterior distribution
+$p(\theta \given x)$ which is usually narrower than the prior.
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/updating.pdf}
+\end{center}
+
+\end{frame}
+
+
 \end{document}
 
