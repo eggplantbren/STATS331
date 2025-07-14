@@ -454,5 +454,66 @@ lik = theta^6*(1-theta)^4
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Solution in R}
+
+\begin{minted}{r}
+theta = seq(0, 1, by=0.1)
+prior = rep(1/length(theta), length(theta))
+lik = theta^6*(1-theta)^4
+h = prior*lik
+Z = sum(h)
+post = h/Z
+\end{minted}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Solution --- Plot}
+
+\centering
+\includegraphics[width=0.7\textwidth]{images/election.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{A Note on Constant Factors in the Likelihood}
+
+\begin{itemize}
+\item The bus problem in the notes is very closely related to
+this. It uses the binomial distribution as the sampling distribution, from
+which we get the likelihood.\pause
+\item This is appropriate if you only know about the 6
+successes (out of the 10 trials), rather than the full
+sequence of successes and failures.\pause
+\item The only difference in the formula for the
+likelihood is a constant out the front (not involving $\theta$).\pause
+\item The likelihoods and marginal likelihood are affected by this constant,
+but because we divide by the marginal likelihood, the posterior is the same
+whether the constant is there or not.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Outputs Again}
+
+\begin{itemize}
+\item Recall that the outputs of Bayesian calculations are the posterior distribution
+and the marginal likelihood.\pause
+\item These --- especially the posterior distribution --- are the complete
+answer to the inference problem.
+\end{itemize}
+
+\centering
+\includegraphics[width=0.3\textwidth]{images/brosh.jpg}
+
+{\tiny (Image credit: Allie Brosh)}
+
+\end{frame}
+
+
 \end{document}
 

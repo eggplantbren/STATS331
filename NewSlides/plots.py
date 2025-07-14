@@ -120,3 +120,13 @@ plt.xlabel("Possible parameter value $\\theta$")
 plt.ylabel("Probability")
 plt.savefig("images/updating.pdf", bbox_inches="tight")
 
+plt.close("all")
+x = np.linspace(0.0, 1.0, 11)
+p = x**6*(1.0 - x)**4
+p = p/np.sum(p)
+plt.bar(x, p, width=0.03)
+plt.xlabel("Parameter $\\theta$")
+plt.ylabel("Probability $p(\\theta \\,|\\, x)$")
+plt.title("Posterior Distribution")
+plt.savefig("images/election.pdf", bbox_inches="tight")
+
