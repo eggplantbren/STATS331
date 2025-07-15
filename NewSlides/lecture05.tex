@@ -109,5 +109,136 @@ We have to choose the prior $p(N)$ and the likelihood $p(x \given N)$.
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Bayes' Box with Uniform Prior}
+Let's assume $N \leq 100$ and keep our uniform prior for now.
+
+\centering
+{\footnotesize
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Parameter & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+$N$  & $p(N)$ & $p(x \given N)$ & $p(N)p(x\given N)$ & $p(N\given x)$ \\
+\hline
+1 & 0.01 & & & \\
+2 & 0.01  &  & & \\
+... &... &... & ...&... \\
+41 & 0.01 &  & & \\
+42 & 0.01  &  & & \\
+43 & 0.01 & & & \\
+... &... &... & ...&... \\
+99 & 0.01 & & & \\
+100   & 0.01 & & & \\
+\hline
+Total & 1 & & & 1 \\
+\hline
+\end{tabular}
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Likelihoods: Direct Reasoning}
+
+\begin{itemize}
+\item If $N=1$, with what probability would we observe $x=42$? \pause
+\item If $N=41$, with what probability would we observe $x=42$? \pause
+\item If $N=42$, with what probability would we observe $x=42$? \pause
+\item If $N=100$, with what probability would we observe $x=42$?
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Likelihoods}
+
+\centering
+{\footnotesize
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Parameter & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+$N$  & $p(N)$ & $p(x \given N)$ & $p(N)p(x\given N)$ & $p(N\given x)$ \\
+\hline
+1 & 0.01 & 0 & & \\
+2 & 0.01  & 0  & & \\
+... &... &... & ...&... \\
+41 & 0.01 & 0 & & \\
+42 & 0.01  & 1/42 & & \\
+43 & 0.01 & 1/43 & & \\
+... &... &... & ...&... \\
+99 & 0.01 & 1/99 & & \\
+100   & 0.01 & 1/100 & & \\
+\hline
+Total & 1 & & & 1 \\
+\hline
+\end{tabular}
+}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Likelihoods: from Sampling Distribution}
+Imagine we did not know $x$ yet, but we did know $N$, the parameter.
+We can assign a probability distribution for $x$ given $N$.
+This would be a discrete uniform distribution, and we can write
+\begin{align}
+x \given N &\sim \textnormal{Uniform}(1, 2, ..., N).
+\end{align}\pause
+
+The formula for this probability distribution is
+\begin{align}
+p(x \given N) &= \left\{
+                    \begin{array}{lr}
+                    \frac{1}{N}, & x \in \{1, 2, ..., N\} \\
+                    0          , & \textnormal{otherwise}.
+                    \end{array}
+                 \right.
+\end{align}
+\end{frame}
+
+\begin{frame}
+\frametitle{Likelihoods: from Sampling Distribution}
+If we take the formula and interpret it as a function of $N$
+with $x$ fixed at 42, it reads
+\begin{align}
+p(x \given N) &= \left\{
+                    \begin{array}{lr}
+                    \frac{1}{N}, & 42 \in \{1, 2, ..., N\} \\
+                    0          , & \textnormal{otherwise}.
+                    \end{array}
+                 \right.
+\end{align}
+which is exactly the rule we `guessed' earlier.
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Likelihoods: from Sampling Distribution}
+In general, we can think of data as being `drawn from'
+some distribution\footnote{Philosophically I object, but it is a useful
+starting point.}
+with unknown parameter $\theta$, written as $p(x \given \theta)$.
+This will be a formula involving both $x$ and $\theta$.
+\pause
+
+When $x$ is known value (plugged in) but $\theta$ isn't, $p(x \given \theta)$
+is now a function of $\theta$ only --- the likelihood function.
+You may have seen this in STATS 210 or other courses. If not, this is a
+reasonable first place to learn about it.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Likelihoods: from Sampling Distribution}
+Since sampling distributions are conditional on $\theta$ but not on the
+data $x$, they are kind of a prior but for the data instead of the parameter.
+
+\end{frame}
+
+
 \end{document}
 
