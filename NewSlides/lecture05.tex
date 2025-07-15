@@ -240,5 +240,31 @@ data $x$, they are kind of a prior but for the data instead of the parameter.
 \end{frame}
 
 
+
+\begin{frame}[fragile]
+\frametitle{Calculating the Posterior in R}
+This follows the standard recipe, but the likelihood is slightly trickier
+than what we had before.
+\begin{minted}{r}
+N = seq(1, 100)
+prior = rep(1/length(N), length(N))
+lik = 1/N
+lik[N < 42] = 0
+h = prior*lik
+Z = sum(h)
+post = h/Z
+plot(N, post, type="h")
+\end{minted}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Taxi Posterior}
+
+\centering
+\includegraphics[width=0.6\textwidth]{images/taxi_posterior.pdf}
+
+\end{frame}
+
 \end{document}
 
