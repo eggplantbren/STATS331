@@ -70,6 +70,44 @@ p(\theta \given x) &\propto p(\theta)p(x \given \theta) \\
 
 
 
+\begin{frame}
+\frametitle{Taxi Problem}
+
+    \begin{columns} % Create two columns
+        \column{0.5\textwidth} % Left column (50% width)
+
+        \begin{itemize}
+        \item You fall asleep in a foreign city.
+        \item When you wake up in the morning, you see a taxi drive by,
+              which says {\bf This is taxi number 42}.
+        \item How many taxis are in the city?
+        \end{itemize}
+
+        \column{0.5\textwidth} % Right column (50% width)
+        \includegraphics[width=0.95\linewidth]{images/taxis.jpg}
+       
+         (public domain image)
+     \end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The Parameter and the Data}
+
+\begin{itemize}
+\item The unknown parameter, $N$, is the number of taxis in the city.\pause
+\item The data, $x$, is the number observed on the taxi that drove past.
+\end{itemize}
+\pause
+Bayes' rule for this circumstance:
+
+\begin{align}
+p(N \given x) \propto p(N)p(x \given N)
+\end{align}
+We have to choose the prior $p(N)$ and the likelihood $p(x \given N)$.
+
+\end{frame}
+
 
 \end{document}
 
