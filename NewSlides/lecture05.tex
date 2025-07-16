@@ -408,5 +408,70 @@ plot(lambda, post, type="h")
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Volcano Posterior Distribution}
+
+\begin{itemize}
+\item The `maximum likelihood estimate' is at $\lambda=20$ for this problem.\pause
+\item Since we used a uniform prior, this coincides with the peak of the
+posterior distribution.\pause
+\item The shape of the posterior distribution describes the uncertainty
+about $\lambda$ completely.\pause
+\item This is different from the frequentist approach, which
+instead considers how
+the maximum likelihood estimate would vary for different datasets.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Another Prior: Log-Uniform}
+
+\begin{itemize}
+\item How long is a piece of string?\pause
+\item Twice the distance from the middle to the end.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The Log-Uniform Prior}
+This is useful for a parameter $\theta$ in the situation where:
+
+\begin{itemize}
+\item $\theta$ is known to be positive.\pause
+\item $\theta$ is unknown by orders of magnitude.\pause
+\end{itemize}
+\vspace{0.5em}
+e.g., the distance to some astronomical object might be
+$10^{11}$ metres, or maybe $10^{12}$ metres, or maybe $10^{13}$
+metres. A uniform prior would be inappropriate here.
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{The Log-Uniform Prior Formula}
+
+The formula for the log-uniform prior is
+\begin{align}
+p(\theta) &\propto \frac{1}{\theta}
+\end{align}
+
+It also corresponds to a uniform prior for $\log(\theta)$.
+To construct one in R:
+\begin{minted}{r}
+theta = seq(0.01, 100, by=0.1) # Cannot include zero!
+prior = 1/lambda               # The prior shape 
+prior = prior/sum(prior)       # Normalise
+\end{minted}
+
+\end{frame}
+
+
+
 \end{document}
 
