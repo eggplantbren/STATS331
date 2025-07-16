@@ -465,7 +465,7 @@ It also corresponds to a uniform prior for $\log(\theta)$.
 To construct one in R:
 \begin{minted}{r}
 theta = seq(0.01, 100, by=0.1) # Cannot include zero!
-prior = 1/lambda               # The prior shape 
+prior = 1/theta                # The prior shape 
 prior = prior/sum(prior)       # Normalise
 \end{minted}
 
@@ -506,6 +506,75 @@ matters for some applications.
 \includegraphics[width=0.5\textwidth]{images/crystal_ball.jpg}
 \end{center}
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction: Classical Approach}
+
+\begin{itemize}
+\item Step 1: Get an estimate (single number guess of the parameter)\pause
+\item Step 2: Make the prediction (probably using the sampling distribution),
+assuming the estimate was correct.\pause
+\item Step 3: Optionally, consider how the result would have varied if the data had
+been different.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction: Bayesian Approach}
+
+\begin{itemize}
+\item Step 1: get the posterior distribution for the parameter(s)\pause
+\item Step 2: For each possible value of the parameter, compute the probability
+you're interested in (e.g., probability of an eruption in the next 50
+years).\pause
+\item Step 3: Calculate the weighted average of the probabilities from the previous
+step, using the posterior distribution for the weights.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction: Bayesian Approach}
+Consider all the `ways' in which there could be an eruption in the next 50 years:
+\begin{itemize}
+\item $\lambda=0.01$ and there is an eruption.\pause
+\item $\lambda=0.02$ and there is an eruption.\pause
+\item $\lambda=0.03$ and there is an eruption.\pause
+\item And so on.
+\end{itemize}
+These are mutually exclusive so we can add up their probabilities.
+Mathematically, it's the partition theorem.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Two Results}
+
+\begin{minted}{r}
+# Classical
+> 1 - dpois(0, 0.0025*20)
+[1] 0.04877058
+
+# Bayesian
+> prob = 1 - dpois(0, 0.0025*lambda)
+> sum(post*prob)
+[1] 0.04871122
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Two Results}
+The results are numerically very similar.\\
+{\bf Food for Thought}: When would you expect the two methods to give very
+different results?
+
+\end{frame}
+
 
 \end{document}
 
