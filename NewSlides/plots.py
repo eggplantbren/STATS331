@@ -130,3 +130,17 @@ plt.ylabel("Probability $p(\\theta \\,|\\, x)$")
 plt.title("Posterior Distribution")
 plt.savefig("images/election.pdf", bbox_inches="tight")
 
+
+plt.close("all")
+lamb = np.linspace(0.1, 100.0, 1000)
+p1 = lamb**20*np.exp(-lamb)
+p1 = p1/np.sum(p1)
+p2 = lamb**19*np.exp(-lamb)
+p2 = p2/np.sum(p2)
+plt.plot(lamb, p1, label="Uniform Prior")
+plt.plot(lamb, p2, label="Log-uniform Prior")
+plt.legend()
+plt.xlabel("Parameter $\\lambda$")
+plt.ylabel("Probability $p(\\lambda \\,|\\, x)$")
+plt.savefig("images/volcano_posterior_comparison.pdf", bbox_inches="tight")
+
