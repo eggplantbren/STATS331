@@ -278,5 +278,109 @@ plot(N, post, type="h")
 \end{frame}
 
 
+
+\begin{frame}
+\frametitle{The Problem (based on STATS 210)}
+
+\begin{itemize}
+\item In the last 20,000 years, there have been 20 volcanic eruptions in the
+Auckland region. Let's call this {\bf 1 time unit}.\pause
+\item What is the probability of at least one eruption in the next 50 years
+({\bf 0.0025 time units})?
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Poisson Process}
+Events occurring over time can be modelled using a ``Poisson Process''.
+There is an average rate parameter $\lambda$.
+
+\hspace{3em}
+\begin{verbatim}
+------*--*-----------*---------*--------------*--*-->
+\end{verbatim}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Poisson Process}
+The number of events, $x$, in a time interval of length $t$ has a Poisson
+distribution with mean $\lambda t$. We have an interval of unit length,
+so we just get a Poisson with mean parameter $\lambda$:
+
+\begin{align}
+p(x \given \lambda) &= \frac{\lambda^x e^{-\lambda}}{x!}
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Poisson Process}
+We could use the Poisson Process to get the probability
+of an eruption in the next 50 years:
+\begin{align}
+P(\textnormal{Eruption} \given \lambda)
+    &= 1 - e^{-0.0025\lambda}
+\end{align}
+(from the Poisson formula with mean $\lambda t$, evaluated at $x=0$).\\[1em]\pause
+
+{\bf Problem}: We can't use this, because we don't know $\lambda$.
+So let's do parameter estimation.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Uniform Prior}
+
+\centering
+{\footnotesize
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Parameter & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+$\lambda$  & $p(\lambda)$ & $p(x \given \lambda)$ & $p(\lambda)p(x\given \lambda)$ & $p(\lambda\given x)$ \\
+\hline
+0.1 & 0.001 &  & & \\
+1.1 & 0.001  &   & & \\
+... &... &... & ...&... \\
+19.9 & 0.001 &  & & \\
+20.0 & 0.001  &  & & \\
+20.1 & 0.001 &  & & \\
+... &... &... & ...&... \\
+99.9 & 0.001 &  & & \\
+100.0   & 0.001 &  & & \\
+\hline
+Total & 1 & & & 1 \\
+\hline
+\end{tabular}
+}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Likelihood}
+We have a single data value $x=20$ `from a Poisson distribution' with unknown mean
+$\lambda$. We could work with the Poisson formula, but it is easier to use
+R's \mintinline{r}{dpois()} function.\pause
+
+\begin{minted}{r}
+lambda = seq(0.1, 100, by=0.1)
+prior = rep(1/length(lambda), length(lambda))
+lik = dpois(20, lambda)
+\end{minted}
+\pause
+
+{\bf Note}: If you wanted to plot a Poisson distribution, you would use
+\mintinline{r}{dpois()} with one value of $\lambda$ and a range of values
+of $x$. Here we do the opposite because $x$ is known to be 20 and
+$\lambda$ is unknown.
+\end{frame}
+
 \end{document}
 
