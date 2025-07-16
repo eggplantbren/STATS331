@@ -382,5 +382,31 @@ of $x$. Here we do the opposite because $x$ is known to be 20 and
 $\lambda$ is unknown.
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Computing and Plotting the Posterior}
+\begin{minted}{r}
+lambda = seq(0.1, 100, by=0.1)
+prior = rep(1/length(lambda), length(lambda))
+lik = dpois(20, lambda)
+h = prior*lik
+Z = sum(h)
+post = h/Z
+plot(lambda, post, type="h")
+\end{minted}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Volcano Posterior Distribution}
+
+\centering
+\includegraphics[width=0.6\textwidth]{images/volcano.pdf}
+
+\end{frame}
+
+
 \end{document}
 
