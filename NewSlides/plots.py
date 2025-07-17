@@ -152,3 +152,13 @@ plt.plot(theta, p)
 plt.xlabel("$\\theta$")
 plt.ylabel("$p(\\theta \\,|\\, x)$")
 plt.savefig("images/beta_posterior.pdf")
+
+plt.close("all")
+lamb = np.linspace(0.0, 20.0, 1001)
+p = lamb**(15 - 1)*np.exp(-3*lamb)
+p = p/np.trapz(p, x=lamb)
+plt.plot(lamb, p)
+plt.xlabel("$\\lambda$")
+plt.ylabel("$p(\\lambda \\,|\\, x_1, x_2, x_3)$")
+plt.savefig("images/gamma_posterior.pdf")
+

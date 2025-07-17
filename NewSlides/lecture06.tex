@@ -481,5 +481,137 @@ p(x_1, x_2, x_3 \given \lambda)
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Log-Uniform Prior}
+The log-uniform prior works nicely here because $\lambda$ must be positive,
+and we can imagine being uncertain about the order of magnitude.\pause
+\begin{align}
+p(\lambda \given x_1, x_2, x_3) &\propto p(\lambda)p(x_1, x_2, x_3 \given \lambda) \\
+    &\propto \frac{1}{\lambda} \lambda^{15}e^{-3\lambda} \\
+    &= \lambda^{14}e^{-3\lambda}.
+\end{align}
+\pause
+What distribution is this?
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Gamma Distribution}
+Gamma distributions are used for positive quantities, and the
+probability density function looks like this, with a polynomial factor
+and an exponential factor:
+\begin{align}
+p(x \given \alpha, \beta)
+    &= \frac{\lambda^{\alpha}}{\Gamma(\alpha)}
+            x^{\alpha-1}e^{-\beta x}.
+\end{align}
+\pause
+As before, we can just focus on the part that depends on $x$ (which corresponds
+to $\lambda$ on the previous slide). By matching terms we see that we have
+\begin{align}
+\lambda \given x_1, x_2, x_3 \sim \textnormal{Gamma}(15, 3).
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Our Gamma(15, 3) Posterior}
+
+\centering
+\includegraphics[width=0.6\textwidth]{images/gamma_posterior.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Gamma Distributions from Wikipedia}
+\centering
+\includegraphics[width=0.7\textwidth]{images/gammas.pdf}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Gamma-Poisson}
+
+The gamma distribution is actually the conjugate prior for the Poisson distribution. This means:
+
+Gamma Prior + Poisson Sampling Distribution $\implies$~Gamma Posterior.
+
+Let's derive this now.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Gamma-Poisson}
+Suppose we have $x_1, x_2, ..., x_N$ and our sampling distribution for these
+is Poisson with parameter/mean $\lambda$. We use a gamma prior for $\lambda$.
+\pause
+\begin{align}
+p(\lambda \given x_1, ..., x_N)
+    &\propto p(\lambda)p(x_1, ..., x_N \given \lambda) \\
+    &\propto \lambda^{\alpha-1}e^{-\beta \lambda}
+            \prod_{i=1}^N \lambda^{x_1}e^{-\lambda} \\
+    &= \lambda^{\alpha + \sum_{i=1}^N x_i}e^{-(\beta + N)\lambda}
+\end{align}
+Therefore, the posterior is
+\begin{align}
+\lambda \given x_1, ..., x_N &\sim
+    \textnormal{Gamma}\left(\alpha + \sum_{i=1}^N x_i, \beta + N\right).
+\end{align}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Normal-Normal}
+\begin{itemize}
+\item The other famous conjugate prior is the normal-normal. However, this is a bit
+messy, so I prefer to skip it in STATS 331 (it is studied in STATS 731).\pause
+\item It also assumes the $\sigma$ of the normal distribution is known, which
+is unrealistic.\pause
+\item If you assume $\sigma$ is unknown, you can derive a posterior distribution
+which is a Student-$t$ distribution.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Analytical Methods: Pros and Cons}
+
+{\bf Pros}
+\begin{itemize}
+\item Answers are exact with no need for approximate grids.\pause
+\item The posterior distribution is often easy to use to compute
+    predictions or summaries (we will look at summaries soon).
+\end{itemize}
+\pause
+{\bf Cons}
+\begin{itemize}
+\item The trick of `recognising' the posterior distribution from its formula
+is only possible in a few special cases.
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{What I Expect of You}
+In STATS 331 I expect you to be able to work with the Binomial and
+Poisson situations and their respective conjugate priors.
+
+\end{frame}
+
+
+
 \end{document}
 
