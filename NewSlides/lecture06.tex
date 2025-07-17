@@ -138,6 +138,25 @@ This method is better if we want to write a prior using
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Multiple Data Points}
+When there are multiple data points, the likelihood is formed from a
+{\bf product} of terms, one for each data point.
+For example, suppose we had earthquake data for
+three non-overlapping 20,000 year periods, and the values were
+$\{20, 14, 18\}$.\pause
+\begin{minted}{r}
+lik = dpois(20, lambda)*dpois(14, lambda)*dpois(18, lambda)
+\end{minted}
+\pause
+When there are many data values, a loop may be needed, and you might
+also need to take the log. This will show up in labs.
+
+\end{frame}
+
+
+
+
 \begin{frame}
 \frametitle{Parameter Estimation: Analytical Methods}
 
@@ -275,6 +294,19 @@ a Beta$(7, 5)$ distribution. We can write
 
 \end{frame}
 
+\begin{frame}
+\frametitle{A Special Case}
+The Beta(1, 1) distribution is actually the same as a Uniform(0, 1)
+distribution. Look at the equation for the probability density:
+\begin{align}
+p(\theta) &\propto \theta^{\alpha-1}(1-\theta)^{\beta - 1} \\
+          &= \theta^{0}(1-\theta)^{0} \\
+          &= 1.
+\end{align}
+
+\end{frame}
+
+
 
 \begin{frame}
 \frametitle{Prediction}
@@ -348,6 +380,66 @@ The result is {\em not} $x/N$, and continues to make sense even with no data
 
 \end{frame}
 
+
+
+\begin{frame}
+\frametitle{Beta-Binomial}
+Consider the binomial distribution, which is used for the number of successes
+$x$ out of $N$ independent ``Bernoulli trials'', with success probability
+$\theta$ on each of the trials. The Binomial distribution looks like
+\begin{align}
+p(x \given \theta) &= \binom{N}{x}\theta^x(1-\theta)^{N-x}.
+\end{align}
+\pause
+If we observe the value of $x$ but want to infer $\theta$, we can derive
+the posterior for $\theta$ given $x$. Let's do this now.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Beta-Binomial}
+There is a nice relationship between the beta distribution and the binomial
+distribution. If the former is the prior for $\theta$ and the latter is the
+sampling distribution (which gives the likelihood), then we get a nice
+result.\pause
+\begin{align}
+p(\theta \given x) &\propto p(\theta) p(x \given \theta) \\
+    &= \theta^{\alpha-1}(1-\theta)^{\beta-1} \theta^x(1-\theta)^{N-x} \\
+    &= \theta^{\alpha+x-1}(1-\theta)^{\beta+N-x-1}
+\end{align}
+\pause
+The posterior is another beta distribution!
+\begin{align}
+\theta \given x &\sim \textnormal{Beta}(\alpha+x, \beta+N-x)
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Rule of Succession}
+If we take the expectation, like we did before, to find the predictive
+probability of success on the next trial, we get
+\begin{align}
+\frac{\alpha+x}{\alpha + \beta + N}
+\end{align}
+as the result. If we choose a uniform prior ($\alpha=\beta=1$)
+then we get the rule of succession again, which was
+$(x+1)/(N+2)$.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Conjugate Priors}
+Beta Prior + Binomial Sampling Distribution $\implies$~
+Beta Posterior \\
+
+This is our first example of a {\bf conjugate prior}.
+We say that the Beta is the conjugate prior for the Binomial.
+
+\end{frame}
 
 
 \end{document}
