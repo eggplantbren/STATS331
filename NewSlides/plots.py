@@ -144,3 +144,11 @@ plt.xlabel("Parameter $\\lambda$")
 plt.ylabel("Probability $p(\\lambda \\,|\\, x)$")
 plt.savefig("images/volcano_posterior_comparison.pdf", bbox_inches="tight")
 
+plt.close("all")
+theta = np.linspace(0.0, 1.0, 1001)
+p = theta**6*(1.0 - theta)**4
+p = p/np.trapz(p, x=theta)
+plt.plot(theta, p)
+plt.xlabel("$\\theta$")
+plt.ylabel("$p(\\theta \\,|\\, x)$")
+plt.savefig("images/beta_posterior.pdf")

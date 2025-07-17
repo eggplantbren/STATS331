@@ -139,7 +139,7 @@ This method is better if we want to write a prior using
 \end{frame}
 
 \begin{frame}
-\frametitle{Analytical Methods}
+\frametitle{Parameter Estimation: Analytical Methods}
 
 \begin{center}
 \includegraphics[width=0.6\textwidth]{images/miracle.jpg}
@@ -147,6 +147,133 @@ This method is better if we want to write a prior using
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Reminder of Bayes' Rule for Parameter Estimation}
+
+\begin{align}
+p(\theta \given x) &= \frac{p(\theta)p(x \given \theta)}{p(x)} \\
+p(\theta \given x) &\propto p(\theta)p(x \given \theta) \\
+\texttt{posterior} &\propto \texttt{prior} \times \texttt{likelihood}
+\end{align}
+(notation: $\theta$=parameter, $x$=data)\pause
+
+In analytical methods, we will write down explicit mathematical expressions
+for $p(\theta)$ and $p(x \given \theta)$, multiply them, and see what we
+get for $p(\theta \given x)$.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Reminder: Election Poll Problem}
+We called 10 people and the data was
+$\{1, 1, 0, 0, 1, 0, 1, 0, 1, 1\}$. Our likelihood function was
+\begin{align}
+p(x \given \theta) &= \theta^6(1-\theta)^4.
+\end{align}
+\pause
+In this example, our parameter is actually called $\theta$ and our data may
+as well be called $x$. In other problems, it's best to use the symbols
+appropriate to the meanings of the parameter(s) and the data.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Uniform Prior}
+Let's choose a (continuous) uniform prior between 0 and 1 for $\theta$.
+The mathematical expression for this density is
+\begin{align}
+p(\theta) = \left\{
+                \begin{array}{cc}
+                1, & 0 \leq \theta \leq 1 \\
+                0, & \textnormal{otherwise}.
+                \end{array}
+            \right.
+\end{align}
+\pause
+However, if we just remember that we're dealing with something between 0 and 1,
+we can simply write
+\begin{align}
+p(\theta) = 1.
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Prior Times Likelihood}
+By Bayes' rule, the posterior distribution is {\em proportional to}
+the prior times the likelihood. We have those now:
+\begin{align}
+p(\theta \given x) &\propto p(\theta) p(x \given \theta) \\
+                   &= 1 \times \theta^6(1-\theta)4 \\
+                   &= \theta^6(1-\theta)^4.
+\end{align}
+\pause
+We have the result! However, we need to understand what the distribution
+looks like. We can (i) plot the function to see its shape (this will essentially
+involve the Bayes' Box steps!) or (ii) we can magically recognise from the
+formula what this distribution must be.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Beta Distributions}
+
+\begin{itemize}
+\item The {\bf beta distribution} is often used for values that are between 0
+and 1.\pause
+\item It has two parameters, $\alpha$ and $\beta$, which determine its shape.
+For a quantity $x$ with a Beta distribution, we write $x \sim \textnormal{Beta}(\alpha, \beta)$.\pause
+\item The probability density equation is
+\begin{align}
+p(x) &= \frac{1}{\textnormal{Beta}(\alpha, \beta)}
+            x^{\alpha - 1}(1-x)^{\beta - 1}
+\end{align} \pause
+\item We mostly focus on the part that depends on $x$ - the other thing
+at the front is just a normalisation constant.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Comparing Formulas}
+
+The beta distribution is
+\begin{align}
+p(x) &= \frac{1}{\textnormal{Beta}(\alpha, \beta)}
+            x^{\alpha - 1}(1-x)^{\beta - 1}
+\end{align}
+
+and our posterior distribution was
+\begin{align}
+p(\theta \given x) &\propto \theta^6(1-\theta)^4.
+\end{align}\pause
+By comparing the two formulas, we see that our posterior is
+a Beta$(7, 5)$ distribution. We can write
+\begin{align}
+\theta \given x &\sim \textnormal{Beta}(7, 5).
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Beta Distributions from Wikipedia}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/betas.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Our Beta(7, 5) posterior}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/beta_posterior.pdf}
+\end{center}
+
+\end{frame}
 
 
 \end{document}
