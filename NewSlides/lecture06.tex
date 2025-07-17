@@ -442,5 +442,44 @@ We say that the Beta is the conjugate prior for the Binomial.
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Burgers}
+
+\centering
+\includegraphics[width=0.7\textwidth]{images/burger.jpg}
+
+By Roee Shpernik, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=35019440
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Burgers}
+
+\centering
+\includegraphics[width=0.7\textwidth]{images/wayneburger.png}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Likelihood}
+The likelihood function is formed from the product of the Poisson distribution
+three times. Why? It's the probability of getting 5 hairs on the first burger
+{\bf and} 6 on the second burger {\bf and} 4 on the third burger --- this is
+the product rule in action.\pause
+\begin{align}
+p(x_1, x_2, x_3 \given \lambda)
+    &= \frac{\lambda^{x_1}e^{-\lambda}}{x_1!}
+        \frac{\lambda^{x_2}e^{-\lambda}}{x_2!}
+        \frac{\lambda^{x_3}e^{-\lambda}}{x_3!} \\
+    &\propto 
+        \lambda^{x_1+x_2+x_3}e^{-3\lambda} \\
+    &= \lambda^{15}e^{-3\lambda}.
+\end{align}
+
+\end{frame}
+
+
 \end{document}
 
