@@ -267,13 +267,88 @@ a Beta$(7, 5)$ distribution. We can write
 \end{frame}
 
 \begin{frame}
-\frametitle{Our Beta(7, 5) posterior}
+\frametitle{Our Beta(7, 5) Posterior}
 
 \begin{center}
 \includegraphics[width=0.6\textwidth]{images/beta_posterior.pdf}
 \end{center}
 
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction}
+
+\begin{itemize}
+\item Let's do a Bayesian prediction using analytical methods. We will be
+able to `cheat' instead of doing an integral.\pause
+\item What is the probability that the `next' data point is a 1?\pause
+\item This will give us Laplace's famous {\bf rule of succession}.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: Bayesian Approach}
+
+\begin{itemize}
+\item Step 1: get the posterior distribution for the parameter(s)\pause
+\item Step 2: For each possible value of the parameter, compute the probability
+you're interested in (e.g., probability of an eruption in the next 50
+years).\pause
+\item Step 3: Calculate the weighted average of the probabilities from the previous
+step, using the posterior distribution for the weights.
+\end{itemize}
+
+This procedure is not invented, but is derivable from the rules of
+probability theory.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction: Bayesian Approach}
+We've done step 1. For step two, consider: if we knew $\theta$, what would
+be the probability of the next data point being a 1? Hopefully you can see that
+it would simply be $\theta$ itself.\pause
+
+Therefore to do the prediction we ``just'' need to do this integral:
+\begin{align}
+P(x_{11} = 1 \given x) &= \int_0^1 \theta p(\theta \given x)\, d\theta
+\end{align}
+where $p(\theta \given x)$ is our Beta$(7, 5)$ posterior. However, someone
+has already done it for us!
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Expectation of a Beta Distribution}
+You might recognise the previous integral as the definition of the
+{\bf expectation} of our posterior distribution. Wikipedia has our answer.
+
+\centering
+\includegraphics[scale=0.3]{images/wikipedia.png}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Prediction Result}
+Let's just use the given result.
+\begin{align}
+P(x_{11} = 1 \given x) &= \frac{7}{7+5} \\
+                       &= 7/12.
+\end{align}\pause
+In general, for $x$ successes out of $N$ trials and a uniform prior for
+$\theta$, the result is {\bf Laplace's rule of succession}:
+\begin{align}
+P(x_{\rm next} = 1 \given x) &= \frac{x+1}{N+2}.
+\end{align}\pause
+The result is {\em not} $x/N$, and continues to make sense even with no data
+($x=N=0$)!
+
+
+\end{frame}
+
 
 
 \end{document}
