@@ -345,11 +345,133 @@ under $H_1$.
 \includegraphics[width=0.9\textwidth]{images/mackay_coin.png}
 \end{center}
 
-We can do this with a spike and slab prior.
+Let's do this with a spike and slab prior.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{MacKay Biased Coin Example}
+
+\centering
+Computational Interlude
 
 \end{frame}
 
 
+
+\begin{frame}
+\frametitle{MacKay Biased Coin Example: Second Method}
+There is another way to do this calculation, which is actually more common
+and more general than using a spike and slab prior. Look at Bayes' rule
+in odds form again:
+\begin{align}
+\frac{P(H_0 \given x)}{P(H_1 \given x)}
+    &= \frac{P(H_0)}{P(H_1)} \times \frac{p(x \given H_0)}{p(x \given H_1)}.
+\end{align}
+\pause
+
+If we can calculate the numerator and denominator in the Bayes' factor part,
+we can get the Bayes' factor and the posterior odds, i.e., the conclusion.
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayesian Model Comparison}
+Consider two `models' $M_1$ and $M_2$ with unknown parameters $\theta_1$
+and $\theta_2$ respectively. To get the Bayes factor we would need likelihood
+values $P(x \given M_1)$ and $P(x \given M_2)$.\\[0.5em]\pause
+
+When we do parameter estimation within $M_1$, we get the marginal likelihood
+\begin{align}
+p(x \given M_1) &= \sum_{\theta_1} p(\theta_1 \given M_1)p(x \given \theta_1, M_1)
+\end{align}
+
+This, and the corresponding value for $M_2$, is just what we need for the Bayes' factor!
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Evidence}
+
+That's why marginal likelihood
+is sometimes called evidence --- that number is how strongly the data supports
+{\em any} of the $\theta$ values --- i.e., your whole underlying model.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{MacKay Coin Example: The Numerator}
+Since $H_0$ asserts a single value for $\theta=0.5$, the term in the numerator
+of the Bayes' factor is really just the likelihood for $\theta=0.5$:
+\begin{minted}{r}
+lik_H0 = dbinom(140, size=250, prob=0.5)
+\end{minted}
+\pause
+
+$H_1$ is more complex, because it involves multiple values of $\theta$.
+However, as we just saw, we need the marginal likelihood from estimating $\theta$ assuming $H_1$.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{MacKay Coin Example: The Denominator}
+This looks just like parameter estimation, except for the Bayes' factor
+calculation at the end.
+\begin{minted}{r}
+theta = seq(0, 1, by=0.001)
+prior = rep(1/length(theta), length(theta))
+lik = dbinom(140, size=250, prob=theta)
+h = prior*lik
+Z = sum(h) # This is what we need
+bayes_factor = lik_H0/Z
+\end{minted}
+\pause
+The result is approximately 2.1, so we have evidence in favour of
+$H_0$.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Converting Back to Posterior Probabilities}
+If we have the conclusion in terms of posterior probabilities, it is easy
+to get the posterior odds or Bayes factor, as we saw with the bus example.
+How do we do the reverse? Make a tiny Bayes' Box!
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Tiny Bayes' Box}
+
+\begin{minted}{r}
+> prior = c(0.5, 0.5)
+> lik = c(lik_H0, Z)
+> h = prior*lik
+> prior2 = c(0.5, 0.5)
+> lik2 = c(lik_H0, Z)
+> h2 = prior2*lik2
+> Z2 = sum(h2)
+> post2 = h2/Z2
+> post2
+[1] 0.6773934 0.3226066
+\end{minted}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Warning}
+
+\begin{itemize}
+\item Bayesian model selection results
+can depend strongly on priors, such as the width/shape of the slab. You usually
+can't get away with naive choices like super-wide uniform distributions.\pause
+\item Why? The priors change what data you would expect to observe under each
+hypothesis/model.\pause
+\item E. T. Jaynes quote:
+\end{itemize}
+
+\includegraphics[width=0.8\textwidth]{images/carpenter.png}
+
+\end{frame}
 
 
 \end{document}
