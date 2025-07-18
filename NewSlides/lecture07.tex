@@ -109,5 +109,140 @@ informative.''}
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Bus Problem from Lecture Notes}
+When I first moved to Auckland, I caught buses arbitrarily, hoping I would
+get to the right place. I achieved $x=2$ successes out of $N=5$ trials.
+The binomial sampling distribution applies to $x$ here.\pause
+
+Suppose we wanted to test $H_0: \theta = 0.5$. The p-value would be
+\begin{align}
+\textnormal{p-value} &= P(x \leq 2 \vee x \geq 3 \given H_0) = 1.
+\end{align}
+\pause
+Traditionally, a statistician would say there is no evidence against the null
+hypothesis. But is there evidence {\em for} it? In the Bayesian version of
+hypothesis testing, we will be able to say that sometimes.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Criticisms of P-Values}
+Many people have criticised p-values. Some of the arguments include, but are not
+limited to:
+\begin{itemize}
+\item P-values are not the probability of the null hypothesis, but are sometimes
+interpreted as if they were.\pause
+\item Frequentist statisticians know they are not. However, they are obviously
+an attempt to quantify the plausibility of $H_0$.\pause
+\item They do not take into account what you would have expected to observe if
+$H_0$ were false.\pause
+\item They are based on the probability of data that did not occur
+(hypotheses in the tails).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Harold Jeffreys Quote}
+
+    \begin{columns} % Create two columns
+        \column{0.5\textwidth} % Left column (50% width)
+        \includegraphics[width=0.7\linewidth]{images/jeffreys.jpg}
+
+        \column{0.5\textwidth} % Right column (50% width)
+        {\em ``A hypothesis may be rejected because it has not predicted
+               observable results that did not occur!''}
+     \end{columns}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Spike and Slab Prior}
+For us, the only distinction between a hypothesis testing situation and a
+parameter estimation one is that a particular value of the parameter has
+been singled out for special attention --- usually because it's plausible.\pause
+
+To take this into account, all we have to do is give the special value of
+$\theta$ more prior probability than it would have otherwise. This leads
+to a `spike' in the prior. The rest of the $\theta$ values form a `slab'.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Box: Uniform Prior}
+
+\centering
+{\footnotesize
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Parameter & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+$\theta$  & $p(\theta)$ & $p(x \given \theta)$ & $p(\theta)p(x\given \theta)$ & $p(\theta\given x)$ \\
+\hline
+0 & 0.0909 &  & & \\
+0.1 & 0.0909  &   & & \\
+0.2 & 0.0909 &  &  &  \\
+0.3 & 0.0909 &  &  &  \\
+0.4 & 0.0909 &  &  &  \\
+0.5 & 0.0909 &  &  &  \\
+0.6 & 0.0909 &  &  &  \\
+0.7 & 0.0909 &  &  &  \\
+0.8 & 0.0909 &  &  &  \\
+0.9 & 0.0909 &  &  &  \\
+1 & 0.0909 &  &  &  \\
+\hline
+Total & 1 & & & 1 \\
+\hline
+\end{tabular}
+}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayes' Box: Spike and Slab Prior}
+
+\centering
+{\footnotesize
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Parameter & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
+$\theta$  & $p(\theta)$ & $p(x \given \theta)$ & $p(\theta)p(x\given \theta)$ & $p(\theta\given x)$ \\
+\hline
+0 & 0.05 & 0 & 0 & 0\\
+0.1 & 0.05 & 0.0729  & 0.003645 & 0.0163\\
+0.2 & 0.05 & 0.2048 & 0.01024  & 0.0457 \\
+0.3 & 0.05 & 0.3087 & 0.01544 & 0.0689 \\
+0.4 & 0.05 & 0.3456 & 0.01728 & 0.0772 \\
+{\bf 0.5} & {\bf 0.5} & {\bf 0.3125} & {\bf 0.1563} & {\bf 0.6977} \\
+0.6 & 0.05 & 0.2304 & 0.0115 & 0.0514 \\
+0.7 & 0.05 & 0.1323 & 0.0662 & 0.0295 \\
+0.8 & 0.05 & 0.0512 & 0.00256 & 0.0114 \\
+0.9 & 0.05 & 0.0081 & 0.000405 & 0.0018 \\
+1 & 0.05 & 0 & 0 & 0 \\
+\hline
+Total & 1 & & 0.224 & 1 \\
+\hline
+\end{tabular}
+}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Constructing the Spike and Slab Prior in R}
+You first create the slab, then manually put in the spike.
+
+\begin{minted}{r}
+theta = seq(0, 1, by=0.1)
+prior = rep(0.5/(length(theta)-1), length(theta))
+prior[abs(theta - 0.5) < 1E-7] = 0.5
+\end{minted}
+\pause
+
+{\bf Note}: Instead of testing for exact equality of the
+\mintinline{r}{theta} values to 0.5, I just found the
+value close to 0.5. This is more robust due to computer weirdness.
+\end{frame}
+
 \end{document}
 
