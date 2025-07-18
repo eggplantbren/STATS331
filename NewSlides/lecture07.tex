@@ -245,6 +245,16 @@ value close to 0.5. This is more robust due to computer weirdness.
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{Bus Problem Likelihood}
+For completeness, here is the likelihood for the bus problem.
+
+\begin{minted}{r}
+lik = dbinom(2, size=5, prob=theta)
+\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]
 \frametitle{Key Differences from Frequentist Hypothesis Testing}
 
 \begin{itemize}
@@ -272,6 +282,74 @@ These re-express the same conclusions that we already have with posterior
 probabilities, but in a different form.
 
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule Twice}
+Here is Bayes' rule twice, expressing the posterior probabilities of two
+hypotheses $H_0$ and $H_1$:
+\begin{align}
+P(H_0 \given x) &= \frac{P(H_0)p(x \given H_0)}{p(x)} \\
+P(H_1 \given x) &= \frac{P(H_1)p(x \given H_1)}{p(x)}
+\end{align}
+\pause
+
+{\bf Note}: I have written upper case $P$ for the terms that are
+definitely probabilities, and lower case for the ones that might
+be probabilities or probability densities.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Division}
+If we divide the two equations by each other, the denominators cancel out,
+leaving us with ``Bayes' rule in odds form'':
+\begin{align}
+\frac{P(H_0 \given x)}{P(H_1 \given x)}
+    &= \frac{P(H_0)}{P(H_1)} \times \frac{p(x \given H_0)}{p(x \given H_1)}.
+\end{align}
+\pause
+or
+\begin{align}
+\textnormal{posterior odds} &=
+    \textnormal{prior odds} \times \textnormal{Bayes factor}.
+\end{align}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bus Result Expressed Differently}
+\begin{itemize}
+\item In the bus problem, the prior probability of $H_0$ was 0.5, so the prior
+odds ratio was $0.5/(1 - 0.5) = 1$. The posterior probability was
+0.6977 so the posterior odds ratio was $0.6977/(1 - 0.6977)=2.308$.\pause
+\item That is, the data makes $H_0$ 2.308 times more probable than $H_1$.\pause
+\item We can also solve for the Bayes' factor, which must equal the posterior
+odds ratio because the prior odds ratio was 1. Therefore the Bayes' factor
+is also 2.308 --- the data was 2.308 times more probable under $H_0$ than
+under $H_1$.
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{MacKay Biased Coin Example}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/mackay_coin.png}
+\end{center}
+
+We can do this with a spike and slab prior.
+
+\end{frame}
+
+
 
 
 \end{document}
