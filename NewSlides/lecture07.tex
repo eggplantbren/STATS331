@@ -244,5 +244,20 @@ prior[abs(theta - 0.5) < 1E-7] = 0.5
 value close to 0.5. This is more robust due to computer weirdness.
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Key Differences from Frequentist Hypothesis Testing}
+
+\begin{itemize}
+\item No p-value. Instead, calculate the posterior probability of the null
+hypothesis.\pause
+\item This has a clearer interpretation, and is what we really want to know.\pause
+\item You can get evidence {\bf for} the null hypothesis, if the data
+suggests this. This happened in the bus example we just saw, as the
+probability went up from 0.5 to 0.6977.
+\end{itemize}
+
+\end{frame}
+
+
 \end{document}
 
