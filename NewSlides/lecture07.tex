@@ -1,0 +1,145 @@
+\documentclass{beamer}
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          bullet=circle,% Use circles instead of squares for bullets.
+          titleline=true,% Show a line below the frame title.
+          alternativetitlepage=true,% Use the fancy title page.
+       %   titlepagelogo=logo-polito,% Logo for the first page.
+       %   watermark=watermark-polito,% Watermark used in every page.
+       %   watermarkheight=100px,% Height of the watermark.
+       %   watermarkheightmult=4,% The watermark image is 4 times bigger
+                                % than watermarkheight.
+          ]{Torino}
+
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,dp=1ex]{footline}
+    \vspace{5pt} \hspace{1em} \insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}
+}
+
+\author{Brendon J. Brewer}
+\title{STATS 331 -- Introduction to Bayesian Statistics}
+\institute{The University of Auckland}
+\date{}
+
+
+\linespread{1.3}
+\usepackage{minted}
+\usepackage[utf8]{inputenc}
+\usepackage{dsfont}
+\newcommand{\given}{\,|\,}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{images/history.png} \\
+Credit: Unknown but maybe Bill Jeffreys?
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+
+\begin{center}
+Summarising Posterior Distributions
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The Posterior}
+\begin{itemize}
+\item In Bayesian statistics, posterior distributions form the complete answer
+to the question ``what is known about $\theta$''? \pause
+\item From the posterior distribution, you can calculate the probability of
+anything else you might be interested in (e.g., predictions).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Posterior Summaries}
+
+\begin{itemize}
+\item The posterior might be a complicated probability distribution, or it
+might be simple, but in any case it is nice to be able to communicate what it
+looks like to others. \pause
+\item If we summarise with a `point estimate' (single number guess) or
+an interval, then we have some things which are analogous to frequentist
+estimators and confidence intervals.\pause
+\item Posterior summaries are often analogous to simple summaries of datasets.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Simple Summaries}
+Here are some summaries which are common, and you might have already thought
+of them. We often want to convey something about where the distribution is
+centered and how wide it is.\pause
+
+The posterior mean (expected value) and standard deviation are reasonable
+choices for this in many cases.\pause
+
+{\bf posterior mean $\pm$ posterior s.d.}
+is approximately a 68\% credible interval
+(we will see these later) if the posterior is approximately a normal/gaussian
+distribution.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Computing Simple Summaries}
+\begin{minted}{r}
+# Posterior mean
+post_mean = sum(theta*post)
+
+# Variance and s.d.
+post_var = sum((theta - post_mean)^2*post)
+post_sd = sqrt(post_var)
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Example Posterior Distribution}
+Remember our election polling example, with 6 successes out of 10 Bernoulli
+trials. The posterior was a Beta$(7, 5)$ distribution.
+
+\begin{center}
+\includegraphics[width=0.65\textwidth]{images/beta_posterior.pdf}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Example Posterior Distribution}
+
+The mean of this is 7/12 $\approx 0.583$ (as we saw when we did prediction)
+and the s.d. is available analytically. We get
+\begin{align}
+\theta = 0.583 \pm 0.137.
+\end{align}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Other Options for Point Estimates}
+The posterior mean is not the only option for presenting a point estimate.
+We also have, for example, the posterior median or the posterior mode.\\[0.5em]\pause
+
+Is there any way we can say one of these is a better choice than another?
+
+\end{frame}
+
+\end{document}
+
