@@ -353,5 +353,69 @@ merely being close, we have an all-or-nothing loss situation.\pause
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Credible Intervals}
+Credible intervals are like frequentist confidence intervals, but more sensible
+(in my opinion). To compute them, find an interval that contains a certain
+amount of posterior probability inside it, such as 95\%.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Computing Credible Intervals}
+\begin{itemize}
+\item To compute a credible interval in R, the calculation is very similar to the
+posterior median. You find the point at which the cumulative probability
+crosses (for instance) 2.5\% and 97.5\%.\pause
+\item As with the posterior median, the method will be different once we
+deal with MCMC instead of a grid.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Shifted Exponential Example}
+\begin{itemize}
+\item This example, due to Ed Jaynes, demonstrates that frequentist confidence intervals
+and Bayesian credible intervals are {\bf not the same concept}.\pause
+\item Often, the two types of intervals will give the same numerical result, so
+many people do not realise they are conceptually different.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Shifted Exponential Example}
+\begin{itemize}
+\item New widgets are injected with a chemical that helps
+them to function.\pause
+\item Widgets are guaranteed to work for a certain duration. That duration is the
+unknown parameter $\theta$.\pause
+\item After $\theta$ time has passed, the widgets fail with a mean lifetime
+of one year.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Shifted Exponential Example}
+The sampling distribution for a single widget's lifetime, $x$, is given by
+\begin{align}
+p(x \given \theta) &= \left\{
+    \begin{array}{lr}
+    e^{\theta - x}, & x > 0 \\
+    0,              & \textnormal{otherwise.}
+    \end{array}
+    \right.
+\end{align}
+
+\end{frame}
+
+
+
 \end{document}
 
