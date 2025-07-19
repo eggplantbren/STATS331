@@ -570,6 +570,18 @@ Therefore, the posterior is
 
 
 \begin{frame}
+\frametitle{Gamma as Conjugate Prior}
+The gamma distribution is also the conjugate prior if the sampling
+distribution is {\bf exponential}. Exponential distributions have a
+`rate parameter' $\lambda$ and a probability density given by
+\begin{align}
+p(x \given \lambda) &= \lambda e^{-\lambda x}
+\end{align}
+where $x > 0$.
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Normal-Normal}
 \begin{itemize}
 \item The other famous conjugate prior is the normal-normal. However, this is a bit
@@ -581,6 +593,59 @@ which is a Student-$t$ distribution.
 \end{itemize}
 
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Uniform-Normal}
+The normal-normal situation is too messy to cover here, but a simplified version
+of it is worth knowing. Suppose the sampling distribution for the data is
+a normal/gaussian distribution:
+\begin{align}
+x \given \mu &\sim \textnormal{Normal}(\mu, \sigma^2)
+\end{align}
+\pause
+We will assume that $\sigma$ is known (unrealistic) but $\mu$ is unknown.\pause
+
+The PDF for the normal distribution is
+\begin{align}
+p(x \given \mu) &= \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2\sigma^2}(x-\mu)^2}.
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Uniform-Normal}
+Let's assume a uniform prior for $\mu$.
+Bayes' rule will give us the posterior:
+\begin{align}
+p(\mu \given x_1, ..., x_N) &\propto p(\mu)p(x_1, ..., x_N \given \mu) \\
+    &\propto 1 \times \prod_{i=1}^N e^{-\frac{1}{2\sigma^2}(x_i - \mu)^2}
+\end{align}
+(I have ignored the normalising constant because it doesn't depend on $\mu$).
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Uniform-Normal}
+We can take the product inside the exponential, where it becomes a sum:
+\begin{align}
+p(\mu \given x_1, ..., x_N) &\propto
+    e^{-\frac{1}{2\sigma^2}\sum_{i=1}^N(x_i - \mu)^2}
+\end{align}
+\pause
+After some steps, which I will skip, we can get the result and recognise it.
+\begin{align}
+\mu \given x_1, ..., x_N &\sim \textnormal{Normal}\left(\bar{x}, \frac{\sigma^2}{N}\right).
+\end{align}
+\pause
+i.e., a normal distribution centered at the mean of the data, with a reduced
+standard deviation.
+
+
+
+\end{frame}
+
 
 
 \begin{frame}
