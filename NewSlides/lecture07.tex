@@ -237,10 +237,11 @@ our estimate? We describe this with a {\bf utility function} $U(\theta, \hat{\th
 
 We want the value of $U$ to be high. Alternatively, with a minus sign, we can
 define a {\bf loss function}, which we want to be low:
-
 \begin{align}
 L(\theta, \hat{\theta}) &= -U(\theta, \hat{\theta}).
 \end{align}
+\pause
+In applications, $L$ and $U$ are sometimes dollar amounts!.
 
 \end{frame}
 
@@ -273,6 +274,75 @@ respectively.
 \includegraphics[width=0.7\textwidth]{images/loss_functions.pdf}
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Loss Functions}
+What do we do with the loss function? We can't minimise it because we don't
+know $\theta$. Instead, we minimise the {\bf expected loss} according to the
+posterior distribution.
+
+\begin{align}
+E\left[L(\hat{\theta}, \theta)\right]
+    &= \int p(\theta \given x) L(\hat{\theta}, \theta) \, d\theta.
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Quadratic Loss Function}
+If the loss function is quadratic, the posterior mean is the best estimate!
+
+\begin{align}
+\frac{d}{d\hat{\theta}}\mathds{E}\left[L(\theta, \hat{\theta})\right] &=
+\int p(\theta \given x)\frac{d}{d\hat{\theta}}(\hat{\theta} - \theta)^2 \, d\theta \\
+&= \int p(\theta\given x)2(\hat{\theta} - \theta) \, d\theta
+\end{align}
+Setting this equal to zero and then solving for $\hat{\theta}$ gives the final
+result:
+\begin{align}
+\hat{\theta} &= \int \theta p(\theta\given x) \, d\theta.
+\end{align}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Absolute Loss Function}
+If the loss function is the absolute value form,
+the posterior median is the best estimate!\pause
+
+Proof: Beyond the scope of this course.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{All-or-Nothing Loss Function}
+If the loss function is the all-or-nothing form,
+the posterior mode is the best estimate!\pause
+
+Proof: Beyond the scope of this course, but here's some intuition:
+You need to be exactly right with your estimate, so you may as well
+choose the value with the highest posterior probability.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{All-or-Nothing Loss Example}
+\begin{itemize}
+\item You are in a dark cave, being chased by a small, dangerous bat. You have
+a gun.\pause
+\item Based on the sounds you hear, you have a posterior distribution for the
+direction to the bat.\pause
+\item Since it matters that you hit the bat, and there is no reward for
+merely being close, we have an all-or-nothing loss situation.\pause
+\item Therefore, shoot at the posterior mode.
+\end{itemize}
+
+
+\end{frame}
+
 
 \end{document}
 
