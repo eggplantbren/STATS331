@@ -140,6 +140,24 @@ We also have, for example, the posterior median or the posterior mode.\\[0.5em]\
 Let's look at these for the election poll posterior distribution.
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Computing Point Estimates (Grid Method)}
+
+\begin{minted}{r}
+# Mean
+posterior_mean = sum(theta*posterior)
+# Mode
+highest_probability = max(posterior)
+posterior_mode = theta[posterior == highest_probability]
+# Median
+F = cumsum(posterior)
+dist = abs(F - 0.5)
+posterior_median = theta[dist == min(dist)]
+\end{minted}
+
+\end{frame}
+
+
 
 \begin{frame}
 \frametitle{Three Options for Point Estimates}
