@@ -229,6 +229,50 @@ there will always be qualifiers.
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Utility Function}
+If the true value is $\theta$ and our estimate is $\hat{\theta}$, how good is
+our estimate? We describe this with a {\bf utility function} $U(\theta, \hat{\theta})$.
+\pause
+
+We want the value of $U$ to be high. Alternatively, with a minus sign, we can
+define a {\bf loss function}, which we want to be low:
+
+\begin{align}
+L(\theta, \hat{\theta}) &= -U(\theta, \hat{\theta}).
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Three Loss Functions}
+Here are three common choices for the loss function:
+
+\begin{align}
+L &= (\hat{\theta} - \theta)^2 \\
+L &= |\hat{\theta} - \theta| \\
+L &= \left\{
+        \begin{array}{lr}
+        0, & \hat{\theta} = \theta \\
+        1, & \textnormal{otherwise.}
+        \end{array}
+        \right.
+\end{align}
+
+These are the quadratic loss, absolute loss, and all-or-nothing loss
+respectively.
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Three Loss Functions}
+
+\centering
+\includegraphics[width=0.7\textwidth]{images/loss_functions.pdf}
+
+\end{frame}
 
 \end{document}
 

@@ -180,3 +180,18 @@ plt.legend()
 plt.ylim([0.0, 3.0])
 plt.savefig("images/point_estimates.pdf")
 
+
+plt.close("all")
+x = np.linspace(-5.0, 5.0, 1001)
+plt.plot(x, x**2, label="Quadratic Loss")
+plt.plot(x, np.abs(x), label="Absolute Loss")
+y = np.ones(len(x))
+y[np.abs(x) < 0.1] = 0.0
+plt.plot(x, y, label="All-or-Nothing Loss")
+plt.ylim(0.0)
+plt.legend()
+plt.xlabel("$\\hat{\\theta} - \\theta$")
+plt.ylabel("Loss")
+plt.title("Three Loss Functions")
+plt.savefig("images/loss_functions.pdf")
+
