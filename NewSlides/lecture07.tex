@@ -137,9 +137,80 @@ and the s.d. is available analytically. We get
 The posterior mean is not the only option for presenting a point estimate.
 We also have, for example, the posterior median or the posterior mode.\\[0.5em]\pause
 
-Is there any way we can say one of these is a better choice than another?
+Let's look at these for the election poll posterior distribution.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Three Options for Point Estimates}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/point_estimates.pdf}
+\end{center}
+
+They are all close together, because the distribution is quite symmetric.
+But this won't always be the case. Is one {\em better} than another?
 
 \end{frame}
+
+
+
+\begin{frame}
+\frametitle{Decision Theory}
+When you are forced to make a choice, how do you make the {\em best} possible
+choice?\\[0.7em]
+\pause
+
+{\em 
+``You acted unwisely'', I cried, ``as you see
+by the outcome''. He calmly eyed me:
+``When choosing the course of my action'', said he, ``I had
+not the outcome to guide me.''
+}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Decision Theory}
+Our information is embodied in the posterior distribution,
+which ought to contain the consequences of everything
+known and relevant to the value of the parameters.
+\pause
+
+Some actions/decisions are {\bf probably} better than others,
+and this can be formalised.
+\end{frame}
+
+\begin{frame}
+\frametitle{Point Estimates}
+
+\begin{itemize}
+\item If we are inferring a parameter $\theta$ from data, we could
+give a single number guess, which we call $\hat{\theta}$. \pause
+\item In classical statistics, rules for producing these are called point
+estimators. \pause
+\item  In Bayesian, if we have to choose a single point estimate,
+the value that we choose is a decision or an action. We
+get the appropriate value of $\hat{\theta}$
+from decision theory based on the posterior
+distriution.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Best Point Estimate}
+\begin{itemize}
+\item Obviously, the best possible choice for the value of $\hat{\theta}$ is to
+set it equal to the true value of $\theta$.\pause
+\item Since we don't know the true value, our definition of what it means to
+be `best' needs to be modified.\pause
+\item Be wary of anything in statistics that claims to be `optimal', because
+there will always be qualifiers.
+\end{itemize}
+\end{frame}
+
+
 
 \end{document}
 
