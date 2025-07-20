@@ -214,5 +214,26 @@ p(\theta_1, ..., \theta_N \given x)
 One of the benefits of Monte Carlo is that we can avoid doing this integral.
 \end{frame}
 
+
+
+\begin{frame}
+\frametitle{Marginalisation}
+\centering
+\includegraphics[width=0.6\textwidth]{images/marginalisation.png}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Marginalisation}
+Our samples will usually be in a 2D array format (or an R data frame),
+where each row is one sample from the joint posterior and each column is
+a particular parameter.
+To get a marginal distribution we simply look at one column at a time.
+This is a lot easier than multiple integration!
+
+\end{frame}
+
+
+
 \end{document}
 
