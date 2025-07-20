@@ -1,5 +1,8 @@
 import numpy as np
+import numpy.random as rng
 import matplotlib.pyplot as plt
+
+rng.seed(0)
 
 plt.rcParams.update({
     "text.usetex": True,
@@ -209,4 +212,22 @@ plt.xlabel("Lifetime $x$")
 plt.ylabel("Probability Density")
 plt.savefig("images/shifted_exponential.pdf")
 
+plt.close("all")
+plt.figure(figsize=(8, 9))
+x = np.linspace(-10.0, 10.0, 101)
+p = np.exp(-0.5*(x - 3)**2/2**2)
+p = p/np.sum(p)
+plt.subplot(2, 1, 1)
+plt.bar(x, p)
+plt.ylim(0.0)
+plt.ylabel("Probability")
+plt.title("Using a Grid: This is a bar plot.")
+plt.subplot(2, 1, 2)
+x = 3.0 + 2.0*rng.randn(1000)
+plt.hist(x, bins=30)
+plt.xlim([-10.0, 10.0])
+plt.title("Using Samples: This is a histogram.")
+plt.ylabel("Number of Samples")
+plt.xlabel("A Parameter $\\theta$")
+plt.savefig("images/grid_vs_samples.pdf")
 

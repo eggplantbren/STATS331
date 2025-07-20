@@ -107,7 +107,57 @@ That is not going to happen.
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Grids vs. Samples}
+\begin{itemize}
+\item You can think of the grid-based approach, which we have used so far,
+as assigning {\bf weights} to the $\theta$ values. The posterior probabilities
+are the weights, which is why you do calculations like
+\mintinline{r}{sum(theta*post)} to get the posterior mean.\pause
+\item The purpose of MCMC is to generate {\bf samples} from the posterior
+distribution. This is a collection of $\theta$ values that implicitly have
+equal weight. To get the posterior mean you would just do \mintinline{r}{mean(theta)}.
+This is called {\bf Monte Carlo}.
+\end{itemize}
 
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Grids vs. Samples}
+\centering
+\includegraphics[width=0.6\textwidth]{images/grid_vs_samples.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Using Monte Carlo Samples}
+\begin{itemize}
+\item If we can generate random numbers from the
+posterior, then the histogram will look just like the posterior.\pause
+\item If we have enough random numbers, we can use the
+sample mean which will be almost the same as the
+actual posterior mean.\pause
+\item Same with sd or any other summary.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Large Sample Size}
+
+\begin{itemize}
+\item More samples means the generated $\theta$ values more accurately
+reflect the posterior.\pause
+\item But the posterior still has the uncertainty built into it, as represented
+by the scatter in the generated $\theta$ values.\pause
+\item We will assume that we always have a `large enough'
+sample from the posterior. It is possible to worry about extra
+uncertainty from the Monte Carlo approximation itself, but we will ignore this.
+\end{itemize}
+
+\end{frame}
 
 \end{document}
 
