@@ -234,6 +234,29 @@ This is a lot easier than multiple integration!
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Markov Chain}
+{\bf Monte Carlo} is about the use of samples to approximate a probability
+distribution (for us, almost always the posterior distribution). Markov chains
+are used when we actually generate the samples.
+\pause
+
+A Markov Chain is sequence of `random variables', where each one
+depends on the previous one but not on the ones before that.
+A general joint distribution:
+\begin{align}
+p(x_1, x_2, x_3, x_4) &= p(x_1)p(x_2 \given x_1)p(x_3 \given x_2, x_1)
+                    p(x_4 \given x_3, x_2, x_1)
+\end{align}
+A Markov Chain:
+\begin{align}
+p(x_1, x_2, x_3, x_4) &= p(x_1)p(x_2 \given x_1)p(x_3 \given x_2)p(x_4 \given x_3).
+\end{align}
+
+
+\end{frame}
+
+
 
 \end{document}
 
