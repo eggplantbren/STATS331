@@ -145,6 +145,15 @@ actual posterior mean.\pause
 \end{frame}
 
 \begin{frame}
+\frametitle{Monte Carlo}
+\centering
+\includegraphics[width=0.6\textwidth]{images/vegas.png}
+
+I was actually in Las Vegas, not Monte Carlo.
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Large Sample Size}
 
 \begin{itemize}
@@ -253,6 +262,26 @@ A Markov Chain:
 p(x_1, x_2, x_3, x_4) &= p(x_1)p(x_2 \given x_1)p(x_3 \given x_2)p(x_4 \given x_3).
 \end{align}
 
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{An Example Markov Chain}
+A {\bf random walk} is an example of a Markov Chain.
+
+\begin{itemize}
+\item Start at position $x=0$.\pause
+\item Flip a coin.\pause
+\item Heads? Add 1. Tails? Subtract 1.\pause
+\end{itemize}
+
+You will get a sequence like this:
+0, -1, 0, 1, 2, 3, 2, 1, 2, 3, 4, 3, 4, ...
+\pause
+
+The thing that is a Markov Chain is the probability distribution for the
+sequence, not a given sequence itself.
 
 \end{frame}
 
