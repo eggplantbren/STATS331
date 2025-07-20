@@ -146,12 +146,12 @@ Let's look at these for the election poll posterior distribution.
 
 \begin{minted}{r}
 # Mean
-posterior_mean = sum(theta*posterior)
+posterior_mean = sum(theta*post)
 # Mode
-highest_probability = max(posterior)
-posterior_mode = theta[posterior == highest_probability]
+highest_probability = max(post)
+posterior_mode = theta[post == highest_probability]
 # Median
-F = cumsum(posterior)
+F = cumsum(post)
 dist = abs(F - 0.5)
 posterior_median = theta[dist == min(dist)]
 \end{minted}
@@ -425,6 +425,153 @@ p(x \given \theta) &= \left\{
 
 \end{frame}
 
+
+
+\begin{frame}[fragile]
+\frametitle{Shifted Exponential Example: Sampling Distribution}
+In the example, the data consists of three values, so the sampling distribution
+becomes
+\begin{align}
+p(x_1, x_2, x_3 \given \theta)
+    &= \left\{
+    \begin{array}{lr}
+     \prod_{i=1}^3  e^{\theta - x_i}, & \textnormal{all }x\textnormal{s} > \theta \\
+    0,              & \textnormal{otherwise.}
+    \end{array}
+    \right.
+\end{align}
+
+\pause
+
+The observed values are $\boldsymbol{x} = \{12, 14, 16\}$.
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Shifted Exponential Example: Likelihood Function}
+If we plug in the observed data, we get the likelihood function.
+
+\begin{align}
+p(x_1, x_2, x_3 \given \theta)
+    &= \left\{
+    \begin{array}{lr}
+    e^{3\theta - 42}, & \theta < 12\\
+    0,              & \textnormal{otherwise.}
+    \end{array}
+    \right.
+\end{align}
+Importantly, {\bf the data completely rules out some values of} $\theta$.
+\pause
+
+For the prior, we can use $\theta \sim \textnormal{Uniform}(0, 20)$.
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Computing the Result}
+\begin{minted}{r}
+theta = seq(0, 20, by=0.01)
+prior = rep(1/length(theta), length(theta))
+lik = exp(3*theta - 42)
+lik[theta > 12] = 0
+h = prior*lik
+Z = sum(h)
+post = h/Z
+plot(theta, post, type="l")
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Shifted Exponential Example: Posterior Distribution}
+\centering
+\includegraphics[width=0.6\textwidth]{images/widget_posterior.pdf}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{90\% Credible Interval}
+
+\begin{minted}{r}
+F = cumsum(post)
+dist = abs(F - 0.05)
+left = theta[dist == min(dist)]
+dist = abs(F - 0.95)
+right = theta[dist == min(dist)]
+\end{minted}
+\pause
+
+The result is $[11.00, 11.98]$, which seems sensible.
+Now let's do a frequentist confidence interval.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Credible Intervals vs. Confidence Intervals}
+Credible intervals are based on the posterior distribution.
+\begin{align}
+P(\theta \textnormal{ in interval} \given x)
+    &= 0.95.
+\end{align}
+
+\pause
+
+Confidence intervals are based on the sampling distribution.
+\begin{align}
+P(\theta \textnormal{ in interval} \given \theta)
+    &= 0.95.
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Widgets: Frequentist Estimator and Confidence Interval}
+There are different estimators and confidence interval recipes you could use,
+but here is one:
+
+\begin{align}
+\hat{\theta} = \frac{1}{N}\sum_{i=1}^N (x_i - 1) \\
+[\hat{\theta} - 0.8529, \hat{\theta} + 0.8264]
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Widgets: Verifying the Confidence Interval}
+\begin{minted}{r}
+theta = 10
+x = theta - log(runif(3)) # Generate from exponential
+theta_hat = mean(x - 1)
+left = theta_hat - 0.8529
+right = theta_hat + 0.8264
+inside = (theta > left && theta < right)
+TRUE
+\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Widgets: Verifying the Confidence Interval}
+\begin{minted}{r}
+inside = 0
+for(i in 1:1000000)
+{
+    x = 10 - log(runif(3)) # Generate from shifted exponential
+    theta_hat = mean(x - 1)
+    left = theta_hat - 0.8529
+    right = theta_hat + 0.8264
+    if(theta > left && theta < right)
+        inside = inside + 1
+}
+inside/1000000 # I got 0.89883
+\end{minted}
+\end{frame}
 
 
 \end{document}
