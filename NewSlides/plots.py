@@ -195,3 +195,18 @@ plt.ylabel("Loss")
 plt.title("Three Loss Functions")
 plt.savefig("images/loss_functions.pdf")
 
+
+plt.close("all")
+x = np.linspace(0.0, 20.0, 1001)
+for theta in [7.0, 10.0, 13.0]:
+    p = np.exp(-x)
+    p[x <= theta] = 0.0
+    p /= np.trapz(p, x=x)
+    plt.plot(x, p, label=f"$\\theta = {theta}$")
+plt.legend()
+plt.ylim(0.0)
+plt.xlabel("Lifetime $x$")
+plt.ylabel("Probability Density")
+plt.savefig("images/shifted_exponential.pdf")
+
+

@@ -407,11 +407,19 @@ The sampling distribution for a single widget's lifetime, $x$, is given by
 \begin{align}
 p(x \given \theta) &= \left\{
     \begin{array}{lr}
-    e^{\theta - x}, & x > 0 \\
+    e^{\theta - x}, & x > \theta \\
     0,              & \textnormal{otherwise.}
     \end{array}
     \right.
 \end{align}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Shifted Exponential Example: Sampling Distribution}
+\centering
+\includegraphics[width=0.7\textwidth]{images/shifted_exponential.pdf}
 
 \end{frame}
 
