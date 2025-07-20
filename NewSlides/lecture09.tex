@@ -159,5 +159,59 @@ uncertainty from the Monte Carlo approximation itself, but we will ignore this.
 
 \end{frame}
 
+
+
+\begin{frame}
+\frametitle{Marginalisation}
+Marginalisation is the process of going from a higher dimensional probability
+distribution to a lower dimensional one. Consider the following table,
+with a parameter $\theta_1$ on the $x$-axis and $\theta_2$ on the $y$-axis.
+\begin{align}
+\begin{array}{c|cccc}
+4 & 1/16 & 1/12 & 1/8 & 1/4 \\
+3 & 1/16 & 1/12 & 1/8 & 0 \\
+2 & 1/16 & 1/12 & 0   & 0 \\
+1 & 1/16 & 0    & 0   & 0 \\
+\hline
+  & 1    & 2    & 3   & 4
+\end{array}
+\end{align}
+\pause
+If we only really care about $\theta_1$, we sum the columns
+to get the {\bf marginal distribution}.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Marginalisation}
+The result of the marginalisation is the following probability distribution:
+
+\begin{center}
+\begin{align}
+\left\{\frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4}\right\}
+\end{align}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{General Marginalisation}
+If there are parameters $\theta_1, ..., \theta_N$ that we care about,
+and ``nuisance parameters'' $\phi_1, ..., \phi_M$ that we don't, we can
+{\bf integrate out} the nuisance parameters (this is similar to the column
+sum we just did).
+\pause
+\begin{align}
+p(\theta_1, ..., \theta_N \given x)
+    &= \int p(\theta_1, ..., \theta_N, \phi_1, ..., \phi_M \given x)
+            \, d\phi_1 ... d\phi_M.
+\end{align}
+\pause
+One of the benefits of Monte Carlo is that we can avoid doing this integral.
+\end{frame}
+
 \end{document}
 
