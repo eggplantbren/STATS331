@@ -546,19 +546,6 @@ but here is one:
 \begin{frame}[fragile]
 \frametitle{Widgets: Verifying the Confidence Interval}
 \begin{minted}{r}
-theta = 10
-x = theta - log(runif(3)) # Generate from exponential
-theta_hat = mean(x - 1)
-left = theta_hat - 0.8529
-right = theta_hat + 0.8264
-inside = (theta > left && theta < right)
-TRUE
-\end{minted}
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Widgets: Verifying the Confidence Interval}
-\begin{minted}{r}
 inside = 0
 for(i in 1:1000000)
 {
@@ -572,6 +559,60 @@ for(i in 1:1000000)
 inside/1000000 # I got 0.89883
 \end{minted}
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Widgets: Confidence Interval}
+\begin{itemize}
+\item We have verified that the interval contains the true value of $\theta$
+`90\% of the time' (for 90\% of possible datasets). Now, let's apply it to our
+actual dataset $\{12, 14, 16\}$. \pause
+\item The confidence interval is $[12.1471, 13.8264]$. \pause
+\item As a reminder, the credible interval was $[11.00, 11.98]$ --- so they are
+different.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Widgets: Confidence Interval}
+Remember that, in the posterior distribution, all values of $\theta$
+above 12 are completely ruled out. But that rules out the whole confidence
+interval!
+
+\pause
+
+The problem is that, while the interval works for 90\% of data sets,
+this data set is in the 10\% where it doesn't --- and we can tell that from the
+data.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Confidence Intervals}
+\begin{itemize}
+\item Other ways of making a confidence interval exist, and some of them might avoid
+this particular problem.\pause
+\item Different Bayesian credible intervals could be produced only by modifying the
+prior distribution, and they would never have this particular problem.\pause
+\item What is the question you really want to answer?
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Confidence Intervals and Credible Intervals}
+\begin{itemize}
+\item As mentioned earlier, often, the two types of intervals produce the same
+numerical result, even though they are different concepts. \pause
+\item This often happens when the prior is relatively flat and the likelihood function
+is a gaussian shape (looks like a normal distribution) --- quite a common
+situation, hence why people do not often notice the difference.
+\end{itemize}
+
+\end{frame}
+
 
 
 \end{document}
