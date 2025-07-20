@@ -232,16 +232,16 @@ there will always be qualifiers.
 \begin{frame}
 \frametitle{Utility Function}
 If the true value is $\theta$ and our estimate is $\hat{\theta}$, how good is
-our estimate? We describe this with a {\bf utility function} $U(\theta, \hat{\theta})$.
-\pause
+our estimate? We describe this with a {\bf utility function} $U(\hat{\theta}, \theta)$.
+We want the value of $U$ to be high. \pause
 
-We want the value of $U$ to be high. Alternatively, with a minus sign, we can
+Alternatively, with a minus sign, we can
 define a {\bf loss function}, which we want to be low:
 \begin{align}
-L(\theta, \hat{\theta}) &= -U(\theta, \hat{\theta}).
+L(\hat{\theta}, \theta) &= -U(\hat{\theta}, \theta).
 \end{align}
 \pause
-In applications, $L$ and $U$ are sometimes dollar amounts!.
+In applications, $L$ and $U$ are sometimes dollar amounts!
 
 \end{frame}
 
@@ -294,7 +294,7 @@ E\left[L(\hat{\theta}, \theta)\right]
 If the loss function is quadratic, the posterior mean is the best estimate!
 
 \begin{align}
-\frac{d}{d\hat{\theta}}\mathds{E}\left[L(\theta, \hat{\theta})\right] &=
+\frac{d}{d\hat{\theta}}\mathds{E}\left[L(\hat{\theta}, \theta)\right] &=
 \int p(\theta \given x)\frac{d}{d\hat{\theta}}(\hat{\theta} - \theta)^2 \, d\theta \\
 &= \int p(\theta\given x)2(\hat{\theta} - \theta) \, d\theta
 \end{align}
