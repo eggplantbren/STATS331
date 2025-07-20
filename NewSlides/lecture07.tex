@@ -103,6 +103,7 @@ post_mean = sum(theta*post)
 post_var = sum((theta - post_mean)^2*post)
 post_sd = sqrt(post_var)
 \end{minted}
+(These will change when we start using MCMC)
 
 \end{frame}
 
@@ -154,6 +155,7 @@ F = cumsum(posterior)
 dist = abs(F - 0.5)
 posterior_median = theta[dist == min(dist)]
 \end{minted}
+(These will change when we learn MCMC)
 
 \end{frame}
 
@@ -166,7 +168,7 @@ posterior_median = theta[dist == min(dist)]
 \end{center}
 
 They are all close together, because the distribution is quite symmetric.
-But this won't always be the case. Is one {\em better} than another?
+But this won't always be the case.
 
 \end{frame}
 
