@@ -459,6 +459,33 @@ for(i in 1:steps)
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Running MCMC}
+Let's now run MCMC to see how it performs. In particular, we will look at
+the following phenomena:
+\begin{itemize}
+\item `Burn-in', which occurs when the starting point is not in a typical region
+of the target/posterior distribution.\pause
+\item What happens when the proposal distribution is (i) too narrow,
+(ii) just right, or (iii) too wide.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Trace Plots}
+A {\bf trace plot} is simply a plot of a parameter over time as the MCMC
+proceeds. They are easy to produce:
+\begin{minted}{r}
+plot(keep, type="l", xlab="Iteration", ylab="Theta")
+\end{minted}
+
+\end{frame}
+
+
+
 \begin{frame}[fragile]
 \frametitle{Metropolis Code: Thinning}
 \begin{minted}{r}
@@ -475,11 +502,15 @@ for(i in 1:steps)
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}[fragile]
 \frametitle{Metropolis Code: Thinning}
-Thinning is used to prevent the output from getting too big.
+\begin{itemize}
+\item Thinning is used to prevent the output from getting too big.
 Because the MCMC samples are correlated, we sometimes need a large number
-of steps, but we do not need to save every step.
+of steps, but we do not need to save every step. \pause
+\item If you use \mintinline{r}{acf()} after thinning, remember that each unit
+of lag will really be \mintinline{r}{skip} iterations of MCMC.
+\end{itemize}
 \end{frame}
 
 
