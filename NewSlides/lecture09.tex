@@ -483,19 +483,6 @@ acf(keep, lag.max=100)
 
 
 
-\begin{frame}[fragile]
-\frametitle{Metropolis Code: Saving Results (in RAM)}
-\begin{minted}{r}
-steps = 100000
-keep = numeric(steps)
-for(i in 1:steps)
-{
-    # ...
-    keep[i] = theta
-}
-\end{minted}
-\end{frame}
-
 
 \begin{frame}[fragile]
 \frametitle{Metropolis Code: Acceptance Rate}
@@ -530,6 +517,9 @@ of the target/posterior distribution.\pause
 \item What happens when the proposal distribution is (i) too narrow,
 (ii) just right, or (iii) too wide.
 \end{itemize}
+\pause
+What happens to the trace plots, the autocorrelation plots, and the acceptance
+rate?
 
 \end{frame}
 
