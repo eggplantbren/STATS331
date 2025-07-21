@@ -573,15 +573,41 @@ rate?
 
 
 
+\begin{frame}
+\frametitle{MCMC Phenomena}
+\begin{itemize}
+\item If the starting point is bad, there might be a burn-in period (sometimes
+quite long). \pause
+\item If the proposal is too wide, too many proposals are rejected, so the
+algorithm stays stuck for long periods of time.\pause
+\item If it is too narrow, too many proposals are accepted (remember it is
+the {\em pattern} of acceptance and rejection that shapes the distribution
+into what we want), and they do not move very far.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{MCMC Tuning}
+
+\centering
+\includegraphics[width=0.5\textwidth]{images/goldilocks.png}
+
+Image credit: Global Legal Post
+
+\end{frame}
+
+
+
 \begin{frame}[fragile]
 \frametitle{Tuning the Proposal Distribution}
 Often, people will perform some preliminary experiments to figure out how
 wide the proposal distribution should be for Metropolis to perform efficiently.
 In the simple Metropolis code we have, this would mean tweaking the
-coefficient in front of \mintinline{r}{rnorm()}:
+coefficient in front of \mintinline{r}{rnorm()}. For example:
 
 \begin{minted}{r}
-proposal = theta + 2*rnorm(1)
+proposal = theta + 10*rnorm(1)
 \end{minted}
 
 \end{frame}
