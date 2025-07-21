@@ -285,6 +285,35 @@ sequence, not a given sequence itself.
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Markov Chains: Stationary Distribution}
+Markov Chains often have a {\bf stationary distribution}.
+
+\begin{itemize}
+\item If you start with an initial point specified probabilistically
+with the stationary distribution, then the distribution for `where I go next'
+is also the stationary distribution.\pause
+\item It is the probability distribution representing where the
+algorithm will be after a long time.\pause
+\item With high probability, it is also the
+frequency distribution of results you get
+after running the chain for a long time.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{MCMC Target Distributions}
+The key idea of MCMC is to engineer a Markov Chain whose stationary distribution
+is the {\bf target distribution} that you are interested in --- for us, this
+will mostly be a posterior distribution. There are a few different ways to do
+this. We will study the {\bf Metropolis algorithm}.
+
+\end{frame}
+
+
+
 
 \begin{frame}
 \frametitle{The Metropolis Algorithm}
@@ -474,6 +503,20 @@ plot(keep, type="l", xlab="Iteration", ylab="theta")
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{An Example Trace Plot}
+This is what a trace plot looks like when things are working well.
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/trace_plot.png}
+\end{center}
+
+Some people call it a ``fuzzy caterpillar''. It looks a bit more like that
+if you have a longer run and zoom out.
+
+\end{frame}
+
+
 
 \begin{frame}[fragile]
 \frametitle{Autocorrelation Plots}
@@ -525,6 +568,42 @@ of the target/posterior distribution.\pause
 \pause
 What happens to the trace plots, the autocorrelation plots, and the acceptance
 rate?
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Tuning the Proposal Distribution}
+Often, people will perform some preliminary experiments to figure out how
+wide the proposal distribution should be for Metropolis to perform efficiently.
+In the simple Metropolis code we have, this would mean tweaking the
+coefficient in front of \mintinline{r}{rnorm()}:
+
+\begin{minted}{r}
+proposal = theta + 2*rnorm(1)
+\end{minted}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Randomising the Proposal Distribution}
+An alternative to using preliminary runs is to use a heavy-tailed proposal
+distribution. One easy way to achieve this is to randomly choose the step
+size each iteration, so it is sometimes small and sometimes big.
+Here's an example using a lognormal distribution:
+
+\begin{minted}{r}
+sigma = exp(3*rnorm(1))
+proposal = theta + sigma*rnorm(1)
+\end{minted}
+
+\pause
+
+This still assumes that the optimal step size is within a couple of orders
+of magnitude of 1. The industrial strength implementation on Canvas does this.
 
 \end{frame}
 
