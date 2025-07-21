@@ -350,5 +350,102 @@ of the Markov Chain so that it becomes the target distribution of interest
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Acceptance and Rejection}
+Call the prior times likelihood function $h(\theta)$.
+If we try to move from $\theta$ to $\theta'$ because the proposal distribution
+resulted in $\theta'$, we only accept it with the following probability:
+\begin{align}
+P(\textnormal{accept}) &= \min\left(1, \frac{h(\theta')}{h(\theta)}\right)
+\end{align}
+\pause
+
+That is, uphill moves are accepted. Downhill moves are accepted with a probability
+based on the ratio of prior $\times$ likelihood values.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example Distribution to Sample}
+Example target/posterior distribution. Here are the prior times likelihood
+values:
+\begin{align}
+h &= \{ 0.1, 0.2, 0.3, 0.3, 0.1 \}
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Metropolis Process}
+\begin{center}
+\begin{align}
+h &= \{ 0.1, 0.2, 0.3, 0.3, 0.1 \}
+\end{align}
+{\tiny
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Iteration & State & Proposal & Acceptance Probability & Accepted? \\
+\hline 
+1         & 1     & 5        & 1                      & Yes \\
+2         & 1     & 2        & 1                      & Yes \\
+3         & 2     & 1        & 1/2                    & No \\
+4         & 2     & 3        & 1                      & Yes \\
+5         & 3     & 2        & 2/3                    & Yes \\
+... & ... & ... & ... & ...  \\
+\hline
+\end{tabular}
+} % tiny
+\end{center}
+\pause
+
+Note: The sampler spends more time in high probability states, precisely
+because moving away from these states is often rejected.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Metropolis Code}
+
+I will now implement a simple toy version of the Metropolis algorithm in R
+to sample from a standard normal distribution. The $h$ function looks like this:
+
+\begin{minted}{r}
+prior_times_likelihood = function(theta)
+{
+    return(exp(-0.5*theta^2))
+}
+\end{minted}
+\pause
+
+In more serious code such as the ``industrial strength'' Metropolis code on
+Canvas, it is usually the {\em log} of $h$ that is used.
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Metropolis Code: Main Loop}
+
+\small
+\begin{minted}{r}
+theta = 0 # Some starting point
+h1 = prior_times_likelihood(theta)
+for(i in 1:100000)
+{
+    proposal = theta + rnorm(1)
+    h2 = prior_times_likelihood(proposal)
+    if(runif(1) <= h2/h1)
+    {
+        theta = proposal  # Accept the proposal
+        h1 = h2
+    } # Rejection requires no code
+}
+\end{minted}
+
+\end{frame}
+
+
+
 \end{document}
 
