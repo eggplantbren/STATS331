@@ -459,6 +459,67 @@ for(i in 1:steps)
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Trace Plots}
+A {\bf trace plot} is simply a plot of a parameter over time as the MCMC
+proceeds. They are easy to produce:
+\begin{minted}{r}
+plot(keep, type="l", xlab="Iteration", ylab="theta")
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Autocorrelation Plots}
+The {\bf autocorrelation function} can tell us about how well the algorithm
+is moving around. We want the autocorrelation to drop to zero quickly, ideally.
+
+\begin{minted}{r}
+acf(keep, lag.max=100)
+\end{minted}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Metropolis Code: Saving Results (in RAM)}
+\begin{minted}{r}
+steps = 100000
+keep = numeric(steps)
+for(i in 1:steps)
+{
+    # ...
+    keep[i] = theta
+}
+\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Metropolis Code: Acceptance Rate}
+The acceptance rate can be monitored for diagnostic purposes.
+\small
+\begin{minted}{r}
+# ...
+accepted = 0
+for(i in 1:steps)
+{
+    # ...
+    if(runif(1) <= h2/h1)
+    {
+        accepted = accepted + 1
+    } # Rejection requires no code
+}
+acceptance_rate = accepted / steps
+\end{minted}
+
+\end{frame}
+
+
+
+
 \begin{frame}
 \frametitle{Running MCMC}
 Let's now run MCMC to see how it performs. In particular, we will look at
@@ -473,16 +534,6 @@ of the target/posterior distribution.\pause
 \end{frame}
 
 
-
-\begin{frame}[fragile]
-\frametitle{Trace Plots}
-A {\bf trace plot} is simply a plot of a parameter over time as the MCMC
-proceeds. They are easy to produce:
-\begin{minted}{r}
-plot(keep, type="l", xlab="Iteration", ylab="Theta")
-\end{minted}
-
-\end{frame}
 
 
 
