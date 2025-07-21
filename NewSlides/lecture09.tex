@@ -445,6 +445,44 @@ for(i in 1:100000)
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Metropolis Code: Saving Results (in RAM)}
+\begin{minted}{r}
+steps = 100000
+keep = numeric(steps)
+for(i in 1:steps)
+{
+    # ...
+    keep[i] = theta
+}
+\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Metropolis Code: Thinning}
+\begin{minted}{r}
+steps = 100000
+skip = 100
+keep = numeric(steps %/% skip)
+for(i in 1:steps)
+{
+    # ...
+    if(i %% skip == 0)
+        keep[i %/% skip] = theta
+}
+\end{minted}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Metropolis Code: Thinning}
+Thinning is used to prevent the output from getting too big.
+Because the MCMC samples are correlated, we sometimes need a large number
+of steps, but we do not need to save every step.
+\end{frame}
+
+
 
 
 \end{document}
