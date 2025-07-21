@@ -231,3 +231,15 @@ plt.ylabel("Number of Samples")
 plt.xlabel("A Parameter $\\theta$")
 plt.savefig("images/grid_vs_samples.pdf")
 
+plt.close("all")
+x = rng.randn()
+keep = []
+for i in range(300):
+    keep.append(x)
+    y = x + 3*rng.randn()
+    if rng.rand() <= np.exp(-0.5*y**2 + 0.5*x**2):
+        x = y
+plt.plot(keep)
+plt.xlabel("Iteration")
+plt.ylabel("Position $\\theta$")
+plt.savefig("images/metropolis.pdf")
