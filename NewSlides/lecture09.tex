@@ -686,6 +686,43 @@ of lag will really be \mintinline{r}{skip} iterations of MCMC.
 
 
 
+\begin{frame}[fragile]
+\frametitle{Data Analysis}
+Let's solve an actual data analysis problem using the industrial strength
+MCMC code. We'll do the election poll problem, which is still only 1D --- you
+will do your first 2D analysis in labs. The \mintinline{r}{log_prob} function
+needs to look like this:
+{\footnotesize
+\begin{minted}{r}
+log_prob = function(params)
+{
+    # Return -Inf if parameter is out of bounds.
+    if(params["theta"] <= 0 || params["theta"] >= 1)
+        return(-Inf)
+    log_prior = 0
+    log_likelihood = 6*log(params["theta"]) + 4*log(1 - params["theta"])
+    return(log_prior + log_likelihood)
+}
+\end{minted}
+} %footnotesize
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Posterior Summaries and Plots}
+
+\begin{minted}{r}
+results = read.csv("metropolis-output.csv")
+plot(results$theta, type="l")
+hist(results$theta, breaks=100)
+mean(results$theta)
+sd(results$theta)
+\end{minted}
+
+\end{frame}
+
+
 
 \end{document}
 
