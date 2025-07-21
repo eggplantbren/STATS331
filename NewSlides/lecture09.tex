@@ -303,12 +303,52 @@ That is just a coincidence.
 It is actually named after Nicholas Metropolis.
 
 \begin{center}
-\includegraphics[width=0.3\textwidth]{images/nicholas_metropolis.png}
+\includegraphics[width=0.2\textwidth]{images/nicholas_metropolis.png}
+
+(Public domain image)
 \end{center}
 
 \end{frame}
 
 
+\begin{frame}
+\frametitle{The Metropolis Algorithm}
+\begin{itemize}
+\item We want to sample the posterior distribution for a Bayesian inference problem. \pause
+\item Start with something we {\em can} do, called the {\bf proposal distribution.}
+\item Use {\bf acceptance and rejection} to modify the distribution into the
+one we want.\pause
+\item To implement Metropolis, we assume that a function exists which returns
+the prior times likelihood value for whatever value of parameters $\theta$
+we pass in.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{An Example Proposal Distribution}
+
+\begin{itemize}
+\item As a simple example, suppose $\theta \in \{1, 2, 3, 4, 5\}$, and our proposal
+distribution is a wrapped random walk (so if you are at 5 and you try to add
+one, it wraps back to 1).\pause
+\item If we let this happen for a long time, we will end up with a uniform
+(frequency) distribution of $\theta$ values, because that is the
+{\bf stationary distribution} of this Markov Chain.\pause
+\item Putting in acceptance and rejection modifies the stationary distribution
+of the Markov Chain so that it becomes the target distribution of interest
+(the posterior).
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Acceptance and Rejection}
+\centering
+\includegraphics[width=0.7\textwidth]{images/wrong_way.png}
+
+\end{frame}
 
 \end{document}
 
