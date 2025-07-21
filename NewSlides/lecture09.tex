@@ -608,6 +608,26 @@ of magnitude of 1. The industrial strength implementation on Canvas does this.
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Proposal Distribution for Many Parameters}
+The whole point of MCMC was to extend our ability to solve problems to the
+situation with many unknown parameters. So how does the proposal work in this
+case? You can move all parameters at once, or pick one randomly each time.
+
+{\small
+\begin{minted}{r}
+# Choose which parameter to change
+k = sample(1:length(params), 1)
+
+# Change it
+step_size = step_sizes[k]*exp(scale_step_sizes[k]*rt(1, df=2))
+params[k] = params[k] + step_size*rnorm(1)
+\end{minted}
+} % small
+
+\end{frame}
+
+
 
 
 
