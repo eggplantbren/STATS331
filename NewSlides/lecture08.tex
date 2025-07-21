@@ -78,7 +78,7 @@ will not.
 \begin{frame}
 \frametitle{Hypothesis Testing vs. Parameter Estimation}
 When we write down a list of hypotheses and get their
-posterior probabilities (e.g., in a Bayes' Box), we have tested all of the
+posterior probabilities (e.g., in a Bayes Box), we have tested all of the
 hypotheses using the data. So there is not much else to do.
 \pause
 \begin{itemize}
@@ -171,7 +171,7 @@ to a `spike' in the prior. The rest of the $\theta$ values form a `slab'.
 
 
 \begin{frame}
-\frametitle{Bayes' Box: Uniform Prior}
+\frametitle{Bayes Box: Uniform Prior}
 
 \centering
 {\footnotesize
@@ -200,7 +200,7 @@ Total & 1 & & & 1 \\
 \end{frame}
 
 \begin{frame}
-\frametitle{Bayes' Box: Spike and Slab Prior}
+\frametitle{Bayes Box: Spike and Slab Prior}
 
 \centering
 {\footnotesize
@@ -328,8 +328,8 @@ or
 odds ratio was $0.5/(1 - 0.5) = 1$. The posterior probability was
 0.6977 so the posterior odds ratio was $0.6977/(1 - 0.6977)=2.308$.\pause
 \item That is, the data makes $H_0$ 2.308 times more probable than $H_1$.\pause
-\item We can also solve for the Bayes' factor, which must equal the posterior
-odds ratio because the prior odds ratio was 1. Therefore the Bayes' factor
+\item We can also solve for the Bayes factor, which must equal the posterior
+odds ratio because the prior odds ratio was 1. Therefore the Bayes factor
 is also 2.308 --- the data was 2.308 times more probable under $H_0$ than
 under $H_1$.
 \end{itemize}
@@ -370,8 +370,8 @@ in odds form again:
 \end{align}
 \pause
 
-If we can calculate the numerator and denominator in the Bayes' factor part,
-we can get the Bayes' factor and the posterior odds, i.e., the conclusion.
+If we can calculate the numerator and denominator in the Bayes factor part,
+we can get the Bayes factor and the posterior odds, i.e., the conclusion.
 \end{frame}
 
 \begin{frame}
@@ -385,7 +385,7 @@ When we do parameter estimation within $M_1$, we get the marginal likelihood
 p(x \given M_1) &= \sum_{\theta_1} p(\theta_1 \given M_1)p(x \given \theta_1, M_1)
 \end{align}
 
-This, and the corresponding value for $M_2$, is just what we need for the Bayes' factor!
+This, and the corresponding value for $M_2$, is just what we need for the Bayes factor!
 
 \end{frame}
 
@@ -402,7 +402,7 @@ is sometimes called evidence --- that number indicates how strongly the data sup
 \begin{frame}[fragile]
 \frametitle{MacKay Coin Example: The Numerator}
 Since $H_0$ asserts a single value for $\theta=0.5$, the term in the numerator
-of the Bayes' factor is really just the likelihood for $\theta=0.5$:
+of the Bayes factor is really just the likelihood for $\theta=0.5$:
 \begin{minted}{r}
 lik_H0 = dbinom(140, size=250, prob=0.5)
 \end{minted}
@@ -414,7 +414,7 @@ However, as we just saw, we need the marginal likelihood from estimating $\theta
 
 \begin{frame}[fragile]
 \frametitle{MacKay Coin Example: The Denominator}
-This looks just like parameter estimation, except for the Bayes' factor
+This looks just like parameter estimation, except for the Bayes factor
 calculation at the end.
 \begin{minted}{r}
 theta = seq(0, 1, by=0.001)
@@ -434,12 +434,12 @@ $H_0$.
 \frametitle{Converting Back to Posterior Probabilities}
 If we have the conclusion in terms of posterior probabilities, it is easy
 to get the posterior odds or Bayes factor, as we saw with the bus example.
-How do we do the reverse? Make a tiny Bayes' Box!
+How do we do the reverse? Make a tiny Bayes Box!
 
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Tiny Bayes' Box}
+\frametitle{Tiny Bayes Box}
 
 \begin{minted}{r}
 > prior2 = c(0.5, 0.5)

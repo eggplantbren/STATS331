@@ -48,7 +48,7 @@ Credit: Randall Monroe, xkcd.com
 
 \begin{center}
 \Large
-Bigger Bayes' Boxes and \\
+Bigger Bayes Boxes and \\
 Introduction to Parameter Estimation
 \end{center}
 
@@ -94,7 +94,7 @@ Introduction to Parameter Estimation
 \item The test result is the data. $D$ = ``The test comes back positive''.\pause
 \item How plausible is it that you have $A$? \pause
 \item Difficulty: need list of mutually exclusive hypotheses
-        to make a Bayes' Box. How do we get $B$ involved? \pause
+        to make a Bayes Box. How do we get $B$ involved? \pause
 \item Solution: Use logical AND. Four possibilities:
         You have $A$ only, $B$ only, both, or neither.
         Assume independence to get the prior
@@ -107,8 +107,8 @@ Introduction to Parameter Estimation
 
 
 \begin{frame}
-\frametitle{Bayes' Box}
-Setting up the prior column of the Bayes' Box using independence:
+\frametitle{Bayes Box}
+Setting up the prior column of the Bayes Box using independence:
 \vspace{1em}
 
 \begin{tabular}{|c|c|c|c|c|}
@@ -129,8 +129,8 @@ Total & 1 & & & \\
 
 
 \begin{frame}
-\frametitle{Bayes' Box}
-Setting up the likelihood column of the Bayes' Box using the information
+\frametitle{Bayes Box}
+Setting up the likelihood column of the Bayes Box using the information
 about test reliability:
 \vspace{1em}
 
@@ -203,8 +203,8 @@ P(D) &= \sum_{i=1}^n P(H_i)P(D \given H_i).
 
 
 \begin{frame}
-\frametitle{Bayes' Rule $n$ times $\equiv$ Bayes' Box}
-Using a Bayes' Box with $n$ rows and applying the procedure there
+\frametitle{Bayes' Rule $n$ times $\equiv$ Bayes Box}
+Using a Bayes Box with $n$ rows and applying the procedure there
 (once you have assigned priors and likelihoods) is equivalent
 to using Bayes' rule $n$ times and the marginal likelihood formula
 as given on the previous slide.
@@ -292,8 +292,8 @@ P(\theta = 9 \given x = 3) &= \frac{P(\theta=9){\color{orange}P(x=3 \given \thet
 \end{frame}
 
 \begin{frame}
-\frametitle{Bayes' Box for Parameter Estimation}
-Since a Bayes' Box is equivalent to these repeated uses of Bayes' rule,
+\frametitle{Bayes Box for Parameter Estimation}
+Since a Bayes Box is equivalent to these repeated uses of Bayes' rule,
 we can use them for parameter estimation (when there is only one unknown
 parameter).
 
@@ -301,7 +301,7 @@ parameter).
 
 
 \begin{frame}
-\frametitle{Example Bayes' Box for Parameter Estimation}
+\frametitle{Example Bayes Box for Parameter Estimation}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Parameter & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
@@ -339,7 +339,7 @@ p(\theta \given x) &\propto p(\theta)p(x \given \theta) \\
 \pause
 (notation: $\theta$=parameter, $x$=data)
 We will use this more when we do {\bf analytical methods}. For now, we will
-stick to the Bayes' Box.
+stick to the Bayes Box.
 
 
 \end{frame}
@@ -363,7 +363,7 @@ $p(\theta \given x)$ which is usually narrower than the prior.
 
 \begin{itemize}
 \item We will now solve the famous problem of estimating a
-proportion using a Bayes' Box.\pause
+proportion using a Bayes Box.\pause
 \item Suppose there is an election coming up, with two major
 parties. 10 people are called to take a poll.\pause
 \item Results (data): $\{1, 1, 0, 0, 1, 0, 1, 0, 1, 1\}$\pause

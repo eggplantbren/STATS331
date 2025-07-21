@@ -241,9 +241,9 @@ show exactly how plausible $BB$ is.
 
 
 \begin{frame}
-\frametitle{Bayes' Box}
+\frametitle{Bayes Box}
 In the first part of the course, we will make tables of probabilities
-which we call a Bayes' Box. It gives a simple view of the probabilities
+which we call a Bayes Box. It gives a simple view of the probabilities
 involved in the problem.\\[0.5em]\pause
 
 \begin{tabular}{|c|c|c|c|c|}
@@ -262,7 +262,7 @@ Total & 1 & & & \\
 
 \begin{frame}
 \frametitle{Prior Probabilities}
-In the Bayes' Box on the previous slide, I have assigned uniform (equal)
+In the Bayes Box on the previous slide, I have assigned uniform (equal)
 prior probabilities of 0.5 to the two hypotheses. This represents the state
 of having no idea apart from the fact that there are two possibilities.\pause
 
@@ -304,8 +304,8 @@ Why? {\bf Imagine knowing the answer, but not knowing the data.}
 \end{frame}
 
 \begin{frame}
-\frametitle{Bayes' Box}
-We now have more values for our Bayes' Box.\\[0.5em]\pause
+\frametitle{Bayes Box}
+We now have more values for our Bayes Box.\\[0.5em]\pause
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
@@ -327,11 +327,11 @@ general.
 
 
 \begin{frame}
-\frametitle{Bayes' Box}
-The rest of the Bayes' Box is not {\em assigned}, but is {\em computed}
+\frametitle{Bayes Box}
+The rest of the Bayes Box is not {\em assigned}, but is {\em computed}
 using the rules of probability theory. Specifically, Bayes' rule applied
 twice: once to get $P(BB \given D)$ and once to get $P(BW \given D)$.
-It is easy to do the calculation using the Bayes' Box. First just multiply
+It is easy to do the calculation using the Bayes Box. First just multiply
 priors by likelihoods, then sum the column:
 \\[0.5em]\pause
 \begin{tabular}{|c|c|c|c|c|}
@@ -351,7 +351,7 @@ Total & 1 & & 0.75 & \\
 
 
 \begin{frame}
-\frametitle{Bayes' Box}
+\frametitle{Bayes Box}
 We almost have the result! The priors times the likelihoods gives us the
 {\em relative} updated plausibility of the two hypotheses. To become a
 probability distribution, we need to force it to sum to 1. We do this
@@ -415,9 +415,9 @@ calculation.
 
 
 \begin{frame}[fragile]
-\frametitle{R Code for Bayes' Box Calculation}
-The calculation equivalent to a Bayes' Box (or Bayes' rule twice) can be
-done easily in R. Each column of the Bayes' Box is an R {\bf vector}.\pause
+\frametitle{R Code for Bayes Box Calculation}
+The calculation equivalent to a Bayes Box (or Bayes' rule twice) can be
+done easily in R. Each column of the Bayes Box is an R {\bf vector}.\pause
 
 \begin{minted}{r}
 prior = rep(0.5, 2)
@@ -464,7 +464,7 @@ product.
 
 
 \begin{frame}
-\frametitle{Filling in the Bayes' Box}
+\frametitle{Filling in the Bayes Box}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
@@ -534,7 +534,7 @@ We would have to give $BW$ a prior probability of 0.99.
 \end{frame}
 
 \begin{frame}
-\frametitle{Bayes' Box, Sceptical Prior}
+\frametitle{Bayes Box, Sceptical Prior}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Hypothesis & Prior & Likelihood & Prior $\times$ Likelihood & Posterior \\
@@ -577,7 +577,7 @@ If we start with a low prior probability for one of the hypotheses, it takes
 \begin{frame}
 \frametitle{Different Data}
 If we ever drew the white ball from the bag, we would immediately become
-100\% certain of $BW$. What in Bayes' rule (or a Bayes' Box) would cause this
+100\% certain of $BW$. What in Bayes' rule (or a Bayes Box) would cause this
 to happen?
 
 \end{frame}
