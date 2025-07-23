@@ -511,8 +511,7 @@ This is what a trace plot looks like when things are working well.
 \includegraphics[width=0.8\textwidth]{images/trace_plot.png}
 \end{center}
 
-Some people call it a ``fuzzy caterpillar''. It looks a bit more like that
-if you have a longer run and zoom out.
+Some people call it a ``fuzzy caterpillar''.
 
 \end{frame}
 
@@ -586,6 +585,24 @@ into what we want), and they do not move very far.
 \end{itemize}
 
 \end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Removing Burn-In}
+To remove burn-in for a single parameter run:
+\begin{minted}{r}
+keep = keep[1000:length(keep)]
+\end{minted}
+
+Later when we have multiple parameters, our results will be in a data frame,
+and we will remove the initial rows:
+\begin{minted}{r}
+results = results[1000:nrow(results), ]
+\end{minted}
+
+\end{frame}
+
+
+
 
 \begin{frame}
 \frametitle{MCMC Tuning}
@@ -722,6 +739,24 @@ sd(results$theta)
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Results Data Frame}
+
+\begin{itemize}
+\item \mintinline{r}{results} is a data frame here. Like a matrix, but each column
+might be {\bf named} and have a different type (in principle --- for us they'll
+be all numeric).\pause
+\item Each row represents ``one possibility for all of the parameters.'' \pause
+\item Each column represents a single parameter. They can be extracted using
+the dollar sign and the parameter name. Use \mintinline{r}{colnames()} to find
+them out.\pause
+\item Our MCMC output will always be in this format, including when we use
+JAGS.
+\end{itemize}
+
+
+\end{frame}
 
 
 \end{document}
