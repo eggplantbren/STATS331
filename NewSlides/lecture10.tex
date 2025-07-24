@@ -250,5 +250,28 @@ data = list(x=2, N=5)
 \end{minted}
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Running JAGS on the Bus Problem}
+Let's run JAGS on the bus problem. We will need to ``monitor''
+\mintinline{r}{theta}, by including it in the \mintinline{r}{variable_names}
+vector, if we want to see it in the output.
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Visualisation and Summaries}
+It is easy to visualise and summarise the posterior:
+
+\begin{minted}{r}
+plot(results$theta, type=”l”)
+hist(results$theta, breaks=100)
+mean(results$theta)
+sd(results$theta)
+\end{minted}
+
+\end{frame}
 \end{document}
 
