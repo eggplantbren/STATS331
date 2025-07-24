@@ -186,7 +186,69 @@ use as a template.\pause
 
 \end{frame}
 
+\begin{frame}
+\frametitle{R Lists}
+In case anyone here has programmed in another
+language before:
+\begin{itemize}
+\item An R list is like a C/C++ struct, or a Java class with no methods.\pause
+\item An R list is like a Python dictionary.
+\end{itemize}
 
+\pause
+A list contains multiple objects which may be of different types, and may be
+named.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{R List Example}
+\begin{minted}{r}
+> me = list(name="Brendon", age=30 + 20*runif(1))
+> me
+$name
+[1] "Brendon"
+
+$age
+[1] 43.22408
+\end{minted}
+(not accurate)
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Accessing List Elements}
+List elements can be accessed by name using the dollar sign
+or by number using double square brackets.
+\begin{minted}{r}
+> me$name
+[1] "Brendon"
+> me$age
+[1] 43.22408
+> me[[1]]
+[1] "Brendon"
+> me[[2]]
+[1] 43.22408
+\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Uses for R lists}
+\begin{itemize}
+\item R Lists are useful for organising data/variables that
+belong together into a single ``object''.\pause
+\item Also, for being able to return more than one result from
+a function --- just pack it all into a list before the
+\mintinline{r}{return} statement.
+\end{itemize}
+
+\pause
+When running JAGS, we will often put the data into a list.
+E.g. for the bus problem,
+\begin{minted}{r}
+data = list(x=2, N=5)
+\end{minted}
+\end{frame}
 
 \end{document}
 
