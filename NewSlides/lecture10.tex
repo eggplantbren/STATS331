@@ -105,5 +105,88 @@ install.packages("rjags")
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{The Bus Problem}
+Recall the bus problem from the lecture notes. This was a binomial experiment
+with $N=5$ trials, and the data was $x=2$ successes. The unknown parameter
+is $\theta$, the success probability that applies on each trial.
+
+\pause
+
+We know how to solve this with a grid (Bayes Box), analytically (with a Beta
+or Uniform prior for $\theta$), and with Metropolis.
+How would we implement this in JAGS?
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{The Bus Problem in JAGS}
+
+\begin{minted}{r}
+model
+{
+    # The prior for the parameter
+    theta ~ dunif(0, 1)
+
+    # Sampling distribution (prior for the data!)
+    x ~ dbin(theta, N)
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The Bus Problem in JAGS}
+\begin{itemize}
+\item We always write the assumptions inside the \mintinline{r}{model} block.\pause
+\item We generally put the prior before the sampling distribution, but we don't
+    actually have to!\pause
+\item Quantities (either parameters or data) are defined into existence using
+the tilde \mintinline{r}{~}.\pause
+\item Note that $N$ is not defined anywhere --- this will be provided along
+with the data value $x$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Note About dbin() in JAGS}
+
+\begin{itemize}
+\item The distributions in JAGS are named similarly to the \mintinline{r}{d}
+(density) functions in R, but not exactly the same --- here we see
+\mintinline{r}{dbin()} whereas in R it's \mintinline{r}{dbinom()}.\pause
+\item Also, people usually write Binomial$(N, p)$ or Binomial$(N, \theta)$,
+but in JAGS the arguments are the other way around.\pause
+\item There are some other quirks. E.g., for the normal distribution, the
+second argument is {\em one over the variance}, i.e., we must write
+\mintinline{r}{dnorm(mu, 1/sigma^2)}. 
+We could write \mintinline{r}{dnorm(mu, 5)}
+but the meaning of the second parameter is obscured.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Running JAGS from R}
+
+\begin{itemize}
+\item We will write R code that calls JAGS in the background using functions
+from the \mintinline{r}{rjags} package.\pause
+\item There is a script on Canvas called {\texttt use\_jags.R} which you can
+use as a template.\pause
+\item The JAGS model code is provided inside an R string.\pause
+\item The data must be in an R list or data frame.\pause
+\item After running the script, the results are put into a data frame called
+\mintinline{r}{results}, whose (named) columns are the parameters.
+\end{itemize}
+
+\end{frame}
+
+
+
 \end{document}
 
