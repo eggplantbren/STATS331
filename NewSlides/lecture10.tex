@@ -273,5 +273,36 @@ sd(results$theta)
 \end{minted}
 
 \end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Coal Data}
+
+\centering
+\includegraphics[width=0.6\textwidth]{images/coal.pdf}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Coal Mining Accidents --- Simple Model}
+
+\begin{minted}{r}
+model
+{
+    # Somewhat arbitrary upper limit
+    lambda ~ dunif(0, 1000)
+
+    for(i in 1:N) # For-loop syntax is like R
+    {
+        y[i] ~ dpois(lambda)
+    }
+}
+\end{minted}
+
+\end{frame}
+
 \end{document}
 
