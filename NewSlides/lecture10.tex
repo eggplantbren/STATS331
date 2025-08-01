@@ -176,7 +176,7 @@ but the meaning of the second parameter is obscured.
 \begin{itemize}
 \item We will write R code that calls JAGS in the background using functions
 from the \mintinline{r}{rjags} package.\pause
-\item There is a script on Canvas called {\texttt use\_jags.R} which you can
+\item There is a script on Canvas called \texttt{use\_jags.R} which you can
 use as a template.\pause
 \item The JAGS model code is provided inside an R string.\pause
 \item The data must be in an R list or data frame.\pause
@@ -285,6 +285,23 @@ sd(results$theta)
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Coal Data}
+The coal mining data is in a .R file that just defines a list.
+We need to ``source'' the file --- run all the code in it. We can just
+click source in RStudio, or we can use the \mintinline{r}{source()}
+function to do it:
+\begin{minted}{r}
+source("coal.R")
+\end{minted}
+\pause
+We may need to put the full file path in the argument, or change
+R's working directory.
+
+\end{frame}
+
+
+
 
 \begin{frame}[fragile]
 \frametitle{Coal Mining Accidents --- Simple Model}
@@ -303,6 +320,159 @@ model
 \end{minted}
 
 \end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Coal Mining Accidents --- For Loop}
+\begin{itemize}
+\item The sampling distribution involves a loop because we have a vector
+of data values.\pause
+\item This is usually what happens, but not always --- it is possible to
+put parameters in a vector too, if you want.\pause
+\item The for-loop syntax is very similar to R's for loops.\pause
+\item \mintinline{r}{N}, the number of data points, is defined in the
+data list. We could also use \mintinline{r}{for(i in 1:length(y))} or
+\mintinline{r}{for(i in 1:length(t))}.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Coal Mining Accidents --- Results}
+Let's run \texttt{use\_jags.R} and look at the results.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Coal Mining Accidents --- Log-Uniform Prior}
+We will now see how to define a log-uniform prior in JAGS,
+as an alternative to the Uniform$(0, 1000)$ prior that we have
+seen so far. Remember, there are two ways of defining the
+log-uniform prior:\pause
+\begin{align}
+p(\lambda) &\propto 1/\lambda, \quad \lambda > 0
+\end{align}
+\pause
+or
+\begin{align}
+\log \lambda &\sim \textnormal{Uniform}(-\infty, \infty).
+\end{align}
+\pause
+JAGS doesn't allow infinite range (an `improper' prior),
+but we can just use a wide range.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Coal Mining Accidents --- Log-Uniform Prior}
+To define a log-uniform prior in JAGS, we can use two lines of code.
+\begin{minted}{r}
+log_lambda ~ dunif(-10, 10)
+lambda <- exp(log_lambda)
+\end{minted}
+\pause
+
+The first line creates a parameter with a uniform prior. If
+we exponentiate it, the result has a log-uniform prior.\pause
+
+The range is from $e^{-10} \approx 0.000045$ to $e^{10} \approx 22000$,
+which is wide enough for most purposes. Not astronomy though!
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Deterministic and Stochastic Nodes}
+\begin{itemize}
+\item The parameter \mintinline{r}{lambda} was defined using \mintinline{r}{<-}
+using an equation, not a probability distribution. Because an equation always
+gives a definite answer, this is called a {\em deterministic node}. \pause
+\item Quantities defined using \mintinline{r}{~} and a probability distribution,
+whether they are parameters or data values, are called
+{\em stochastic nodes}.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Coal Mining Accidents --- ChangePoint Model}
+We will now make a more complicated model, to show the power of JAGS and
+MCMC. It will be a
+``change-point'' model, where instead of having a
+constant $\lambda$ value, we assume it changes from
+$\lambda_1$ to $\lambda_2$ at some critical time $t_c$.
+These are the three unknown parameters.
+
+Looking at the data, something like this might be going on.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Coal Data}
+
+\centering
+\includegraphics[width=0.6\textwidth]{images/coal.pdf}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Change-Point Model: Priors}
+We will use log-uniform priors for $\lambda_1$ and $\lambda_2$ independently.
+\begin{minted}{r}
+log_lambda1 ~ dunif(-10, 10)
+lambda1 <- exp(log_lambda1)
+
+log_lambda2 ~ dunif(-10, 10)
+lambda2 <- exp(log_lambda2)
+\end{minted}
+\pause
+Note: Distributions will be independent if, when defining one, you
+make no reference to another node on the right hand side.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Change-Point Model: Priors}
+We will use a uniform prior for the change year, $t_c$, between the
+endpoints of the data.
+\begin{minted}{r}
+t_c ~ dunif(1851, 1962)
+\end{minted}
+\pause
+
+{\bf Note:}
+While it might look like we are defining a prior based on the data,
+which is not technically valid, we are actually not. The time values
+in the data are prior information, not data, as they have no sampling
+distribution --- our whole calculation is conditional on it already.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Change-Point Model: Sampling Distribution}
+To construct the sampling distribution we will use \mintinline{r}{step()}
+which is like R's \mintinline{r}{ifelse()}. It returns 0 if the argument is
+negative and 1 otherwise.
+
+\begin{minted}{r}
+for(i in 1:N)
+{
+    mu[i] <- lambda1 + step(t[i] - t_c)*(lambda2 - lambda1)
+    y[i] ~ dpois(mu[i])
+}
+\end{minted}
+\pause
+
+We could have done this in one line, without defining \mintinline{r}{mu}
+first.
+
+\end{frame}
+
+
 
 \end{document}
 
