@@ -27,6 +27,7 @@
 \usepackage{minted}
 \usepackage[utf8]{inputenc}
 \usepackage{dsfont}
+\newcommand{\given}{\,|\,}
 
 
 \begin{document}
@@ -113,6 +114,148 @@ abline(result)
 \centering
 \includegraphics[width=0.6\textwidth]{images/road_lm.pdf}
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Least Squares}
+In classical regression you fit a line of the form
+\begin{align}
+y &= \beta_0 + \beta_1 x
+\end{align}
+by minimising the sum of squared residuals
+\begin{align}
+\sum_{i=1}^N \left(y_i - (\beta_0 + \beta_1 x_i)\right)^2.
+\end{align}
+\pause
+From the estimated $\beta_0$ and $\beta_1$ values
+you can predict the value of $y$ at any other value of $x$.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayesian Approach}
+
+\begin{itemize}
+\item We will use Bayes' theorem to obtain the {\bf joint}
+posterior distribution for three unknown parameters
+$\beta_0$, $\beta_1$, and $\sigma$.\pause
+\item The parameter $\sigma$ was not mentioned before
+but describes the typical degree of scatter about the line.\pause
+\item Our data is the `response variable'
+$\{y_1, ..., y_N\}$ and the explanatory variable
+$\{x_1, ..., x_N\}$ is considered part of the prior information.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayesian Approach}
+
+\begin{itemize}
+\item We will need a prior distribution $p(\beta_0, \beta_1, \sigma)$,
+and a sampling distribution $p(y_1, ..., y_N \given \beta_0, \beta_1, \sigma)$.\pause
+\item For the sampling distribution, imagine knowing the parameters but not
+the data --- what distribution would you write down?\pause
+\item The standard assumption for the sampling distribution is
+to put a normal distribution around what the straight line would predict:
+\end{itemize}
+\begin{align}
+y_i \given \beta_0, \beta_1, \sigma &\sim \textnormal{Normal}
+    \left(\beta_0 + \beta_1 x_i, \sigma^2\right).
+\end{align}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayesian Approach: Analytical}
+This problem can actually be solved analytically, but it's pretty hardcore.
+We can get a bit of insight by writing down Bayes' rule:
+\begin{align}
+p(\beta_0, \beta_1, \sigma \given \boldsymbol{y})
+    &\propto p(\beta_0, \beta_1, \sigma)p(\boldsymbol{y} \given \beta_0, \beta_1, \sigma)\\
+    &\propto p(\beta_0, \beta_1, \sigma)
+        \prod_{i=1}^N \frac{1}{\sigma\sqrt{2\pi}}
+            \exp\left[-\frac{1}{2\sigma^2}\left(y_i - (\beta_0 + \beta_1 x_i)\right)^2\right] \\
+    &\propto p(\beta_0, \beta_1, \sigma)
+        \sigma^{-N}
+            \exp\left[-\frac{1}{2\sigma^2}\sum_{i=1}^N\left(y_i - (\beta_0 + \beta_1 x_i)\right)^2\right]
+\end{align}
+
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Bayesian Approach: Analytical}
+The sum of squared residuals has appeared in the likelihood function!
+If we have a uniform prior, the posterior mode is in fact the least squares
+estimate.\pause
+
+We should not expect large quantitative differences between Bayesian and
+classical regression results if our priors are wide and we have the standard
+assumptions. We will still implement it with these assumptions, but we will
+also look at varying the assumptions later.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Bayesian Approach: JAGS Model}
+
+\footnotesize
+\begin{minted}{r}
+model
+{
+    beta0 ~ dunif(-1000, 1000) # "Casual" wide priors
+    beta1 ~ dunif(-1000, 1000) # These might not always be appropriate
+    log_sigma ~ dunif(-10, 10) # Log-uniform prior for sigma
+    sigma <- exp(log_sigma)
+
+    for(i in 1:length(y)) # In case N is not provided with the data
+    {
+        y[i] ~ dnorm(beta0 + beta1*x[i], 1/sigma^2)
+    }
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bayesian Approach: Deterministic Nodes}
+It is possible to write the sampling distribution in this alternative form,
+where the regression line has been defined separately as its own node.
+\begin{minted}{r}
+for(i in 1:length(y))
+{
+    mu[i] <- beta0 + beta1*x[i]
+    y[i] ~ dnorm(mu[i], 1/sigma^2)
+}
+\end{minted}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Other Casual Wide Priors}
+Statisticians will often use wide priors that are conjugate priors, as this
+can speed up the performance of JAGS. However, I don't really like these
+because the meaning is more obscure.
+\begin{minted}{r}
+beta0 ~ dnorm(0, 1/1000^2)
+beta1 ~ dnorm(0, 1/1000^2)
+sigma ~ dgamma(0.001, 0.001)
+\end{minted}
+
+I will sometimes use the \mintinline{r}{dnorm()} versions but do not recommend
+the \mintinline{r}{dgamma()} as it is dangerous (it is more informative than
+it appears to be).
+\end{frame}
+
 
 \end{document}
 
