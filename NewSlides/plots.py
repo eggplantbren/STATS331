@@ -243,3 +243,15 @@ plt.plot(keep)
 plt.xlabel("Iteration")
 plt.ylabel("Position $\\theta$")
 plt.savefig("images/metropolis.pdf")
+
+plt.close("all")
+data = np.loadtxt("../Data/road.txt")
+plt.plot(data[:,0], data[:,1], "o", alpha=0.3)
+plt.xlabel("$x$ (Age in years)")
+plt.ylabel("$y$ (Distance in feet)")
+plt.xlim([0, 100])
+plt.ylim([0, 800])
+plt.title("Road Data")
+plt.savefig("images/road_data.pdf")
+
+
