@@ -390,6 +390,7 @@ which is wide enough for most purposes. Not astronomy though!
 \item The parameter \mintinline{r}{lambda} was defined using \mintinline{r}{<-}
 using an equation, not a probability distribution. Because an equation always
 gives a definite answer, this is called a {\em deterministic node}. \pause
+\item You can also use \mintinline{r}{=} these days.\pause
 \item Quantities defined using \mintinline{r}{~} and a probability distribution,
 whether they are parameters or data values, are called
 {\em stochastic nodes}.
@@ -469,6 +470,105 @@ for(i in 1:N)
 
 We could have done this in one line, without defining \mintinline{r}{mu}
 first.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Main Result: Marginal Posterior for $t_c$}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/coal_posterior.pdf} \\
+\end{center}
+Why is it uniform between the years?
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Lines Through the Data}
+In regression problems like this, it is often nice to plot
+some model lines, with parameters representative of the
+posterior distribution, through the data.
+\begin{minted}{r}
+plot(data$t, data$y)
+cols = 3:114 # A bit annoying to find
+rows = sample(1:nrow(results), 10)
+mu = results[rows, cols]
+for(i in 1:nrow(mu))
+    lines(data$t, mu[i, ])
+\end{minted}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Lines Through the Data}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/coal_lines.pdf} \\
+\end{center}
+Why is it uniform between the years?
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Summaries}
+Let's summarise the posterior for $t_c$. Some are easy:
+
+\begin{minted}{r}
+> mean(results$t_c)
+[1] 1890.447
+> sd(results$t_c)
+[1] 2.438453
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Summaries}
+Let's compute a 95\% credible interval. There are two ways:
+
+\begin{minted}{r}
+sorted = sort(results$t_c)
+left = sorted[0.025*length(sorted)]
+right = sorted[0.975*length(sorted)]
+\end{minted}
+
+The result is:
+\begin{minted}{r}
+> left
+[1] 1886.137
+> right
+[1] 1896.395
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Summaries}
+Let's compute a 95\% credible interval. This is the easier way:
+\begin{minted}{r}
+interval = quantile(results$t_c, probs=c(0.025, 0.975))
+left = interval[1]
+right = interval[2]
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Plotting the Interval}
+\begin{minted}{r}
+hist(results$t_c, breaks=200)
+abline(v=left)
+abline(v=right)
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Plotting the Interval}
+\centering
+\includegraphics[width=0.6\textwidth]{images/coal_interval.pdf}
 
 \end{frame}
 
