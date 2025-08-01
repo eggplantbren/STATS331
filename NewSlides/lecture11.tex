@@ -70,6 +70,49 @@ for common data analysis situations.\pause
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Classical Least Squares Regression in R}
+\tiny
+\begin{minted}{r}
+> data = read.table("road.txt")
+> result = lm(data[, 2] ~ data[, 1])
+> summary(result)
+
+Call:
+lm(formula = data[, 2] ~ data[, 1])
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-78.231 -41.710   7.646  33.552 108.831 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 576.6819    23.4709  24.570  < 2e-16 ***
+data[, 1]    -3.0068     0.4243  -7.086 1.04e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 49.76 on 28 degrees of freedom
+Multiple R-squared:  0.642,	Adjusted R-squared:  0.6292 
+F-statistic: 50.21 on 1 and 28 DF,  p-value: 1.041e-07
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Classical Least Squares Regression in R}
+\begin{minted}{r}
+plot(data[, 1], data[, 2])
+abline(result)
+\end{minted}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Classical Least Squares Regression in R}
+\centering
+\includegraphics[width=0.6\textwidth]{images/road_lm.pdf}
+\end{frame}
 
 \end{document}
 
