@@ -210,7 +210,7 @@ also look at varying the assumptions later.
 \begin{minted}{r}
 model
 {
-    beta0 ~ dunif(-1000, 1000) # "Casual" wide priors
+    beta0 ~ dunif(-1000, 1000) # Casual wide priors
     beta1 ~ dunif(-1000, 1000) # These might not always be appropriate
     log_sigma ~ dunif(-10, 10) # Log-uniform prior for sigma
     sigma <- exp(log_sigma)
@@ -255,6 +255,37 @@ I will sometimes use the \mintinline{r}{dnorm()} versions but do not recommend
 the \mintinline{r}{dgamma()} as it is dangerous (it is more informative than
 it appears to be).
 \end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Running JAGS}
+\large
+Let's run JAGS with this model and inspect the results.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Plotting Posterior Distributions}
+We can get some idea of what the 3-D joint posterior distribution is like
+by plotting a `corner plot', which is a set of 2-D marginal distributions.
+They don't look amazing, but you can do a basic one in R with the
+\mintinline{r}{pairs()} function. Here, I'm shrinking the circles with
+\mintinline{r}{cex=0.1} so they are basically dots.
+
+\begin{minted}{r}
+pairs(results, cex=0.1)
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Corner Plot}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{images/road_corner.pdf}
+\end{center}
+\end{frame}
+
 
 
 \end{document}
