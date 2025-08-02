@@ -265,6 +265,31 @@ Let's run JAGS with this model and inspect the results.
 
 
 \begin{frame}[fragile]
+\frametitle{Plotting Lines Through the Data}
+It is useful to visualise the fit.
+\begin{minted}{r}
+x = seq(0.0, 100.0, by=0.1)
+plot(data$x, data$y, xlim=c(0, 100))
+rows = sample(1:nrow(results), 100)
+for(row in rows)
+{
+    y = results$beta0[row] + results$beta1[row]*x
+    lines(x, y, col=rgb(0, 0, 0, 0.1))
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Plotting Lines Through the Data}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{images/road_lines.pdf}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}[fragile]
 \frametitle{Plotting Posterior Distributions}
 We can get some idea of what the 3-D joint posterior distribution is like
 by plotting a `corner plot', which is a set of 2-D marginal distributions.
@@ -285,6 +310,34 @@ pairs(results, cex=0.1)
 \includegraphics[width=0.55\textwidth]{images/road_corner.pdf}
 \end{center}
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Dependence in the Posterior Distribution}
+We can see some dependence between the parameters in the posterior distribution,
+especially between $\beta_0$ and $\beta_1$. If $\beta_0$ is increased, then
+in order to still fit the data, $\beta_1$ must be decreased.\pause
+
+Sometimes, dependence in the posterior distribution is so strong that it
+affects the efficiency of the MCMC (when using the methods JAGS uses,
+which update one parameter at a time while keeping the others fixed).
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Centering Explanatory Variables}
+Some of the reason for the dependence is because all of the observations
+are far from $x=0$, so for a line to fit through the observations, it must
+exactly `hit' the cloud of points. This effect can be reduced by {\bf centering}
+the explanatory variables:
+
+\begin{minted}{r}
+mu[i] <- beta0 + beta1*(x[i] - mean(x))
+\end{minted}
+\end{frame}
+
+
 
 
 
