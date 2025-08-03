@@ -353,7 +353,48 @@ $y$ when $x=(x_1 + ... + x_N)/N$.\pause
 Also, the priors are not exactly equivalent, but this doesn't usually matter.
 \end{frame}
 
+\begin{frame}
+\frametitle{Prediction in JAGS}
+\begin{itemize}
+\item If we knew the perameters, we could extrapolate the line to predict
+what will happen to $y$ when $x=x_{\rm new}$.\pause
+\item You should create a normal distribution around this with standard deviation
+$\sigma$.\pause
+\item However, $\sigma$ is unknown, as are $\beta_0$ and $\beta_1$.
+\end{itemize}
+\end{frame}
 
+
+\begin{frame}
+\frametitle{Prediction in JAGS}
+The Bayesian procedure to make such a prediction, taking into account all
+uncertainties, would be:
+\begin{itemize}
+\item Loop over the posterior samples.\pause
+\item For each possible value of the parameters,
+extrapolate the line using $\beta_0$ and $\beta_1$, and add noise with sd
+given by $\sigma$.\pause
+\item Look at the distribution of $y_{\rm new}$ that you get.\pause
+\end{itemize}
+This can be done manually, but it's even easier to do it in JAGS.
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Prediction in JAGS}
+Simply add ``one extra data point'' whose sampling distribution is (usually)
+the same, but whose value is unobserved (not provided with the data).
+In regression models, we need to put in the value of the explanatory variable:
+\begin{minted}{r}
+for(i in 1:length(y))
+{
+    y[i] ~ dnorm(beta0 + beta1*x[i], 1/sigma^2)
+}
+y_new ~ dnorm(beta0 + beta1*100, 1/sigma^2)
+\end{minted}
+\end{frame}
 
 
 \end{document}
