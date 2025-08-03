@@ -337,6 +337,21 @@ mu[i] <- beta0 + beta1*(x[i] - mean(x))
 \end{minted}
 \end{frame}
 
+\begin{frame}
+\frametitle{Corner Plot}
+\begin{center}
+\includegraphics[width=0.55\textwidth]{images/road_corner2.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Centering Explanatory Variables}
+Note: Centering changes the meaning of $\beta_0$. Instead of being the typical
+value of the response variable $y$ when $x=0$, it is the typical value of
+$y$ when $x=(x_1 + ... + x_N)/N$.\pause
+
+Also, the priors are not exactly equivalent, but this doesn't usually matter.
+\end{frame}
 
 
 
