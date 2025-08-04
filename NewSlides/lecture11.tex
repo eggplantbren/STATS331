@@ -390,10 +390,20 @@ In regression models, we need to put in the value of the explanatory variable:
 \begin{minted}{r}
 for(i in 1:length(y))
 {
-    y[i] ~ dnorm(beta0 + beta1*x[i], 1/sigma^2)
+    y[i] ~ dnorm(beta0 + beta1*(x[i] - mean(x)), 1/sigma^2)
 }
-y_new ~ dnorm(beta0 + beta1*100, 1/sigma^2)
+y_new ~ dnorm(beta0 + beta1*(100 - mean(x)), 1/sigma^2)
 \end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Prediction in JAGS}
+\large
+
+Let's look at the prediction for the 100-year old.
+The uncertainty about $y_{\rm new}$ is greater than
+a point estimate of $\sigma$. Why?
 \end{frame}
 
 
