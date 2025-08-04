@@ -354,14 +354,27 @@ Also, the priors are not exactly equivalent, but this doesn't usually matter.
 \end{frame}
 
 \begin{frame}
-\frametitle{Prediction in JAGS}
+\frametitle{Prediction}
 \begin{itemize}
-\item If we knew the perameters, we could extrapolate the line to predict
+\item If we knew the parameters, we could extrapolate the line to predict
 what will happen to $y$ when $x=x_{\rm new}$.\pause
 \item You should create a normal distribution around this with standard deviation
 $\sigma$.\pause
 \item However, $\sigma$ is unknown, as are $\beta_0$ and $\beta_1$.
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction}
+The equation for the ``posterior predictive distribution'' is
+\begin{align}
+p(y_{\rm new} \given \boldsymbol{y})
+    &= \int 
+            p(\beta_0, \beta_1, \sigma \given \boldsymbol{y})
+p(y_{\rm new} \given \beta_0, \beta_1, \sigma, \boldsymbol{y})\, d\beta_0 \, d\beta_1 \, d\sigma
+\end{align}
+but luckily we have other ways of calculating it.
+
 \end{frame}
 
 
