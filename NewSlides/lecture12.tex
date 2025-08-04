@@ -1,0 +1,58 @@
+\documentclass{beamer}
+\usetheme[pageofpages=of,% String used between the current page and the
+                         % total page count.
+          bullet=circle,% Use circles instead of squares for bullets.
+          titleline=true,% Show a line below the frame title.
+          alternativetitlepage=true,% Use the fancy title page.
+       %   titlepagelogo=logo-polito,% Logo for the first page.
+       %   watermark=watermark-polito,% Watermark used in every page.
+       %   watermarkheight=100px,% Height of the watermark.
+       %   watermarkheightmult=4,% The watermark image is 4 times bigger
+                                % than watermarkheight.
+          ]{Torino}
+
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth,ht=1ex,dp=1ex]{footline}
+    \vspace{5pt} \hspace{1em} \insertframenumber/\inserttotalframenumber
+  \end{beamercolorbox}
+}
+
+\author{Brendon J. Brewer}
+\title{STATS 331 -- Introduction to Bayesian Statistics}
+\institute{The University of Auckland}
+\date{}
+
+
+\linespread{1.3}
+\usepackage{minted}
+\usepackage[utf8]{inputenc}
+\usepackage{dsfont}
+\newcommand{\given}{\,|\,}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{images/paranormal.png}
+
+Credit: Matthew Freeman
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}
+\centering
+\large
+Heavy-Tailed Models and Multiple Regression
+
+\end{frame}
+
+
+
+\end{document}
+
