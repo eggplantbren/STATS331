@@ -55,8 +55,8 @@ Heavy-Tailed Models and Multiple Regression
 
 \begin{frame}
 \frametitle{Fake Data with Outlier}
-I generated some data from $y=x$ with $\sigma=1$, then manually added a single
-extreme outlier:
+I generated some data from $y=x$ with $\sigma=1$, then manually added two
+extreme outliers:
 
 \begin{center}
 \includegraphics[width=0.6\textwidth]{images/outlier_data.pdf}
@@ -70,7 +70,7 @@ extreme outlier:
 \item What will happen if we run the linear regression model, as it is, on this
 data? \pause
 \item The classical least squares estimate would be dragged substantially towards
-the outlier.\pause
+the outliers (by reducing the slope).\pause
 \item With the current model, the same thing will happen in the Bayesian framework,
 because of the choice of sampling distribution/likelihood --- particularly,
 the light tails of the gaussian.
@@ -85,7 +85,7 @@ $y=x$ and $\sigma=1$.\pause
 
 Surprisingly, the posterior distributions for $\beta_0$ and $\beta_1$ aren't
 actually that bad, but the uncertainties get inflated because $\sigma$ has
-to be super high to explain the data.
+to be super high to explain the outliers.
 \end{frame}
 
 
@@ -145,6 +145,30 @@ for(i in 1:length(y))
 a scale parameter (controls width).
 
 \end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Results from Heavy-Tailed Model}
+The results from the heavy tailed model are a fair bit better,
+and $\sigma$ (even though it has changed its interpretation a bit)
+is much smaller. It can explain the outliers by having a low value
+of $\nu$ instead.\\[0.5em]\pause
+
+We can look at the posterior for $\log(\nu)$ (which had a uniform prior)
+to see, whether large values (i.e., approximately gaussian shape) are ruled out.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{One Parameter Space}
+Instead of doing model selection (which we cannot do here as MCMC does not
+calculate marginal likelihoods), we can sometimes create something like
+the two models in the one parameter space, and just do parameter estimation.
+This is a good strategy in general.
+
+\end{frame}
+
+
 
 
 \end{document}
