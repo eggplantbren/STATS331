@@ -254,4 +254,12 @@ plt.ylim([0, 800])
 plt.title("Road Data")
 plt.savefig("images/road_data.pdf")
 
+plt.close("all")
+data = np.loadtxt("../Data/outlier.txt")
+plt.plot(data[:,0], data[:,1], "o", alpha=0.3)
+plt.xlabel("$x$")
+plt.ylabel("$y$")
+plt.title("Outlier Data")
+plt.savefig("images/outlier_data.pdf")
+
 

@@ -53,6 +53,99 @@ Heavy-Tailed Models and Multiple Regression
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Fake Data with Outlier}
+I generated some data from $y=x$ with $\sigma=1$, then manually added a single
+extreme outlier:
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/outlier_data.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Fake Data with Outlier}
+\begin{itemize}
+\item What will happen if we run the linear regression model, as it is, on this
+data? \pause
+\item The classical least squares estimate would be dragged substantially towards
+the outlier.\pause
+\item With the current model, the same thing will happen in the Bayesian framework,
+because of the choice of sampling distribution/likelihood --- particularly,
+the light tails of the gaussian.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Running the Model}
+Let's run the regression model on this data, and see what the posterior
+distributions look like, and whether they accurately recover
+$y=x$ and $\sigma=1$.\pause
+
+Surprisingly, the posterior distributions for $\beta_0$ and $\beta_1$ aren't
+actually that bad, but the uncertainties get inflated because $\sigma$ has
+to be super high to explain the data.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conclusion}
+The best way of explaining this data, with the current model, is if $\sigma$
+is much larger than 1 and the slope $\beta_1$ is less than 1.
+{\bf If we believe the model assumptions}, this is the
+answer, and that's that.\pause
+
+However, often model assumptions aren't truly reliable but are chosen out of
+tradition or habit. We are free to change the model to one that
+{\bf expects} the odd outlier.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Student-$t$ Distributions from Wikipedia}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/t_distribution.png}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Student-$t$ Distributions in JAGS}
+We will use the Student-$t$ distribution as a drop-in replacement for the
+normal distribution in our model. We simply replace
+\begin{minted}{r}
+dnorm(mu, 1/sigma^2)
+\end{minted}
+with
+\begin{minted}{r}
+dt(mu, 1/sigma^2, nu)
+\end{minted}
+\pause
+{\bf Note}: The extra parameter \mintinline{r}{nu}, which controls the
+tail behaviour, will need a prior (low $\nu$ = heavy tails,
+high $\nu$ = approximately normal).
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modified Parts of the Regression Model}
+\footnotesize
+\begin{minted}{r}
+log_nu ~ dunif(-2, 5)
+nu <- exp(log_nu)
+
+for(i in 1:length(y))
+{
+    y[i] ~ dt(beta0 + beta1*(x[i] - mean(x)), 1/sigma^2, nu)
+}
+\end{minted}
+\pause
+
+{\bf Note}: \mintinline{r}{sigma} is no longer a standard deviation, but is still
+a scale parameter (controls width).
+
+\end{frame}
+
 
 \end{document}
 
