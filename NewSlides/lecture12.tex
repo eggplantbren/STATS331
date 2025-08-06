@@ -276,5 +276,83 @@ almost certainly positive.
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Interaction Term}
+We can look for curvature/nonlinearity in the regression relationship,
+so we are fitting a curve rather than a plane.
+\tiny
+\begin{minted}{r}
+model
+{
+    # Repeat same priors here...
+
+    # Extra parameter
+    beta3 ~ dnorm(0, 1/1000^2)
+    for(i in 1:N)
+    {
+        price[i] ~ dnorm(beta0
+                            + beta1*(age[i] - mean(age))
+                            + beta2*(num_bidders[i] - mean(num_bidders))
+                            + beta3*(age[i] - mean(age))*
+                                    (num_bidders[i] - mean(num_bidders)),
+                         1/sigma^2)
+    }
+}
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Clocks Results}
+Assuming there is an interaction term, it is also positive.
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Can We Do Model Selection?}
+Statisticians often have the instinct to do ``model selection'' (in the case
+of regression it is also called ``variable selection'') to see which terms
+should be included. We could have something like this:
+\begin{align}
+H_0:\quad& \beta_3 = 0 \\
+H_1:\quad& \beta_3 \neq 0.
+\end{align}
+\pause
+However, this would require either marginal likelihoods (which JAGS cannot
+compute) or a spike-and-slab prior (which it can do with hacks --- we'll
+see this in the $t$-test lectures).
+\end{frame}
+
+\begin{frame}
+\frametitle{Warning About Priors}
+\begin{itemize}
+\item If the number of explanatory variables is large, you need a prior
+for a large number of coefficients.\pause
+\item Vague priors can become more dodgy as the number of
+parameters increases!.\pause
+\item ``Hierarchical models'' often needed --- quite tricky to use in
+regression models.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Catheter Data}
+Here's another multiple regression dataset. In this case, there is a strong
+``collinearity'' between the explanatory variables. Some people think this
+breaks regression models. It does introduce an ambiguity.
+Can Bayes handle it?
+
+\begin{center}
+\includegraphics[width=0.4\textwidth]{images/catheter.pdf}
+\end{center}
+
+\end{frame}
+
 \end{document}
 
