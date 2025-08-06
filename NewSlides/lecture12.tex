@@ -224,6 +224,57 @@ affect the price it sells for at an auction?
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Multiple Regression Assumptions}
+We just need to add extra terms to the regression assumptions.
+
+\begin{align}
+y_i &= \beta_0 + \beta_1 x_{i, 1} + \beta_2 x_{i, 2} + \epsilon_i \\
+\epsilon_i &\sim \textnormal{Normal}(0, \sigma^2)
+\end{align}
+
+\pause
+
+However, when we implement this in JAGS, we will (a) center the
+explanatory variables, (b) rename the nodes in the JAGS code
+so they match the names in the data, and (c) use the wide
+normal priors for coefficients --- for no reason really.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{JAGS Code for Clocks}
+\tiny
+
+\begin{minted}{r}
+model
+{
+    beta0 ~ dnorm(0, 1/1000^2)
+    beta1 ~ dnorm(0, 1/1000^2)
+    beta2 ~ dnorm(0, 1/1000^2)
+    log_sigma ~ dunif(-10, 10) # Log-uniform prior for sigma
+    sigma <- exp(log_sigma)
+
+    for(i in 1:N)
+    {
+        price[i] ~ dnorm(beta0
+                            + beta1*(age[i] - mean(age))
+                            + beta2*(num_bidders[i] - mean(num_bidders)),
+                         1/sigma^2)
+    }
+}
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Clocks Results}
+Let's run the MCMC. We should see that the coefficients are both
+almost certainly positive.
+
+\end{frame}
 
 \end{document}
 
