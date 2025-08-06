@@ -161,13 +161,67 @@ to see, whether large values (i.e., approximately gaussian shape) are ruled out.
 
 \begin{frame}[fragile]
 \frametitle{One Parameter Space}
-Instead of doing model selection (which we cannot do here as MCMC does not
+Instead of doing model selection to test the
+normal model against the Student-$t$
+(which we cannot do here as MCMC does not
 calculate marginal likelihoods), we can sometimes create something like
 the two models in the one parameter space, and just do parameter estimation.
 This is a good strategy in general.
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Conclusion About Outliers}
+
+{\em
+``Sometimes outliers are bad data, and should be excluded,
+such as typos. Sometimes they are Wayne Gretzky or
+Michael Jordan, and should be kept.''}
+
+- Neil McGuigan, on stackexchange.com\\[1em]
+
+\pause
+
+One size does not fit all --- whether outliers should have a big effect
+or not depends on your prior information.
+
+\end{frame}
+
+\begin{frame}
+
+\Large
+\begin{center}
+Multiple Linear Regression
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Multiple Linear Regression}
+\begin{itemize}
+\item We will now look at some examples of multiple linear regression.\pause
+\item This is a relatively straightforward extension of simple linear
+regression, but we just have more than one explanatory variable.\pause
+\item There are whole courses about these kinds of models (e.g., STATS 330)
+but they are usually from a classical/frequentist viewpoint.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Clocks Data}
+How does the age of a grandfather clock, and the number of bidders,
+affect the price it sells for at an auction?
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/clocks.pdf}
+\end{center}
+
+\end{frame}
 
 
 
