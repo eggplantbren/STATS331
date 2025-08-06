@@ -350,7 +350,10 @@ Note: Centering changes the meaning of $\beta_0$. Instead of being the typical
 value of the response variable $y$ when $x=0$, it is the typical value of
 $y$ when $x=(x_1 + ... + x_N)/N$.\pause
 
-Also, the priors are not exactly equivalent, but this doesn't usually matter.
+This usually improves the posterior distribution so it is easier to sample,
+and also makes it easier to assign a prior for $\beta_0$ (if we want to
+assign an informative prior) --- its new meaning is just the typical
+value of $y$.
 \end{frame}
 
 \begin{frame}

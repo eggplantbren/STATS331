@@ -280,7 +280,7 @@ almost certainly positive.
 \begin{frame}[fragile]
 \frametitle{Interaction Term}
 We can look for curvature/nonlinearity in the regression relationship,
-so we are fitting a curve rather than a plane.
+so we are fitting a curved surface rather than a plane.
 \tiny
 \begin{minted}{r}
 model
@@ -343,16 +343,53 @@ regression models.
 
 \begin{frame}
 \frametitle{Catheter Data}
-Here's another multiple regression dataset. In this case, there is a strong
-``collinearity'' between the explanatory variables. Some people think this
-breaks regression models. It does introduce an ambiguity.
-Can Bayes handle it?
+Here's another multiple regression dataset.
+The response variable is the length of a catheter needed for a medical procedure.
+The height and weight of the patient are the explanatory variables.
+You would expect a longer catheter is needed as height and weight increases
+--- but height and weight are also strongly correlated with each other.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Catheter Data}
+This plot shows the correlation between the explanatory variables
+(the response variable is not shown).
 
 \begin{center}
 \includegraphics[width=0.4\textwidth]{images/catheter.pdf}
 \end{center}
 
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Catheter Posterior}
+Let $\beta_1$ be the coefficient for height and $\beta_2$ the coefficient
+for weight:
+\begin{center}
+\includegraphics[width=0.4\textwidth]{images/catheter_posterior.pdf}
+\end{center}
+We don't have to do anything about the correlation between
+the explanatory variables. Its consequences appear in the results.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Linear Regression Conclusions}
+\begin{itemize}
+\item This is one situation where the classical and Bayesian results are
+numerically similar (if the Bayesian uses wide priors). We just get the
+improved interpretation of the posterior distribution and its summaries.\pause
+\item One other benefit of our approach is that it is easy to modify the
+assumptions if necessary (for example, our use of the $t$-distribution).
+If you are just using \mintinline{r}{lm()} you
+are stuck with standard assumptions.
+\end{itemize}
+
+\end{frame}
+
 
 \end{document}
 
