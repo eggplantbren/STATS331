@@ -262,4 +262,10 @@ plt.ylabel("$y$")
 plt.title("Outlier Data")
 plt.savefig("images/outlier_data.pdf")
 
+plt.close("all")
+data = np.loadtxt("../Data/chd.data", skiprows=1)
+plt.plot(data[:,0], data[:,1], "o", alpha=0.3)
+plt.xlabel("Age (years)")
+plt.ylabel("Heart Disease Status")
+plt.savefig("images/chd_data.pdf")
 

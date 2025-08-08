@@ -46,13 +46,60 @@ Other Regression Models
 \frametitle{Other Regression Models}
 We will now look at how to implement some other regression models
 (`GLMs', taught classically in STATS 330) in JAGS.
-We will do:
+We will do the following, which are really just different choices for
+what to use for the sampling distribution:
 
 \begin{itemize}
 \item Logistic regression \pause
 \item Poisson regression \pause
 \item Negative binomial regression
 \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Logistic Regression Example}
+\begin{itemize}
+\item For logistic regression, we will look at a simple example with one
+explanatory variable. The extension to more explanatory variables should be
+clear.\pause
+\item In this data, the explanatory variable is the age (of a patient)
+and the response variable is 0 (no heart disease) or 1 (heart disease).
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Logistic Regression Example}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/chd_data.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Logistic Regression Assumptions}
+We assume that the probability of having heart disease is some function of the
+explanatory variables. Based on those probabilities,
+the data have a Bernoulli distribution.
+\end{frame}
+
+\begin{frame}
+\frametitle{Logits}
+Logits are a transformed version of probabilities that live in
+$(-\infty, \infty)$ instead of $[0, 1]$. The definition of a logit $\ell$
+in terms of a probability $p$ is
+\begin{align}
+\ell &= \log\left(\frac{p}{1-p}\right).
+\end{align}
+\pause
+The inverse, to convert a logit $\ell$ to a probability $p$
+is the `logistic function':
+\begin{align}
+p &= \frac{1}{1 + e^{-\ell}}.
+\end{align}
 
 \end{frame}
 
