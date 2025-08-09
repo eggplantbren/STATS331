@@ -176,5 +176,73 @@ for(row in rows)
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Informative Priors}
+
+\begin{itemize}
+\item We have mostly been using uniform or very wide normal priors,
+and have been getting away with it.\pause
+\item But they are actually a bit crazy, assigning probability to parameter
+values we would never believe.\pause
+\item We get away with it because the data is strong enough to rule out those
+crazy values anyway.\pause
+\item Thinking about the meaning of the parameter is often enough to let you
+narrow down the priors a long way.
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Informative Priors}
+
+\begin{itemize}
+\item $\beta_0$ is the value of the logit for a typical value of age,
+since we centered \mintinline{r}{x}.
+It probably shouldn't be too far outside the range $[-5, 5]$ (corresponding to
+probabilities of about 0.007 to 0.993). \pause
+\item People usually use normal distributions for informative priors, but I
+disagree with that as they are very dogmatic --- the probability in the tails
+is tiny.\pause
+\item We can use the Student-$t$ distribution as an alternative:
+\mintinline{r}{beta0 ~ dt(0, 1/3^2, 2)}.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Informative Priors}
+
+\begin{itemize}
+\item $\beta_1$ is the rate of change of logit per year of age. It
+probably shouldn't be outside the range $[-1, 1]$
+as this would lead to rapid change in disease probability over the course
+of a single year of age --- implausible.\pause
+\item $\beta_1$ is also almost certainly positive.\pause
+\item Let's use \mintinline{r}{beta1 ~ dt(0.1, 1/1^2, 2)} so we expect
+around 1 unit of logit change per decade of life, but with some uncertainty
+that is still generous.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Informative Priors}
+\begin{itemize}
+\item Despite having much narrower priors, the results of the parameter estimation
+will be quite similar, because the data is `confirming' the priors.\pause
+\item Informative priors are absolutely necessary for model comparison with
+marginal likelihoods. The changes we just made would increase $Z$ by a factor
+of about a million!\pause
+\item As a sanity check (for mistakes in your thinking), you should check
+that the posterior based on uniform priors isn't wildly inconsistent with
+your informative priors.
+\end{itemize}
+
+\end{frame}
+
+
 \end{document}
 
