@@ -138,6 +138,43 @@ model
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Logistic Regression: Prediction}
+We can do prediction just as we did in the linear regression case,
+by adding nodes for \mintinline{r}{y_new}. The posterior mean of it
+will give the posterior probability that $y_{\rm new} = 1$.\\[0.5em]\pause
+
+We could also just take the posterior mean of $p_{\rm new}$.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Logistic Regression: Plotting}
+
+\begin{minted}{r}
+plot(data$x, data$y, xlab="Age", ylab="Disease")
+x = seq(10, 100, by=0.1)
+rows = sample(1:nrow(results), 100)
+for(row in rows)
+{
+    l = results$beta0[row] +
+        results$beta1[row]*(x - mean(data$x))
+    p = 1/(1 + exp(-l))
+    lines(x, p, col=rgb(0, 0, 0, 0.1))
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Logistic Regression: Plotting}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/logistic_curves.pdf}
+\end{center}
+
+\end{frame}
+
 
 \end{document}
 
