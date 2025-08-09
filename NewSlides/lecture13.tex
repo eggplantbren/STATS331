@@ -98,10 +98,46 @@ in terms of a probability $p$ is
 The inverse, to convert a logit $\ell$ to a probability $p$
 is the `logistic function':
 \begin{align}
-p &= \frac{1}{1 + e^{-\ell}}.
+p &= \frac{e^\ell}{1 + e^\ell} = \frac{1}{1 + e^{-\ell}}.
 \end{align}
 
 \end{frame}
+
+\begin{frame}
+\frametitle{Logistic Regression Assumptions}
+
+\begin{align}
+\ell_i &= \beta_0 + \beta_1 x_i \\
+p_i &= \frac{1}{1 + e^{-\ell_i}}\\
+y_i \given \beta_0, \beta_1 &\sim \textnormal{Bernoulli}\left(p_i\right).
+\end{align}
+\pause
+
+Usefully, to write this in JAGS, we don't need to write down the logistic
+equation manually.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Logistic Regression: JAGS Code}
+
+\begin{minted}{r}
+model
+{
+    beta0 ~ dunif(-1000, 1000)
+    beta1 ~ dunif(-1000, 1000)
+
+    for(i in 1:length(y))
+    {
+        logit(p[i]) <- beta0 + beta1*(x[i] - mean(x))
+        y[i] ~ dbern(p[i])
+    }
+}
+\end{minted}
+
+\end{frame}
+
 
 \end{document}
 
