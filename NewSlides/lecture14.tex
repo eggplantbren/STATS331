@@ -109,5 +109,85 @@ mean of x mean of y
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Meaning of the $p$-value}
+The p-value is the probability, assuming $H_0$ is true, that a dataset would
+show this level of difference or greater.\\[0.5em]\pause
+
+The posterior probability of $H_0$ is the probability that $H_0$ is true,
+given the data. More what we want to know.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sampling Distribution Assumptions}
+The classical $t$-test assumptions for the sampling distribution are the same
+(apart from the interpretation of it) as what we will adopt:
+\begin{align}
+x_{1, i} \given \mu_1, \mu_2, \sigma &\sim \textnormal{Normal}(\mu_1, \sigma^2) \\
+x_{2, i} \given \mu_1, \mu_2, \sigma &\sim \textnormal{Normal}(\mu_2, \sigma^2).
+\end{align}
+\pause
+
+We will calculate joint posterior distributions for the
+three  unknown parameters $\mu_1$, $\mu_2$, and
+$\sigma$. From that, we can calculate the probability of $H_0$.
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{JAGS Code for Sampling Distribution}
+The sampling distribution/likelihood code in JAGS is straightforward,
+we just have to name the variables as they are named in the data:
+\begin{minted}{r}
+for(i in 1:N1)
+{
+    x1[i] ~ dnorm(mu1, 1/sigma^2)
+}
+for(i in 1:N2)
+{
+    x2[i] ~ dnorm(mu2, 1/sigma^2)
+}
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Priors}
+In our first model, we will just set wide priors for the parameters.
+
+\begin{minted}{r}
+mu1 ~ dnorm(0, 1/1000^2)
+mu2 ~ dnorm(0, 1/1000^2)
+log_sigma ~ dunif(-10, 10)
+sigma <- exp(log_sigma)
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Results}
+After running JAGS, we can get some posterior probabilities,
+computed from the posterior samples.
+
+\begin{minted}{r}
+> mean(results$mu2 > results$mu1)
+[1] 0.9437
+> mean(results$mu2 == results$mu1)
+[1] 0
+\end{minted}
+\pause
+
+Why is the second result zero?
+
+
+
+\end{frame}
+
+
+
 \end{document}
 
