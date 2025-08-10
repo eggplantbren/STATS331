@@ -320,5 +320,80 @@ the data that $\beta_1$ would be negative, and due to units it must be small.
 \end{center}
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Coal Results: Code}
+
+\begin{minted}{r}
+t = seq(min(data$t), max(data$t), length=1000)
+plot(data$t, data$y)
+rows = sample(1:nrow(results), 100)
+for(row in rows)
+{
+    lambda = exp(results$beta0[row] +
+                 results$beta1[row]*(t - mean(data$t)))
+    lines(t, lambda, col=rgb(0, 0, 0, 0.1))
+}
+\end{minted}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Coal Results}
+Remember, we are not equipped to do {\bf model comparison} between the
+change-point model and the GLM one. It is also not obvious how one might
+do the alternative --- to put both ideas into a single parameter space.\\[0.5em]\pause
+
+Other algorithms such as {\bf Nested Sampling} can do the model comparison
+calculation.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Negative Binomial Regression}
+\begin{itemize}
+\item The Poisson distribution is quite restrictive, as it asserts that if the
+mean is $\lambda$ then the standard deviation must be $\sqrt{\lambda}$.
+A two-parameter family might sometimes be better.\pause
+\item For count data, the negative binomial is the traditional change to the
+model to make it a bit more flexible than the Poisson, potentially to take
+into account `overdispersion'.\pause
+\item I will just show you how to use the negative binomial as a drop-in
+replacement for the Poisson. It involves an extra parameter $r$, which,
+if large, reproduces the Poisson approximately.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Negative Binomial Regression}
+\footnotesize
+\begin{minted}{r}
+model
+{
+    beta0 ~ dnorm(0, 1/1000^2)
+    beta1 ~ dnorm(0, 1/1000^2)
+    log_r ~ dunif(0, 5) # Log-uniform prior for extra param
+    r <- exp(log_r)
+
+    for(i in 1:length(y))
+    {
+        lambda[i] <- exp(beta0 + beta1*(t[i] - mean(t)))
+        p[i] <- r/(r + lambda[i])
+        y[i] ~ dnegbin(p[i], r)
+    }
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Negative Binomial Regression}
+When we look at the posterior for \mintinline{r}{log_r} for the coal dataset
+we see that high values are more plausible --- so the Poisson distribution
+was actually fine (and would have been supported in a formal model comparison).
+
+\end{frame}
+
 \end{document}
 
