@@ -188,6 +188,32 @@ Why is the second result zero?
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Model 1: Priors}
+We got zero posterior probability for $H_0$ (that $\mu_1 = \mu_2$)
+because we gave it zero prior probability! Take a look at the joint prior
+for $\mu_1$ and $\mu_2$:
+\vspace{-1.5em}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/ttest_prior1.pdf}
+\end{center}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Priors}
+Not only does this prior assign zero probability to the hypothesis that the
+two groups are equal, it assigns hardly any probability to the possibility
+that they are even {\bf similar}.\\[0.5em]\pause
+
+If we think $\mu_1$ and $\mu_2$ might be the same, we need some points
+exactly on
+the diagonal. If we think they might be different but similar, we need more
+points {\em near} the diagonal.
+
+\end{frame}
 
 \end{document}
 
