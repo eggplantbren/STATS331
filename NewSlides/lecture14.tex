@@ -215,5 +215,30 @@ points {\em near} the diagonal.
 
 \end{frame}
 
+
+
+\begin{frame}[fragile]
+\frametitle{Aside: Priors in JAGS}
+You can get JAGS to sample your priors, simply by not passing in any data.
+In this example, it will get confused if you don't pass \mintinline{r}{N1}
+and \mintinline{r}{N2}, so just pass a minimal list containing those.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 2: A Spike-and-Slab Prior in JAGS}
+In this model, we will make a spike-and-slab prior in JAGS. Generally, this is
+not easy to do and is not common. Our strategy will be:\pause
+\begin{itemize}
+\item Leave the $\mu_1$ prior the same. \pause
+\item Make a parameter called \mintinline{r}{difference},
+with a 50\% probability of being zero, 25\% of being negative,
+and 25\% of being positive.\pause
+\item Define $\mu_2$ as $\mu_1 + $\mintinline{r}{difference}.\pause
+\end{itemize}
+Thus, we will have a 50\% prior probability of $H_0$.
+\end{frame}
+
 \end{document}
 
