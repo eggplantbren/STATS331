@@ -244,5 +244,81 @@ your informative priors.
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Poisson Regression}
+Poisson regression is another `GLM'. It is just a regression model where
+the sampling distribution is Poisson. We typically have the following:
+\begin{align}
+\lambda_i &= \exp\left(\beta_0 + \beta_1 x_i + \textnormal{extra terms}\right) \\
+y_i \given \boldsymbol{\beta} &\sim \textnormal{Poisson}(\lambda_i)
+\end{align}
+Apart from priors, this is all we'll need for the JAGS code.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Coal Data}
+Let's revisit the coal data with this model (previously we had a change-point
+model).
+
+\begin{center}
+\includegraphics[width=0.4\textwidth]{images/coal.pdf}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Full JAGS Model with Priors}
+Let's go back to being lazy about the priors, and remember that the
+explanatory variable is called \mintinline{r}{t} in this dataset.
+\footnotesize
+\begin{minted}{r}
+model
+{
+    beta0 ~ dnorm(0, 1/1000^2)
+    beta1 ~ dnorm(0, 1/1000^2)
+
+    for(i in 1:length(y))
+    {
+        lambda[i] <- exp(beta0 + beta1*(t[i] - mean(t)))
+        y[i] ~ dpois(lambda[i])
+    }
+}
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Coal Results with GLM Assumptions}
+We get the typical log-rate of accidents in the middle of the dataset
+($\beta_0$) and the rate of change per year ($\beta_1$). We could tell from
+the data that $\beta_1$ would be negative, and due to units it must be small.
+\footnotesize
+\begin{minted}{r}
+> mean(results$beta0)
+[1] 0.356763
+> sd(results$beta0)
+[1] 0.08454957
+> mean(results$beta1)
+[1] -0.01843049
+> sd(results$beta1)
+[1] 0.00247103
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Coal Results with GLM Assumptions}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/coal_curves.pdf}
+\end{center}
+\end{frame}
+
 \end{document}
 
