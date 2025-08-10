@@ -55,6 +55,59 @@ spike-and-slab prior in JAGS, and (iii) our first hierarchical prior.
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Fake Data from Ed Jaynes}
+
+\begin{itemize}
+\item Manufacturer A's widgets:
+Mean lifetime = 42 hours, SD = 7.48 hours based on $N=9$.\pause
+\item Manufacturer B's widgets:
+Mean lifetime = 50 hours, SD = 6.48 hours based on $N=4$.\pause
+\end{itemize}
+
+Is one manufacturer better than the other?
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Boxplot}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/widgets_boxplot.pdf}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Classical $t$-test Hypotheses}
+
+\begin{align}
+H_0: \quad \mu_1 = \mu_2 \\
+H_1: \quad \mu_1 \neq \mu_2
+\end{align}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Classical $t$-test Results}
+\footnotesize
+\begin{minted}{r}
+> t.test(data$x1, data$x2)
+
+	Welch Two Sample t-test
+
+data:  data$x1 and data$x2
+t = -1.7461, df = 6.1694, p-value = 0.13
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -19.136445   3.136445
+sample estimates:
+mean of x mean of y 
+       42        50 
+\end{minted}
+
+\end{frame}
 
 \end{document}
 
