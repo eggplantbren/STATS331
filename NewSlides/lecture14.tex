@@ -28,6 +28,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{dsfont}
 \newcommand{\given}{\,|\,}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
 
 
 \begin{document}
@@ -264,10 +266,10 @@ difference <- (2*C-1)*size_of_difference
 \end{frame}
 
 \begin{frame}[fragile]
-\frametitle{Model 2: The Prior for \mintinline{r}{difference}}
+\frametitle{Model 2: Joint Prior}
 (Zoomed in)
 \begin{center}
-\includegraphics[width=0.5\textwidth]{images/ttest_prior2.pdf}
+\includegraphics[width=0.5\textwidth]{images/ttest_prior2.png}
 \end{center}
 
 \end{frame}
@@ -286,6 +288,95 @@ Let's run Model 2, and look at:\pause
 $H_0$ will go down. Why?
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Summary of Models 1 and 2}
+\begin{itemize}
+\item Model 1: $\mu_1$ and $\mu_2$ could be anything. Doesn't even know that
+they might be similar in value, so assigns very small prior probability to that.\pause
+\item Model 2: $\mu_1$ could be anything. $\mu_2$ might be exactly equal to
+$\mu_1$. If it's not exactly equal, it's at least close (high prior probability
+of being between $\pm$ \mintinline{r}{L} of $\mu_1$). 
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Model 3}
+For our third model, we will give up on $H_0$, but we will concentrate
+prior probability {\em near} the diagonal. It will be our first example of
+a {\bf hierarchical model}. We will also extend it further in the future,
+when we study a Bayesian version of one-way ANOVA.\\[0.5em]\pause
+
+Model 3 will express the idea that $\mu_1$ and $\mu_2$ might be very close
+together, somewhat close together, or far apart, with roughly equal prior
+probability for those possibilities.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Hierarchical Model}
+In a hierarchical model, we specify priors indirectly in terms of additional
+quantities called {\bf hyperparameters}. We will change from
+\begin{minted}{r}
+mu1 ~ dnorm(0, 1/1000^2)
+mu2 ~ dnorm(0, 1/1000^2)
+\end{minted}
+\pause
+to
+\begin{minted}{r}
+mu1 ~ dnorm(grand_mean, 1/diversity^2)
+mu2 ~ dnorm(grand_mean, 1/diversity^2)
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hierarchical Model}
+We have made use of two `hyperparameters' called \mintinline{r}{grand_mean},
+which sets the centre of the prior for the $\mu$s, and \mintinline{r}{diversity},
+which sets the width of the prior for the $\mu$s. The hyperparameters
+themselves need priors. This is usually where wide/vague priors come back.\\[0.5em]
+
+\begin{minted}{r}
+grand_mean ~ dnorm(0, 1/1000^2)
+log_diversity ~ dunif(-10, 10)
+diversity <- exp(log_diversity)
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Hierarchical Models: Interpretation}
+\footnotesize
+Interpretation of hierarchical models can be a bit tricky if you're not used
+to them. Ways to think about them: \pause
+\begin{itemize}
+\item Your prior for all the $\bmu$ parameters is `as if they had been
+      drawn from a common distribution
+      whose centre and width we don't know'.\pause
+\item This means the prior $p(\bmu) = \int p(\balpha) p(\bmu \given \balpha) \, d\balpha$
+      is now dependent --- learning one $\mu$ {\em does} tell you about the
+      other (via the hyperparameters)\pause
+\item You can often think of the hierarchical model as merely a `trick' to
+      get that sort of dependence into your prior.\pause
+\item You can generate hyperparameters from the prior and then parameters
+      from their prior, and inspect what happens.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 3: Joint Prior}
+(Zoomed in)
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/ttest_prior3.png}
+\end{center}
+
+\end{frame}
 
 \end{document}
 
