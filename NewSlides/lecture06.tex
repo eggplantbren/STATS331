@@ -555,8 +555,8 @@ is Poisson with parameter/mean $\lambda$. We use a gamma prior for $\lambda$.
 p(\lambda \given x_1, ..., x_N)
     &\propto p(\lambda)p(x_1, ..., x_N \given \lambda) \\
     &\propto \lambda^{\alpha-1}e^{-\beta \lambda}
-            \prod_{i=1}^N \lambda^{x_1}e^{-\lambda} \\
-    &= \lambda^{\alpha + \sum_{i=1}^N x_i}e^{-(\beta + N)\lambda}
+            \prod_{i=1}^N \lambda^{x_i}e^{-\lambda} \\
+    &= \lambda^{\alpha - 1 + \sum_{i=1}^N x_i}e^{-(\beta + N)\lambda}
 \end{align}
 Therefore, the posterior is
 \begin{align}
