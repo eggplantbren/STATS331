@@ -240,5 +240,52 @@ and 25\% of being positive.\pause
 Thus, we will have a 50\% prior probability of $H_0$.
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Model 2: The Prior for \mintinline{r}{difference}}
+\tiny
+\begin{minted}{r}
+# Typical magnitude of 'difference' if it is not zero
+L <- 5
+
+# Just a 'latent' parameter
+u ~ dunif(-1, 1)
+
+# Either zero or exponential with width L
+size_of_difference <- step(u)*(-L*log(1 - u))
+
+# Flag for positive or negative
+C ~ dbern(0.5)
+
+# Final result
+difference <- (2*C-1)*size_of_difference
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Model 2: The Prior for \mintinline{r}{difference}}
+(Zoomed in)
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/ttest_prior2.pdf}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Running Model 2}
+Let's run Model 2, and look at:\pause
+
+\begin{itemize}
+\item The joint posterior distribution for $\mu_1$ and $\mu_2$.\pause
+\item The posterior probability of $H_0$.\pause
+\end{itemize}
+
+{\bf Note}: If \mintinline{r}{L} is increased, the posterior probability of
+$H_0$ will go down. Why?
+\end{frame}
+
+
 \end{document}
 
