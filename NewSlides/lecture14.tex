@@ -378,5 +378,34 @@ to them. Ways to think about them: \pause
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Model 3: Results}
+Let's see how plausible it is that Manufacturer B is better than Manufacturer
+A.
+
+\begin{minted}{r}
+> mean(results$mu2 > results$mu1)
+[1] 0.63326
+> mean(results$mu2 == results$mu1)
+[1] 0
+\end{minted}
+\pause
+
+The second value is zero like with Model 1, and for the same reasons.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Summary}
+We looked at three different models to replace the classical $t$-test.
+Models 2 and 3 encoded the most realistic assumptions.\\[0.5em]\pause
+
+Hopefully it is clear that it would be relatively simple to relax the
+assumption of the same $\sigma$ applying to both groups, and the normal
+distribution assumption, if necessary.
+\end{frame}
+
+
 \end{document}
 
