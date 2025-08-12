@@ -555,11 +555,13 @@ but here is one:
 
 \begin{frame}[fragile]
 \frametitle{Widgets: Verifying the Confidence Interval}
+\footnotesize
 \begin{minted}{r}
 inside = 0
+theta = 10
 for(i in 1:1000000)
 {
-    x = 10 - log(runif(3)) # Generate from shifted exponential
+    x = theta - log(runif(3)) # Generate from shifted exponential
     theta_hat = mean(x - 1)
     left = theta_hat - 0.8529
     right = theta_hat + 0.8264
