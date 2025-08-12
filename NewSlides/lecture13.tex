@@ -414,5 +414,20 @@ to vary the assumptions away from standard ones, if you need to.
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Final Comment on Regression}
+We did not study how to do regression models with categorical explanatory
+variable(s). R's \mintinline{r}{lm()} and \mintinline{r}{glm()} handle this
+very easily when those columns of the data are factors.\\[0.5em]\pause
+
+If you wanted to do such a thing in JAGS, you would need to produce extra
+columns in your data set, which are indicator variables for the categorical
+variables equalling certain values. This is beyond the scope of STATS 331,
+but I have mentioned it here for completeness.
+
+
+\end{frame}
+
+
 \end{document}
 
