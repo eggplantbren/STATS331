@@ -76,5 +76,44 @@ TBD.
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}
+\frametitle{The Data}
+To predict the grand final result, we will use the data for who won every match
+so far this season. We will fit a model with parameters describing the ability
+of each team, and then do prediction in the usual way, in JAGS.\\[0.5em]\pause
+
+I asked ChatGPT to write a little script to download this year's match results
+from the web, and it succeeded!
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{The Data}
+
+\begin{minted}{r}
+> data = read.csv("nrl_2025_results.csv")
+> head(data)
+  home_team away_team home_score away_score home_team_win
+1         1         2         30          8             1
+2         3         4         28         22             1
+3         5         6         14         50             0
+4         7         8          8         10             0
+5         9        10         16         14             1
+6        11        12         20         28             0
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{The Data}
+For simplicity, we will only make use of the columns
+\mintinline{r}{home_team}, \mintinline{r}{away_team},
+and \mintinline{r}{home_team_win}. So we are throwing away information about
+the scores and just looking at the winner of each match.\\[0.5em]\pause
+
+\end{frame}
+
 \end{document}
 
