@@ -117,5 +117,43 @@ the scores and just looking at the winner of each match.
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Assumptions}
+\begin{itemize}
+\item Some teams are better than others. When a good team plays a bad team, there is a high probability that the good team wins.\pause
+\item If two teams of equal ability play, the probabilities of each team winning
+will be 50/50.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Ability --- the Bradley-Terry Model}
+We will say that each team has a numerical `ability' --- a positive number which
+describes how good they are. If team 1 plays against team 2, the probability
+that team 1 wins is given by
+\begin{align}
+P(\textnormal{Team 1 wins} \given a_1, a_2)
+    &= \frac{a_1}{a_1 + a_2}.
+\end{align}
+For example, if $a_1 = 3.5$ and $a_2 = 1.5$ then this probability is 0.7.\pause
+
+{\bf Note:} Only ratios of abilities matter.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Bayesian Analysis}
+\begin{itemize}
+\item The 17 team abilities are the unknown parameters. \pause
+\item We will update from a prior distribution for the abilities to a posterior
+distribution based on the data (who won each match).\pause
+\item We will use the posterior distribution to predict future data (Sunday's
+match).
+\end{itemize}
+
+\end{frame}
+
 \end{document}
 
