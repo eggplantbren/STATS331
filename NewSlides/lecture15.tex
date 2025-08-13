@@ -182,7 +182,7 @@ and the Bernoulli distribution (equivalent to Binomial with one trial):
 for(i in 1:length(home_team_win))
 {
     p[i] <- ability[home_team[i]]/
-                (ability[home_team[i]] + ability[away_team[i]])
+            (ability[home_team[i]] + ability[away_team[i]])
     home_team_win[i] ~ dbern(p[i])
 }
 \end{minted}
