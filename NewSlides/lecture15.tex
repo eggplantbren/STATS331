@@ -155,5 +155,96 @@ match).
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Prior}
+The abilities are all positive, and are probably not crazily different from
+each other. We will use the following lognormal prior:
+
+\begin{minted}{r}
+for(i in 1:17)
+{
+    log_ability[i] ~ dnorm(0, 1)
+    ability[i] <- exp(log_ability[i])
+}
+\end{minted}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Likelihood}
+The sampling distribution/likelihood code is based on the Bradley-Terry formula
+and the Bernoulli distribution (equivalent to Binomial with one trial):
+
+\begin{minted}{r}
+for(i in 1:length(home_team_win))
+{
+    p[i] <- ability[home_team[i]]/
+                (ability[home_team[i]] + ability[away_team[i]])
+    home_team_win[i] ~ dbern(p[i])
+}
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Results}
+Let's run the model and check one or two of the trace plots.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Prediction}
+We will now make the grand final prediction. We have posterior samples
+for the abilities of the two teams involved. Conditional on these, the Bradley-Terry formula gives us the probability of victory for each team.\\[0.5em]\pause
+
+In JAGS, we just need to `add one more
+unobserved data point' to the model.
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Prediction}
+
+Recall that when predicting new data, there are two sources of uncertainty:
+\begin{enumerate}
+\item [(1)]
+The sampling distribution only gives us probabilities in the first place.\pause
+\item [(2)] And we don't know the parameters! We only have the posterior distribution
+for them.
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Prediction}
+
+% TODO: Change team IDs when I know who's in the grand final
+\begin{minted}{r}
+p_new <- ability[1]/(ability[1] + ability[2])
+\end{minted}
+\pause
+\begin{itemize}
+\item The posterior mean of the conditional probability \mintinline{r}{p_new}
+is the predictive probability.\pause
+\item We could add \mintinline{r}{home_team_win_new ~ dbern(p_new)} but it's
+not necessary in this type of model (similar to logistic regression).
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1: Prediction}
+Let's run the model and get the posterior mean for \mintinline{r}{p_new}.
+
+
+\end{frame}
+
 \end{document}
 
