@@ -134,11 +134,49 @@ three parameters of the AR(1) model:\pause
 \begin{itemize}
 \item $\mu$ describes the mean level that the $y$s fluctuate around.\pause
 \item $\alpha$ describes how strongly the next value $y_{t+1}$ is influenced
-by the current value $y_t$.\pause
+by the current value $y_t$. It is usually between 0 and 1.\pause
 \item $\beta$ describes the typical size of the innovations.
 \end{itemize}
 
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Thinking About the AR(1)}
+If we set $\beta$ to zero, the AR(1) process becomes deterministic and
+describes an exponential decay towards $\mu$. The speed of the decay is
+controlled by $\alpha$.
+\begin{align}
+y_{t+1} &= \mu + \alpha(y_t - \mu)
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Simulating an AR(1) in R}
+\begin{minted}{r}
+N = 1000       # Length of simulation
+mu = 5.0       # Parameters
+alpha = 0.99
+beta = 1
+y = numeric(N) # Storage
+for(i in 1:(N-1))
+{
+    y[i+1] = mu + alpha*(y[i] - mu) + beta*rnorm(1)
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Simulating an AR(1) in R}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/ar1.pdf}
+\end{center}
+
+\end{frame}
+
 
 
 \end{document}
