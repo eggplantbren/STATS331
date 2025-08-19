@@ -219,6 +219,22 @@ which describes the degree to which the $\mu$s are different from each other.
 
 \end{frame}
 
+\begin{frame}[fragile]{Shrinkage and Borrowing Strength}
+Since the prior for the $\mu$ parameters is dependent, learning one
+tells you about another. Similarly, learning {\em about} one from some data
+provides information about the others.\pause
+
+The posterior for
+$\mu_1$ is narrower than you would get from analysing group 1's data alone.
+Estimates of $\mu_1$ are also dragged a little bit towards the average mass
+for the {\em other} groups.
+\pause
+
+To understand why this happens, imagine if all the {\em other} groups' data
+told you the hyperparameters with no uncertainty. What would your
+prior for $\mu_1$ become?
+\end{frame}
+
 
 \begin{frame}[fragile]
 \frametitle{Pre-Whitening}
