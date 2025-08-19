@@ -53,7 +53,52 @@ One-way ANOVA and Posterior Predictive Checks
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Reminder of T-Tests}
 
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/widgets_boxplot.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Reminder of T-Test Model 3}
+Recall T-Test Model 3, which modelled the idea that the group mean
+parameters $\mu_1$ and $\mu_2$ might be close together or far apart, but not
+exactly equal. The priors were hierarchical:\pause
+\footnotesize
+
+\begin{minted}{r}
+grand_mean ~ dnorm(0, 1/1000^2)
+log_diversity ~ dunif(-10, 10)
+diversity <- exp(log_diversity)
+mu1 ~ dnorm(grand_mean, 1/diversity^2)
+mu2 ~ dnorm(grand_mean, 1/diversity^2)
+log_sigma ~ dunif(-10, 10)
+sigma <- exp(log_sigma)
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Reminder of T-Test Model 3}
+The sampling distribution/likelihood part of T-Test Model 3 was very
+formulaic:
+
+\begin{minted}{r}
+for(i in 1:N1)
+{
+    x1[i] ~ dnorm(mu1, 1/sigma^2)
+}
+for(i in 1:N2)
+{
+    x2[i] ~ dnorm(mu2, 1/sigma^2)
+}
+\end{minted}
+
+\end{frame}
 
 \end{document}
 
