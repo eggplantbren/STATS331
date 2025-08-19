@@ -327,5 +327,44 @@ Credit: Ingrid Kallick (\url{http://www.ikallick.com/})
 
 \end{frame}
 
+
+
+\begin{frame}
+\frametitle{Simple Linear Regression Example}
+We will use a simple linear regression example to illustrate the idea
+of {\bf posterior predictive checks}, which are used to get some insight into
+the model assumptions being used.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Simple Linear Regression: Fake Data}
+I will generate some data from the curved relationship:
+\begin{align}
+y_i &= \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i\\
+\epsilon_i &\sim \textnormal{Normal}(0, \sigma^2)
+\end{align}
+
+\pause
+
+But we will fit the data without the quadratic term.
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Simple Linear Regression: Fake Data}
+\begin{minted}{r}
+set.seed(123)
+x = seq(-3, 3, length=100)
+y = 1 + x + x^2 + rnorm(length(x))
+
+data = data.frame(x=x, y=y)
+write.csv(data, "quadratic_data.csv", row.names=FALSE)
+\end{minted}
+
+\end{frame}
+
 \end{document}
 
