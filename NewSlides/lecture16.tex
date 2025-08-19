@@ -377,5 +377,52 @@ write.csv(data, "quadratic_data.csv", row.names=FALSE)
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Common Sense}
+By looking at the data, you can tell that a linear fit is probably not a good
+idea. {\bf Food for Thought}: Does looking at the data to help decide what
+model to fit violate any Bayesian principles?
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Simple Linear Regression: JAGS Model}
+\footnotesize
+\begin{minted}{r}
+model
+{
+    beta0 ~ dunif(-1000, 1000)
+    beta1 ~ dunif(-1000, 1000)
+    log_sigma ~ dunif(-10, 10)
+    sigma <- exp(log_sigma)
+
+    for(i in 1:length(y))
+    {
+        mu[i] <- beta0 + beta1*(x[i] - mean(x))
+        y[i] ~ dnorm(mu[i], 1/sigma^2)
+    }
+}
+\end{minted}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Residuals}
+
+\begin{itemize}
+\item When doing classical linear regression, you get a single best-fit line.
+Subtracting it from the data gives you {\bf residuals}.\pause
+\item We can do the same here, except we won't have a single set of residuals
+because we don't get just one best-fit line.\pause
+\item The residuals are supposed to look like noise. {\bf Note}: The prior
+distribution of the residuals is iid Normal but the posterior is far from this!
+\end{itemize}
+
+\end{frame}
+
 \end{document}
 
