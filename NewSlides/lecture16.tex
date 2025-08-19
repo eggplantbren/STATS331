@@ -516,5 +516,71 @@ values for \mintinline{r}{y} in the data, but not \mintinline{r}{y_new}.
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Lineup of Datasets}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/quadratic_lineup.pdf}
+\end{center}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Lineup of Datasets}
+In this example, we can clearly distinguish the real dataset from the
+fake datasets. The real data set is {\em atypical} of the probability
+distribution over datasets, so the posterior predictive check is failed.\\[0.5em]\pause
+
+Some people would do a formal (classical) hypothesis test of the null hypothesis
+that the true data is `drawn from' the distribution over datasets. In STATS 331
+we will stick to informal checks by making plots of the simulated datasets.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Philosophy}
+In the Bayesian framework, the correct way to assess the quality of a model
+is to calculate the marginal likelihood and do model comparison against an
+alternative model. Usually, in the same situation where a PPC would be failed,
+you would also get a low marginal likelihood.\\[0.5em]\pause
+
+Posterior predictive checks can give you a good idea of what an alternative
+model should look like.
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Philosophy}
+\begin{itemize}
+\item Passing a PPC is no guarantee that your inferences are good.\pause
+\item Failing a PPC is no guarantee that your inferences are bad.\pause
+\item This does not make them pointless --- they help you to understand
+your model, and prevent you from building in unintentional bad assumptions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example From My Research}
+Measurements of the magnitude (brightness) of pairs of images of gravitationally
+lensed quasars. Can you tell which is the real dataset?
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Example From My Research}
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{images/time_delays.png}
+\end{center}
+
+\end{frame}
+
+
+
 \end{document}
 
