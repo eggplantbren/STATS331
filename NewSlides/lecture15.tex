@@ -241,8 +241,119 @@ not necessary in this type of model (similar to logistic regression).
 
 \begin{frame}[fragile]
 \frametitle{Model 1: Prediction}
-Let's run the model and get the posterior mean for \mintinline{r}{p_new}.
+Let's run the model and get the posterior mean for \mintinline{r}{p_new},
+to predict the grand final!
 
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Problem With Model 1}
+The prior distribution we used for the positive ability parameters
+implies a strong prior belief that the teams are quite different in ability.
+Maybe they should be clustered together more closely.
+
+\begin{minted}{r}
+for(i in 1:17)
+{
+    log_ability[i] ~ dnorm(0, 1)
+    ability[i] <- exp(log_ability[i])
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Modification: Model 2 (Hierarchical Model)}
+The following change introduces a new hyperparameter which describes the
+degree of spread of the teams' abilities.
+\begin{minted}{r}
+for(i in 1:17)
+{
+    log_ability[i] ~ dnorm(0, 1/diversity^2)
+    ability[i] <- exp(log_ability[i])
+}
+diversity ~ dunif(0, 2)
+\end{minted}
+\pause
+There are two special values. If \mintinline{r}{diversity} is 1, that
+reproduces Model 1. If it is 0, the NRL is as hard to predict as coin flipping!
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Model 2 Results}
+Let's run the code and look at the predictive probability for the grand final,
+as well as the posterior distribution for the new \mintinline{r}{diversity}
+hyperparameter.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Other Effects}
+Other effects that we might want to take into account:\pause
+\begin{itemize}
+\item Teams can get better/worse over time.\pause
+\item Important players can get injured, etc.\pause
+\item There is more information to be incorporated if we include winning
+margins in the data, not just who won the game.\pause
+\item There is a `home ground advantage'.\pause
+\end{itemize}
+We will only take into account the last of these as the others are too
+difficult.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Home Ground Advantage}
+Remember the Bradley-Terry formula for the probability that one team beats
+another, based on their ability parameters. If team 1 is the home team, let's
+modify this to
+\begin{align}
+P(\textnormal{Team 1 wins} \given a_1, a_2, B)
+    &= \frac{B a_1}{Ba_1 + a_2}.
+\end{align}
+\pause
+Here, $B$ is a new `bonus' factor which is $\geq 1$ and describes home
+ground advantage.
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Home Ground Advantage: Code}
+\footnotesize
+\begin{minted}{r}
+B ~ dunif(1, 2)
+for(i in 1:length(home_team_win))
+{
+    p[i] <- B*ability[home_team[i]]/
+            (B*ability[home_team[i]] + ability[away_team[i]])
+    home_team_win[i] ~ dbern(p[i])
+}
+\end{minted}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Final Conclusions}
+Let's run the code and look at the following conclusions:
+
+\begin{itemize}
+\item The posterior distribution for \mintinline{r}{B}, to see how strong
+the home ground advantage is.
+\item The predictive probability for the grand final (this will be our
+last, best probability). {\bf Note}: If the grand final is a home game for
+one team, we should include \mintinline{r}{B} in the prediction code as well.
+\end{itemize}
 
 \end{frame}
 
