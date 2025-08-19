@@ -464,5 +464,57 @@ distribution of them, but you can plot the residuals once per posterior sample
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Posterior Predictive Checks}
+\begin{itemize}
+\item These are not derived from probability theory --- so are not strictly
+Bayesian --- but they help you understand your model better.\pause
+\item Take the posterior distribution for the parameters and use it to predict
+{\bf a whole new dataset} just like the original dataset.\pause
+\item If the model is `good', the real data should resemble the simulated
+data --- you shouldn't be able to pick out the real data from a lineup.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Simulating New Data in JAGS}
+This is like simulating one new data point, except we are putting the
+prediction nodes inside the loop (so we get a whole dataset).
+
+\begin{minted}{r}
+for(i in 1:length(y))
+{
+    mu[i] <- beta0 + beta1*(x[i] - mean(x))
+    y[i] ~ dnorm(mu[i], 1/sigma^2)
+    y_new[i] ~ dnorm(mu[i], 1/sigma^2)
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Simulating New Data in JAGS}
+Some practical tips:\pause
+\begin{itemize}
+\item Since a single dataset might be large, and you are generating a whole
+lot of datasets, you might want to use a lot of thinning.\pause
+\item To make it easier to deal with the output, monitoring {\em only}
+\mintinline{r}{y_new} might be a good idea.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Simulating New Data in JAGS}
+JAGS knows the difference between \mintinline{r}{y} (the real data)
+and \mintinline{r}{y_new} (the simulated data), because we provided it with
+values for \mintinline{r}{y} in the data, but not \mintinline{r}{y_new}.
+
+\end{frame}
+
+
 \end{document}
 
