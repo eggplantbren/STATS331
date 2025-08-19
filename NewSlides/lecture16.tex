@@ -219,5 +219,48 @@ which describes the degree to which the $\mu$s are different from each other.
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Pre-Whitening}
+
+\begin{itemize}
+\item Recall that, due to the way the hierarchical model is constructed,
+the prior for the $\mu$ parameters is actually correlated.\pause
+\item JAGS uses MCMC methods that perform worse when the {\em posterior}
+is correlated.\pause
+\item If the prior is correlated, that makes it more likely that the posterior
+is also.\pause
+\item ``Pre-whitening'' can sometimes help --- we will write the same prior
+assumptions but in a way that makes the parameters' priors independent.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Pre-Whitening}
+\begin{minted}{r}
+for(i in 1:4) # Original form
+{
+    mu[i] ~ dnorm(grand_mean, 1/diversity^2)
+}
+
+for(i in 1:4) # Modified form, all priors independent
+{
+    n[i] ~ dnorm(0, 1)
+    mu[i] <- grand_mean + diversity*n[i]
+}
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Pre-Whitening}
+In this example, the pre-whitening doesn't actually make much difference.
+By the way, the term comes from {\bf white noise} which is noise where
+every value is independent.
+\end{frame}
+
 \end{document}
 
