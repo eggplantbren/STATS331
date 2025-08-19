@@ -424,5 +424,28 @@ distribution of the residuals is iid Normal but the posterior is far from this!
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Simple Linear Regression: Lines Through Data}
+
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/quadratic_fit.pdf}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Residuals}
+
+\begin{itemize}
+\item Looking at residuals is useful as it can tell you in what particular ways
+your model might be wrong.\pause
+\item However, it is only usually possible if the model has something like
+\mintinline{r}{y[i] ~ dnorm(mu[i], 1/sigma^2)} in it. What if it doesn't?
+\end{itemize}
+
+\end{frame}
+
+
 \end{document}
 
