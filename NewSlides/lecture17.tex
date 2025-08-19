@@ -87,5 +87,59 @@ set of possible curves.
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Time Series Models}
+Time series models are heavily used in finance, but are also used in a 
+variety of other fields (e.g., the previous plot was astronomy data).
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The AR(1) Model}
+
+\begin{itemize}
+\item In STATS 331 we will only study the AR(1) model, which is a relatively simple
+time series model. The AR stands for auto-regressive.\pause
+\item It is a probability distribution for the values $y_1, y_2, y_3, ...$
+of a series at times $t=1, 2, ...$.
+Time is {\bf discrete} and there are {\bf no gaps}.\pause
+\item Remember, no single curve $(y_1, y_2, y_3, ...)$ is an AR(1), it is
+the probability distribution for the curve that is AR(1).\pause
+\item The AR(1) might be a prior distribution or a sampling distribution
+depending on the application. For us, it will be the latter.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The AR(1) Model}
+
+\begin{itemize}
+\item The value of the quantity $y_{t+1}$ at the next timestep is given by
+a function of the current value $y_{t}$ plus an `innovation'.\pause
+\item We only specify a probability distribution for the innovations.\pause
+\end{itemize}
+\begin{align}
+y_{t+1} &= \mu + \alpha(y_t - \mu) + \epsilon_t \\
+\epsilon_t \given \beta &\sim \textnormal{Normal}(0, \beta^2).
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{The AR(1) Model: Parameters}
+In the previous equations we introduced the
+three parameters of the AR(1) model:\pause
+\begin{itemize}
+\item $\mu$ describes the mean level that the $y$s fluctuate around.\pause
+\item $\alpha$ describes how strongly the next value $y_{t+1}$ is influenced
+by the current value $y_t$.\pause
+\item $\beta$ describes the typical size of the innovations.
+\end{itemize}
+
+\end{frame}
+
+
 \end{document}
 
