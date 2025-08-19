@@ -131,22 +131,91 @@ for(i in 1:N2)
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{One-way ANOVA}
+In classical statistics, we might be interested in the hypothesis
+\begin{align}
+H_0:\quad \mu_1 = \mu_2 = \mu_3 = \mu_4.
+\end{align}
+\pause
+
+The method for handling this classically is one-way analysis of variance
+(ANOVA). We will instead make a Bayesian model that is similar to T-Test
+Model 3, but for more groups. We give up on a precise $H_0$.
+We also don't analyse any variance!
+
+\end{frame}
+
+
 
 \begin{frame}[fragile]
 \frametitle{Starling Data: CSV File}
 The data is in a different format compared to before (all masses are in one
 vector).
 \begin{minted}{r}
-> data = read.csv("starling.csv")
-> head(data)
-  location  Y
-1        1 78
-2        1 88
-3        1 87
-4        1 88
-5        1 83
-6        1 82
+"location","Y"
+1,78
+1,88
+1,87
+...
+2,78
+2,78
+2,83
+...
 \end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{One-way ANOVA: Sampling Distribution}
+Because of the new data format, we need to rewrite the JAGS
+code for the sampling distribution/likelihood.
+
+\begin{minted}{r}
+for(i in 1:length(Y))
+{
+    Y[i] ~ dnorm(mu[location[i]], 1/sigma^2)
+}
+\end{minted}
+\pause
+We now need priors for the four \mintinline{r}{mu} parameters
+and also \mintinline{r}{sigma}.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{One-way ANOVA: Priors}
+The priors will be very similar to T-Test Model 3, except our
+\mintinline{r}{mu} parameters are now in a vector.
+\footnotesize
+\begin{minted}{r}
+grand_mean ~ dnorm(0, 1/1000^2)
+log_diversity ~ dunif(-10, 10)
+diversity <- exp(log_diversity)
+for(i in 1:4)
+{
+    mu[i] ~ dnorm(grand_mean, 1/diversity^2)
+}
+log_sigma ~ dunif(-10, 10)
+sigma <- exp(log_sigma)
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Running JAGS}
+Let's run JAGS on the starling data and look at the following outputs:
+
+\begin{itemize}
+\item The trace plots for the \mintinline{r}{mu}s.\pause
+\item The posterior probability that \mintinline{r}{mu[2] > mu[3]}.\pause
+\item The posterior distribution for \mintinline{r}{log_diversity},
+which describes the degree to which the $\mu$s are different from each other.
+\end{itemize}
+
 
 \end{frame}
 
