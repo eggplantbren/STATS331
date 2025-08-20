@@ -67,5 +67,61 @@ Source: Wikimedia Commons
 \end{frame}
 
 
+\begin{frame}
+\frametitle{The Data}
+The outcomes of $N=30$ Wheel of Fortune episodes:
+
+\begin{center}
+\begin{tabular}{|c|ccc|}
+\hline
+Position & 1 & 2 & 3 \\
+\hline
+Number of Wins $x$ & 8 & 9 & 13 \\
+\hline 
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{The Question}
+We might wonder whether the following hypothesis is true:\\[0.5em]\pause
+
+$H_0$: There is a 1/3 probability for each position to win each episode.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Classical Chi-Squared Test}
+The classical `chi-squared test' is designed for this situation.
+The test statistic is based on the difference between the observed counts
+(8, 9, 13) and the expected counts under $H_0$ (10, 10, 10).
+\pause
+\begin{minted}{r}
+> chisq.test(c(8, 9, 13))
+
+	Chi-squared test for given probabilities
+
+data:  c(8, 9, 13)
+X-squared = 1.4, df = 2, p-value = 0.4966
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Classical Chi-Squared Test}
+The main {\bf advantage} of the classical chi-squared test is that it is very
+easy to carry out because it is already implemented in R.\\[0.5em]\pause
+
+The main {\bf disadvantages} are:\pause
+\begin{itemize}
+\item It returns a p-value, not a posterior probability, and is subject to the
+usual objections.\pause
+\item It is based on an approximation that assumes that the number of counts
+in each bin is high. Typically $\geq 5$ is preferred.
+\end{itemize}
+
+\end{frame}
+
 \end{document}
 
