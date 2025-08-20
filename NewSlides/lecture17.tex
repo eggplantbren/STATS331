@@ -331,6 +331,97 @@ that might justify the informative prior.
 \end{frame}
 
 
+\begin{frame}[fragile]
+\frametitle{Predicting the Future}
+
+To predict the future, we use the same procedure as we have done before:
+adding new nodes which look like more data points (but are unobserved).\\[0.5em]
+
+This is slightly more difficult for the AR(1) model than for previous models.
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Predicting the Future}
+
+\begin{minted}{r}
+y_new[1] <- y[length(y)]
+for(i in 1:365)
+{
+    y_new[i+1] ~ dnorm(mu + alpha*(y_new[i] - mu),
+                       1/beta^2)
+}
+\end{minted}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Predicting the Future: Plotting Code}
+
+\begin{minted}{r}
+# I only monitored y_new
+results = as.matrix(results) # So a row is a vector
+t = seq(length(data$y), length(data$y) + 365)
+plot(data$y, type="l", xlab="Time",
+     xlim=c(0, max(t)), ylim=c(0.3, 0.9))
+rows = sample(1:nrow(results), 10)
+for(row in rows)
+    lines(t, results[row, ], col=rgb(0, 0, 0, 0.3))
+\end{minted}
+
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Prediction}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/nzd_prediction.pdf}
+\end{center}
+
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Prediction}
+We can also make a one year forecast by looking at the posterior
+distribution for \mintinline{r}{y_new[366]}.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Disclaimer}
+
+\begin{itemize}
+\item I like this example, but simplistic models of financial
+things can cause trouble in the real world!\pause
+\item The AR(1) model makes quite strong assumptions about
+what is likely to happen long term, and doesn't know
+anything about what causes prices (supply/demand etc).
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conclusion}
+
+\begin{itemize}
+\item We looked at one relatively simple time series model, the AR(1).\pause
+\item It is just a probability distribution for a collection of values,
+and can be used as a prior or as a sampling distribution, depending on what's
+appropriate for the situation at hand.\pause
+\item The Bayesian framework for inferring parameters and making predictions
+works just as it usually does.
+\end{itemize}
+
+\end{frame}
+
 
 \end{document}
 
