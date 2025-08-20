@@ -269,3 +269,11 @@ plt.xlabel("Age (years)")
 plt.ylabel("Heart Disease Status")
 plt.savefig("images/chd_data.pdf")
 
+plt.close("all")
+data = np.loadtxt("../Data/nzd.txt")
+plt.plot(data, linewidth=1, alpha=1)
+plt.xlabel("Time (days)")
+plt.ylabel("$y$")
+plt.savefig("images/nzd.pdf")
+
+
