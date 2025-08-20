@@ -186,6 +186,100 @@ for(i in 1:(N-1))
 
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Mystery Data}
+The data is not actually mysterious --- it's the NZD/USD exchange rate
+every day from some time in 2018 to some time in 2025.
+We can `fit an AR(1) model' (i.e., infer the three parameters)
+and then use that to make predictions.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{The $\alpha$ Parameter}
+The $\alpha$ parameter is quite difficult to interpret and therefore to assign
+a prior distribution to. Values close to 1 make the autocorrelation high and
+values close to 0 make it low, but 0.99 and 0.999 are quite different from
+each other.\\\pause
+
+It is more convenient to work with
+\begin{align}
+L &= -\frac{1}{\log(\alpha)}
+\end{align}
+which describes the autocorrelation timescale.
+The inverse is $\alpha = e^{-1/L}$.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Priors}
+Let's use simple priors for the three parameters.
+\begin{minted}{r}
+mu ~ dunif(-1000, 1000)
+log_L ~ dunif(-10, 10)
+L <- exp(log_L)
+alpha <- exp(-1/L)
+log_beta ~ dunif(-10, 10)
+beta <- exp(log_beta)
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sampling Distribution}
+The sampling distribution/likelihood part of the model is slightly awkward,
+because when we wrote down the definition of the AR(1) we did not write down
+a probability distribution for the first point, $y_1$, given the parameters.
+We have two options:\pause
+\begin{itemize}
+\item Write down $p(y_1 \given \mu, \alpha, \beta)$, possibly using an
+assumption of `stationarity'.\pause
+\item Treat $y_1$ as prior information instead of data, so just treat
+$y_2, y_3, ..., y_N$ as the data.\pause
+\end{itemize}
+We will take the second approach.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Sampling Distribution}
+Here is the code. Notice how closely it resembles the R code for simulating
+data!
+
+\begin{minted}{r}
+for(i in 1:(length(y) - 1))
+{
+    y[i+1] ~ dnorm(mu + alpha*(y[i] - mu), 1/beta^2)
+}
+\end{minted}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Results}
+Let's run JAGS and look at:
+
+\begin{itemize}
+\item The trace plots.\pause
+\item The marginal posterior for $\mu$.\pause
+\item The joint posterior for $\mu$ and $\log(L)$.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Results}
+Why do we get such a strong dependence in the posterior between
+$\mu$ and $\log(L)$?\\[0.5em]\pause
+
+It's because the data {\em could} be explained as being a very small piece
+of a process with a very long timescale and a $\mu$ value that is very far
+from the current value. Maybe the NZD `gravitates towards' 10 USD but we
+just have to wait thousands of years to see it!
+\end{frame}
+
 
 \end{document}
 
