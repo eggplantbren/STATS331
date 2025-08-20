@@ -11,8 +11,9 @@ If you don't want the Latex source and just want to read the notes, you can go
 to
 [https://www.brendonbrewer.com/stats331](https://www.brendonbrewer.com/stats331).
 
+There are also new slides from 2025 in the NewSlides folder (work in progress).
 
-(c) 2012--2016 Brendon J. Brewer
+(c) 2012--2025 Brendon J. Brewer
 
 LICENCE
 =======
