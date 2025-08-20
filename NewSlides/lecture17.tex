@@ -269,6 +269,16 @@ Let's run JAGS and look at:
 \end{frame}
 
 
+
+\begin{frame}[fragile]
+\frametitle{Joint Posterior}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/nzd_posterior1.pdf}
+\end{center}
+
+\end{frame}
+
+
 \begin{frame}[fragile]
 \frametitle{Results}
 Why do we get such a strong dependence in the posterior between
@@ -279,6 +289,47 @@ of a process with a very long timescale and a $\mu$ value that is very far
 from the current value. Maybe the NZD `gravitates towards' 10 USD but we
 just have to wait thousands of years to see it!
 \end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Informative Prior}
+We can  with the posterior distribution by using an
+informative prior. Something like this might seem reasonable:
+\begin{minted}{r}
+mu ~ dt(0.7, 1/0.2^2, 4)T(0, )
+\end{minted}
+\pause
+
+I am showing you a new feature --- the \mintinline{r}{T(0, )} will put
+some {\bf truncation} at zero so $\mu$ can't go negative. Upper limits can also
+be specified, but we didn't here.
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Joint Posterior}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{images/nzd_posterior2.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Informative Prior}
+
+\begin{itemize}
+\item The informative prior might not be appropriate.
+Knowledge of the typical value around which the
+NZD gravitates is based on the data itself, not any external/prior information.\pause
+\item One could argue back, that we have information from further in the past,
+or from the behaviour of similar currencies,
+that might justify the informative prior.
+\end{itemize}
+
+
+\end{frame}
+
 
 
 \end{document}
