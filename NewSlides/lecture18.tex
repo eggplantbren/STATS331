@@ -202,5 +202,62 @@ p(x_1 \given \theta_1)
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Multinomial Distribution in JAGS}
+The multinomial distribution in JAGS is easy to specify:
+\begin{minted}{r}
+x ~ dmulti(theta, N)
+\end{minted}
+\pause
+
+This is very similar to \mintinline{r}{x ~ dbin(theta, N)} except that
+\mintinline{r}{theta} is now a vector (the bin probabilities) and
+\mintinline{r}{x} is also a vector (the counts in each bin).
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Prior Distribution for the Bin Probabilities}
+We need a prior for the bin probabilities $\theta_1, ..., \theta_M$.
+We have the constraint $\sum_{i=1}^M \theta_i = 1$, which we haven't seen before.\pause
+
+There is a useful distribution for this situation and it happens to be the
+conjugate prior for the multinomial. It is called the {\bf Dirichlet distribution}. The expression is
+\begin{align}
+p(\theta_1, ..., \theta_M \given \alpha_1, ..., \alpha_M)
+    &\propto \prod_{i=1}^M \theta_i^{\alpha_i - 1}.
+\end{align}
+\pause
+
+There are hyperparameters called $\alpha$, one for each bin, and we will
+see a little bit of what they do soon.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Dirichlet Special Case}
+If we have $M=2$ bins the Dirichlet becomes a Beta distribution for the
+probability of the first bin, with the probability of the second bin being
+given deterministically by $\theta_2 = 1-\theta_1$.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Simplex}
+The constraint that the $\theta$s all add up to 1 forms a `simplex'. It looks
+like this:
+
+\begin{center}
+\includegraphics[width=0.45\textwidth]{images/simplex.png}
+
+Source: theanalysisofdata.com
+\end{center}
+
+\end{frame}
+
 \end{document}
 
