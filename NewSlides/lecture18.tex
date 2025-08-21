@@ -267,13 +267,20 @@ Source: theanalysisofdata.com
 or different the $\theta$ (bin probabilities) are.\pause
 \item We will use a common $\alpha$ value for all bins, which means we have no
 prior information that any bin is more likely than any other.\pause
-\item If $\alpha$ is high, there is a lot of prior probability for the
-$\theta$s to be similar to each other. Probability is divided close to equally.\pause
 \item If $\alpha$ is low, there is a high prior probability that the $\theta$s
-are very different from each other. Some bins hog a lot of the probability.
+are very different from each other. Some bins hog a lot of the probability.\pause
+\item If $\alpha$ is high, there is a lot of prior probability for the
+$\theta$s to be similar to each other. Probability is divided close to equally.
 \end{itemize}
 
 
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Role of $\alpha$}
+If $\alpha$ is low, the corners of the simplex are more plausible.
+If $\alpha$ is high, the middle of the simplex is more plausible.
 \end{frame}
 
 \begin{frame}[fragile]
@@ -291,6 +298,81 @@ theta ~ ddirch(alpha)
 \pause
 
 With all $\alpha$s set to 1, we have a uniform prior over the simplex.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Model 1}
+\begin{minted}{r}
+model
+{
+    for(i in 1:3)
+    {
+        alpha[i] <- 1
+    }
+    theta ~ ddirch(alpha)
+    x ~ dmulti(theta, N)
+}
+\end{minted}
+\end{frame}
+
+\begin{frame}
+\frametitle{Model 1 Results}
+Let's run the model and look at:
+
+\begin{itemize}
+\item The posterior distribution for one of the $\theta$s.\pause
+\item The posterior probability that \mintinline{r}{theta[3] > theta[2]}.\pause
+\item {\bf Note}: We have given up on a precise $H_0$, like in our `one way ANOVA' model. The prior and posterior probabilities for the bin probabilities
+being $(1/3, 1/3, 1/3)$ are zero.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Unknown Hyperparameters}
+We do not have to assume that $\alpha=1$. We could let it be unknown.
+\footnotesize
+\begin{minted}{r}
+model
+{
+    log_a ~ dunif(-1, 10)
+    for(i in 1:3)
+    {
+        alpha[i] <- exp(log_a)
+    }
+    theta ~ ddirch(alpha)
+    x ~ dmulti(theta, N)
+}
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Model 1 Results}
+Let's run the model and look at:
+
+\begin{itemize}
+\item The posterior distribution for one of the $\theta$s.\pause
+\item The posterior probability that \mintinline{r}{theta[3] > theta[2]}.\pause
+\item The posterior distribution for \mintinline{r}{log_a} (whose prior was
+uniform). This will tell us whether the bins are really similar (high values
+of \mintinline{r}{log_a}) or very different
+(low values of \mintinline{r}{log_a}).
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Conclusion}
+This was just another common data analysis scenario, but allowed us to see two
+important distributions, one of which is the conjugate prior for the other.\pause
+
+For pragmatic reasons (inability to calculate marginal likelihoods in STATS 331) we followed
+our usual pattern of replacing the hypothesis test with parameter estimation,
+where some of the parameter space is similar to $H_0$.
 \end{frame}
 
 
