@@ -123,5 +123,84 @@ in each bin is high. Typically $\geq 5$ is preferred.
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Let's Make it Bayesian}
+\begin{itemize}
+\item Think of it as parameter estimation.\pause
+\item There are $N$ trials and we will assume that, on each trial, the
+probabilities for each `bin' are $(\theta_1, \theta_2, \theta_3)$.\pause
+\item We will get the posterior distribution for the $\theta$ parameters
+given the $x$ data (counts).\pause
+\item This will involve two new distributions: the {\bf Dirichlet} for the
+prior and the {\bf Multinomial} for the sampling distribution.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{From Binomial to Multinomial}
+
+\begin{itemize}
+\item Binomial situation: $N$ trials, success (with probability $\theta$)
+or failure $(1-\theta)$ on each trial. We observe $x$ successes and $(N-x)$
+failures, and the binomial distribution applies to $x$.\pause
+\item Multinomial situation: $N$ trials, with bin probabilities
+$\theta_1, \theta_2, ..., \theta_M$. We observe the counts in each bin,
+$x_1, ..., x_M$.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{From Binomial to Multinomial}
+The expression for the multinomial distribution is:
+
+\begin{align}
+p(x_1, ..., x_m \given \theta_1, ..., \theta_m)
+    &= \frac{N!}{x_1!x_2!...x_M!}\theta_1^{x_1}\theta_2^{x_2}...\theta_M^{x_M}.
+\end{align}
+\pause
+
+This gives the probability of obtaining $x_1$ outcomes in bin 1,
+$x_2$ outcomes in bin 2, and so on, when the probabilities
+of each bin on each trial are given by the $\theta$ parameters.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Important Constraints}
+We have important constraints on the parameters ($\theta$s) and the counts
+($x$s):
+
+\begin{align}
+\theta_1 + \theta_2 + ... + \theta_M &= 1 \\
+x_1 + x_2 + ... + x_M &= N.
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{From Multinomial to Binomial}
+If there are $M=2$ bins, and we call one `success' and the other `failure',
+then the multinomial distribution becomes
+
+\begin{align}
+p(x_1, x_2 \given \theta_1, \theta_2)
+    &= \frac{N!}{x_1!x_2!}\theta_1^{x_1}\theta_2^{x_2}.
+\end{align}
+
+which is an alternative way of writing the Binomial distribution
+
+\begin{align}
+p(x_1 \given \theta_1)
+    &= \binom{N}{x_1}\theta_1^{x_1}(1 - \theta_1)^{N - x_1}.
+\end{align}
+
+
+\end{frame}
+
 \end{document}
 
