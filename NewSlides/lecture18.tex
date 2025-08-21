@@ -259,5 +259,40 @@ Source: theanalysisofdata.com
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Role of the $\alpha$ Hyperparameters}
+\begin{itemize}
+\item The $\alpha$ parameters of the Dirichlet distribution control how similar
+or different the $\theta$ (bin probabilities) are.\pause
+\item We will use a common $\alpha$ value for all bins, which means we have no
+prior information that any bin is more likely than any other.\pause
+\item If $\alpha$ is high, there is a lot of prior probability for the
+$\theta$s to be similar to each other. Probability is divided close to equally.\pause
+\item If $\alpha$ is low, there is a high prior probability that the $\theta$s
+are very different from each other. Some bins hog a lot of the probability.
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Dirichlet Prior in JAGS}
+We can specify the Dirichlet prior easily, but we must have a vector of
+\mintinline{r}{alpha}s set up first. For example:
+
+\begin{minted}{r}
+for(i in 1:3)
+{
+    alpha[i] <- 1
+}
+theta ~ ddirch(alpha)
+\end{minted}
+\pause
+
+With all $\alpha$s set to 1, we have a uniform prior over the simplex.
+\end{frame}
+
+
 \end{document}
 
