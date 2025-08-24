@@ -570,6 +570,28 @@ Therefore, the posterior is
 
 
 \begin{frame}
+\frametitle{Gamma Distribution Summaries}
+For a Gamma$(\alpha, \beta)$ distribution, the mean, variance, and mode
+are given by
+\begin{align}
+\textnormal{mean} &= \frac{\alpha}{\beta} \\
+\textnormal{variance} &= \frac{\alpha}{\beta^2} \\
+\textnormal{mode} &= \left\{
+                        \begin{array}{lr}
+                        \frac{\alpha-1}{\beta},& \alpha \geq 1 \\
+                        0,& \alpha < 1
+                        \end{array}
+                    \right.
+\end{align}
+\pause
+If the gamma distribution is a conjugate prior, you can use these to summarise
+both the prior and the posterior.
+
+
+\end{frame}
+
+
+\begin{frame}
 \frametitle{Gamma as Conjugate Prior}
 The gamma distribution is also the conjugate prior if the sampling
 distribution is {\bf exponential}. Exponential distributions have a
