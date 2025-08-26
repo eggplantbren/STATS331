@@ -678,13 +678,13 @@ params[k] = params[k] + step_size*rnorm(1)
 \frametitle{Metropolis Code: Thinning}
 \begin{minted}{r}
 steps = 100000
-skip = 100
-keep = numeric(steps %/% skip)
+thin = 100
+keep = numeric(steps %/% thin)
 for(i in 1:steps)
 {
     # ...
-    if(i %% skip == 0)
-        keep[i %/% skip] = theta
+    if(i %% thin == 0)
+        keep[i %/% thin] = theta
 }
 \end{minted}
 \end{frame}
@@ -697,7 +697,7 @@ for(i in 1:steps)
 Because the MCMC samples are correlated, we sometimes need a large number
 of steps, but we do not need to save every step. \pause
 \item If you use \mintinline{r}{acf()} after thinning, remember that each unit
-of lag will really be \mintinline{r}{skip} iterations of MCMC.
+of lag will really be \mintinline{r}{thin} iterations of MCMC.
 \end{itemize}
 \end{frame}
 
