@@ -78,5 +78,90 @@ determines the way you end up using the maths.\pause
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Rules of Probability}
+Fundamentally, there are two rules of probability, the sum rule and the
+product rule. Their most general versions are given below.
+
+\begin{align}
+P(A \vee B \given C) &= P(A \given C) + P(B \given C) - P(A, B \given C) \\
+P(A, B \given C) &= P(A \given C)P(B \given A, C).
+\end{align}\pause
+
+Other rules such as Bayes' rule and the partition theorem are derived from
+these.
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Sum Rule Applications}
+The sum rule shows up in Bayesian statistics in a few different situations:\pause
+
+\begin{itemize}
+\item Prior and posterior probabilities of `OR' statements (a popular exam
+question that is easy marks).\pause
+\item Marginal likelihood calculation.\pause
+\item Predictions.\pause
+\item Finding marginal posterior distributions (for one parameter only)
+from joint distributions (of more than one parameter).
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Product Rule Applications}
+The product rule shows up in Bayesian statistics in a few different situations:\pause
+
+\begin{itemize}
+\item Bayes' rule, used for updating probabilities, comes from the product
+rule.\pause
+\item Joint distributions are formed using the product rule. This is how
+we can construct prior distributions for more than one parameter, or
+sampling distributions for more than one data value.
+\end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule}
+The most important form of Bayes' rule is the one that gives you the
+posterior probabilities of some mutually exclusive hypotheses $H_i$:
+
+\begin{align}
+P(H_i \given D) &= \frac{P(H_i)P(D \given H_i)}{P(D)}
+\end{align} \pause
+where
+\begin{align}
+P(D) &= \sum_i P(H_i) P(D \given H_i).
+\end{align}
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Checklist for Exam}
+
+\begin{itemize}
+\item Ideally, know these rules from memory (but you can use your cheat sheet
+too).\pause
+\item Know how to do a Bayes Box. Part of this is being able to read the
+question and to know what values go in the prior
+and likelihood columns of the Bayes Box.\pause
+\item Be able to write down Bayes' rule or the marginal likelihood formula
+corresponding to the particular statements in a given problem.
+\end{itemize}
+
+
+\end{frame}
+
+
+
 \end{document}
 
