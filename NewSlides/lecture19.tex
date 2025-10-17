@@ -162,6 +162,68 @@ corresponding to the particular statements in a given problem.
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Parameter Estimation}
+Recall that Bayes' rule can be used on a set of mutually exclusive hypotheses.
+These can be statements about the value of the parameter $\theta$.\pause
+
+\begin{itemize}
+\item One hypothesis might be ``$\theta = 1$'' \pause
+\item Another might be ``$\theta = 2$'' \pause
+\item We might get some data like ``$x = 3$''.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule Lots of Times}
+\begin{align}
+P(\theta = 1 \given x = 3) &= \frac{P(\theta=1)P(x=3 \given \theta=1)}{P(x=3)}\\
+P(\theta = 2 \given x = 3) &= \frac{P(\theta=2)P(x=3 \given \theta=2)}{P(x=3)}\\
+&...&\\
+P(\theta = 9 \given x = 3) &= \frac{P(\theta=9)P(x=3 \given \theta=9)}{P(x=3)}\\
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayes' Rule Lots of Times}
+\begin{align}
+\color{red}{P(\theta = 1 \given x = 3)} &= \frac{{\color{blue}P(\theta=1)}P(x=3 \given \theta=1)}{P(x=3)}\\
+\color{red}{P(\theta = 2 \given x = 3)} &= \frac{{\color{blue}P(\theta=2)}P(x=3 \given \theta=2)}{P(x=3)}\\
+&...&\\
+\color{red}{P(\theta = 9 \given x = 3)} &= \frac{{\color{blue}P(\theta=9)}P(x=3 \given \theta=9)}{P(x=3)}\\
+\end{align}
+
+{\color{red}Posterior Distribution}
+{\color{blue}Prior Distribution}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule Lots of Times}
+\begin{align}
+P(\theta = 1 \given x = 3) &= \frac{P(\theta=1){\color{orange}P(x=3 \given \theta=1)}}{\color{green}P(x=3)}\\
+P(\theta = 2 \given x = 3) &= \frac{P(\theta=2){\color{orange}P(x=3 \given \theta=2)}}{\color{green}P(x=3)}\\
+&...&\\
+P(\theta = 9 \given x = 3) &= \frac{P(\theta=9){\color{orange}P(x=3 \given \theta=9)}}{\color{green}P(x=3)}\\
+\end{align}
+
+{\color{orange}Likelihood Function}
+{\color{green}Marginal Likelihood (common to all $\theta$ values)}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayes Box for Parameter Estimation}
+Since a Bayes Box is equivalent to these repeated uses of Bayes' rule,
+we can use them for parameter estimation (when there is only one unknown
+parameter).
+
+\end{frame}
+
 
 \end{document}
 
