@@ -466,5 +466,165 @@ I will not ask that in 331.
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{JAGS}
+Most of the second half of the course was `data analysis scenarios' using JAGS.
+We used this because it's easy to code up the model assumptions needed for the
+different situations.\pause\\[0.5em]
+
+A JAGS model consists of the definitions of the parameters and their priors,
+along with the sampling distribution for the data given the parameters. If it
+is a hierarchical model, there are also hyperparameters.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{JAGS in the Exam}
+In the exam, you will not have to write out an entire JAGS model. Instead I will
+give you the model code and ask you things about it. In the 2025 exam Questions
+3 and 4 (out of 4) are both about JAGS models.\pause\\[0.5em]
+
+You will need to be able to read JAGS code (and small
+amounts of R postprocessing code) for meaning, and be
+able to write simple modifications (a few lines at most).
+\end{frame}
+
+\begin{frame}
+\frametitle{JAGS in the Exam}
+The size of the JAGS models in the exam is comparable to those in the lectures ---
+usually between 5 and 15 lines.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Simple Linear Regression}
+
+\footnotesize
+\begin{minted}{r}
+model
+{
+    beta0 ~ dunif(-1000, 1000)
+    beta1 ~ dunif(-1000, 1000)
+    log_sigma ~ dunif(-10, 10)
+    sigma <- exp(log_sigma)
+
+    for(i in 1:length(y))
+    {
+        mu[i] <- beta0 + beta1*(x[i] - x)
+        y[i] ~ dnorm(mu[i], 1/sigma^2)
+    }
+}
+\end{minted}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Lines Through Data}
+I've asked you enough times in assignments to do this. You won't need to do it
+in the exam.
+
+\centering
+\includegraphics[width=0.4\textwidth]{images/road_lines.pdf}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Prediction}
+
+\begin{minted}{r}
+y_new ~ dnorm(beta0 + beta1*(100 - mean(x)), 1/sigma^2)
+\end{minted}
+
+I do want you to know how to do this. By the way, if I asked you to write this,
+I would also want you to say that the code belongs outside the for loop.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{`Outliers' Model}
+We also looked at a version of linear regression with heavy tailed
+sampling distribution using the $t$-distribution:
+
+\begin{minted}{r}
+    y[i] ~ dt(mu[i], 1/sigma^2, nu)
+}
+
+log_nu ~ dunif(-2, 5)
+nu <- exp(log_nu)
+\end{minted}
+
+You should know what effects this would have and how to interpret the value
+of $\nu$.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Other Regression Models}
+We saw:
+
+\begin{itemize}
+\item Multiple regression (more than one explanatory variable).\pause
+\item Poisson regression (Poisson distribution for the data given the
+parameters). Also the negative binomial distribution.\pause
+\item Logistic regression (Bernoulli distribution for the data given the
+parameters --- the response is zeros and ones).\pause
+\end{itemize}
+
+These could show up in the exam but I wouldn't do anything obscure.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{T-Tests and One-Way ANOVA}
+
+\begin{itemize}
+\item Traditionally, test for $H_0$ which asserts equality of group mean parameters.\pause
+\item Bayesian: make the means unknown parameters, and infer them (take care
+with the {\em joint} prior for the parameters).\pause
+\end{itemize}
+
+\centering
+\includegraphics[width=0.35\textwidth]{images/starling.png}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{T-Test Models}
+We had three `$t$-test' models, all based on this sampling distribution,
+but with different priors.
+{
+\footnotesize
+\begin{minted}{r}
+for(i in 1:N1)
+{
+    x1[i] ~ dnorm(mu1, 1/sigma^2)
+}
+for(i in 1:N2)
+{
+    x2[i] ~ dnorm(mu2, 1/sigma^2)
+}
+\end{minted}
+}
+You just did a bunch of this in Assignment 4, so I will not go back into detail
+again now.
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Hierarchical Models}
+The third t-test model, and the sports prediction lecture, were hierarchical
+models. The priors for the parameters were specified in terms of hyperparameters,
+which also had their own prior. I want you to know:
+
+\begin{itemize}
+\item What the point of hyperparameters is.\pause
+\item How to read a JAGS model and identify parameters, hyperparameters, and
+data.
+\end{itemize}
+
+\end{frame}
+
 \end{document}
 
