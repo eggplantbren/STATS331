@@ -511,7 +511,7 @@ model
 
     for(i in 1:length(y))
     {
-        mu[i] <- beta0 + beta1*(x[i] - x)
+        mu[i] <- beta0 + beta1*(x[i] - mean(x))
         y[i] ~ dnorm(mu[i], 1/sigma^2)
     }
 }
