@@ -626,5 +626,132 @@ data.
 
 \end{frame}
 
+
+\begin{frame}[fragile]
+\frametitle{Time Series Models}
+The AR(1) model was our only time series model in this course.
+Time series models are characterised by the fact that the sampling distribution
+for one data point given the previous data points is usually dependent.
+
+\centering
+\includegraphics[width=0.5\textwidth]{images/nzd.pdf}
+
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exam Hint}
+I have never asked about the AR(1) model before in an exam. You could use
+Laplace's rule of succession to work out the probability I will ask about it
+this year.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Posterior Predictive Checks}
+
+\centering
+\includegraphics[width=0.55\textwidth]{images/quadratic_lineup.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Posterior Predictive Checks}
+
+\begin{itemize}
+\item Use the model's sampling distribution to predict new datasets of the
+same size as the real data. Use parameter values from the posterior distribution
+to do this.\pause
+\item If the model is `good', the true dataset should not be distinct from
+the simulated ones.\pause
+\item Doesn't guarantee much, but can show you deficiencies in your model.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Posterior Predictive Checks: Exam}
+The main thing I would want you to be able to do in the exam is write the
+extra JAGS code that you would use to perform a posterior predictive check.
+Also, where the code belongs (e.g. inside a loop or not?)\pause\\[0.5em]
+
+If you know how the answer here differs from prediction of a new data point,
+you've probably understood well enough.
+\end{frame}
+
+\begin{frame}
+\frametitle{Dirichlet/Multinomial Model}
+Finally, we looked at a model for a classical `chi-squared test' situation,
+involving the Dirichlet distribution and the multinomial distribution.
+I have also never asked about this in an exam, so feel free to break out the
+rule of succession again.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{This Course}
+Wayne Stewart introduced this course in 2009. He taught it with ventriloquist
+dolls of Thomas Bayes and ``Freaky Frequentist''. Also, singalongs.
+
+\centering
+\includegraphics[width=0.5\textwidth]{images/wayne.png}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{This Course}
+{\em Some people} think that you shouldn't really be able to major in statistics
+without some exposure to the Bayesian viewpoint. It's a little uncommon in
+the undergraduate curriculum for some reason.\pause\\[0.5em]
+
+We have this course, but we could also try infiltrating other courses a little
+bit (I do this when I teach them).
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Pragmatists}
+In the last century there were giant arguments between Bayesians and frequentists.
+These days more and more people are pragmatists, as represented here by
+Andrew Balemi.
+
+\begin{center}
+\includegraphics[width=0.4\textwidth]{images/andrew.jpg}
+\end{center}
+
+He doesn't mind what you do as long as it illuminates the problem you're working
+on. 
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{More}
+If you would like to take this subject further,
+you can consider taking STATS 731 as part of an Honours degree or similar.
+Also, the following staff members often have Bayesian research projects available
+for Honours/Masters/PhD:
+\begin{itemize}
+\item Me
+\item Kate Lee
+\item Matt Edwards
+\item Renate Meyer
+\item (less often) James Curran, Beatrix Jones, Russell Millar
+\end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Thank You}
+\centering
+\large
+Thank you!
+
+\end{frame}
 \end{document}
 
