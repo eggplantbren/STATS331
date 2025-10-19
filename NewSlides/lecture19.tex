@@ -52,6 +52,12 @@ expectations for what you should be able to do in the exam.
 
 \end{frame}
 
+\begin{frame}
+\frametitle{SET Evaluations}
+Please do them!
+
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Probabilities}
@@ -161,6 +167,17 @@ corresponding to the particular statements in a given problem.
 
 \end{frame}
 
+\begin{frame}
+\frametitle{Exam Hint}
+Question 1 (out of 4) is a Bayes Box question. One of the parts, which is
+about calculating the posterior probabilities, is worth 10\% of the total
+marks. I expect most people to answer that correctly.\pause
+
+Don't forget a calculator, as I did not ensure that all the results are
+nice fractions.
+
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Parameter Estimation}
@@ -219,11 +236,121 @@ P(\theta = 9 \given x = 3) &= \frac{P(\theta=9){\color{orange}P(x=3 \given \thet
 \begin{frame}
 \frametitle{Bayes Box for Parameter Estimation}
 Since a Bayes Box is equivalent to these repeated uses of Bayes' rule,
-we can use them for parameter estimation (when there is only one unknown
-parameter).
+we can use Bayes Boxes for parameter estimation (when there is only one unknown
+parameter).\pause
+
+I expect you to know the R code for this. I might ask you to read some
+code that does this and fill in a missing line or two, or to write down the
+line that you would need to do some sort of post-processing.
 
 \end{frame}
 
+\begin{frame}
+\frametitle{R Code in the Exam}
+There will usually be one or two parts, worth a few percent, where I ask you
+to read or write a little bit of R code. Not too extensive, as this is not
+a programming course.\pause\\[1em]
+
+If you do not know the exact R code, but have the right idea, you can still
+get part marks, so don't feel bad about writing something down if you think
+it might not be perfectly correct.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Plots in the Exam}
+Plots may or may not show up in the exam. Sometimes I ask you to:
+\begin{itemize}
+\item Interpret what you see in a given plot.\pause
+\item Sketch how you would expect a certain plot to look.\pause
+\end{itemize}
+If I ask you to sketch a plot, you probably won't get many marks for the
+bare minimum effort (e.g., drawing a bell curve for the posterior distribution).
+In that case you would get full marks if you labelled the axes and put some values
+showing what you think $\theta$ would be, for instance.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Bayes' Rule for Parameter Estimation}
+We have written this down in a few different forms:
+
+\begin{align}
+p(\theta \given x) &= \frac{p(\theta)p(x\given \theta)}{p(x)} \\
+p(\theta \given x) &\propto p(\theta)p(x\given \theta) \\
+\texttt{posterior} &\propto \texttt{prior} \times \texttt{likelihood}.
+\end{align}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Analytical Methods}
+We spent about 1.5 lectures on analytical methods, but they are quite important
+(even though we only looked at the basics). In 331 we focused on
+\begin{align}
+p(\theta \given x) &\propto p(\theta)p(x\given \theta)
+\end{align}
+for particular situations that work out with a recognisable distribution
+for the posterior $p(\theta \given x)$. Mostly these are with conjugate priors.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conjugate Priors}
+
+\begin{itemize}
+\item Binomial sampling distribution + Beta prior $\implies$ Beta posterior \pause
+\item Poisson sampling distribution + Gamma prior $\implies$ Gamma posterior \pause
+\item Multinomial sampling distribution + Dirichlet prior $\implies$ Dirichlet posterior.
+\end{itemize}
+\pause
+Also, special cases of these, for example when the Beta prior is a Beta$(1, 1)$
+(aka Uniform$(0, 1$)), you still get a Beta posterior.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Exam Hint}
+Question 2 of the exam has you computing the posterior distribution for one
+of these cases, recognising what it is, writing it in ``$\sim$'' notation,
+and computing one or two summaries from it.\\[0.5em]\pause
+
+I also expect you to be able to write down the likelihood function, which
+is one of the steps in getting to the posterior distribution. Remember that
+for multiple data values the likelihood function involves a product of terms,
+one for each data point.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Formula Sheet}
+In the exam, a formula sheet will be provided, which has some properties of
+a few distributions. This will be the same formula sheet from the test.
+Don't waste space or time putting these formulas on your cheat sheet (unless
+you think it will help you in applying them).
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Hypothesis Testing/Model Selection}
+We spent some time discussing hypothesis testing and model selection,
+mostly in one dimension (one unknown parameter). What should you know?\pause
+
+\begin{itemize}
+\item Spike-and-slab prior: what it is for, how to make one, how to interpret
+the results.\pause
+\item I am quite fond of asking questions about how the results depend on the
+shape and/or width of the slab, and not just on the height of the spike.\pause
+\item Know how to express conclusions as posterior probabilities, odds ratios,
+or Bayes factors, and how to convert between these.
+\end{itemize}
+
+
+\end{frame}
 
 \end{document}
 
