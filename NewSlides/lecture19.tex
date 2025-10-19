@@ -429,5 +429,42 @@ posterior distributions in it}.
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Metropolis Algorithm}
+
+We looked at the Metropolis algorithm, not because we used it a lot, but because
+it is the foundation of many/most MCMC methods.
+
+\centering
+\includegraphics[width=0.7\textwidth]{images/metropolis.pdf}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Metropolis Algorithm: Bits and Pieces}
+The Metropolis algorithm starts with a {\em proposal distribution}, which
+is a rule about how to generate a potential new position $\theta'$ from the
+current position $\theta$.\pause\\[0.5em]
+
+If you only used the proposal distribution to move around, you would get
+some sort of results, but it wouldn't look like the target distribution
+(usually the posterior). So, we put in an accept/reject decision based on
+\begin{align}
+\alpha &= \min\left(1, \frac{h(\theta')}{h(\theta)}\right).
+\end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Metropolis Algorithm: Exam}
+It's hard to ask questions about Metropolis in an exam setting. In STATS 731,
+where I could assume more programming knowledge, I would ask students to write
+the code they would use to implement some specific model assumptions.
+I will not ask that in 331.
+
+
+\end{frame}
+
 \end{document}
 
