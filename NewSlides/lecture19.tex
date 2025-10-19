@@ -352,5 +352,82 @@ or Bayes factors, and how to convert between these.
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Prediction}
+I would like you to understand how Bayesian prediction works, but you should
+only expect a small amount of it to show up on the exam.
+
+\centering
+\includegraphics[width=0.35\textwidth]{images/crystal_ball.jpg}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Prediction}
+
+\begin{itemize}
+\item Know the basic principle of it --- that you first make the predictions
+under the assumption that you know $\theta$, then you take the posterior
+expectation/mean of the result. \pause
+\item Know how to do it in simple cases (e.g. a Bayes Box type question).\pause
+\item Know how to do it in JAGS (adding extra node(s) for the predicted future
+data).
+\end{itemize}
+
+
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Summaries}
+We looked at how to summarise posterior distributions.
+
+\begin{itemize}
+\item You can just compute simple summaries like posterior mean and
+standard deviation to give an idea of the location and width of the
+posterior distribution.\pause
+\item We studied decision theory which can give an idea of what kind of
+point estimate is `best', but it depends on what kind of loss function you
+think is reasonable. Remember the three cases of loss functions that
+lead to posterior mean, median, and mode being optimal. \pause
+\item Credible intervals.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{R Code Again}
+
+There is some chance I will ask questions like `write down the R code you would
+use to compute a particular summary' (after having shown you the R code for
+calculating the posterior distribution itself).\pause\\[0.5em]
+
+Or, I might show you some code and its output, and expect you to know which
+bit is doing the thing I want you to talk about.
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{Intervals}
+Not many people understand the difference between a credible interval and
+a confidence interval.\pause
+
+\begin{itemize}
+\item Credible interval: Given the data, there is a 95\% chance (or whatever)
+that the parameter is in the interval. {\bf Based on the posterior distribution}.\pause
+\item Confidence interval: This particular way of producing intervals will
+contain the parameter for 95\% of possible datasets.
+{\bf Based on the sampling distribution as frequentist theory doesn't have
+posterior distributions in it}.
+\end{itemize}
+
+\end{frame}
+
+
 \end{document}
 
