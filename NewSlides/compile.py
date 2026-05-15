@@ -58,3 +58,6 @@ def build():
 cleanup()
 build()
 cleanup()
+subprocess.run("pdfunite lecture??-printable.pdf merged-printable.pdf", shell=True,
+               capture_output=True)
+
