@@ -28,6 +28,13 @@
 \usepackage[utf8]{inputenc}
 \usepackage{dsfont}
 \newcommand{\given}{\,|\,}
+\usepackage{colortbl}
+\definecolor{LightGray}{gray}{0.9}
+\definecolor{DarkGray}{gray}{0.3}
+\definecolor{LightCyan}{rgb}{0.9, 1, 1}
+\definecolor{LightRed}{rgb}{1, 0.8, 0.8}
+\definecolor{LightGreen}{rgb}{0.8, 1, 0.8}
+\definecolor{DarkGreen}{rgb}{0.3, 0.5, 0.3}
 
 
 \begin{document}
@@ -613,6 +620,100 @@ there since otherwise an army of astronauts returning
 with samples of the said cheese will leave you unmoved.''}
 - Dennis Lindley
 
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Product Space View I}
+There is another way of looking at the Bayesian update, which I call the
+{\bf product space view} (not standard terminology).
+We will consider the data $D$ and also the alternative value for the data
+$\neg D$. We can create a 2$\times$2 grid of the {\bf joint
+prior} distribution. The marginal for the hypothesis is the prior,
+and the marginal for the data is called the `prior predictive
+distribution'.
+\begin{center}
+\begin{tabular}{|c|cc|c|}
+\hline
+   &  $BB$ &  $BW$ & Marginal for data\\
+\hline
+%\rowcolor{LightGreen}
+Black ball ($D$)      &  $1/2$  &  $1/4$     & $3/4$\\
+%\rowcolor{LightRed}
+White ball ($\neg D$) &  0      &  $1/4$     & $1/4$\\
+\hline
+Marginal for hypotheses   &  $1/2$  & $1/2$  & 1\\
+\hline
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Product Space View II}
+The values for the joint probabilities are obtained by using
+prior probabilities (e.g., $P(BW)$) multiplied by
+probabilities about the data (e.g., $P(D \given BW)$) using the product
+rule. E.g.:
+\begin{align}
+P(BW, D) &= P(BW)P(D \given BW) = 1/2 \times 1/2 = 1/4.
+\end{align}
+
+\pause
+
+Probability distributions for the data {\em given the hypotheses} are
+traditionally called sampling distributions, but really they are
+a type of prior.
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Product Space View III}
+The Bayesian update involves simply deleting/setting to zero
+all the possibilities that are now false, and renormalising the
+result using the marginal likelihood, which is just one of the
+probabilities from the prior predictive distribution.
+\begin{center}
+\begin{tabular}{|c|cc|c|}
+\hline
+   &  $BB$ &  $BW$ & Marginal for data\\
+\hline
+%\rowcolor{LightGreen}
+Black ball ($D$)      &  $1/2$  &  $1/4$     & $3/4$\\
+\rowcolor{LightRed}
+White ball ($\neg D$) &  0      &  0     & 0 \\
+\hline
+Marginal for hypotheses  &  $1/2$  & $1/2$  & 1\\
+\hline
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Product Space View IV}
+\begin{center}
+\begin{tabular}{|c|cc|c|}
+\hline
+   &  $BB$ &  $BW$ & Marginal for data\\
+\hline
+\rowcolor{LightGreen}
+Black ball ($D$)      &  $2/3$  &  $1/3$     & $1$\\
+\rowcolor{LightRed}
+White ball ($\neg D$) &  0      &  0     & 0 \\
+\hline
+Marginal for hypotheses  &  $2/3$  & $1/3$  & 1\\
+\hline
+\end{tabular}
+\end{center}
+
+\pause
+The product space view is very useful for thinking about
+what it is that we are doing. It is less useful for actually
+doing calculations --- for that we'll usually stick to the Bayes'
+Box.
 \end{frame}
 
 
