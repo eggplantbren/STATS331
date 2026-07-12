@@ -36,722 +36,288 @@
 
 \frame{\titlepage}
 
-\begin{frame}
-\Large
+%------------------------------------------------------------------------------
+\begin{frame}[t]{Nested Sampling}
+Nested Sampling is a Monte Carlo method that was
+introduced by John Skilling in 2004.
 
-\begin{center}
-Review
-\end{center}
-\end{frame}
-
-\begin{frame}
-\frametitle{Lecture Purpose}
-
-We will now briefly review the course content, and I will outline my
-expectations for what you should be able to do in the exam.
-
-\end{frame}
-
-\begin{frame}
-\frametitle{SET Evaluations}
-Please do them!
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Probabilities}
-The mathematics of {\bf probabilities} can be used to describe two different
-things: proportions, and uncertainties. Which interpretation you adopt
-determines the way you end up using the maths.\pause
-
-   \begin{columns} % Create two columns
-
-        \column{0.5\textwidth} % Left column (50% width)
-        \centering
-        \includegraphics[width=0.5\linewidth]{images/jeffreys.jpg}
-
-        Harold Jeffreys (Bayesian)
-
-        \column{0.5\textwidth} % Right column (50% width)
-        \centering
-        \includegraphics[width=0.5\linewidth]{images/fisher.jpg}
-
-        R. A. Fisher (Frequentist)
-     \end{columns}
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Rules of Probability}
-Fundamentally, there are two rules of probability, the sum rule and the
-product rule. Their most general versions are given below.
-
-\begin{align}
-P(A \vee B \given C) &= P(A \given C) + P(B \given C) - P(A, B \given C) \\
-P(A, B \given C) &= P(A \given C)P(B \given A, C).
-\end{align}\pause
-
-Other rules such as Bayes' rule and the partition theorem are derived from
-these.
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Sum Rule Applications}
-The sum rule shows up in Bayesian statistics in a few different situations:\pause
-
-\begin{itemize}
-\item Prior and posterior probabilities of `OR' statements (a popular exam
-question that is easy marks).\pause
-\item Marginal likelihood calculation.\pause
-\item Predictions.\pause
-\item Finding marginal posterior distributions (for one parameter only)
-from joint distributions (of more than one parameter).
-\end{itemize}
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Product Rule Applications}
-The product rule shows up in Bayesian statistics in a few different situations:\pause
-
-\begin{itemize}
-\item Bayes' rule, used for updating probabilities, comes from the product
-rule.\pause
-\item Joint distributions are formed using the product rule. This is how
-we can construct prior distributions for more than one parameter, or
-sampling distributions for more than one data value.
-\end{itemize}
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Bayes' Rule}
-The most important form of Bayes' rule is the one that gives you the
-posterior probabilities of some mutually exclusive hypotheses $H_i$:
-
-\begin{align}
-P(H_i \given D) &= \frac{P(H_i)P(D \given H_i)}{P(D)}
-\end{align} \pause
-where
-\begin{align}
-P(D) &= \sum_i P(H_i) P(D \given H_i).
-\end{align}
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Checklist for Exam}
-
-\begin{itemize}
-\item Ideally, know these rules from memory (but you can use your cheat sheet
-too).\pause
-\item Know how to do a Bayes Box. Part of this is being able to read the
-question and to know what values go in the prior
-and likelihood columns of the Bayes Box.\pause
-\item Be able to write down Bayes' rule or the marginal likelihood formula
-corresponding to the particular statements in a given problem.
-\end{itemize}
-
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Exam Hint}
-Question 1 (out of 4) is a Bayes Box question. One of the parts, which is
-about calculating the posterior probabilities, is worth 10\% of the total
-marks. I expect most people to answer that correctly.\pause
-
-Don't forget a calculator, as I did not ensure that all the results are
-nice fractions.
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Parameter Estimation}
-Recall that Bayes' rule can be used on a set of mutually exclusive hypotheses.
-These can be statements about the value of the parameter $\theta$.\pause
-
-\begin{itemize}
-\item One hypothesis might be ``$\theta = 1$'' \pause
-\item Another might be ``$\theta = 2$'' \pause
-\item We might get some data like ``$x = 3$''.
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Bayes' Rule Lots of Times}
-\begin{align}
-P(\theta = 1 \given x = 3) &= \frac{P(\theta=1)P(x=3 \given \theta=1)}{P(x=3)}\\
-P(\theta = 2 \given x = 3) &= \frac{P(\theta=2)P(x=3 \given \theta=2)}{P(x=3)}\\
-&...&\\
-P(\theta = 9 \given x = 3) &= \frac{P(\theta=9)P(x=3 \given \theta=9)}{P(x=3)}\\
-\end{align}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Bayes' Rule Lots of Times}
-\begin{align}
-\color{red}{P(\theta = 1 \given x = 3)} &= \frac{{\color{blue}P(\theta=1)}P(x=3 \given \theta=1)}{P(x=3)}\\
-\color{red}{P(\theta = 2 \given x = 3)} &= \frac{{\color{blue}P(\theta=2)}P(x=3 \given \theta=2)}{P(x=3)}\\
-&...&\\
-\color{red}{P(\theta = 9 \given x = 3)} &= \frac{{\color{blue}P(\theta=9)}P(x=3 \given \theta=9)}{P(x=3)}\\
-\end{align}
-
-{\color{red}Posterior Distribution}
-{\color{blue}Prior Distribution}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Bayes' Rule Lots of Times}
-\begin{align}
-P(\theta = 1 \given x = 3) &= \frac{P(\theta=1){\color{orange}P(x=3 \given \theta=1)}}{\color{green}P(x=3)}\\
-P(\theta = 2 \given x = 3) &= \frac{P(\theta=2){\color{orange}P(x=3 \given \theta=2)}}{\color{green}P(x=3)}\\
-&...&\\
-P(\theta = 9 \given x = 3) &= \frac{P(\theta=9){\color{orange}P(x=3 \given \theta=9)}}{\color{green}P(x=3)}\\
-\end{align}
-
-{\color{orange}Likelihood Function}
-{\color{green}Marginal Likelihood (common to all $\theta$ values)}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Bayes Box for Parameter Estimation}
-Since a Bayes Box is equivalent to these repeated uses of Bayes' rule,
-we can use Bayes Boxes for parameter estimation (when there is only one unknown
-parameter).\pause
-
-I expect you to know the R code for this. I might ask you to read some
-code that does this and fill in a missing line or two, or to write down the
-line that you would need to do some sort of post-processing.
-
-\end{frame}
-
-\begin{frame}
-\frametitle{R Code in the Exam}
-There will usually be one or two parts, worth a few percent, where I ask you
-to read or write a little bit of R code. Not too extensive, as this is not
-a programming course.\pause\\[1em]
-
-If you do not know the exact R code, but have the right idea, you can still
-get part marks, so don't feel bad about writing something down if you think
-it might not be perfectly correct.
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Plots in the Exam}
-Plots may or may not show up in the exam. Sometimes I ask you to:
-\begin{itemize}
-\item Interpret what you see in a given plot.\pause
-\item Sketch how you would expect a certain plot to look.\pause
-\end{itemize}
-If I ask you to sketch a plot, you probably won't get many marks for the
-bare minimum effort (e.g., drawing a bell curve for the posterior distribution).
-In that case you would get full marks if you labelled the axes and put some values
-showing what you think $\theta$ would be, for instance.
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Bayes' Rule for Parameter Estimation}
-We have written this down in a few different forms:
-
-\begin{align}
-p(\theta \given x) &= \frac{p(\theta)p(x\given \theta)}{p(x)} \\
-p(\theta \given x) &\propto p(\theta)p(x\given \theta) \\
-\texttt{posterior} &\propto \texttt{prior} \times \texttt{likelihood}.
-\end{align}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Analytical Methods}
-We spent about 1.5 lectures on analytical methods, but they are quite important
-(even though we only looked at the basics). In 331 we focused on
-\begin{align}
-p(\theta \given x) &\propto p(\theta)p(x\given \theta)
-\end{align}
-for particular situations that work out with a recognisable distribution
-for the posterior $p(\theta \given x)$. Mostly these are with conjugate priors.
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Conjugate Priors}
-
-\begin{itemize}
-\item Binomial sampling distribution + Beta prior $\implies$ Beta posterior \pause
-\item Poisson sampling distribution + Gamma prior $\implies$ Gamma posterior \pause
-\item Multinomial sampling distribution + Dirichlet prior $\implies$ Dirichlet posterior.
-\end{itemize}
 \pause
-Also, special cases of these, for example when the Beta prior is a Beta$(1, 1)$
-(aka Uniform$(0, 1$)), you still get a Beta posterior.
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Exam Hint}
-Question 2 of the exam has you computing the posterior distribution for one
-of these cases, recognising what it is, writing it in ``$\sim$'' notation,
-and computing one or two summaries from it.\\[0.5em]\pause
-
-I also expect you to be able to write down the likelihood function, which
-is one of the steps in getting to the posterior distribution. Remember that
-for multiple data values the likelihood function involves a product of terms,
-one for each data point.
-
+It is very popular among physicists (less so among statisticians,
+for no good reason IMHO) and has some unique strengths.
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Formula Sheet}
-In the exam, a formula sheet will be provided, which has some properties of
-a few distributions. This will be the same formula sheet from the test.
-Don't waste space or time putting these formulas on your cheat sheet (unless
-you think it will help you in applying them).
+\begin{frame}[t]{Marginal Likelihood}
+The {\bf marginal likelihood} is useful for ``model selection''. Consider
+two models: $M_1$ with parameters $\theta_1$, $M_2$ with parameters $\theta_2$.
+The marginal likelihoods are:\pause
+\begin{eqnarray*}
+p(D | M_1) &=& \int p(\theta_1 | M_1) p(D | \theta_1, M_1) \, d\theta_1\\
+p(D | M_2) &=& \int p(\theta_2 | M_2) p(D | \theta_2, M_2) \, d\theta_2
+\end{eqnarray*}
 
+\pause
+These are the normalising constants of the posteriors, within each model.
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Hypothesis Testing/Model Selection}
-We spent some time discussing hypothesis testing and model selection,
-mostly in one dimension (one unknown parameter). What should you know?\pause
+\begin{frame}[t]{Bayesian Model Selection}
+If you have the marginal likelihoods, it's easy:
 
-\begin{itemize}
-\item Spike-and-slab prior: what it is for, how to make one, how to interpret
-the results.\pause
-\item I am quite fond of asking questions about how the results depend on the
-shape and/or width of the slab, and not just on the height of the spike.\pause
-\item Know how to express conclusions as posterior probabilities, odds ratios,
-or Bayes factors, and how to convert between these.
-\end{itemize}
+\begin{eqnarray*}
+\frac{P(M_1 | D)}{P(M_2 | D)} &=& \frac{P(M_1)}{P(M_2)}
+\times \frac{P(D | M_1)}{P(D | M_2)}.
+\end{eqnarray*}
 
+\pause
+\begin{eqnarray*}
+\textnormal{(posterior odds)} = \textnormal{(prior odds)} \times \textnormal{(bayes factor)}
+\end{eqnarray*}
 
 \end{frame}
 
 
-\begin{frame}
-\frametitle{Prediction}
-I would like you to understand how Bayesian prediction works, but you should
-only expect a small amount of it to show up on the exam.
-
-\centering
-\includegraphics[width=0.35\textwidth]{images/crystal_ball.jpg}
-
+\begin{frame}[t]{Challenging features}
+Another motivation: standard MCMC methods can get stuck in the following
+situations:
+\begin{center}
+\includegraphics[scale=0.4]{images/challenges.pdf}
+\end{center}
 \end{frame}
 
-\begin{frame}
-\frametitle{Prediction}
+\begin{frame}{Nested Sampling}
+Nested Sampling was built to estimate the marginal likelihood.
 
-\begin{itemize}
-\item Know the basic principle of it --- that you first make the predictions
-under the assumption that you know $\theta$, then you take the posterior
-expectation/mean of the result. \pause
-\item Know how to do it in simple cases (e.g. a Bayes Box type question).\pause
-\item Know how to do it in JAGS (adding extra node(s) for the predicted future
-data).
-\end{itemize}
-
-
-
+But it can also be used to generate posterior samples, and it can potentially
+work on harder problems where standard MCMC methods get stuck.
 \end{frame}
 
-
-\begin{frame}
-\frametitle{Summaries}
-We looked at how to summarise posterior distributions.
-
-\begin{itemize}
-\item You can just compute simple summaries like posterior mean and
-standard deviation to give an idea of the location and width of the
-posterior distribution.\pause
-\item We studied decision theory which can give an idea of what kind of
-point estimate is `best', but it depends on what kind of loss function you
-think is reasonable. Remember the three cases of loss functions that
-lead to posterior mean, median, and mode being optimal. \pause
-\item Credible intervals.
-\end{itemize}
-
+\begin{frame}[t]{Notation}
+When discussing Nested Sampling, we use different symbols:
+\begin{eqnarray*}
+p(D | M_1) &=& \int p(\theta_1 | M_1) p(D | \theta_1, M_1) \, d\theta_1\\
+\end{eqnarray*}
+becomes
+\pause
+\begin{eqnarray*}
+Z &=& \int \pi(\theta) L(\theta) \, d\theta.
+\end{eqnarray*}
+\pause
+where
+$Z$ = marginal likelihood, $L(\theta)$ = likelihood function, $\pi(\theta)$ = prior
+distribution.
 \end{frame}
 
 
-\begin{frame}
-\frametitle{R Code Again}
-
-There is some chance I will ask questions like `write down the R code you would
-use to compute a particular summary' (after having shown you the R code for
-calculating the posterior distribution itself).\pause\\[0.5em]
-
-Or, I might show you some code and its output, and expect you to know which
-bit is doing the thing I want you to talk about.
-\end{frame}
-
-
-
-
-\begin{frame}
-\frametitle{Intervals}
-Not many people understand the difference between a credible interval and
-a confidence interval.\pause
-
-\begin{itemize}
-\item Credible interval: Given the data, there is a 95\% chance (or whatever)
-that the parameter is in the interval. {\bf Based on the posterior distribution}.\pause
-\item Confidence interval: This particular way of producing intervals will
-contain the parameter for 95\% of possible datasets.
-{\bf Based on the sampling distribution as frequentist theory doesn't have
-posterior distributions in it}.
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Metropolis Algorithm}
-
-We looked at the Metropolis algorithm, not because we used it a lot, but because
-it is the foundation of many/most MCMC methods.
-
-\centering
-\includegraphics[width=0.7\textwidth]{images/metropolis.pdf}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Metropolis Algorithm: Bits and Pieces}
-The Metropolis algorithm starts with a {\em proposal distribution}, which
-is a rule about how to generate a potential new position $\theta'$ from the
-current position $\theta$.\pause\\[0.5em]
-
-If you only used the proposal distribution to move around, you would get
-some sort of results, but it wouldn't look like the target distribution
-(usually the posterior). So, we put in an accept/reject decision based on
-\begin{align}
-\alpha &= \min\left(1, \frac{h(\theta')}{h(\theta)}\right).
-\end{align}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Metropolis Algorithm: Exam}
-It's hard to ask questions about Metropolis in an exam setting. In STATS 731,
-where I could assume more programming knowledge, I would ask students to write
-the code they would use to implement some specific model assumptions.
-I will not ask that in 331.
-
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{JAGS}
-Most of the second half of the course was `data analysis scenarios' using JAGS.
-We used this because it's easy to code up the model assumptions needed for the
-different situations.\pause\\[0.5em]
-
-A JAGS model consists of the definitions of the parameters and their priors,
-along with the sampling distribution for the data given the parameters. If it
-is a hierarchical model, there are also hyperparameters.
-\end{frame}
-
-
-\begin{frame}
-\frametitle{JAGS in the Exam}
-In the exam, you will not have to write out an entire JAGS model. Instead I will
-give you the model code and ask you things about it. In the 2025 exam Questions
-3 and 4 (out of 4) are both about JAGS models.\pause\\[0.5em]
-
-You will need to be able to read JAGS code (and small
-amounts of R postprocessing code) for meaning, and be
-able to write simple modifications (a few lines at most).
-\end{frame}
-
-\begin{frame}
-\frametitle{JAGS in the Exam}
-The size of the JAGS models in the exam is comparable to those in the lectures ---
-usually between 5 and 15 lines.
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Simple Linear Regression}
-
-\footnotesize
-\begin{minted}{r}
-model
-{
-    beta0 ~ dunif(-1000, 1000)
-    beta1 ~ dunif(-1000, 1000)
-    log_sigma ~ dunif(-10, 10)
-    sigma <- exp(log_sigma)
-
-    for(i in 1:length(y))
-    {
-        mu[i] <- beta0 + beta1*(x[i] - mean(x))
-        y[i] ~ dnorm(mu[i], 1/sigma^2)
-    }
-}
-\end{minted}
-
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Lines Through Data}
-I've asked you enough times in assignments to do this. You won't need to do it
-in the exam.
-
-\centering
-\includegraphics[width=0.4\textwidth]{images/road_lines.pdf}
-
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Prediction}
-
-\begin{minted}{r}
-y_new ~ dnorm(beta0 + beta1*(100 - mean(x)), 1/sigma^2)
-\end{minted}
-
-I do want you to know how to do this. By the way, if I asked you to write this,
-I would also want you to say that the code belongs outside the for loop.
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{`Outliers' Model}
-We also looked at a version of linear regression with heavy tailed
-sampling distribution using the $t$-distribution:
-
-\begin{minted}{r}
-    y[i] ~ dt(mu[i], 1/sigma^2, nu)
-}
-
-log_nu ~ dunif(-2, 5)
-nu <- exp(log_nu)
-\end{minted}
-
-You should know what effects this would have and how to interpret the value
-of $\nu$.
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Other Regression Models}
-We saw:
-
-\begin{itemize}
-\item Multiple regression (more than one explanatory variable).\pause
-\item Poisson regression (Poisson distribution for the data given the
-parameters). Also the negative binomial distribution.\pause
-\item Logistic regression (Bernoulli distribution for the data given the
-parameters --- the response is zeros and ones).\pause
-\end{itemize}
-
-These could show up in the exam but I wouldn't do anything obscure.
-
-\end{frame}
-
-\begin{frame}
-\frametitle{T-Tests and One-Way ANOVA}
-
-\begin{itemize}
-\item Traditionally, test for $H_0$ which asserts equality of group mean parameters.\pause
-\item Bayesian: make the means unknown parameters, and infer them (take care
-with the {\em joint} prior for the parameters).\pause
-\end{itemize}
-
-\centering
-\includegraphics[width=0.35\textwidth]{images/starling.png}
-
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{T-Test Models}
-We had three `$t$-test' models, all based on this sampling distribution,
-but with different priors.
-{
-\footnotesize
-\begin{minted}{r}
-for(i in 1:N1)
-{
-    x1[i] ~ dnorm(mu1, 1/sigma^2)
-}
-for(i in 1:N2)
-{
-    x2[i] ~ dnorm(mu2, 1/sigma^2)
-}
-\end{minted}
-}
-You just did a bunch of this in Assignment 4, so I will not go back into detail
-again now.
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Hierarchical Models}
-The third t-test model, and the sports prediction lecture, were hierarchical
-models. The priors for the parameters were specified in terms of hyperparameters,
-which also had their own prior. I want you to know:
-
-\begin{itemize}
-\item What the point of hyperparameters is.\pause
-\item How to read a JAGS model and identify parameters, hyperparameters, and
-data.
-\end{itemize}
-
-\end{frame}
-
-
-\begin{frame}[fragile]
-\frametitle{Time Series Models}
-The AR(1) model was our only time series model in this course.
-Time series models are characterised by the fact that the sampling distribution
-for one data point given the previous data points is usually dependent.
-
-\centering
-\includegraphics[width=0.5\textwidth]{images/nzd.pdf}
-
-
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Exam Hint}
-I have never asked about the AR(1) model before in an exam. You could use
-Laplace's rule of succession to work out the probability I will ask about it
-this year.
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Posterior Predictive Checks}
-
-\centering
-\includegraphics[width=0.55\textwidth]{images/quadratic_lineup.pdf}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Posterior Predictive Checks}
-
-\begin{itemize}
-\item Use the model's sampling distribution to predict new datasets of the
-same size as the real data. Use parameter values from the posterior distribution
-to do this.\pause
-\item If the model is `good', the true dataset should not be distinct from
-the simulated ones.\pause
-\item Doesn't guarantee much, but can show you deficiencies in your model.
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Posterior Predictive Checks: Exam}
-The main thing I would want you to be able to do in the exam is write the
-extra JAGS code that you would use to perform a posterior predictive check.
-Also, where the code belongs (e.g. inside a loop or not?)\pause\\[0.5em]
-
-If you know how the answer here differs from prediction of a new data point,
-you've probably understood well enough.
-\end{frame}
-
-\begin{frame}
-\frametitle{Dirichlet/Multinomial Model}
-Finally, we looked at a model for a classical `chi-squared test' situation,
-involving the Dirichlet distribution and the multinomial distribution.
-I have also never asked about this in an exam, so feel free to break out the
-rule of succession again.
-
-\end{frame}
-
-\begin{frame}
-\frametitle{This Course}
-Wayne Stewart introduced this course in 2009. He taught it with ventriloquist
-dolls of Thomas Bayes and ``Freaky Frequentist''. Also, singalongs.
-
-\centering
-\includegraphics[width=0.5\textwidth]{images/wayne.png}
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{This Course}
-{\em Some people} think that you shouldn't really be able to major in statistics
-without some exposure to the Bayesian viewpoint. It's a little uncommon in
-the undergraduate curriculum for some reason.\pause\\[0.5em]
-
-We have this course, but we could also try infiltrating other courses a little
-bit (I do this when I teach them).
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Pragmatists}
-In the last century there were giant arguments between Bayesians and frequentists.
-These days more and more people are pragmatists, as represented here by
-Andrew Balemi.
+\begin{frame}[t]{Nested Sampling}
+Imagine we had an easy 1-D problem, with a Uniform(0, 1) prior, and a likelihood
+that was strictly decreasing.
 
 \begin{center}
-\includegraphics[width=0.4\textwidth]{images/andrew.jpg}
+\begin{figure}
+\includegraphics[scale=0.35]{images/nested1.pdf}
+\caption{Likelihood function with area Z.}
+\end{figure}
 \end{center}
 
-He doesn't mind what you do as long as it illuminates the problem you're working
-on. 
+\end{frame}
 
+
+\begin{frame}[t]{Nested Sampling}
+The key idea of Nested Sampling: Our high dimensional problem can be mapped
+onto the easy 1-D problem, using the {\em CDF of likelihood values implied by
+$\pi(\theta)$}. Figure from Skilling (2006):
+\pause
+\begin{figure}
+\begin{center}
+\includegraphics[scale=0.3]{images/ns.png}
+\end{center}
+\end{figure}
 
 \end{frame}
 
-\begin{frame}
-\frametitle{More}
-If you would like to take this subject further,
-you can consider taking STATS 731 as part of an Honours degree or similar.
-Also, the following staff members often have Bayesian research projects available
-for Honours/Masters/PhD:
+\begin{frame}{Nested Sampling $X$}
+\vspace{-20pt}
+Define
+\begin{eqnarray*}
+X(L^*) = \int \pi(\theta) \mathds{1}\left(L(\theta) > L^*\right)\, d\theta
+\end{eqnarray*}
+
+\vspace{10pt}
+
+\pause
+$X$ is the {\bf amount of prior probability} with likelihood greater than $L^*$.
+Loosely, $X$ is the {\bf volume} with likelihood above $L^*$.\\
+Higher $L^* \Leftrightarrow$ lower volume.
+\end{frame}
+\begin{frame}{Numerical Integration}
+If we had some points with likelihoods $L_i$, and we knew the corresponding
+$X$-values, we could approximate the integral numerically, using the
+trapezoidal rule or something similar.
+%\begin{center}
+%\includegraphics[scale=0.25,clip=true,angle=0]{Patricio/SampleLike2.pdf}
+%\end{center}
+\end{frame}
+%######################################%##########################################################################################################################################
+\begin{frame}{Nested Sampling Procedure}
+This procedure gives us the likelihood values. \\
+
 \begin{itemize}
-\item Me
-\item Kate Lee
-\item Matt Edwards
-\item Renate Meyer
-\item (less often) James Curran, Beatrix Jones, Russell Millar
+	\item \pause Sample $\theta=\{\theta_{1}, \ldots , \theta_{N}\}$ from the prior $\pi(\theta)$.
+	\item \pause Find the point $\theta_k$ with the worst
+likelihood, and let $L^*$ be its likelihood.
+	\item \pause Replace $\theta_{k}$ with a new point from $\pi(\theta)$ but restricted to the region where $L(\theta)>L^*$.
 \end{itemize}
 
+\pause Repeat the last two steps many times.
+The \textit{discarded points} (the worst one at each iteration) are the output.
 \end{frame}
 
 
+\begin{frame}[t]{Generating the new point}
+We need a new point from $\pi(\theta)$ but restricted to the region where $L(\theta)>L^*$. The point being replaced has the worst likelihood, so
+{\bf all the other points satisfy the constraint!}
+\vspace{20pt}
+
+So we can use one of the other points to initialise an MCMC run, trying to
+sample the prior, but rejecting any proposal with likelihood below $L^*$.
+See code.
+\end{frame}
+
+\begin{frame}[t]{Generating the new point}
+There are alternative versions of NS available that
+use different methods (not MCMC) to generate the new point.
+\end{frame}
+
+
+\begin{frame}[t]{Estimating the $X$ values}
+Nested Sampling gives us a sequence of points with increasing likelihoods,
+but we need to somehow know their $X$-values!
+
+\pause
+The structure of the algorithm lets us estimate them.
+
+\pause
+Consider the simple one-dimensional problem with Uniform(0, 1) prior.
+
+\pause
+When we generate $N$ points from the prior, the distribution for the $X$-value
+of the worst point is Beta$(N, 1)$. So we can use a draw from Beta$(N,1)$ as
+a guess of the $X$ value.
+\end{frame}
+
+
+\begin{frame}[t]{Estimating the $X$ values}
+Each iteration, the worst point should reduce the volume by a factor that has
+a Beta$(N, 1)$ distribution. So we can do this:
+\begin{eqnarray*}
+X_1 &=& t_1\\
+X_2 &=& t_2X_1\\
+X_3 &=& t_3X_2\\
+\end{eqnarray*}
+
+and so on, where $t_i \sim $Beta$(N,1)$. Alternatively, we can use a simple
+approximation.
+\end{frame}
+
+%##########################################################################################################################################
+\begin{frame}[t]{Deterministic Approximation}
+\begin{figure}
+\centering
+\includegraphics[scale=0.2]{images/deterministic.pdf}
+\caption{\small Deterministic approximation. Each iteration reduces
+the volume by a factor $\approx e^{-1/N}$. e.g. if $N=5$, the worst likelihood
+accounts for about 1/5th of the remaining prior volume.}
+\end{figure}
+\end{frame}
 
 \begin{frame}
-\frametitle{Thank You}
+
+\begin{figure}
 \centering
-\large
-Thank you!
+\includegraphics[scale=0.35]{images/nested2.pdf}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[t]{Posterior Distribution from Nested Sampling}
+The posterior sample can be obtained by assigning weights $W_j$ to the
+discarded points:
+\begin{align*}
+W_{j} = \frac{L_{j} w_{j}}{Z} 
+\end{align*}
+where $w_{j}=X_{j-1} - X_{j+1}$ is the ``prior weight/width'' associated with the
+point. The ``effective sample size'' is given by
+\begin{align*}
+ESS = \exp \left( - \sum_{j=1}^{m} W_j \log W_j \right)
+\end{align*}
 
 \end{frame}
+
+\begin{frame}[t]{Information}
+NS can also calculate the {\bf information}, also known as the Kullback-Liebler
+divergence from the prior to the posterior.
+
+\begin{eqnarray*}
+\mathcal{H} &=& \int p(\theta | D) \log\left[\frac{p(\theta | D)}{p(\theta)}\right]
+\, d\theta\\
+&\approx& \log\left(
+\frac{\textnormal{volume of prior}}{\textnormal{volume of posterior}}
+\right)
+\end{eqnarray*}
+
+\pause
+The uncertainty in the estimate of $\ln(Z)$ is approximately
+$\sqrt{H/N}$.
+\end{frame}
+
+\begin{frame}[t]{Nested Sampling Code}
+I have written a basic implementation of Nested Sampling in R. Let's
+do an example.
+
+\begin{center}
+\includegraphics[scale=0.4]{images/trend.pdf}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame}[t]{Nested Sampling Code}
+To implement the example you need to write two R functions. One is the log
+likelihood as a function of the parameters, and the other is to transform
+from some Uniform$(0, 1$) variables to the parameters (thus defining the prior),
+using the `quantile function' which is the inverse of the CDF.
+
+\pause
+
+To run the code, just source (run all the code in the file)
+{\tt nested-sampling.R}.
+
+\end{frame}
+
+\begin{frame}[t]{Nested Sampling Plots}
+\vspace{-10pt}
+\begin{center}
+\includegraphics[scale=0.25]{images/ns_plots.pdf}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[t]{Nested Sampling Plots}
+A necessary but not sufficient condition for everything being okay is that you
+see the entire peak in the posterior weights.\\
+
+\vspace{20pt}
+
+If it's not there, you haven't done enough NS iterations. i.e. your parameter
+values have lower likelihoods than what is typical of the posterior distribution.
+\end{frame}
+
+\begin{frame}[t]{Nested Sampling Plots}
+The shape of the log$(L)$ vs. log$(X)$ plot is also informative: if it is
+straight for a long time, or concave up at some point, your problem contains
+a phase transition, and it's a good thing you used Nested Sampling!
+\end{frame}
+
 \end{document}
 
